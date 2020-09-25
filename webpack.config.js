@@ -12,6 +12,13 @@ module.exports = () => {
         module: {
             rules: [
                 {
+                    test: /\.less$/,
+                    loaders: ["style-loader", "css-loader", "less-loader"]
+                }, {
+                    test: /\.css$/,
+                    loaders: ["style-loader", "css-loader"]
+                },
+                {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: ["babel-loader"]

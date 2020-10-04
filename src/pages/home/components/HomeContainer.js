@@ -1,8 +1,15 @@
 import React from "react";
+import HomeCarousel from "./HomeCarousel";
+import PageTitle from "../../../components/PageTitle/PageTitle";
+import HomeInfo from "./HomeInfo";
 
 const HomeContainer = () => {
     return (
-        <h1>Главная</h1>
+        <>
+            <PageTitle>Visual Algorithms</PageTitle>
+            <HomeCarousel/>
+            <HomeInfo/>
+        </>
     );
 }
 

@@ -1,0 +1,17 @@
+.home-carousel {
+  width: 80%;
+  margin: 50px auto;
+  border-radius: 0.25rem;
+
+  &__img {
+    border-radius: 0.25rem;
+    filter: brightness(50%);
+    width: 100%;
+  }
+
+  li {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50%;
+  }
+}

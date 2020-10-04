@@ -24,3 +24,7 @@ yarn-error.log*
 
 
 .idea
+
+config.json
+config.dev.json
+config.prod.json

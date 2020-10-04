@@ -1,28 +1,36 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Nav, Navbar } from "react-bootstrap";
+import cn from "classnames";
+import bem from "../../utils/bem";
 import routes from "../../utils/routes";
+import styles from "./Header.module.scss";
+
+const block = bem(styles);
 
 const Header = () => (
     <header>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom box-shadow mb-3">
-            <div className="container">
-                <Link className="navbar-brand" to={routes.home}>
+        <Navbar bg="light" variant="light">
+            <Navbar.Brand>
+                <NavLink className={cn(block("brand"), "nav-link")} to={routes.home}>
                     Visual Algorithms
-                </Link>
-                <Link className="nav-item" to={routes.home}>
+                </NavLink>
+            </Navbar.Brand>
+            <Nav>
+                <NavLink className="nav-link main-text" activeClassName={block("link-active")} to={routes.home}>
                     Главная
-                </Link>
-                <Link className="nav-item" to={routes.algorithms}>
+                </NavLink>
+                <NavLink className="nav-link main-text" activeClassName={block("link-active")} to={routes.algorithms}>
                     Алгоритмы
-                </Link>
-                <Link className="nav-item" to={routes.constructor}>
+                </NavLink>
+                <NavLink className="nav-link main-text" activeClassName={block("link-active")} to={routes.constructor}>
                     Конструктор
-                </Link>
-                <Link className="nav-item" to={routes.tests}>
+                </NavLink>
+                <NavLink className="nav-link main-text" activeClassName={block("link-active")} to={routes.tests}>
                     Тесты
-                </Link>
-            </div>
-        </nav>
+                </NavLink>
+            </Nav>
+        </Navbar>
     </header>
 );
 

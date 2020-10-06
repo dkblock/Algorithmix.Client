@@ -1,12 +1,12 @@
 import React from "react";
 import cn from "classnames";
 import { Route, Switch } from "react-router-dom";
-import bem from "../../utils/bem";
-import routes from "../../utils/routes";
-import Home from "../home";
-import Algorithms from "../algorithms";
-import Constructor from "../constructor";
-import Tests from "../tests";
+import bem from "../../../utils/bem";
+import routes from "../../../utils/routes";
+import Home from "../../home";
+import Algorithms from "../../algorithms";
+import Constructor from "../../constructor";
+import Tests from "../../tests";
 import styles from "./Main.module.scss";
 
 const block = bem(styles);

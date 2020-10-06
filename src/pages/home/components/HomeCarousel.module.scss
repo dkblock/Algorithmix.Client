@@ -3,6 +3,10 @@
   margin: 50px auto;
   border-radius: 0.25rem;
 
+  &__link {
+    cursor: pointer;
+  }
+
   &__img {
     border-radius: 0.25rem;
     filter: brightness(50%);

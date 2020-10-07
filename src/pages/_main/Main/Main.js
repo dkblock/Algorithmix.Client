@@ -12,7 +12,7 @@ import styles from "./Main.module.scss";
 const block = bem(styles);
 
 const Main = () => (
-    <div className={cn(block(), "col-10")}>
+    <div className={cn(block(), "col-8")}>
         <Switch>
             <Route path="/" exact component={Home}/>
             <Route path={routes.home} component={Home}/>

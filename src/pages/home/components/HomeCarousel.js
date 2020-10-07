@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import cn from "classnames";
 import { Carousel } from "react-bootstrap";
+import cn from "classnames";
 import { getImageSrc } from "../../../utils/getImageSrc";
 import bem from "../../../utils/bem";
 import routes from "../../../utils/routes";
@@ -16,7 +16,7 @@ const HomeCarousel = () => {
                 <Link to={routes.algorithms}>
                     <img
                         className={block("img")}
-                        src={getImageSrc("home-carousel/algorithms.png")}
+                        src={getImageSrc("images/home-carousel/algorithms.png")}
                         alt="Алгоритмы"
                     />
                     <Carousel.Caption>
@@ -29,7 +29,7 @@ const HomeCarousel = () => {
                 <Link to={routes.constructor}>
                     <img
                         className={block("img")}
-                        src={getImageSrc("home-carousel/constructor.png")}
+                        src={getImageSrc("images/home-carousel/constructor.png")}
                         alt="Конструктор"
                     />
                     <Carousel.Caption>
@@ -42,7 +42,7 @@ const HomeCarousel = () => {
                 <Link to={routes.tests}>
                     <img
                         className={block("img")}
-                        src={getImageSrc("home-carousel/tests.png")}
+                        src={getImageSrc("images/home-carousel/tests.png")}
                         alt="Тесты"
                     />
                     <Carousel.Caption>
@@ -54,7 +54,7 @@ const HomeCarousel = () => {
             <Carousel.Item>
                 <img
                     className={block("img")}
-                    src={getImageSrc("home-carousel/work-in-progress.png")}
+                    src={getImageSrc("images/home-carousel/work-in-progress.png")}
                     alt="Тесты"
                 />
                 <Carousel.Caption>

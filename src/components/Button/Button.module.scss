@@ -1,0 +1,16 @@
+.button {
+  outline: none;
+  font-family: inherit !important;
+
+  &--primary {
+    background-color: #1976d2;
+
+    &:hover, :active {
+      background-color: rgb(17, 82, 147);
+    }
+  }
+
+  &:focus, :active {
+    outline: none;
+  }
+}

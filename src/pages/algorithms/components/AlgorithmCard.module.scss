@@ -1,0 +1,13 @@
+.algorithm-card {
+  margin-bottom: 25px;
+
+  &__body {
+    border-top: 1px solid rgba(0, 0, 0, .125);
+  }
+
+  &__button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+}

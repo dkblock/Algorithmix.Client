@@ -1,6 +1,6 @@
 import React from "react";
-import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import cn from "classnames";
 import bem from "../../../utils/bem";
 import routes from "../../../utils/routes";
 import styles from "./Header.module.scss";
@@ -8,22 +8,22 @@ import styles from "./Header.module.scss";
 const block = bem(styles);
 
 const HeaderAuth = () => (
-    <Nav>
+    <div className={block("navbar-section")}>
         <NavLink
-            className="nav-link main-text"
-            activeClassName={block("link-active")}
-            to={routes.home}
+            className={cn(block("navbar-link"), "main-text")}
+            activeClassName={block("navbar-link--active")}
+            to={routes.account}
         >
             Регистрация
         </NavLink>
         <NavLink
-            className="nav-link main-text"
-            activeClassName={block("link-active")}
-            to={routes.home}
+            className={cn(block("navbar-link"), "main-text")}
+            activeClassName={block("navbar-link--active")}
+            to={routes.account}
         >
             Войти
         </NavLink>
-    </Nav>
+    </div>
 );
 
 export default HeaderAuth;

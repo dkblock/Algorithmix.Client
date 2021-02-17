@@ -19,7 +19,7 @@ const HomeCarousel = () => {
                         src={getImageSrc("images/home-carousel/algorithms.png")}
                         alt="Алгоритмы"
                     />
-                    <Carousel.Caption>
+                    <Carousel.Caption className={block("caption")}>
                         <h5>Алгоритмы</h5>
                         <p>Изучите различные алгоритмы и структуры данных</p>
                     </Carousel.Caption>
@@ -32,7 +32,7 @@ const HomeCarousel = () => {
                         src={getImageSrc("images/home-carousel/constructor.png")}
                         alt="Конструктор"
                     />
-                    <Carousel.Caption>
+                    <Carousel.Caption className={block("caption")}>
                         <h5>Конструктор</h5>
                         <p>Конструктор позволит Вам увидеть работу каждого алгоритма</p>
                     </Carousel.Caption>
@@ -45,7 +45,7 @@ const HomeCarousel = () => {
                         src={getImageSrc("images/home-carousel/tests.png")}
                         alt="Тесты"
                     />
-                    <Carousel.Caption>
+                    <Carousel.Caption className={block("caption")}>
                         <h5>Тесты</h5>
                         <p>Закрепите свои знания, пройдя тесты</p>
                     </Carousel.Caption>
@@ -57,7 +57,7 @@ const HomeCarousel = () => {
                     src={getImageSrc("images/home-carousel/work-in-progress.png")}
                     alt="Тесты"
                 />
-                <Carousel.Caption>
+                <Carousel.Caption className={block("caption")}>
                     <h5>Ведётся разработка</h5>
                     <p>Сайт находится в стадии разработки. Информация будет дополняться</p>
                 </Carousel.Caption>

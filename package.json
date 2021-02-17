@@ -8,7 +8,7 @@
     "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "dev": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
   },
   "eslintConfig": {

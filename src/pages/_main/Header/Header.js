@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Nav, Navbar } from "react-bootstrap";
 import cn from "classnames";
 import bem from "../../../utils/bem";
 import routes from "../../../utils/routes";
@@ -9,52 +8,62 @@ import styles from "./Header.module.scss";
 
 const block = bem(styles);
 
-const Header = () => (
-    <header>
-        <Navbar className={block()} bg="light" variant="light" collapseOnSelect expand="lg">
-            <div className="col-2"/>
-            <Navbar.Brand>
-                <NavLink className={cn(block("brand"), "nav-link")} to={routes.home}>
+const Header = () => {
+    const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+    const handleOpenMenu = () => () => {
+        setIsMenuOpened(!isMenuOpened);
+    };
+
+    return (
+        <header className={block()}>
+            <nav className={block("navbar")}>
+                <NavLink
+                    className={block("navbar-brand")}
+                    to={routes.home}
+                >
                     Visual Algorithms
                 </NavLink>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                    <NavLink
-                        className="nav-link main-text"
-                        activeClassName={block("link-active")}
-                        to={routes.home}
-                    >
-                        Главная
-                    </NavLink>
-                    <NavLink
-                        className="nav-link main-text"
-                        activeClassName={block("link-active")}
-                        to={routes.algorithms}
-                    >
-                        Алгоритмы
-                    </NavLink>
-                    <NavLink
-                        className="nav-link main-text"
-                        activeClassName={block("link-active")}
-                        to={routes.constructor}
-                    >
-                        Конструктор
-                    </NavLink>
-                    <NavLink
-                        className="nav-link main-text"
-                        activeClassName={block("link-active")}
-                        to={routes.tests}
-                    >
-                        Тесты
-                    </NavLink>
-                </Nav>
-                <HeaderAuth/>
-            </Navbar.Collapse>
-            <div className="col-2"/>
-        </Navbar>
-    </header>
-);
+                <div className={block("navbar-menu", { "opened": isMenuOpened })}>
+                    <div className={block("navbar-section")}>
+                        <NavLink
+                            className={cn(block("navbar-link"), "main-text")}
+                            activeClassName={block("navbar-link--active")}
+                            to={routes.home}
+                        >
+                            Главная
+                        </NavLink>
+                        <NavLink
+                            className={cn(block("navbar-link"), "main-text")}
+                            activeClassName={block("navbar-link--active")}
+                            to={routes.algorithms}
+                        >
+                            Алгоритмы
+                        </NavLink>
+                        <NavLink
+                            className={cn(block("navbar-link"), "main-text")}
+                            activeClassName={block("navbar-link--active")}
+                            to={routes.constructor}
+                        >
+                            Конструктор
+                        </NavLink>
+                        <NavLink
+                            className={cn(block("navbar-link"), "main-text")}
+                            activeClassName={block("navbar-link--active")}
+                            to={routes.tests}
+                        >
+                            Тесты
+                        </NavLink>
+                    </div>
+                    <HeaderAuth/>
+                </div>
+                <div
+                    className={block("navbar-toggle")}
+                    onClick={handleOpenMenu()}
+                />
+            </nav>
+        </header>
+    );
+}
 
 export default Header;

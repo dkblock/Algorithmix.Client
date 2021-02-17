@@ -1,14 +1,115 @@
-.header {
-  box-shadow:  0 0.25rem 0.75rem rgba(0, 0, 0, .05);
-  border-bottom: 1px solid #e5e5e5;
+@import "../../../styles/mixins";
 
-  &__brand {
-    font-size: 1.25rem;
-    color: rgba(0, 0, 0, 1) !important;
+.header {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, .05);
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 30px;
+  width: 100%;
+
+  &__navbar {
+    @include container;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
   }
 
-  &__link-active {
-    font-weight: 600;
-    color: rgba(0, 0, 0, 1) !important;
+  &__navbar-brand {
+    display: inline-block;
+    font-size: 1.25rem;
+    color: #000;
+    text-decoration: none;
+    margin-right: 30px;
+
+    &:hover {
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  &__navbar-menu {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-grow: 1;
+  }
+
+  &__navbar-section {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__navbar-link {
+    color: rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.7);
+      text-decoration: none;
+    }
+
+    &--active {
+      color: rgba(0, 0, 0, 1);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    &__navbar-brand {
+      display: none;
+    }
+
+    &__navbar-menu {
+      display: none;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 0 10px 20px;
+      width: 100%;
+      top: 100%;
+      z-index: 1;
+      background-color: #fff;
+      box-shadow: 2px 2px 2px 2px rgba(224, 224, 224, 1);
+      animation: slide-in 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+      &--opened {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 0 10px 20px;
+        width: 100%;
+        top: 100%;
+        z-index: 1;
+        background-color: #fff;
+        box-shadow: 2px 2px 2px 2px rgba(224, 224, 224, 1);
+        animation: slide-in 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    }
+
+    &__navbar-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &__navbar-toggle {
+      //width: 48px;
+      display: none;
+      //height: 48px;
+      //background-color: red;
+    }
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translate(0, -100%);
+  }
+
+  100% {
+    transform: translate(0, 0);
   }
 }

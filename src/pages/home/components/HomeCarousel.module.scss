@@ -18,3 +18,11 @@
     border-radius: 50%;
   }
 }
+
+@media (max-width: 768px) {
+  .home-carousel {
+    &__caption {
+      display: none;
+    }
+  }
+}

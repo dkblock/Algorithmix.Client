@@ -1,11 +1,8 @@
 import React from "react";
-import bem from "../../../utils/bem";
-import styles from "./HomeInfo.module.scss";
-
-const block = bem(styles);
+import "./HomeInfo.module.scss";
 
 const HomeInfo = () => (
-    <div className={block()}>
+    <div className="home-info">
         <div className="col-4">
             <div className="section-title text-center">Алгоритмы</div>
             <hr/>

@@ -1,13 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import App from "./pages";
-import store from "./store/store";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/_main.css";
+import AppContainer from "./components/_app/AppContainer";
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>, document.getElementById("root")
-);
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/_main.scss";
+
+ReactDOM.render(<AppContainer/>, document.getElementById("root"));

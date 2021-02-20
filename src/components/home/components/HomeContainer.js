@@ -1,6 +1,6 @@
 import React from "react";
 import HomeCarousel from "./HomeCarousel";
-import PageTitle from "../../../components/PageTitle/PageTitle";
+import PageTitle from "../../_common/PageTitle/PageTitle";
 import HomeInfo from "./HomeInfo";
 
 const HomeContainer = () => {

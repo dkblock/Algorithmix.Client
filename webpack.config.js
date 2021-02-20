@@ -12,13 +12,6 @@ module.exports = () => {
         module: {
             rules: [
                 {
-                    test: /\.less$/,
-                    loaders: ["style-loader", "css-loader", "less-loader"]
-                }, {
-                    test: /\.css$/,
-                    loaders: ["style-loader", "css-loader"]
-                },
-                {
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: ["babel-loader"]
@@ -26,18 +19,14 @@ module.exports = () => {
                 {
                     test: /\.s[ac]ss$/i,
                     use: [
-                        {
-                            loader: 'style-loader'
-                        }, {
-                            loader: 'css-loader?modules=true'
-                        }, {
-                            loader: 'sass-loader'
-                        }]
+                        "style-loader",
+                        "css-loader",
+                        "sass-loader",
+                    ]
                 },
                 {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
-                    exclude: /node_modules/,
+                    test: /\.css$/i,
+                    use: ["style-loader", "css-loader"],
                 },
                 {
                     test: /\.svg$/,

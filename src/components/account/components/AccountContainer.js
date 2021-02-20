@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../../components/Button/Button";
+import Button from "../../_common/Button/Button";
 import { useDispatch } from "react-redux";
 import { register, getData, login, logout } from "../../../store/app/actions";
 

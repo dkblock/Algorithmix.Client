@@ -3,7 +3,9 @@ const routes = {
     account: "/account",
     algorithms: "/algorithms",
     constructor: "/constructor",
-    tests: "/tests"
+    tests: "/tests",
+    login: "/login",
+    register: "/register"
 };
 
 export default routes;

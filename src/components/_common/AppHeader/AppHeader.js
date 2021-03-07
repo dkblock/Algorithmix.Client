@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import routes from "../../../utils/routes";
 import "./AppHeader.scss";
 
 const AppHeader = () => {
@@ -14,7 +16,8 @@ const AppHeader = () => {
                 <div className="app-header__logo">Visual Algorithms</div>
             </section>
             <section className="app-header__section">
-                User settings
+                <Link to={routes.login}>Войти</Link>
+                <Link to={routes.register}>Регистрация</Link>
             </section>
         </header>
     );

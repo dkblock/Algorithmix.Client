@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import algorithmsService from "../../api/services/algorithmsService";
-import accountService from "../../api/services/accountService";
+import algorithmsService from "../../api/services/algorithms-service";
+import accountService from "../../api/services/account-service";
 
 export const fetchAlgorithms = createAsyncThunk("fetchAlgorithms",
     async () => (
@@ -20,9 +20,4 @@ export const login = createAsyncThunk("login",
 export const logout = createAsyncThunk("logout",
     async () => {
         await accountService.logout()
-    });
-
-export const register = createAsyncThunk("register",
-    async () => {
-        await accountService.register()
     });

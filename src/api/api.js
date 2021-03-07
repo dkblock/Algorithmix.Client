@@ -1,5 +1,5 @@
-import accountRoutes from "./routes/accountRoutes";
-import algorithmsRoutes from "./routes/algorithmsRoutes";
+import accountRoutes from "./routes/account-routes";
+import algorithmsRoutes from "./routes/algorithms-routes";
 
 const api = {
     account: accountRoutes,

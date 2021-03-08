@@ -1,5 +1,5 @@
-const AUTH_TOKEN = "AUTH_TOKEN";
+const ACCESS_TOKEN = "ACCESS_TOKEN";
 
-export const getAuthToken = () => localStorage.getItem(AUTH_TOKEN);
-export const setAuthToken = (token) => localStorage.setItem(AUTH_TOKEN, token);
-export const clearAuthToken = () => localStorage.removeItem(AUTH_TOKEN);
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN);
+export const setAccessToken = (token) => localStorage.setItem(ACCESS_TOKEN, token);
+export const clearAccessToken = () => localStorage.removeItem(ACCESS_TOKEN);

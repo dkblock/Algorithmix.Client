@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import PrivateRoute from "../PrivateRoute";
 import Home from "../home";
 import Login from "../account/Login";
 import Register from "../account/Register";
@@ -17,7 +18,7 @@ const AppContent = () => (
             <Route path={routes.register} component={Register}/>
             <Route path={routes.algorithms} component={Algorithms}/>
             <Route path={routes.constructor} component={Constructor}/>
-            <Route path={routes.tests} component={Tests}/>
+            <PrivateRoute path={routes.tests} component={Tests}/>
         </Switch>
     </div>
 );

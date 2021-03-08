@@ -1,18 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAlgorithms } from "./actions";
+import { fetchAlgorithms } from "../actions/algorithms";
 
 const initialState = {
     algorithms: [],
-    isFetching: false,
-    header: "Главная"
+    isFetching: false
 };
 
-const appSlice = createSlice({
-    name: "appSlice",
+const algorithmsSlice = createSlice({
+    name: "algorithmsSlice",
     initialState: initialState,
     extraReducers: {
         [fetchAlgorithms.pending]: (state) => {
-          state.isFetching = true;
+            state.isFetching = true;
         },
         [fetchAlgorithms.fulfilled]: (state, action) => {
             state.isFetching = false;
@@ -21,4 +20,4 @@ const appSlice = createSlice({
     }
 });
 
-export default appSlice.reducer;
+export default algorithmsSlice.reducer;

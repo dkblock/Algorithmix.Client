@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import Button from "../Button/Button";
+import { useAuth } from "../../../hooks/useAuth";
+import { logout } from "../../../store/actions/account";
 import routes from "../../../utils/routes";
 import "./AppHeader.scss";
 
 const AppHeader = () => {
-    const [isMenuOpened, setIsMenuOpened] = useState(false);
+    const isAuth = useAuth();
 
-    const handleOpenMenu = () => () => {
-        setIsMenuOpened(!isMenuOpened);
-    };
+    const handleLogout = () => logout();
 
     return (
         <header className="app-header">
@@ -16,8 +17,15 @@ const AppHeader = () => {
                 <div className="app-header__logo">Visual Algorithms</div>
             </section>
             <section className="app-header__section">
-                <Link to={routes.login}>Войти</Link>
-                <Link to={routes.register}>Регистрация</Link>
+                {!isAuth
+                    ? (
+                        <React.Fragment>
+                            <Link to={routes.login}>Войти</Link>
+                            <Link to={routes.register}>Регистрация</Link>
+                        </React.Fragment>
+                    ) : (
+                        <Button onClick={handleLogout}>Выйти</Button>
+                    )}
             </section>
         </header>
     );

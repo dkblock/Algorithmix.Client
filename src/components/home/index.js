@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import HomeContainer from "./components/HomeContainer";
+import React from "react";
+import Home from "./Home";
+import useTitle from "../../hooks/useTitle";
+import "./Home.scss";
 
-const Home = () => {
-    useEffect(() => {
-        document.title = "Главная";
-    }, []);
-
-    return <HomeContainer/>;
+const HomePage = () => {
+    useTitle("Главная");
+    return <Home/>;
 };
 
-export default Home;
+export default HomePage;

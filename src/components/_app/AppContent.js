@@ -4,7 +4,7 @@ import PrivateRoute from "../PrivateRoute";
 import Home from "../home";
 import Login from "../account/Login";
 import Register from "../account/Register";
-import Algorithms from "../algorithms/Algorithms";
+import Algorithms from "../algorithms";
 import Constructor from "../constructor";
 import Tests from "../tests";
 import routes from "../../utils/routes";

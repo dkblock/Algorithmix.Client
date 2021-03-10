@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAlgorithms } from "../../store/actions/algorithms";
 import AlgorithmsGrid from "./AlgorithmsGrid";
-import "./Algorithms.scss";
 
 const Algorithms = () => {
     const dispatch = useDispatch();

@@ -1,20 +1,21 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { ConnectedRouter } from 'connected-react-router';
 import App from "./App";
 import AppHeader from "../_common/AppHeader/AppHeader";
-import store from "../../store/store";
+import { store, history } from "../../store";
 import "./App.scss";
 
 const AppContainer = () => {
     return (
         <Provider store={store}>
-            <Router>
+            <ConnectedRouter history={history}>
                 <AppHeader/>
                 <App/>
-            </Router>
+            </ConnectedRouter>
         </Provider>
     );
 };
 
+export { history };
 export default AppContainer;

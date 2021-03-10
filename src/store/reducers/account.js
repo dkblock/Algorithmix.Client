@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logout } from "../actions/account";
+import { login, logout, register } from "../actions/account";
 
 const initialState = {
     currentUser: {},
@@ -10,8 +10,14 @@ const accountSlice = createSlice({
     name: "accountSlice",
     initialState: initialState,
     extraReducers: {
+        [login.fulfilled]: (state, action) => {
+            state.currentUser = action.payload.currentUser;
+        },
         [logout]: (state) => {
             state.currentUser = {};
+        },
+        [register.fulfilled]: (state, action) => {
+            state.currentUser = action.payload.currentUser;
         }
     }
 });

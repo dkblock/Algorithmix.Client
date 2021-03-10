@@ -1,5 +1,4 @@
 import React from "react";
-import "./HomeInfo.module.scss";
 
 const HomeInfo = () => (
     <div className="home-info">

@@ -1,5 +1,6 @@
-import { getAccessToken } from "../utils/local-storage-manager";
+import { useSelector } from "react-redux";
 
 export const useAuth = () => {
-    return !!getAccessToken();
+    const isAuth = useSelector(state => state.app.isAuth);
+    return isAuth;
 }

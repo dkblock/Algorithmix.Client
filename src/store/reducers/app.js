@@ -3,7 +3,7 @@ import { login, logout, register } from "../actions/account";
 import { getAccessToken } from "../../utils/local-storage-manager";
 
 const initialState = {
-    isAuth: !!getAccessToken(),
+    isAuth: Boolean(getAccessToken()),
     header: "Главная"
 };
 
@@ -11,8 +11,8 @@ const appSlice = createSlice({
     name: "appSlice",
     initialState: initialState,
     extraReducers: {
-        [login.fulfilled]: (state) => {
-            state.isAuth = true;
+        [login.fulfilled]: (state, action) => {
+            state.isAuth = action.payload.isAuth;
         },
         [login.rejected]: (state) => {
             state.isAuth = false;
@@ -20,8 +20,8 @@ const appSlice = createSlice({
         [logout]: (state) => {
             state.isAuth = false;
         },
-        [register.fulfilled]: (state) => {
-            state.isAuth = true;
+        [register.fulfilled]: (state, action) => {
+            state.isAuth = action.payload.isAuth;
         },
         [register.rejected]: (state) => {
             state.isAuth = false;

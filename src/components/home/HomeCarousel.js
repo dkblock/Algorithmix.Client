@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
-import cn from "classnames";
-import { getImageSrc } from "../../../utils/get-image-src";
-import routes from "../../../utils/routes";
-import "./HomeCarousel.module.scss";
-
+import { getImageSrc } from "../../utils/get-image-src";
+import routes from "../../utils/routes";
 
 const HomeCarousel = () => {
     return (

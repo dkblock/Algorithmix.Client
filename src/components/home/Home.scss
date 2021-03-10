@@ -1,5 +1,9 @@
+.home {
+  padding: 50px 100px 0 100px;
+}
+
 .home-carousel {
-  margin: 50px auto;
+  margin-bottom: 50px;
   border-radius: 0.25rem;
 
   &__link {
@@ -17,6 +21,13 @@
     height: 10px !important;
     border-radius: 50%;
   }
+}
+
+.home-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: auto;
 }
 
 @media (max-width: 768px) {

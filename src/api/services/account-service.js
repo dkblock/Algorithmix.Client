@@ -4,16 +4,12 @@ import baseService from "./base-service";
 const accountService = () => {
     const login = async (credentials) => {
         const url = api.account.loginUrl();
-        const response = await baseService.post(url, credentials);
-
-        return await response.text();
+        return await baseService.post(url, credentials);
     };
 
     const register = async (credentials) => {
         const url = api.account.registerUrl();
-        const response = await baseService.post(url, credentials);
-
-        return await response.json();
+        return await baseService.post(url, credentials);
     };
 
     return {

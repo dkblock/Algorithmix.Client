@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
 import { useAuth } from "../../../hooks/useAuth";
+import Button from "../Button/Button";
 import { logout } from "../../../store/actions/account";
 import routes from "../../../utils/routes";
 import "./AppHeader.scss";
 
 const AppHeader = () => {
+    const dispatch = useDispatch();
     const isAuth = useAuth();
 
-    const handleLogout = () => logout();
+    const handleLogout = () => dispatch(logout());
 
     return (
         <header className="app-header">

@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./Home";
-import useTitle from "../../hooks/useTitle";
+import { useTitle } from "../../hooks";
 import "./Home.scss";
 
 const HomePage = () => {

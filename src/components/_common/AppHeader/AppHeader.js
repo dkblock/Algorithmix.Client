@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks";
 import Button from "../Button/Button";
 import { logout } from "../../../store/actions/account";
 import routes from "../../../utils/routes";

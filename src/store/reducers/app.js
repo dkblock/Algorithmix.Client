@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setHeader } from "../actions/app";
 import { login, logout, register } from "../actions/account";
 import { getAccessToken } from "../../utils/local-storage-manager";
 
@@ -25,6 +26,9 @@ const appSlice = createSlice({
         },
         [register.rejected]: (state) => {
             state.isAuth = false;
+        },
+        [setHeader]: (state, action) => {
+            state.header = action.payload;
         }
     }
 });

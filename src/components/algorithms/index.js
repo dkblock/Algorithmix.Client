@@ -9,8 +9,7 @@ import "./Algorithms.scss";
 
 const Algorithms = () => {
     const dispatch = useDispatch();
-    const isFetching = useSelector(state => state.algorithms.isFetching);
-    const algorithms = useSelector(state => state.algorithms.algorithms);
+    const { algorithms, isFetching } = useSelector(state => state.algorithms);
 
     useEffect(() => {
         dispatch(fetchAlgorithms());

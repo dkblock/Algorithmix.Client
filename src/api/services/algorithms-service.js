@@ -3,10 +3,8 @@ import baseService from "./base-service";
 
 const algorithmsService = () => {
     const fetchAlgorithms = async () => {
-        const url = api.algorithms.fetchAlgorithmsUrl();
-        const response = await baseService.get(url);
-
-        return await response.json();
+        const url = api.algorithms.fetchAlgorithmsUrl;
+        return await baseService.get(url);
     };
 
     return {

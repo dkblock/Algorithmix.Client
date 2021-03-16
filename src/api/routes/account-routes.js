@@ -1,13 +1,10 @@
-import urlJoin from "url-join";
-import config from "../../config";
+import { getRoute } from "../../utils/get-route";
 
-const authUrl = () => urlJoin(config.baseUrl, "api/task/add");
-const loginUrl = () => urlJoin(config.baseUrl, "api/account/login");
-const logoutUrl = () => urlJoin(config.baseUrl, "api/account/logout");
-const registerUrl = () => urlJoin(config.baseUrl, "api/account/register");
+const loginUrl = getRoute("account/login");
+const logoutUrl = getRoute("account/logout");
+const registerUrl = getRoute("account/register");
 
 export default {
-    authUrl,
     loginUrl,
     logoutUrl,
     registerUrl

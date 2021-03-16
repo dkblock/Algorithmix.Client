@@ -3,7 +3,8 @@ import { fetchAlgorithms } from "../actions/algorithms";
 
 const initialState = {
     algorithms: [],
-    isFetching: false
+    isFetching: false,
+    hasError: false
 };
 
 const algorithmsSlice = createSlice({
@@ -15,7 +16,13 @@ const algorithmsSlice = createSlice({
         },
         [fetchAlgorithms.fulfilled]: (state, action) => {
             state.isFetching = false;
-            state.algorithms = action.payload;
+            state.algorithms = action.payload.algorithms;
+            state.hasError = action.payload.hasError;
+        },
+        [fetchAlgorithms.rejected]: (state) => {
+            state.isFetching = false;
+            state.algorithms = [];
+            state.hasError = true;
         }
     }
 });

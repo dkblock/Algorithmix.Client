@@ -2,8 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import routes from "../../../utils/routes";
 import "./Sidebar.scss";
+import { useSelector } from "react-redux";
 
 const Sidebar = () => {
+    const { currentUser: { role } } = useSelector(state => state.account);
+    const isExecutive = role === "admin" || role === "moderator";
+
     return (
         <div>
             <div className="sidebar">
@@ -20,6 +24,12 @@ const Sidebar = () => {
                     <Link to={routes.tests}>
                         <div className="sidebar__item"/>
                     </Link>
+
+                    {isExecutive && (
+                        <Link to={routes.tests}>
+                            <div className="sidebar__item"/>
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

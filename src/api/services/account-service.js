@@ -2,6 +2,11 @@ import api from "../api";
 import baseService from "./base-service";
 
 const accountService = () => {
+    const auth = async () => {
+        const url = api.account.authUrl;
+        return await baseService.get(url);
+    };
+
     const login = async (credentials) => {
         const url = api.account.loginUrl;
         return await baseService.post(url, credentials);
@@ -13,6 +18,7 @@ const accountService = () => {
     };
 
     return {
+        auth,
         login,
         register
     };

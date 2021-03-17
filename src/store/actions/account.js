@@ -5,15 +5,29 @@ import { navigateToHome } from "../../utils/navigator";
 import {
     clearAccessToken,
     clearCurrentUserId,
+    getAccessToken,
     setAccessToken,
     setCurrentUserId
 } from "../../utils/local-storage-manager";
 
-export const login = createAsyncThunk("login", async (credentials, thunkAPI) => {
-    const response = await accountService.login(credentials);
-    const loginResult = await thunkAPI.dispatch(checkAuth(response));
+export const auth = createAsyncThunk("auth", async () => {
+    if (!getAccessToken())
+        return { currentUser: {}, isAuth: false };
 
-    return loginResult.payload;
+    const response = await accountService.auth();
+    return await checkAuth(response);
+});
+
+export const login = createAsyncThunk("login", async (credentials) => {
+    const response = await accountService.login(credentials);
+    const loginResult = await checkAuth(response);
+
+    if (loginResult.isAuth) {
+        navigateToHome();
+        return loginResult;
+    }
+
+    return loginResult;
 });
 
 export const logout = createAction("logout", () => {
@@ -24,14 +38,19 @@ export const logout = createAction("logout", () => {
     return {};
 });
 
-export const register = createAsyncThunk("register", async (credentials, thunkAPI) => {
+export const register = createAsyncThunk("register", async (credentials) => {
     const response = await accountService.register(credentials);
-    const registerResult = await thunkAPI.dispatch(checkAuth(response));
+    const registerResult = await checkAuth(response);
 
-    return registerResult.payload;
+    if (registerResult.isAuth) {
+        navigateToHome();
+        return registerResult;
+    }
+
+    return registerResult;
 });
 
-const checkAuth = createAsyncThunk("checkAuth", async (response) => {
+const checkAuth = async (response) => {
     if (statusCode.ok(response)) {
         const responseResult = await response.json();
         const accessToken = responseResult.accessToken;
@@ -39,7 +58,6 @@ const checkAuth = createAsyncThunk("checkAuth", async (response) => {
 
         setAccessToken(accessToken);
         setCurrentUserId(userId);
-        navigateToHome();
 
         return {
             currentUser: responseResult.currentUser,
@@ -51,4 +69,4 @@ const checkAuth = createAsyncThunk("checkAuth", async (response) => {
         currentUser: {},
         isAuth: false
     };
-});
+};

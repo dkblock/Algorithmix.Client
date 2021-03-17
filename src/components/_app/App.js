@@ -1,10 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../hooks";
+import { auth } from "../../store/actions/account";
 import AppContent from "./AppContent";
 import Sidebar from "../_common/Sidebar/Sidebar";
 
 const App = () => {
-    const header = useSelector(state => state.app.header);
+    const dispatch = useDispatch();
+    const isAuth = useAuth();
+    const { header } = useSelector(state => state.app);
+
+    useEffect(() => {
+        dispatch(auth());
+    }, [dispatch, isAuth]);
 
     return (
         <div className="app">

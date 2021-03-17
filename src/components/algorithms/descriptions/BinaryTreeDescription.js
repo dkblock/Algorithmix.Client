@@ -9,7 +9,7 @@ const BinaryTreeDescription = (props) => {
         <>
             <div>
                 <div className="description-container">
-                    <div className="col-8">
+                    <div className="col-9">
                         <div className="description-paragraph">
                             <b>Бинарное дерево поиска</b> — это двоичное дерево, для которого выполняются следующие
                             дополнительные условия (свойства дерева поиска):
@@ -29,7 +29,7 @@ const BinaryTreeDescription = (props) => {
                             возможная высокая эффективность реализации основанных на нём алгоритмов поиска и сортировки.
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <img
                             className="description-image"
                             src={getImageSrc("images/algorithms/binary-tree.png")}
@@ -42,7 +42,7 @@ const BinaryTreeDescription = (props) => {
                 <h3 className="description-section-title">Определения</h3>
                 <hr/>
                 <div className="description-container">
-                    <div className="col-8">
+                    <div className="col-9">
                         <div className="description-paragraph">
                             <b>Корневой узел</b> — это узел, находящийся на самом верхнем уровне и не являющийся
                             чьим-либо потомком (узел 8).<br/>
@@ -55,7 +55,7 @@ const BinaryTreeDescription = (props) => {
                             равна 3).<br/>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <img
                             className="description-image"
                             src={getImageSrc("images/descriptions/binary-tree/example.png")}
@@ -69,7 +69,7 @@ const BinaryTreeDescription = (props) => {
                 <h3 className="description-section-title">Основные операции</h3>
                 <hr/>
                 <div className="description-container">
-                    <div className="col-8">
+                    <div className="col-9">
                         <div className="description-paragraph">
                             Основными операциями в бинарном дереве поиска являются:
                             <ul>
@@ -208,7 +208,7 @@ const BinaryTreeDescription = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <AlgorithmTimeComplexity complexity={algorithmTimeComplexity}/>
                     </div>
                 </div>
@@ -216,7 +216,7 @@ const BinaryTreeDescription = (props) => {
                     <h3 className="description-section-title">Обход дерева</h3>
                     <hr/>
                     <div className="description-container">
-                        <div className="col-8">
+                        <div className="col-9">
                             <div className="description-paragraph">
                                 <b>Обход дерева</b> — это процесс посещения каждого узла структуры дерева данных ровно
                                 один раз.
@@ -267,7 +267,7 @@ const BinaryTreeDescription = (props) => {
                                 прежде чем перейти на следующий уровень.
                             </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-3">
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
@@ -307,7 +307,7 @@ const BinaryTreeDescription = (props) => {
                     <h3 className="description-section-title">Сбалансированные и несбалансированные деревья</h3>
                     <hr/>
                     <div className="description-container">
-                        <div className="col-8">
+                        <div className="col-9">
                             <div className="description-paragraph">
                                 <b>Сбалансированное дерево</b> — это такое дерево, для каждого узла которого количество
                                 узлов в его левом и правом поддеревьях
@@ -333,7 +333,7 @@ const BinaryTreeDescription = (props) => {
                                 сделать выбор в пользу обычных бинарных деревьев (именно на наборе случайных данных).
                             </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-3">
                             <div className="description-image-container">
                                 <img
                                     className="description-image"

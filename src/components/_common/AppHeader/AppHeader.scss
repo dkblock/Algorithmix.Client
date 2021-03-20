@@ -13,8 +13,6 @@
 
   &__section {
     display: flex;
-    align-items: center;
-    gap: 20px;
   }
 
   &__logo {
@@ -22,5 +20,15 @@
     align-self: center;
     margin: 0 12px;
     font-size: 18px;
+  }
+
+  &__menu {
+    padding: 5px 0;
+  }
+
+  &__button {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    text-transform: none !important;
   }
 }

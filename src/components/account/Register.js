@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { TextField } from "@material-ui/core";
-import Button from "../_common/Button/Button";
+import { Paper, TextField } from "@material-ui/core";
+import Button from "../_common/Button";
 import { register } from "../../store/actions/account";
 import "./Account.scss";
 
@@ -31,13 +31,13 @@ const Register = () => {
     };
 
     return (
-        <div className="account-form">
+        <Paper className="account-form">
             <TextField value={email} onChange={handleEmailChange} label="Email"/>
             <TextField value={firstName} onChange={handleFirstNameChange} label="Имя"/>
             <TextField value={lastName} onChange={handleLastNameChange} label="Фамилия"/>
             <TextField value={password} onChange={handlePasswordChange} label="Пароль" type="password"/>
             <Button onClick={handleSubmit}>Регистрация</Button>
-        </div>
+        </Paper>
     )
 };
 

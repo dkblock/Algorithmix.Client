@@ -1,5 +1,5 @@
-import Icon from "./Icon";
+import Icon, { ButtonIcon } from "./Icon";
 import iconTypes from "./icon-types";
 
-export { iconTypes };
+export { ButtonIcon, iconTypes };
 export default Icon;

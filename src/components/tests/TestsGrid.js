@@ -4,7 +4,13 @@ import { useTitle } from "../../hooks";
 const TestsGrid = ({ tests }) => {
     useTitle("Тесты");
 
-    return <div>{tests.length}</div>
+    return (
+        <div>
+            {tests.map((test) => (
+                <div>{`${test.id} | ${test.name} | ${test.questions.length} вопросов | ${test.algorithm.id}`}</div>
+            ))}
+        </div>
+    );
 };
 
 export default TestsGrid;

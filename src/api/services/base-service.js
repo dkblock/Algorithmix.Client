@@ -1,7 +1,20 @@
 import { getAccessToken } from "../../utils/local-storage-manager";
 
 const baseService = () => {
-    const post = async (url, data) => {
+    const getBase = async (url) => {
+        try {
+            return await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${getAccessToken()}`
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const postBase = async (url, data) => {
         try {
             return await fetch(url, {
                 method: "POST",
@@ -16,10 +29,10 @@ const baseService = () => {
         }
     };
 
-    const get = async (url) => {
+    const deleteBase = async (url) => {
         try {
             return await fetch(url, {
-                method: "GET",
+                method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${getAccessToken()}`
                 }
@@ -29,9 +42,26 @@ const baseService = () => {
         }
     };
 
+    const putBase = async (url, data) => {
+        try {
+            return await fetch(url, {
+                method: "PUT",
+                body: JSON.stringify(data),
+                headers: {
+                    "Authorization": `Bearer ${getAccessToken()}`,
+                    "Content-Type": "application/json"
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     return {
-        post,
-        get
+        getBase,
+        postBase,
+        deleteBase,
+        putBase
     };
 };
 

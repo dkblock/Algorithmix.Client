@@ -3,18 +3,18 @@ import baseService from "./base-service";
 
 const accountService = () => {
     const auth = async () => {
-        const url = api.account.authUrl;
-        return await baseService.get(url);
+        const url = api.account.authUrl();
+        return await baseService.getBase(url);
     };
 
     const login = async (credentials) => {
-        const url = api.account.loginUrl;
-        return await baseService.post(url, credentials);
+        const url = api.account.loginUrl();
+        return await baseService.postBase(url, credentials);
     };
 
     const register = async (credentials) => {
-        const url = api.account.registerUrl;
-        return await baseService.post(url, credentials);
+        const url = api.account.registerUrl();
+        return await baseService.postBase(url, credentials);
     };
 
     return {

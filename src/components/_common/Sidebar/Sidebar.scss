@@ -1,21 +1,21 @@
 .sidebar {
   height: 100%;
   display: flex;
+  background-color: #f0f2f5;
+  border-right: 0.071rem solid rgba(18, 24, 33, 0.12);
 
   &__items {
-    background-color: #f0f2f5;
-    border-right: 0.071rem solid rgba(18, 24, 33, 0.12);
+    margin-top: 5px;
     min-width: 4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  &__item {
-    width: 25px;
-    height: 25px;
-    background-color: #1976d2;
-    margin-top: 20px;
-    border-radius: 50%;
+  &__divider {
+    margin: 5px 2px;
+    width: 80%;
+    height: 1px;
+    background: rgba(18, 24, 33, 0.12);
   }
 }

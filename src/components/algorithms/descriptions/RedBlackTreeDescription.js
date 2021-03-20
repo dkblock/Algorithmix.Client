@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
 import { getImageSrc } from "../../../utils/get-image-src";
+import routes from "../../../utils/routes";
 
 const RedBlackTreeDescription = (props) => {
-    const { algorithm: { algorithmTimeComplexity } } = props;
+    const { algorithm: { timeComplexity } } = props;
 
     return (
         <>
@@ -88,7 +90,7 @@ const RedBlackTreeDescription = (props) => {
                         </div>
                     </div>
                     <div className="col-4">
-                        <AlgorithmTimeComplexity complexity={algorithmTimeComplexity}/>
+                        <AlgorithmTimeComplexity complexity={timeComplexity}/>
                         <div className="description-title"/>
                         <img
                             className="description-image"
@@ -113,8 +115,7 @@ const RedBlackTreeDescription = (props) => {
                             свойств необходимо изменить цвета некоторых узлов дерева, а также структуру их указателей.
                             При
                             этом применяются повороты, аналогичные
-                            {/*поворотам в <a asp-controller="Algorithms" asp-action="Info"*/}
-                            {/*               asp-route-id="avlTree">AVL-дереве</a>.*/}
+                            поворотам в <Link to={`${routes.algorithms}/avl-tree`}>AVL-дереве</Link>.
                             Рассмотрим вставку нового элемента более подробно.
                         </div>
                     </div>

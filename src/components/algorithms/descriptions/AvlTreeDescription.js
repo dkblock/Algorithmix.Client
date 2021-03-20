@@ -3,7 +3,7 @@ import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
 import { getImageSrc } from "../../../utils/get-image-src";
 
 const AvlTreeDescription = (props) => {
-    const { algorithm: { algorithmTimeComplexity } } = props;
+    const { algorithm: { timeComplexity } } = props;
 
     return (
         <>
@@ -53,7 +53,7 @@ const AvlTreeDescription = (props) => {
                             alt="avl-tree"
                         />
                         <div className="description-title"/>
-                        <AlgorithmTimeComplexity complexity={algorithmTimeComplexity}/>
+                        <AlgorithmTimeComplexity complexity={timeComplexity}/>
                     </div>
                 </div>
             </div>

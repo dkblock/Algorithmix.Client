@@ -1,9 +1,11 @@
 import React from "react";
 import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
 import { getImageSrc } from "../../../utils/get-image-src";
+import routes from "../../../utils/routes";
+import { Link } from "react-router-dom";
 
 const BinaryTreeDescription = (props) => {
-    const { algorithm: { algorithmTimeComplexity } } = props;
+    const { algorithm: { timeComplexity } } = props;
 
     return (
         <>
@@ -209,7 +211,7 @@ const BinaryTreeDescription = (props) => {
                         </div>
                     </div>
                     <div className="col-3">
-                        <AlgorithmTimeComplexity complexity={algorithmTimeComplexity}/>
+                        <AlgorithmTimeComplexity complexity={timeComplexity}/>
                     </div>
                 </div>
                 <div>
@@ -319,11 +321,9 @@ const BinaryTreeDescription = (props) => {
                                 При этом теряется производительность, поэтому для наилучшего быстродействия
                                 желательно,чтобы глубина и левого, и правого поддеревьев
                                 в каждом узле была примерно одинакова. Из-за этого ограничения на практике чаще всего
-                                используются сбалансированные деревья (например,
-                                {/*<a asp-controller="Algorithms" asp-action="Info"*/}
-                                {/*   asp-route-id="avlTree">AVL-дерево</a> или*/}
-                                {/*<a asp-controller="Algorithms" asp-action="Info" asp-route-id="redBlackTree">красно-чёрное*/}
-                                {/*    дерево</a>).*/}
+                                используются сбалансированные деревья (например, <Link
+                                to={`${routes.algorithms}/avl-tree`}>AVL-дерево</Link> или <Link
+                                to={`${routes.algorithms}/red-black-tree`}>красно-чёрное дерево</Link>).
                             </div>
                             <div className="description-paragraph">
                                 Однако обычные бинарные деревья также могут оказаться полезны. Как показывает практика,

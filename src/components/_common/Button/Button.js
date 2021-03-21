@@ -7,7 +7,7 @@ import "./Button.scss";
 
 const theme = createMuiTheme({ palette });
 
-const Button = ({ className, type, color, icon, onClick, children }) => {
+const Button = ({ className, type, color, startIcon, endIcon, onClick, children }) => {
     const buttonType = type ?? "contained";
     const buttonColor = color ?? "primary";
 
@@ -18,7 +18,8 @@ const Button = ({ className, type, color, icon, onClick, children }) => {
                 variant={buttonType}
                 color={buttonColor}
                 onClick={onClick}
-                endIcon={icon ? <ButtonIcon type={icon}/> : null}
+                startIcon={startIcon ? <ButtonIcon type={startIcon}/> : null}
+                endIcon={endIcon ? <ButtonIcon type={endIcon}/> : null}
             >
                 {children}
             </MuiButton>

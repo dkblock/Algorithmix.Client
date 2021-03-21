@@ -1,4 +1,15 @@
-import { AccountTree, Delete, ExitToApp, Extension, Home, ListAlt, Person, Settings } from "@material-ui/icons";
+import {
+    AccountTree,
+    Delete,
+    Equalizer,
+    ExitToApp,
+    Extension,
+    Home,
+    Info,
+    ListAlt,
+    Person,
+    Settings
+} from "@material-ui/icons";
 import iconTypes from "./icon-types";
 
 const icons = {
@@ -6,9 +17,11 @@ const icons = {
     [iconTypes.algorithms]: AccountTree,
     [iconTypes.constructor]: Extension,
     [iconTypes.delete]: Delete,
-    [iconTypes.logout]: ExitToApp,
     [iconTypes.home]: Home,
+    [iconTypes.info]: Info,
+    [iconTypes.logout]: ExitToApp,
     [iconTypes.settings]: Settings,
+    [iconTypes.stats]: Equalizer,
     [iconTypes.tests]: ListAlt
 };
 

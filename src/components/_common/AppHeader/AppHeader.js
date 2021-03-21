@@ -8,7 +8,7 @@ import { useAuth } from "../../../hooks";
 import { logout } from "../../../store/actions/account";
 import Button, { buttonColors } from "../Button";
 import { ButtonIcon, iconTypes } from "../Icon";
-import { navigateToLogin, navigateToRegister } from "../../../utils/navigator";
+import { navigateToHome, navigateToLogin, navigateToRegister } from "../../../utils/navigator";
 import "./AppHeader.scss";
 
 const AppHeader = () => {
@@ -31,7 +31,14 @@ const AppHeader = () => {
     return (
         <header className="app-header">
             <section className="app-header__section">
-                <div className="app-header__logo">Visual Algorithms</div>
+                <Button
+                    className="app-header__button"
+                    color={buttonColors.transparentBlack}
+                    startIcon={iconTypes.home}
+                    onClick={navigateToHome}
+                >
+                    Visual Algorithms
+                </Button>
             </section>
             <section className="app-header__section">
                 {!isAuth
@@ -39,14 +46,14 @@ const AppHeader = () => {
                         <>
                             <Button
                                 className="app-header__button"
-                                color={buttonColors.dark}
+                                color={buttonColors.transparentBlack}
                                 onClick={handleRegisterClick}
                             >
                                 Регистрация
                             </Button>
                             <Button
                                 className="app-header__button"
-                                color={buttonColors.dark}
+                                color={buttonColors.transparentBlack}
                                 onClick={handleLoginClick}
                             >
                                 Войти
@@ -59,11 +66,11 @@ const AppHeader = () => {
                                 <>
                                     <Button
                                         className="app-header__button"
-                                        color={buttonColors.dark}
-                                        icon={iconTypes.account}
+                                        color={buttonColors.transparentBlack}
+                                        endIcon={iconTypes.account}
                                         onClick={handleMenuOpen}
                                     >
-                                        {currentUser.firstName}
+                                        {currentUser.firstName} {currentUser.lastName}
                                     </Button>
                                     <Popover
                                         id="app-header-popover"
@@ -74,6 +81,16 @@ const AppHeader = () => {
                                         transformOrigin={{ vertical: "top", horizontal: "right" }}
                                     >
                                         <div className="app-header__menu">
+                                            <MenuItem onClick={handleMenuClose}>
+                                                {currentUser.firstName} {currentUser.lastName}
+                                            </MenuItem>
+                                            <div className="app-header__menu-divider"/>
+                                            <MenuItem onClick={handleMenuClose}>
+                                                <ListItemIcon>
+                                                    <ButtonIcon type={iconTypes.stats}/>
+                                                </ListItemIcon>
+                                                Статистика
+                                            </MenuItem>
                                             <MenuItem onClick={handleMenuClose}>
                                                 <ListItemIcon>
                                                     <ButtonIcon type={iconTypes.settings}/>

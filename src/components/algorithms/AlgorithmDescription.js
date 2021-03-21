@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import Paper from "@material-ui/core/Paper";
 import { useTitle } from "../../hooks";
 import { fetchAlgorithms } from "../../store/actions/algorithms";
 import algorithmDescriptions from "./descriptions";
@@ -28,7 +29,11 @@ const AlgorithmDescription = () => {
         return null;
     }
 
-    return <DescriptionComponent algorithm={algorithm} component={component}/>;
+    return (
+        <Paper className="algorithm-description">
+            <DescriptionComponent algorithm={algorithm} component={component}/>
+        </Paper>
+    );
 };
 
 export default AlgorithmDescription;

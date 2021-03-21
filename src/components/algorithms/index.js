@@ -19,7 +19,7 @@ const Algorithms = () => {
         return "Загрузка...";
 
     return (
-        <>
+        <div className="algorithms-page">
             <Route
                 path={routes.algorithms}
                 exact
@@ -29,7 +29,7 @@ const Algorithms = () => {
                 path={`${routes.algorithms}/:id`}
                 render={(props) => <AlgorithmDescription {...props}/>}
             />
-        </>
+        </div>
     );
 };
 

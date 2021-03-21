@@ -1,3 +1,7 @@
+.algorithms-page {
+  padding: 18px;
+}
+
 .algorithms-grid {
   display: flex;
   flex-wrap: wrap;
@@ -5,7 +9,7 @@
 }
 
 .algorithm-card {
-  max-width: 450px;
+  max-width: 350px;
   margin-bottom: 25px;
 
   &__body {
@@ -17,6 +21,10 @@
     justify-content: space-between;
     gap: 15px;
   }
+}
+
+.algorithm-description {
+  padding: 36px;
 }
 
 .description-container {

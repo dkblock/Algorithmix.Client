@@ -16,11 +16,11 @@ const App = () => {
 
     return (
         <div className="app">
-            <header className="app__header">
-                <div className="section-title">{header}</div>
-            </header>
+            <Sidebar/>
             <div className="app__main">
-                <Sidebar/>
+                <header className="app__page-header bg-light">
+                    <div className="app__page-header-title">{header}</div>
+                </header>
                 <AppContent/>
             </div>
         </div>

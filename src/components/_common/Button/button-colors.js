@@ -1,7 +1,7 @@
 const buttonColors = {
     primary: "primary",
     success: "success",
-    dark: "dark"
+    transparentBlack: "transparentBlack"
 };
 
 export default buttonColors;

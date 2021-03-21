@@ -1,22 +1,27 @@
 .app {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
 
-  &__header {
-    height: 56px;
-    background-color: #fff;
+  &__page-header {
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
     padding: 0 24px;
-    border-bottom: 0.071rem solid rgba(18, 24, 33, 0.12);
+    border-top: 0.071rem solid rgba(18, 24, 33, 0.12);
+  }
+
+  &__page-header-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   &__main {
     display: flex;
     flex: 1 1 auto;
+    flex-direction: column;
   }
 
   &__view {
@@ -27,6 +32,5 @@
 
   &__content {
     flex: 1 1 auto;
-    padding: 50px;
   }
 }

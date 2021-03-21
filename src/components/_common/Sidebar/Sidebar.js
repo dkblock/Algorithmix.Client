@@ -1,57 +1,63 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Icon, { iconTypes } from "../Icon";
-import routes from "../../../utils/routes";
+import { logout } from "../../../store/actions/account";
 import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../../utils/navigator";
+import routes from "../../../utils/routes";
 import "./Sidebar.scss";
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
+
     const currentRoute = useSelector(state => state.router.location.pathname);
+    const { isAuth } = useSelector(state => state.app);
     const { currentUser: { role } } = useSelector(state => state.account);
 
     const isExecutive = role === "admin" || role === "moderator";
-    const isSelected = (route) => route === currentRoute;
+    const isSelected = (route) => currentRoute.includes(route);
+
+    const handleLogout = () => dispatch(logout());
 
     return (
-        <div>
-            <div className="sidebar">
-                <div className="sidebar__items">
-                    <Icon
-                        type={iconTypes.home}
-                        tooltip="Главная"
-                        tooltipPosition="right"
-                        tooltipWithMargin
-                        selected={isSelected(routes.home)}
-                        onClick={navigateToHome}
-                    />
-                    <Icon
-                        type={iconTypes.algorithms}
-                        tooltip="Алгоритмы"
-                        tooltipPosition="right"
-                        tooltipWithMargin
-                        selected={isSelected(routes.algorithms)}
-                        onClick={navigateToAlgorithms}
-                    />
-                    <Icon
-                        type={iconTypes.constructor}
-                        tooltip="Конструктор"
-                        tooltipPosition="right"
-                        tooltipWithMargin
-                        selected={isSelected(routes.constructor)}
-                        onClick={navigateToConstructor}
-                    />
-                    <Icon
-                        type={iconTypes.tests}
-                        tooltip="Тесты"
-                        tooltipPosition="right"
-                        tooltipWithMargin
-                        selected={isSelected(routes.tests)}
-                        onClick={navigateToTests}
-                    />
+        <div className="sidebar bg-light">
+            <div className="sidebar__items">
+                <Icon
+                    type={iconTypes.home}
+                    tooltip="Главная"
+                    tooltipPosition="right"
+                    tooltipWithMargin
+                    selected={isSelected(routes.home) || currentRoute === "/"}
+                    onClick={navigateToHome}
+                />
+                <Icon
+                    type={iconTypes.algorithms}
+                    tooltip="Алгоритмы"
+                    tooltipPosition="right"
+                    tooltipWithMargin
+                    selected={isSelected(routes.algorithms)}
+                    onClick={navigateToAlgorithms}
+                />
+                <Icon
+                    type={iconTypes.constructor}
+                    tooltip="Конструктор"
+                    tooltipPosition="right"
+                    tooltipWithMargin
+                    selected={isSelected(routes.constructor)}
+                    onClick={navigateToConstructor}
+                />
+                <Icon
+                    type={iconTypes.tests}
+                    tooltip="Тесты"
+                    tooltipPosition="right"
+                    tooltipWithMargin
+                    selected={isSelected(routes.tests)}
+                    onClick={navigateToTests}
+                />
 
-                    {isExecutive && (
-                        <>
-                            <div className="sidebar__divider"/>
+                {isAuth && (
+                    <>
+                        <div className="sidebar__divider"/>
+                        {isExecutive && (
                             <Icon
                                 type={iconTypes.delete}
                                 tooltip="Админ-панель"
@@ -60,9 +66,33 @@ const Sidebar = () => {
                                 selected={isSelected("admin")}
                                 onClick={navigateToHome}
                             />
-                        </>
-                    )}
-                </div>
+                        )}
+                        <Icon
+                            type={iconTypes.stats}
+                            tooltip="Статистика"
+                            tooltipPosition="right"
+                            tooltipWithMargin
+                            selected={isSelected("stats")}
+                            onClick={navigateToHome}
+                        />
+                        <Icon
+                            type={iconTypes.settings}
+                            tooltip="Настройки"
+                            tooltipPosition="right"
+                            tooltipWithMargin
+                            selected={isSelected("settings")}
+                            onClick={navigateToHome}
+                        />
+                        <Icon
+                            type={iconTypes.logout}
+                            tooltip="Выйти"
+                            tooltipPosition="right"
+                            tooltipWithMargin
+                            selected={false}
+                            onClick={handleLogout}
+                        />
+                    </>
+                )}
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import { getAccessToken } from "../../utils/local-storage-manager";
 
-const baseService = () => {
-    const getBase = async (url) => {
+const baseService = {
+    get: async (url) => {
         try {
             return await fetch(url, {
                 method: "GET",
@@ -12,9 +12,9 @@ const baseService = () => {
         } catch (e) {
             console.log(e);
         }
-    };
+    },
 
-    const postBase = async (url, data) => {
+    post: async (url, data) => {
         try {
             return await fetch(url, {
                 method: "POST",
@@ -27,9 +27,9 @@ const baseService = () => {
         } catch (e) {
             console.log(e);
         }
-    };
+    },
 
-    const deleteBase = async (url) => {
+    delete: async (url) => {
         try {
             return await fetch(url, {
                 method: "DELETE",
@@ -40,9 +40,9 @@ const baseService = () => {
         } catch (e) {
             console.log(e);
         }
-    };
+    },
 
-    const putBase = async (url, data) => {
+    put: async (url, data) => {
         try {
             return await fetch(url, {
                 method: "PUT",
@@ -55,14 +55,7 @@ const baseService = () => {
         } catch (e) {
             console.log(e);
         }
-    };
-
-    return {
-        getBase,
-        postBase,
-        deleteBase,
-        putBase
-    };
+    }
 };
 
-export default baseService();
+export default baseService;

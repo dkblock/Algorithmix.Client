@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../hooks";
 import { auth } from "../../store/actions/account";
 import AppContent from "./AppContent";
-import Sidebar from "../_common/Sidebar/Sidebar";
+import AppSidebar from "./AppSidebar";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <Sidebar/>
+            <AppSidebar/>
             <div className="app__main">
                 <header className="app__page-header bg-light">
                     <div className="app__page-header-title">{header}</div>

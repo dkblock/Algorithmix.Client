@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTests } from "../../store/actions/tests";
-import TestsGrid from "./TestsGrid";
+import TestsList from "./TestsList";
+import Loader from "../_common/Loader";
 import "./Tests.scss";
 
 const Tests = () => {
@@ -13,9 +14,13 @@ const Tests = () => {
     }, [dispatch]);
 
     if (isFetching)
-        return "Загрузка...";
+        return <Loader className="tests-page__loader" size="large"/>;
 
-    return <TestsGrid tests={tests}/>;
+    return (
+        <div className="tests-page">
+            <TestsList tests={tests}/>
+        </div>
+    );
 };
 
 export default Tests;

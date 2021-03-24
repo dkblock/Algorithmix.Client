@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAlgorithms } from "../../store/actions/algorithms";
 import AlgorithmsGrid from "./AlgorithmsGrid";
 import AlgorithmDescription from "./AlgorithmDescription";
+import Loader from "../_common/Loader";
 import routes from "../../utils/routes";
 import "./Algorithms.scss";
 
@@ -16,7 +17,7 @@ const Algorithms = () => {
     }, [dispatch]);
 
     if (isFetching)
-        return "Загрузка...";
+        return <Loader className="algorithms-page__loader" size="large"/>;
 
     return (
         <div className="algorithms-page">

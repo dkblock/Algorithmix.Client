@@ -1,26 +1,25 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Icon, { iconTypes } from "../Icon";
-import { logout } from "../../../store/actions/account";
-import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../../utils/navigator";
-import routes from "../../../utils/routes";
-import "./Sidebar.scss";
+import Icon, { iconTypes } from "../_common/Icon";
+import { useExecutiveRole } from "../../hooks";
+import { logout } from "../../store/actions/account";
+import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../utils/navigator";
+import routes from "../../utils/routes";
 
-const Sidebar = () => {
+const AppSidebar = () => {
     const dispatch = useDispatch();
 
     const currentRoute = useSelector(state => state.router.location.pathname);
     const { isAuth } = useSelector(state => state.app);
-    const { currentUser: { role } } = useSelector(state => state.account);
 
-    const isExecutive = role === "admin" || role === "moderator";
+    const isExecutive = useExecutiveRole();
     const isSelected = (route) => currentRoute.includes(route);
 
     const handleLogout = () => dispatch(logout());
 
     return (
-        <div className="sidebar bg-light">
-            <div className="sidebar__items">
+        <div className="app-sidebar bg-light">
+            <div className="app-sidebar__items">
                 <Icon
                     type={iconTypes.home}
                     tooltip="Главная"
@@ -56,7 +55,7 @@ const Sidebar = () => {
 
                 {isAuth && (
                     <>
-                        <div className="sidebar__divider"/>
+                        <div className="app-sidebar__divider"/>
                         {isExecutive && (
                             <Icon
                                 type={iconTypes.delete}
@@ -98,4 +97,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default AppSidebar;

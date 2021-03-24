@@ -1,39 +1,31 @@
 import api from "../api";
 import baseService from "./base-service";
 
-const testsService = () => {
-    const fetchTests = async () => {
+const testsService = {
+    fetchTests: async () => {
         const url = api.tests.fetchTests();
-        return await baseService.getBase(url);
-    };
+        return await baseService.get(url);
+    },
 
-    const fetchTest = async (testId) => {
+    fetchTest: async (testId) => {
         const url = api.tests.fetchTest(testId);
-        return await baseService.getBase(url);
-    };
+        return await baseService.get(url);
+    },
 
-    const createTest = async (createdTest) => {
+    createTest: async (createdTest) => {
         const url = api.tests.createTest();
-        return await baseService.postBase(url, createdTest);
-    };
+        return await baseService.post(url, createdTest);
+    },
 
-    const deleteTest = async (testId) => {
+    deleteTest: async (testId) => {
         const url = api.tests.deleteTest(testId);
-        return await baseService.deleteBase(url);
-    };
+        return await baseService.delete(url);
+    },
 
-    const updateTest = async (testId, updatedTest) => {
+    updateTest: async (testId, updatedTest) => {
         const url = api.tests.updateTest(testId);
-        return await baseService.putBase(url, updatedTest);
-    };
-
-    return {
-        fetchTests,
-        fetchTest,
-        createTest,
-        deleteTest,
-        updateTest
-    };
+        return await baseService.put(url, updatedTest);
+    }
 };
 
-export default testsService();
+export default testsService;

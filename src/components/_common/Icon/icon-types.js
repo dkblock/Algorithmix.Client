@@ -3,9 +3,10 @@ const iconTypes = {
     algorithms: "algorithms",
     constructor: "constructor",
     delete: "delete",
+    home: "home",
     info: "info",
     logout: "logout",
-    home: "home",
+    plus: "plus",
     settings: "settings",
     stats: "stats",
     tests: "tests"

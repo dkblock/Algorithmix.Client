@@ -1,27 +1,21 @@
 import api from "../api";
 import baseService from "./base-service";
 
-const accountService = () => {
-    const auth = async () => {
+const accountService = {
+    auth: async () => {
         const url = api.account.authUrl();
-        return await baseService.getBase(url);
-    };
+        return await baseService.get(url);
+    },
 
-    const login = async (credentials) => {
+    login: async (credentials) => {
         const url = api.account.loginUrl();
-        return await baseService.postBase(url, credentials);
-    };
+        return await baseService.post(url, credentials);
+    },
 
-    const register = async (credentials) => {
+    register: async (credentials) => {
         const url = api.account.registerUrl();
-        return await baseService.postBase(url, credentials);
-    };
-
-    return {
-        auth,
-        login,
-        register
-    };
+        return await baseService.post(url, credentials);
+    }
 };
 
-export default accountService();
+export default accountService;

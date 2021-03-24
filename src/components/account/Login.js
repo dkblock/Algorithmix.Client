@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Paper, TextField } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import Button from "../_common/Button";
+import TextField from "../_common/TextField";
 import { login } from "../../store/actions/account";
 import "./Account.scss";
 
@@ -15,8 +16,8 @@ const Login = () => {
         setPassword("");
     };
 
-    const handleEmailChange = (e) => setEmail(e.target.value);
-    const handlePasswordChange = (e) => setPassword(e.target.value);
+    const handleEmailChange = (value) => setEmail(value);
+    const handlePasswordChange = (value) => setPassword(value);
 
     const handleSubmit = () => {
         const credentials = { email, password };

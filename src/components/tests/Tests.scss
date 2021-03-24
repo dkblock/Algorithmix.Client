@@ -1,0 +1,53 @@
+@import "../../styles/_variables";
+
+.tests-page {
+  display: flex;
+  width: 100%;
+
+  &__loader {
+    margin: 100px auto auto;
+  }
+}
+
+.tests-container {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  min-height: 100%;
+  height: calc(100vh - 100px);
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-top: $panel-border;
+    border-bottom: $panel-border;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.tests-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  border-top: $panel-border;
+  border-right: $panel-border;
+}
+
+.tests-list-item {
+  width: 100%;
+  padding-left: 10px;
+  border-bottom: $panel-border !important;
+  border-left: 5px solid transparent!important;
+
+
+  &:last-child {
+    border-left: 5px solid #1976d2 !important;
+    margin-bottom: 50px;
+  }
+}

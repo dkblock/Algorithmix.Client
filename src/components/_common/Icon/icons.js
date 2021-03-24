@@ -1,28 +1,18 @@
-import {
-    AccountTree,
-    Delete,
-    Equalizer,
-    ExitToApp,
-    Extension,
-    Home,
-    Info,
-    ListAlt,
-    Person,
-    Settings
-} from "@material-ui/icons";
+import * as materialIcons from "@material-ui/icons";
 import iconTypes from "./icon-types";
 
 const icons = {
-    [iconTypes.account]: Person,
-    [iconTypes.algorithms]: AccountTree,
-    [iconTypes.constructor]: Extension,
-    [iconTypes.delete]: Delete,
-    [iconTypes.home]: Home,
-    [iconTypes.info]: Info,
-    [iconTypes.logout]: ExitToApp,
-    [iconTypes.settings]: Settings,
-    [iconTypes.stats]: Equalizer,
-    [iconTypes.tests]: ListAlt
+    [iconTypes.account]: materialIcons.Person,
+    [iconTypes.algorithms]: materialIcons.AccountTree,
+    [iconTypes.constructor]: materialIcons.Extension,
+    [iconTypes.delete]: materialIcons.Delete,
+    [iconTypes.home]: materialIcons.Home,
+    [iconTypes.info]: materialIcons.Info,
+    [iconTypes.logout]: materialIcons.ExitToApp,
+    [iconTypes.plus]: materialIcons.AddBox,
+    [iconTypes.settings]: materialIcons.Settings,
+    [iconTypes.stats]: materialIcons.Equalizer,
+    [iconTypes.tests]: materialIcons.ListAlt
 };
 
 export default icons;

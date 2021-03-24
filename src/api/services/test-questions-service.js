@@ -1,39 +1,31 @@
 import api from "../api";
 import baseService from "./base-service";
 
-const testsQuestionsService = () => {
-    const fetchQuestions = async (testId) => {
+const testsQuestionsService = {
+    fetchQuestions: async (testId) => {
         const url = api.tests.fetchTestQuestions(testId);
-        return await baseService.getBase(url);
-    };
+        return await baseService.get(url);
+    },
 
-    const fetchQuestion = async (testId, questionId) => {
+    fetchQuestion: async (testId, questionId) => {
         const url = api.tests.fetchTestQuestion(testId, questionId);
-        return await baseService.getBase(url);
-    };
+        return await baseService.get(url);
+    },
 
-    const createQuestion = async (testId, createdQuestion) => {
+    createQuestion: async (testId, createdQuestion) => {
         const url = api.tests.createTest();
-        return await baseService.postBase(url, createdQuestion);
-    };
+        return await baseService.post(url, createdQuestion);
+    },
 
-    const deleteQuestion = async (testId, questionId) => {
+    deleteQuestion: async (testId, questionId) => {
         const url = api.tests.deleteTestQuestion(testId, questionId);
-        return await baseService.deleteBase(url);
-    };
+        return await baseService.delete(url);
+    },
 
-    const updateQuestion = async (testId, questionId, updatedQuestion) => {
+    updateQuestion: async (testId, questionId, updatedQuestion) => {
         const url = api.tests.updateTestQuestion(testId, questionId);
-        return await baseService.putBase(url, updatedQuestion);
-    };
-
-    return {
-        fetchQuestions,
-        fetchQuestion,
-        createQuestion,
-        deleteQuestion,
-        updateQuestion
-    };
+        return await baseService.put(url, updatedQuestion);
+    }
 };
 
-export default testsQuestionsService();
+export default testsQuestionsService;

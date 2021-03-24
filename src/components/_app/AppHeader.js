@@ -4,12 +4,11 @@ import Popover from "@material-ui/core/Popover";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
-import { useAuth } from "../../../hooks";
-import { logout } from "../../../store/actions/account";
-import Button, { buttonColors } from "../Button";
-import { ButtonIcon, iconTypes } from "../Icon";
-import { navigateToHome, navigateToLogin, navigateToRegister } from "../../../utils/navigator";
-import "./AppHeader.scss";
+import { useAuth } from "../../hooks";
+import { logout } from "../../store/actions/account";
+import Button, { buttonColors } from "../_common/Button";
+import { ButtonIcon, iconTypes } from "../_common/Icon";
+import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
 
 const AppHeader = () => {
     const dispatch = useDispatch();

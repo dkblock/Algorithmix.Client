@@ -1,6 +1,6 @@
 import Button from "./Button";
-import buttonColors from "./button-colors";
-import buttonTypes from "./button-types";
+import buttonTypes from "../../../constants/button-types";
+import colors from "../../../constants/colors";
 
-export { buttonColors, buttonTypes };
+export { buttonTypes, colors };
 export default Button;

@@ -4,7 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import Button, { buttonColors, buttonTypes } from "../_common/Button";
+import Button, { colors, buttonTypes } from "../_common/Button";
 import Dropdown from "../_common/Dropdown";
 import TextField from "../_common/TextField";
 
@@ -30,7 +30,7 @@ const CreateTestModal = () => {
             </DialogContent>
             <DialogActions>
                 <Button type={buttonTypes.text}>Отмена</Button>
-                <Button color={buttonColors.success}>Создать</Button>
+                <Button color={colors.success}>Создать</Button>
             </DialogActions>
         </Dialog>
     )

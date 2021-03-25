@@ -1,11 +1,16 @@
 import React from "react";
-import { IconButton } from "@material-ui/core";
+import { IconButton as MaterialIconButton } from "@material-ui/core";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import palette from "../../../styles/palette";
 import icons from "./icons";
 import "./Icon.scss";
 
-const Icon = (props) => {
+const Icon = ({ type }) => {
+    const SimpleIcon = icons[type];
+    return <SimpleIcon/>
+};
+
+const IconButton = (props) => {
     const { type, selected, tooltip, tooltipPosition, tooltipWithMargin, onClick } = props;
     const Icon = <InnerIcon type={type} selected={selected} onClick={onClick}/>;
 
@@ -19,19 +24,14 @@ const Icon = (props) => {
     return Icon;
 };
 
-const ButtonIcon = ({ type }) => {
-    const Icon = icons[type];
-    return <Icon/>
-};
-
 const InnerIcon = ({ type, selected, onClick }) => {
     const Icon = icons[type];
     const color = selected ? palette.primary.main : "";
 
     return (
-        <IconButton className="icon" onClick={onClick}>
+        <MaterialIconButton className="icon" onClick={onClick}>
             <Icon style={{ color: color }}/>
-        </IconButton>
+        </MaterialIconButton>
     );
 };
 
@@ -54,5 +54,4 @@ const InnerTooltipIcon = ({ tooltip, position, withMargin, children }) => {
     );
 }
 
-export { ButtonIcon };
-export default Icon;
+export { Icon, IconButton };

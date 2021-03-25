@@ -1,8 +1,8 @@
-const buttonColors = {
+const colors = {
     default: "default",
     primary: "primary",
     success: "success",
     transparentBlack: "transparentBlack"
 };
 
-export default buttonColors;
+export default colors;

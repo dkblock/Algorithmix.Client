@@ -14,10 +14,10 @@ const algorithmsSlice = createSlice({
         [fetchAlgorithms.pending]: (state) => {
             state.isFetching = true;
         },
-        [fetchAlgorithms.fulfilled]: (state, action) => {
+        [fetchAlgorithms.fulfilled]: (state, { payload: { algorithms, hasError } }) => {
             state.isFetching = false;
-            state.algorithms = action.payload.algorithms;
-            state.hasError = action.payload.hasError;
+            state.algorithms = algorithms;
+            state.hasError = hasError;
         },
         [fetchAlgorithms.rejected]: (state) => {
             state.isFetching = false;

@@ -7,6 +7,7 @@ import Register from "../account/Register";
 import Algorithms from "../algorithms";
 import Constructor from "../constructor";
 import Tests from "../tests";
+import ModalRoot from "../ModalRoot";
 import routes from "../../utils/routes";
 
 const AppContent = () => (
@@ -20,6 +21,7 @@ const AppContent = () => (
             <Route path={routes.constructor} component={Constructor}/>
             <PrivateRoute path={routes.tests} component={Tests}/>
         </Switch>
+        <ModalRoot/>
     </div>
 );
 

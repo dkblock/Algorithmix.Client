@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import Button, { buttonColors } from "../_common/Button";
+import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
 import { getImageSrc } from "../../utils/get-image-src";
 import { navigateToAlgorithm } from "../../utils/navigator";
@@ -16,7 +16,7 @@ const AlgorithmCard = ({ algorithm }) => {
             <Card.Img variant="top" src={getImageSrc(algorithm.imageUrl)}/>
             <Card.Body className="algorithm-card__body">
                 <div className="algorithm-card__button-container">
-                    <Button color={buttonColors.default} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
+                    <Button color={colors.default} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
                         Информация
                     </Button>
                     <Button startIcon={iconTypes.constructor}>Конструктор</Button>

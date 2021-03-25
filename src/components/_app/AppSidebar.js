@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Icon, { iconTypes } from "../_common/Icon";
+import { IconButton, iconTypes } from "../_common/Icon";
 import { useExecutiveRole } from "../../hooks";
 import { logout } from "../../store/actions/account";
 import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../utils/navigator";
@@ -20,7 +20,7 @@ const AppSidebar = () => {
     return (
         <div className="app-sidebar bg-light">
             <div className="app-sidebar__items">
-                <Icon
+                <IconButton
                     type={iconTypes.home}
                     tooltip="Главная"
                     tooltipPosition="right"
@@ -28,7 +28,7 @@ const AppSidebar = () => {
                     selected={isSelected(routes.home) || currentRoute === "/"}
                     onClick={navigateToHome}
                 />
-                <Icon
+                <IconButton
                     type={iconTypes.algorithms}
                     tooltip="Алгоритмы"
                     tooltipPosition="right"
@@ -36,7 +36,7 @@ const AppSidebar = () => {
                     selected={isSelected(routes.algorithms)}
                     onClick={navigateToAlgorithms}
                 />
-                <Icon
+                <IconButton
                     type={iconTypes.constructor}
                     tooltip="Конструктор"
                     tooltipPosition="right"
@@ -44,7 +44,7 @@ const AppSidebar = () => {
                     selected={isSelected(routes.constructor)}
                     onClick={navigateToConstructor}
                 />
-                <Icon
+                <IconButton
                     type={iconTypes.tests}
                     tooltip="Тесты"
                     tooltipPosition="right"
@@ -57,7 +57,7 @@ const AppSidebar = () => {
                     <>
                         <div className="app-sidebar__divider"/>
                         {isExecutive && (
-                            <Icon
+                            <IconButton
                                 type={iconTypes.delete}
                                 tooltip="Админ-панель"
                                 tooltipPosition="right"
@@ -66,7 +66,7 @@ const AppSidebar = () => {
                                 onClick={navigateToHome}
                             />
                         )}
-                        <Icon
+                        <IconButton
                             type={iconTypes.stats}
                             tooltip="Статистика"
                             tooltipPosition="right"
@@ -74,7 +74,7 @@ const AppSidebar = () => {
                             selected={isSelected("stats")}
                             onClick={navigateToHome}
                         />
-                        <Icon
+                        <IconButton
                             type={iconTypes.settings}
                             tooltip="Настройки"
                             tooltipPosition="right"
@@ -82,7 +82,7 @@ const AppSidebar = () => {
                             selected={isSelected("settings")}
                             onClick={navigateToHome}
                         />
-                        <Icon
+                        <IconButton
                             type={iconTypes.logout}
                             tooltip="Выйти"
                             tooltipPosition="right"

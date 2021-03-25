@@ -6,8 +6,8 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import { useAuth } from "../../hooks";
 import { logout } from "../../store/actions/account";
-import Button, { buttonColors } from "../_common/Button";
-import { ButtonIcon, iconTypes } from "../_common/Icon";
+import Button, { colors } from "../_common/Button";
+import { Icon, iconTypes } from "../_common/Icon";
 import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
 
 const AppHeader = () => {
@@ -32,7 +32,7 @@ const AppHeader = () => {
             <section className="app-header__section">
                 <Button
                     className="app-header__button"
-                    color={buttonColors.transparentBlack}
+                    color={colors.transparentBlack}
                     startIcon={iconTypes.home}
                     onClick={navigateToHome}
                 >
@@ -45,14 +45,14 @@ const AppHeader = () => {
                         <>
                             <Button
                                 className="app-header__button"
-                                color={buttonColors.transparentBlack}
+                                color={colors.transparentBlack}
                                 onClick={handleRegisterClick}
                             >
                                 Регистрация
                             </Button>
                             <Button
                                 className="app-header__button"
-                                color={buttonColors.transparentBlack}
+                                color={colors.transparentBlack}
                                 onClick={handleLoginClick}
                             >
                                 Войти
@@ -65,7 +65,7 @@ const AppHeader = () => {
                                 <>
                                     <Button
                                         className="app-header__button"
-                                        color={buttonColors.transparentBlack}
+                                        color={colors.transparentBlack}
                                         endIcon={iconTypes.account}
                                         onClick={handleMenuOpen}
                                     >
@@ -86,19 +86,19 @@ const AppHeader = () => {
                                             <div className="app-header__menu-divider"/>
                                             <MenuItem onClick={handleMenuClose}>
                                                 <ListItemIcon>
-                                                    <ButtonIcon type={iconTypes.stats}/>
+                                                    <Icon type={iconTypes.stats}/>
                                                 </ListItemIcon>
                                                 Статистика
                                             </MenuItem>
                                             <MenuItem onClick={handleMenuClose}>
                                                 <ListItemIcon>
-                                                    <ButtonIcon type={iconTypes.settings}/>
+                                                    <Icon type={iconTypes.settings}/>
                                                 </ListItemIcon>
                                                 Настройки
                                             </MenuItem>
                                             <MenuItem onClick={handleLogoutClick}>
                                                 <ListItemIcon>
-                                                    <ButtonIcon type={iconTypes.logout}/>
+                                                    <Icon type={iconTypes.logout}/>
                                                 </ListItemIcon>
                                                 Выйти
                                             </MenuItem>

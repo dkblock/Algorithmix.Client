@@ -12,14 +12,14 @@ const appSlice = createSlice({
     name: "appSlice",
     initialState: initialState,
     extraReducers: {
-        [auth.fulfilled]: (state, action) => {
-            state.isAuth = action.payload.isAuth;
+        [auth.fulfilled]: (state, { payload: { isAuth } }) => {
+            state.isAuth = isAuth;
         },
         [auth.rejected]: (state) => {
             state.isAuth = false;
         },
-        [login.fulfilled]: (state, action) => {
-            state.isAuth = action.payload.isAuth;
+        [login.fulfilled]: (state, { payload: { isAuth } }) => {
+            state.isAuth = isAuth;
         },
         [login.rejected]: (state) => {
             state.isAuth = false;
@@ -27,14 +27,14 @@ const appSlice = createSlice({
         [logout]: (state) => {
             state.isAuth = false;
         },
-        [register.fulfilled]: (state, action) => {
-            state.isAuth = action.payload.isAuth;
+        [register.fulfilled]: (state, { payload: { isAuth } }) => {
+            state.isAuth = isAuth;
         },
         [register.rejected]: (state) => {
             state.isAuth = false;
         },
-        [setHeader]: (state, action) => {
-            state.header = action.payload;
+        [setHeader]: (state, { payload: { header } }) => {
+            state.header = header;
         }
     }
 });

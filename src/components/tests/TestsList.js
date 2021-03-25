@@ -1,12 +1,21 @@
 import React from "react";
+import {useDispatch} from "react-redux";
 import { useExecutiveRole, useTitle } from "../../hooks";
-import Button, { buttonColors } from "../_common/Button";
+import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
 import TestsListItem from "./TestsListItem";
-import CreateTestModal from "./CreateTestModal";
+import { showModal } from "../../store/actions/modal";
+import modalTypes from "../../constants/modal-types";
+import { showCreateTestModal } from "../../store/actions/tests";
+
 
 const TestsList = ({ tests }) => {
+    const dispatch = useDispatch();
     const isExecutive = useExecutiveRole();
+
+    const handleCreateTestClick = () => {
+        showCreateTestModal(dispatch);
+    }
 
     useTitle("Тесты");
 
@@ -16,7 +25,7 @@ const TestsList = ({ tests }) => {
             <div className="tests-container__header">
                 <div>Тесты</div>
                 {isExecutive && (
-                    <Button color={buttonColors.success} startIcon={iconTypes.plus}>
+                    <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateTestClick}>
                         Новый тест
                     </Button>
                 )}

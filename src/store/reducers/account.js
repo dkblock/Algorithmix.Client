@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { auth, login, logout, register } from "../actions/account";
+import { showModal } from "../actions/modal";
 
 const initialState = {
     currentUser: {},
@@ -13,8 +14,8 @@ const accountSlice = createSlice({
         [auth.pending]: (state) => {
             state.isFetching = true;
         },
-        [auth.fulfilled]: (state, action) => {
-            state.currentUser = action.payload.currentUser;
+        [auth.fulfilled]: (state, { payload: { currentUser } }) => {
+            state.currentUser = currentUser;
             state.isFetching = false;
         },
         [auth.rejected]: (state) => {
@@ -23,8 +24,8 @@ const accountSlice = createSlice({
         [login.pending]: (state) => {
             state.isFetching = true;
         },
-        [login.fulfilled]: (state, action) => {
-            state.currentUser = action.payload.currentUser;
+        [login.fulfilled]: (state, { payload: { currentUser } }) => {
+            state.currentUser = currentUser;
             state.isFetching = false;
         },
         [login.rejected]: (state) => {
@@ -37,8 +38,8 @@ const accountSlice = createSlice({
         [register.pending]: (state) => {
             state.isFetching = true;
         },
-        [register.fulfilled]: (state, action) => {
-            state.currentUser = action.payload.currentUser;
+        [register.fulfilled]: (state, { payload: { currentUser } }) => {
+            state.currentUser = currentUser;
             state.isFetching = false;
         },
         [register.rejected]: (state) => {

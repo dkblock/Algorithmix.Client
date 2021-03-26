@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAlgorithms } from "../../store/actions/algorithms";
+import { useSelector } from "react-redux";
 import AlgorithmsGrid from "./AlgorithmsGrid";
 import AlgorithmDescription from "./AlgorithmDescription";
 import Loader from "../_common/Loader";
@@ -9,12 +8,7 @@ import routes from "../../utils/routes";
 import "./Algorithms.scss";
 
 const Algorithms = () => {
-    const dispatch = useDispatch();
-    const { algorithms, isFetching } = useSelector(state => state.algorithms);
-
-    useEffect(() => {
-        dispatch(fetchAlgorithms());
-    }, [dispatch]);
+    const { isFetching } = useSelector(state => state.algorithms);
 
     if (isFetching)
         return <Loader className="algorithms-page__loader" size="large"/>;
@@ -24,7 +18,7 @@ const Algorithms = () => {
             <Route
                 path={routes.algorithms}
                 exact
-                render={(props) => <AlgorithmsGrid algorithms={algorithms} {...props}/>}
+                render={(props) => <AlgorithmsGrid {...props}/>}
             />
             <Route
                 path={`${routes.algorithms}/:id`}

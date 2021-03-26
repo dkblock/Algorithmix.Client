@@ -5,7 +5,7 @@ import palette from "../../../styles/palette";
 
 const theme = createMuiTheme({ palette });
 
-const TextField = ({ className, label, type, value, error, helperText, onChange  }) => {
+const TextField = ({ className, label, type, value, error, helperText, onChange, onFocus, onFocusOut  }) => {
     const [fieldValue, setFieldValue] = useState(value);
 
     const handleChange = (event) => {
@@ -23,11 +23,13 @@ const TextField = ({ className, label, type, value, error, helperText, onChange 
                 error={error}
                 helperText={helperText}
                 label={label}
-                onChange={handleChange}
                 size="small"
                 type={type}
                 value={fieldValue}
                 variant="outlined"
+                onChange={handleChange}
+                onFocus={onFocus}
+                onBlur={onFocusOut}
                 InputLabelProps={{
                     shrink: true,
                 }}

@@ -1,12 +1,15 @@
 import React from "react";
-import AlgorithmCard from "./AlgorithmCard";
+import { useSelector } from "react-redux";
 import { useTitle } from "../../hooks";
+import AlgorithmCard from "./AlgorithmCard";
 
-const AlgorithmsGrid = ({ algorithms }) => {
+const AlgorithmsGrid = () => {
+    const { algorithms } = useSelector(state => state.algorithms);
+
     useTitle("Алгоритмы");
 
     if (!algorithms)
-        return;
+        return null;
 
     return (
         <div className="algorithms-grid">

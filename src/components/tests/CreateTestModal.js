@@ -1,39 +1,72 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button, { colors, buttonTypes } from "../_common/Button";
+import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createTest } from "../../store/actions/tests";
+import { CreateModal, modalSizes } from "../_common/Modal";
 import Dropdown from "../_common/Dropdown";
 import TextField from "../_common/TextField";
+import validator from "./utils/validator";
 
 const CreateTestModal = () => {
-    const { tests, isFetching } = useSelector(state => state.tests);
+    const dispatch = useDispatch();
+    const { algorithms } = useSelector(state => state.algorithms);
+    const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, name: algorithm.name }));
 
-    if (tests.length === 0)
-        return null;
+    const [name, setName] = useState("");
+    const [algorithmId, setAlgorithmId] = useState(algorithms[0]?.id);
+    const [validationErrors, setValidationErrors] = useState({});
+
+    const handleNameChange = useCallback((value) => {
+        setName(value);
+    }, []);
+
+    const handleAlgorithmIdChange = useCallback((value) => {
+        setAlgorithmId(value);
+    }, []);
+
+    const handleNameFocus = useCallback(() => {
+        setValidationErrors({ ...validationErrors, "name": null });
+    }, [validationErrors]);
+
+    const handleNameFocusOut = useCallback(() => {
+        const validationError = validator.validateName(name);
+        setValidationErrors({ ...validationErrors, "name": validationError });
+    }, [name, validationErrors]);
+
+    const handleCreate = useCallback(() => {
+        const test = { name, algorithmId };
+        const { isValid, validationErrors: nextValidationErrors } = validator.validateTest(test);
+
+        if (isValid)
+            dispatch(createTest(test));
+        else
+            setValidationErrors(nextValidationErrors);
+    }, [algorithmId, dispatch, name]);
 
     return (
-        <Dialog maxWidth="xs" fullWidth open>
-            <DialogTitle>Создание нового теста</DialogTitle>
-            <DialogContent dividers>
-                <TextField className="w-100 mb-4" label="Название теста" error helperText="aaa"/>
-                <Dropdown
-                    className="w-100"
-                    label="Алгоритм"
-                    value={tests[0].algorithm.name}
-                    items={tests.map((test) => test.algorithm.name)}
-                    onChange={() => {
-                    }}
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button type={buttonTypes.text}>Отмена</Button>
-                <Button color={colors.success}>Создать</Button>
-            </DialogActions>
-        </Dialog>
-    )
+        <CreateModal
+            title="Создание нового теста"
+            size={modalSizes.small}
+            onCreate={handleCreate}
+        >
+            <TextField
+                className="test-form__control"
+                label="Название теста"
+                error={Boolean(validationErrors.name)}
+                helperText={validationErrors.name}
+                value={name}
+                onChange={handleNameChange}
+                onFocus={handleNameFocus}
+                onFocusOut={handleNameFocusOut}
+            />
+            <Dropdown
+                className="test-form__control"
+                label="Алгоритм"
+                value={algorithmId}
+                items={algorithmItems}
+                onChange={handleAlgorithmIdChange}
+            />
+        </CreateModal>
+    );
 };
 
 export default CreateTestModal;

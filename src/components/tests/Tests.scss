@@ -5,7 +5,7 @@
   width: 100%;
 
   &__loader {
-    margin: 100px auto auto;
+    margin: auto;
   }
 }
 
@@ -29,25 +29,48 @@
   }
 }
 
-.tests-list {
+.test-list {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   overflow-y: auto;
   background-color: #fff;
   border-top: $panel-border;
   border-right: $panel-border;
 }
 
-.tests-list-item {
+.test-list-item {
   width: 100%;
-  padding-left: 10px;
+  padding-left: 15px;
   border-bottom: $panel-border !important;
-  border-left: 5px solid transparent!important;
-
 
   &:last-child {
+    padding-left: 10px;
     border-left: 5px solid #1976d2 !important;
     margin-bottom: 50px;
+  }
+
+  &__secondary {
+    visibility: hidden;
+
+    &--hovered {
+      visibility: visible;
+    }
+  }
+
+  &__secondary-menu {
+    padding: 5px 0;
+  }
+}
+
+.test-form {
+  &__control {
+    width: 100%;
+    margin-bottom: 30px !important;
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
   }
 }

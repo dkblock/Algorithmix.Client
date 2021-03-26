@@ -24,7 +24,7 @@ const Dropdown = ({ className, items, label, value, onChange }) => {
                 <InputLabel>{label}</InputLabel>
                 <Select label={label} value={dropdownValue} variant="outlined" size="small" onChange={handleChange}>
                     {items.map((item) => (
-                        <MenuItem key={`dropdown-item-${item}`} value={item}>{item}</MenuItem>
+                        <MenuItem key={`dropdown-item-${item.value}`} value={item.value}>{item.name}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

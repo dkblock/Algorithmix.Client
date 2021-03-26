@@ -1,9 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import Paper from "@material-ui/core/Paper";
 import { useTitle } from "../../hooks";
-import { fetchAlgorithms } from "../../store/actions/algorithms";
+import Paper from "@material-ui/core/Paper";
 import algorithmDescriptions from "./descriptions";
 
 const DescriptionComponent = (props) => {
@@ -17,17 +16,15 @@ const DescriptionComponent = (props) => {
 
 const AlgorithmDescription = () => {
     const params = useParams();
-    const dispatch = useDispatch();
-
-    const algorithm = useSelector(state => state.algorithms.algorithms.find(a => a.id === params.id));
-    const component = algorithmDescriptions[params.id];
+    const { algorithms } = useSelector(state => state.algorithms);
+    const algorithm = algorithms.find(a => a.id === params.id);
 
     useTitle(algorithm?.name);
 
-    if (!algorithm) {
-        dispatch(fetchAlgorithms());
+    if (!algorithm)
         return null;
-    }
+
+    const component = algorithmDescriptions[params.id];
 
     return (
         <Paper className="algorithm-description">

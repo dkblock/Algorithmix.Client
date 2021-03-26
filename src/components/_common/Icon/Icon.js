@@ -10,8 +10,7 @@ const Icon = ({ type }) => {
     return <SimpleIcon/>
 };
 
-const IconButton = (props) => {
-    const { type, selected, tooltip, tooltipPosition, tooltipWithMargin, onClick } = props;
+const IconButton = ({ type, selected, tooltip, tooltipPosition, tooltipWithMargin, onClick }) => {
     const Icon = <InnerIcon type={type} selected={selected} onClick={onClick}/>;
 
     if (tooltip)

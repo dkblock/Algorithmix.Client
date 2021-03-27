@@ -1,14 +1,16 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTest } from "../../store/actions/tests";
+import { createTest } from "../../store/actions/test";
 import { CreateModal, modalSizes } from "../_common/Modal";
 import Dropdown from "../_common/Dropdown";
 import TextField from "../_common/TextField";
-import validator from "./utils/validator";
+import validator from "../../utils/validator";
+
+const { validateName, validateTest } = validator.test;
 
 const CreateTestModal = () => {
     const dispatch = useDispatch();
-    const { algorithms } = useSelector(state => state.algorithms);
+    const { algorithms } = useSelector(state => state.algorithm);
     const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, name: algorithm.name }));
 
     const [name, setName] = useState("");
@@ -28,13 +30,13 @@ const CreateTestModal = () => {
     }, [validationErrors]);
 
     const handleNameFocusOut = useCallback(() => {
-        const validationError = validator.validateName(name);
+        const validationError = validateName(name);
         setValidationErrors({ ...validationErrors, "name": validationError });
     }, [name, validationErrors]);
 
     const handleCreate = useCallback(() => {
         const test = { name, algorithmId };
-        const { isValid, validationErrors: nextValidationErrors } = validator.validateTest(test);
+        const { isValid, validationErrors: nextValidationErrors } = validateTest(test);
 
         if (isValid)
             dispatch(createTest(test));

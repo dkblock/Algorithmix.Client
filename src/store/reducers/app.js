@@ -24,7 +24,7 @@ const appSlice = createSlice({
         [login.rejected]: (state) => {
             state.isAuth = false;
         },
-        [logout]: (state) => {
+        [logout.fulfilled]: (state) => {
             state.isAuth = false;
         },
         [register.fulfilled]: (state, { payload: { isAuth } }) => {

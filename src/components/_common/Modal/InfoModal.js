@@ -4,13 +4,14 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import Button, { colors, buttonTypes } from "../Button";
+import Typography from "@material-ui/core/Typography";
+import Button, { buttonTypes } from "../Button";
 import { IconButton, iconTypes } from "../Icon";
 import { hideModal } from "../../../store/actions/modal";
 import modalSizes from "../../../constants/modal-sizes";
 import "./Modal.scss";
 
-const CreateModal = ({ children, createButtonText = "Создать", size = modalSizes.small, title, onCreate }) => {
+const InfoModal = ({ infoText, okButtonText = "Ок", size = modalSizes.small, title, onSubmit }) => {
     const dispatch = useDispatch();
     const handleClose = () => dispatch(hideModal());
 
@@ -20,13 +21,15 @@ const CreateModal = ({ children, createButtonText = "Создать", size = mod
                 <h5>{title}</h5>
                 <IconButton type={iconTypes.close} onClick={handleClose}/>
             </DialogTitle>
-            <DialogContent className="modal-common__content"  dividers>{children}</DialogContent>
+            <DialogContent className="modal-common__content"  dividers>
+                <Typography>{infoText}</Typography>
+            </DialogContent>
             <DialogActions>
                 <Button type={buttonTypes.text} onClick={handleClose}>Отмена</Button>
-                <Button color={colors.success} onClick={onCreate}>{createButtonText}</Button>
+                <Button onClick={onSubmit}>{okButtonText}</Button>
             </DialogActions>
         </Dialog>
     );
 };
 
-export default CreateModal;
+export default InfoModal;

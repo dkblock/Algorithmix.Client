@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAlgorithms } from "../actions/algorithms";
+import { fetchAlgorithms } from "../actions/algorithm";
 
 const initialState = {
     algorithms: [],
@@ -7,8 +7,8 @@ const initialState = {
     hasError: false
 };
 
-const algorithmsSlice = createSlice({
-    name: "algorithmsSlice",
+const algorithmSlice = createSlice({
+    name: "algorithmSlice",
     initialState: initialState,
     extraReducers: {
         [fetchAlgorithms.pending]: (state) => {
@@ -27,4 +27,4 @@ const algorithmsSlice = createSlice({
     }
 });
 
-export default algorithmsSlice.reducer;
+export default algorithmSlice.reducer;

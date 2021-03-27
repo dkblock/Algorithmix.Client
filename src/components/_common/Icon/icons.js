@@ -12,7 +12,7 @@ const icons = {
     [iconTypes.info]: materialIcons.Info,
     [iconTypes.logout]: materialIcons.ExitToApp,
     [iconTypes.more]: materialIcons.MoreVert,
-    [iconTypes.plus]: materialIcons.AddBox,
+    [iconTypes.plus]: materialIcons.Add,
     [iconTypes.settings]: materialIcons.Settings,
     [iconTypes.stats]: materialIcons.Equalizer,
     [iconTypes.tests]: materialIcons.ListAlt

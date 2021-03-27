@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../hooks";
 import { auth } from "../../store/actions/account";
-import { fetchAlgorithms } from "../../store/actions/algorithms";
+import { fetchAlgorithms } from "../../store/actions/algorithm";
 import AppContent from "./AppContent";
 import AppSidebar from "./AppSidebar";
 

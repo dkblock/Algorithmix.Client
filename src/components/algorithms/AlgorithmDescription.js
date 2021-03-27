@@ -16,7 +16,7 @@ const DescriptionComponent = (props) => {
 
 const AlgorithmDescription = () => {
     const params = useParams();
-    const { algorithms } = useSelector(state => state.algorithms);
+    const { algorithms } = useSelector(state => state.algorithm);
     const algorithm = algorithms.find(a => a.id === params.id);
 
     useTitle(algorithm?.name);

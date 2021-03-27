@@ -5,18 +5,18 @@ import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
 import TestListItem from "./TestListItem";
 import Loader from "../_common/Loader";
-import { showCreateTestModal } from "../../store/actions/tests";
+import { showCreateTestModal } from "../../store/actions/test";
 
-const TestList = ({ tests }) => {
+const TestList = () => {
     const dispatch = useDispatch();
     const isExecutive = useExecutiveRole();
-    const { isFetching } = useSelector(state => state.tests);
+    const { tests, selectedTest, isFetching } = useSelector(state => state.test);
+
+    useTitle("Тесты");
 
     const handleCreateTestClick = () => {
         dispatch(showCreateTestModal());
     };
-
-    useTitle("Тесты");
 
     return (
         <div className="tests-container">
@@ -34,7 +34,11 @@ const TestList = ({ tests }) => {
                 {!isFetching && (
                     <ul>
                         {tests.map((test) => (
-                            <TestListItem key={test.id} test={test}/>
+                            <TestListItem
+                                key={test.id}
+                                test={test}
+                                isSelected={test.id === selectedTest.id}
+                            />
                         ))}
                     </ul>
                 )}

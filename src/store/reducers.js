@@ -1,17 +1,17 @@
 import { connectRouter } from "connected-react-router";
 import appReducer from "./reducers/app";
 import accountReducer from "./reducers/account";
-import algorithmsReducer from "./reducers/algorithms";
+import algorithmReducer from "./reducers/algorithm";
 import modalReducer from "./reducers/modal";
-import testsReducer from "./reducers/tests";
+import testReducer from "./reducers/test";
 
 const createRootReducer = (history) => ({
     router: connectRouter(history),
     app: appReducer,
     account: accountReducer,
-    algorithms: algorithmsReducer,
+    algorithm: algorithmReducer,
     modal: modalReducer,
-    tests: testsReducer
+    test: testReducer
 });
 
 export default createRootReducer;

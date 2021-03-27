@@ -1,7 +1,7 @@
 import api from "../api";
 import baseService from "./base-service";
 
-const testsQuestionsService = {
+const testsQuestionService = {
     fetchQuestions: async (testId) => {
         const url = api.tests.fetchTestQuestions(testId);
         return await baseService.get(url);
@@ -28,4 +28,4 @@ const testsQuestionsService = {
     }
 };
 
-export default testsQuestionsService;
+export default testsQuestionService;

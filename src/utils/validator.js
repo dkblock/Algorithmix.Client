@@ -1,7 +1,5 @@
-import { isEmptyString } from "../../../utils/is-empty-string";
-
 const validator = () => {
-    const validateName = (name) => {
+    const validateTestName = (name) => {
         if (isEmptyString(name))
             return "Введите название теста" ;
 
@@ -10,17 +8,21 @@ const validator = () => {
 
     const validateTest = (test) => {
         const validationErrors = {};
-        validationErrors.name = validateName(test.name);
+        validationErrors.name = validateTestName(test.name);
 
         return { isValid: isValid(validationErrors), validationErrors };
     };
+
+    const isEmptyString = (str) => !str || str.length === 0;
 
     const isValid = (validationErrors) =>
         Object.keys(validationErrors).filter((key) => validationErrors[key] !== null).length === 0;
 
     return {
-        validateName,
-        validateTest
+        test: {
+            validateName: validateTestName,
+            validateTest
+        }
     };
 };
 

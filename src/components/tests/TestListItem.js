@@ -1,17 +1,22 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Popover from "@material-ui/core/Popover";
+
 import { useExecutiveRole } from "../../hooks";
 import { Icon, IconButton, iconTypes } from "../_common/Icon";
+import { selectTest } from "../../store/actions/test";
 
-const TestListItem = ({ test }) => {
+const TestListItem = ({ test, isSelected }) => {
+    const dispatch = useDispatch();
     const isExecutive = useExecutiveRole();
     const [isHovered, setIsHovered] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
+    const selectedClass = isSelected ? "test-list-item--selected" : "";
 
     const handleMenuOpen = (e) => {
         e.stopPropagation();
@@ -33,12 +38,12 @@ const TestListItem = ({ test }) => {
     }, []);
 
     const handleClick = useCallback(() => {
-
+        dispatch(selectTest(test));
     }, []);
 
     return (
         <ListItem
-            className="test-list-item"
+            className={`test-list-item ${selectedClass}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}

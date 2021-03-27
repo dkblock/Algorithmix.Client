@@ -24,6 +24,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    width: 100%;
   }
 
   &__view {
@@ -35,6 +36,7 @@
   &__content {
     display: flex;
     flex: 1 1 auto;
+    width: 100%;
   }
 }
 

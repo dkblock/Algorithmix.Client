@@ -1,5 +1,6 @@
 const modalTypes = {
-    createTest: "createTest"
+    createTest: "createTest",
+    logout: "logout"
 };
 
 export default modalTypes;

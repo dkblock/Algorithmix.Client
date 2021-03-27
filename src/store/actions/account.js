@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import accountService from "../../api/services/account-service";
 import statusCode from "../../utils/status-code-reader";
 import { navigateToHome } from "../../utils/navigator";
@@ -9,6 +9,8 @@ import {
     setAccessToken,
     setCurrentUserId
 } from "../../utils/local-storage-manager";
+import { hideModal, showModal } from "./modal";
+import modalTypes from "../../constants/modal-types";
 
 export const auth = createAsyncThunk("auth", async () => {
     if (!getAccessToken())
@@ -30,12 +32,12 @@ export const login = createAsyncThunk("login", async (credentials) => {
     return loginResult;
 });
 
-export const logout = createAction("logout", () => {
+export const logout = createAsyncThunk("logout", (params, thunkAPI) => {
+    thunkAPI.dispatch(hideModal());
+
     clearAccessToken();
     clearCurrentUserId();
     navigateToHome();
-
-    return {};
 });
 
 export const register = createAsyncThunk("register", async (credentials) => {
@@ -48,6 +50,10 @@ export const register = createAsyncThunk("register", async (credentials) => {
     }
 
     return registerResult;
+});
+
+export const showLogoutModal = createAsyncThunk("showLogoutModal", (params, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.logout));
 });
 
 const checkAuth = async (response) => {

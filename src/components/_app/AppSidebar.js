@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IconButton, iconTypes } from "../_common/Icon";
 import { useExecutiveRole } from "../../hooks";
-import { logout } from "../../store/actions/account";
+import { showLogoutModal } from "../../store/actions/account";
 import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../utils/navigator";
 import routes from "../../utils/routes";
 
@@ -15,7 +15,7 @@ const AppSidebar = () => {
     const isExecutive = useExecutiveRole();
     const isSelected = (route) => currentRoute.includes(route);
 
-    const handleLogout = () => dispatch(logout());
+    const handleLogout = () => dispatch(showLogoutModal());
 
     return (
         <div className="app-sidebar bg-light">

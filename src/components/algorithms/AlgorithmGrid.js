@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useTitle } from "../../hooks";
 import AlgorithmCard from "./AlgorithmCard";
 
-const AlgorithmsGrid = () => {
-    const { algorithms } = useSelector(state => state.algorithms);
+const AlgorithmGrid = () => {
+    const { algorithms } = useSelector(state => state.algorithm);
 
     useTitle("Алгоритмы");
 
@@ -20,4 +20,4 @@ const AlgorithmsGrid = () => {
     );
 };
 
-export default AlgorithmsGrid;
+export default AlgorithmGrid;

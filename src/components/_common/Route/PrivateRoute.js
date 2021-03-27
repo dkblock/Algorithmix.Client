@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getAccessToken } from "../utils/local-storage-manager";
-import routes from "../utils/routes";
+import { useAuth } from "../../../hooks";
+import routes from "../../../utils/routes";
 
 const PrivateRoute = ({ component: Component, path, exact }) => {
-    const isLogin = !!getAccessToken();
+    const isAuth = useAuth();
 
     return (
         <Route
             path={path}
             exact={exact}
             render={(props) => (
-                isLogin
+                isAuth
                     ? <Component {...props}/>
                     : <Redirect to={routes.login}/>
             )}

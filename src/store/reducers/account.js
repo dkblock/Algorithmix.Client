@@ -1,50 +1,64 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { auth, login, logout, register } from "../actions/account";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
+import { authenticate, login, logout, register } from "../actions/account";
+import { getAccessToken } from "../../utils/local-storage-manager";
 
 const initialState = {
     currentUser: {},
-    isFetching: false
+    isAuthenticated: Boolean(getAccessToken()),
+    isFetching: true,
+    hasError: false
 };
 
 const accountSlice = createSlice({
     name: "accountSlice",
     initialState: initialState,
     extraReducers: {
-        [auth.pending]: (state) => {
-            state.isFetching = true;
+        [authenticate.pending]: (state) => {
+            onPendingDefault(state);
         },
-        [auth.fulfilled]: (state, { payload: { currentUser } }) => {
-            state.currentUser = currentUser;
-            state.isFetching = false;
+        [authenticate.fulfilled]: (state, { payload }) => {
+            onFulfilled(state, payload);
         },
-        [auth.rejected]: (state) => {
-            state.isFetching = false;
+        [authenticate.rejected]: (state) => {
+            onRejected(state);
         },
         [login.pending]: (state) => {
-            state.isFetching = true;
+            onPendingDefault(state);
         },
-        [login.fulfilled]: (state, { payload: { currentUser } }) => {
-            state.currentUser = currentUser;
-            state.isFetching = false;
+        [login.fulfilled]: (state, { payload }) => {
+            onFulfilled(state, payload);
         },
         [login.rejected]: (state) => {
-            state.isFetching = false;
+            onRejected(state);
         },
         [logout.fulfilled]: (state) => {
+            onFulfilledDefault(state);
             state.currentUser = {};
-            state.isFetching = false;
+            state.isAuthenticated = false;
         },
         [register.pending]: (state) => {
-            state.isFetching = true;
+            onPendingDefault(state);
         },
-        [register.fulfilled]: (state, { payload: { currentUser } }) => {
-            state.currentUser = currentUser;
-            state.isFetching = false;
+        [register.fulfilled]: (state, { payload }) => {
+            onFulfilled(state, payload);
         },
         [register.rejected]: (state) => {
-            state.isFetching = false;
+            onRejected(state);
         }
     }
 });
+
+const onFulfilled = (state, { currentUser, isAuthenticated }) => {
+    onFulfilledDefault(state);
+    state.currentUser = currentUser;
+    state.isAuthenticated = isAuthenticated;
+};
+
+const onRejected = (state) => {
+    onRejectedDefault(state);
+    state.currentUser = {};
+    state.isAuthenticated = false;
+};
 
 export default accountSlice.reducer;

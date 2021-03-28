@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useAuth } from "../../hooks";
-import { auth } from "../../store/actions/account";
+import { useCurrentUser } from "../../hooks";
+import { authenticate } from "../../store/actions/account";
 import { fetchAlgorithms } from "../../store/actions/algorithm";
 import AppContent from "./AppContent";
 import AppSidebar from "./AppSidebar";
 
 const App = () => {
     const dispatch = useDispatch();
-    const isAuth = useAuth();
+    const { isAuthenticated } = useCurrentUser();
     const { header } = useSelector(state => state.app);
 
     useEffect(() => {
-        dispatch(auth());
+        dispatch(authenticate());
         dispatch(fetchAlgorithms());
-    }, [dispatch, isAuth]);
+    }, [dispatch, isAuthenticated]);
 
     return (
         <div className="app">

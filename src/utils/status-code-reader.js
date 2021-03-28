@@ -1,19 +1,15 @@
-const statusCode = () => {
-    const ok = (response) => response.status === 200;
-    const created = (response) => response.status === 201;
-    const badRequest = (response) => response.status === 400;
-    const unauthorized = (response) => response.status === 401;
-    const forbidden = (response) => response.status === 403;
-    const internalServerError = (response) => response.status === 500;
+const statusCode = (response) => {
+    const checkStatusCode = (expected) => response.status === expected;
 
     return {
-        ok,
-        created,
-        badRequest,
-        unauthorized,
-        forbidden,
-        internalServerError
+        ok: checkStatusCode(200),
+        created: checkStatusCode(201),
+        noContent: checkStatusCode(204),
+        badRequest: checkStatusCode(400),
+        unauthorized: checkStatusCode(401),
+        forbidden: checkStatusCode(403),
+        internalServerError: checkStatusCode(500)
     };
 };
 
-export default statusCode();
+export default statusCode;

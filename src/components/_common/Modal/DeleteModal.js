@@ -4,6 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import Typography from "@material-ui/core/Typography";
 
 import Button, { colors, buttonTypes } from "../Button";
 import { IconButton, iconTypes } from "../Icon";
@@ -11,7 +12,7 @@ import { hideModal } from "../../../store/actions/modal";
 import modalSizes from "../../../constants/modal-sizes";
 import "./Modal.scss";
 
-const CreateModal = ({ children, createButtonText = "Создать", size = modalSizes.small, title, onCreate }) => {
+const DeleteModal = ({ deleteText, deleteButtonText = "Удалить", size = modalSizes.small, title, onDelete }) => {
     const dispatch = useDispatch();
     const handleClose = () => dispatch(hideModal());
 
@@ -21,13 +22,15 @@ const CreateModal = ({ children, createButtonText = "Создать", size = mod
                 <h5 className="modal-common__title">{title}</h5>
                 <IconButton type={iconTypes.close} onClick={handleClose}/>
             </DialogTitle>
-            <DialogContent className="modal-common__content"  dividers>{children}</DialogContent>
+            <DialogContent className="modal-common__content" dividers>
+                <Typography>{deleteText}</Typography>
+            </DialogContent>
             <DialogActions>
                 <Button type={buttonTypes.text} onClick={handleClose}>Отмена</Button>
-                <Button color={colors.success} onClick={onCreate}>{createButtonText}</Button>
+                <Button color={colors.danger} onClick={onDelete}>{deleteButtonText}</Button>
             </DialogActions>
         </Dialog>
     );
 };
 
-export default CreateModal;
+export default DeleteModal;

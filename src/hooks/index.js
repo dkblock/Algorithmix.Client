@@ -1,7 +1,7 @@
-import useAuthHook from "./useAuth";
+import useCurrentUserHook from "./useCurrentUser";
 import useExecutiveRoleHook from "./useExecutiveRole";
 import useTitleHook from "./useTitle";
 
-export const useAuth = useAuthHook;
+export const useCurrentUser = useCurrentUserHook;
 export const useExecutiveRole = useExecutiveRoleHook;
 export const useTitle = useTitleHook;

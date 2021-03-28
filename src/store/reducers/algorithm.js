@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import { fetchAlgorithms } from "../actions/algorithm";
 
 const initialState = {
@@ -12,17 +13,16 @@ const algorithmSlice = createSlice({
     initialState: initialState,
     extraReducers: {
         [fetchAlgorithms.pending]: (state) => {
-            state.isFetching = true;
+            onPendingDefault(state);
         },
         [fetchAlgorithms.fulfilled]: (state, { payload: { algorithms, hasError } }) => {
-            state.isFetching = false;
+            onFulfilledDefault(state);
             state.algorithms = algorithms;
             state.hasError = hasError;
         },
         [fetchAlgorithms.rejected]: (state) => {
-            state.isFetching = false;
+            onRejectedDefault(state);
             state.algorithms = [];
-            state.hasError = true;
         }
     }
 });

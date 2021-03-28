@@ -2,29 +2,23 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import accountService from "../../api/services/account-service";
 import statusCode from "../../utils/status-code-reader";
 import { navigateToHome } from "../../utils/navigator";
-import {
-    clearAccessToken,
-    clearCurrentUserId,
-    getAccessToken,
-    setAccessToken,
-    setCurrentUserId
-} from "../../utils/local-storage-manager";
+import { clearAccessToken, getAccessToken, setAccessToken, } from "../../utils/local-storage-manager";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const auth = createAsyncThunk("auth", async () => {
+export const authenticate = createAsyncThunk("authenticate", async () => {
     if (!getAccessToken())
-        return { currentUser: {}, isAuth: false };
+        return { currentUser: {}, isAuthenticated: false };
 
     const response = await accountService.auth();
-    return await checkAuth(response);
+    return await getAuthState(response);
 });
 
 export const login = createAsyncThunk("login", async (credentials) => {
     const response = await accountService.login(credentials);
-    const loginResult = await checkAuth(response);
+    const loginResult = await getAuthState(response);
 
-    if (loginResult.isAuth) {
+    if (loginResult.isAuthenticated) {
         navigateToHome();
         return loginResult;
     }
@@ -36,15 +30,14 @@ export const logout = createAsyncThunk("logout", (params, thunkAPI) => {
     thunkAPI.dispatch(hideModal());
 
     clearAccessToken();
-    clearCurrentUserId();
     navigateToHome();
 });
 
 export const register = createAsyncThunk("register", async (credentials) => {
     const response = await accountService.register(credentials);
-    const registerResult = await checkAuth(response);
+    const registerResult = await getAuthState(response);
 
-    if (registerResult.isAuth) {
+    if (registerResult.isAuthenticated) {
         navigateToHome();
         return registerResult;
     }
@@ -56,23 +49,15 @@ export const showLogoutModal = createAsyncThunk("showLogoutModal", (params, thun
     thunkAPI.dispatch(showModal(modalTypes.logout));
 });
 
-const checkAuth = async (response) => {
-    if (statusCode.ok(response)) {
+const getAuthState = async (response) => {
+    if (statusCode(response).ok) {
         const responseResult = await response.json();
-        const accessToken = responseResult.accessToken;
-        const userId = responseResult.currentUser.id;
+        const { accessToken, currentUser } = responseResult;
 
         setAccessToken(accessToken);
-        setCurrentUserId(userId);
 
-        return {
-            currentUser: responseResult.currentUser,
-            isAuth: true
-        };
+        return { currentUser, isAuthenticated: true };
     }
 
-    return {
-        currentUser: {},
-        isAuth: false
-    };
+    return { currentUser: {}, isAuthenticated: false };
 };

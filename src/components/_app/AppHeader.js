@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Popover from "@material-ui/core/Popover";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
-import { useAuth } from "../../hooks";
+import { useCurrentUser } from "../../hooks";
 import { logout } from "../../store/actions/account";
 import Button, { colors } from "../_common/Button";
 import { Icon, iconTypes } from "../_common/Icon";
@@ -12,9 +12,7 @@ import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils
 
 const AppHeader = () => {
     const dispatch = useDispatch();
-    const isAuth = useAuth();
-
-    const { currentUser, isFetching } = useSelector(state => state.account);
+    const { currentUser, isAuthenticated, isFetching } = useCurrentUser();
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
@@ -40,7 +38,7 @@ const AppHeader = () => {
                 </Button>
             </section>
             <section className="app-header__section">
-                {!isAuth
+                {!isAuthenticated
                     ? (
                         <>
                             <Button

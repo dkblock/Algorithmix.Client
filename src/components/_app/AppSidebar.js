@@ -10,7 +10,7 @@ const AppSidebar = () => {
     const dispatch = useDispatch();
 
     const currentRoute = useSelector(state => state.router.location.pathname);
-    const { isAuth } = useSelector(state => state.app);
+    const { isAuthenticated } = useSelector(state => state.account);
 
     const isExecutive = useExecutiveRole();
     const isSelected = (route) => currentRoute.includes(route);
@@ -53,7 +53,7 @@ const AppSidebar = () => {
                     onClick={navigateToTests}
                 />
 
-                {isAuth && (
+                {isAuthenticated && (
                     <>
                         <div className="app-sidebar__divider"/>
                         {isExecutive && (

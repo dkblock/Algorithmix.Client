@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/actions/account";
-import InfoModal from "../_common/Modal/InfoModal";
+import { InfoModal } from "../_common/Modal";
 
 const LogoutModal = () => {
     const dispatch = useDispatch();

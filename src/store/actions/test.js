@@ -7,7 +7,7 @@ import modalTypes from "../../constants/modal-types";
 export const fetchTests = createAsyncThunk("fetchTests", async () => {
     const response = await testService.fetchTests();
 
-    if (statusCode.ok(response)) {
+    if (statusCode(response).ok) {
         const tests = await response.json();
         return { tests, hasError: false };
     }
@@ -19,7 +19,7 @@ export const createTest = createAsyncThunk("createTest", async (test, thunkAPI) 
     thunkAPI.dispatch(hideModal());
     const response = await testService.createTest(test);
 
-    if (statusCode.created(response)) {
+    if (statusCode(response).created) {
         const createdTest = await response.json();
         return { test: createdTest, hasError: false };
     }
@@ -27,8 +27,22 @@ export const createTest = createAsyncThunk("createTest", async (test, thunkAPI) 
     return { test: null, hasError: true };
 });
 
+export const deleteTest = createAsyncThunk("deleteTest", async (testId, thunkAPI) => {
+    thunkAPI.dispatch(hideModal());
+    const response = await testService.deleteTest(testId);
+
+    if (statusCode(response).noContent)
+        return { testId, isDeleted: true };
+
+    return { isDeleted: false };
+})
+
 export const selectTest = createAction("selectTest", (test) => ({ payload: { test } }))
 
 export const showCreateTestModal = createAsyncThunk("showCreateTestModal", async (params, thunkAPI) => {
     thunkAPI.dispatch(showModal(modalTypes.createTest));
+});
+
+export const showDeleteTestModal = createAsyncThunk("showDeleteTestModal", async (test, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.deleteTest, { test }));
 });

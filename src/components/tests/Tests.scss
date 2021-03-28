@@ -1,25 +1,54 @@
 @import "../../styles/_variables";
 
-.tests-page {
+.test-page {
   display: flex;
   width: 100%;
-
-  &__loader {
-    margin: auto;
-  }
 }
 
-.tests-container {
+.test-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.test-list {
   display: flex;
   flex-direction: column;
-  width: 35%;
-  min-height: 100%;
+  width: 60%;
+  max-height: 100%;
   height: calc(100vh - 100px);
+
+  &__content {
+    display: flex;
+    background-color: #fff;
+    max-height: 100%;
+    height: calc(100vh - 170px);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    max-height: 100%;
+    overflow-y: auto;
+    margin-bottom: 0;
+  }
+
+  &__filter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    border-right: $panel-border;
+  }
 
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    height: 70px;
     background-color: #fff;
     padding: 20px;
     border-top: $panel-border;
@@ -27,17 +56,10 @@
     font-size: 20px;
     font-weight: 600;
   }
-}
 
-.test-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  background-color: #fff;
-  border-top: $panel-border;
-  border-right: $panel-border;
+  &__loader {
+    margin: auto;
+  }
 }
 
 .test-list-item {
@@ -64,6 +86,34 @@
 
   &__secondary-menu {
     padding: 5px 0;
+  }
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-height: 100%;
+  width: 40%;
+  margin: 18px;
+  padding: 24px;
+  gap: 10px;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+
+    &--description {
+      width: 60%;
+    }
+
+    &--image {
+      width: 40%;
+    }
+  }
+
+  &__image {
+    width: 100%;
   }
 }
 

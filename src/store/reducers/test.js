@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createTest, fetchTests, selectTest } from "../actions/test";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
+import { createTest, deleteTest, fetchTests, selectTest } from "../actions/test";
 
 const initialState = {
     tests: [],
@@ -13,10 +14,10 @@ const testSlice = createSlice({
     initialState: initialState,
     extraReducers: {
         [fetchTests.pending]: (state) => {
-            state.isFetching = true;
+            onPendingDefault(state);
         },
         [fetchTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
-            state.isFetching = false;
+            onFulfilledDefault(state);
             state.tests = tests;
             state.hasError = hasError;
 
@@ -24,29 +25,43 @@ const testSlice = createSlice({
                 state.selectedTest = tests[0];
         },
         [fetchTests.rejected]: (state) => {
-            state.isFetching = false;
+            onRejectedDefault(state);
             state.tests = [];
             state.selectedTest = null;
-            state.hasError = true;
         },
         [createTest.pending]: (state) => {
-            state.isFetching = true;
+            onPendingDefault(state);
         },
         [createTest.fulfilled]: (state, { payload: { test, hasError } }) => {
+            onFulfilledDefault(state);
+
             if (Boolean(test)) {
                 state.tests = [test, ...state.tests];
                 state.selectedTest = test;
             }
 
-            state.isFetching = false;
             state.hasError = hasError;
         },
         [createTest.rejected]: (state) => {
-            state.isFetching = false;
-            state.hasError = true;
+            onRejectedDefault(state);
         },
-        [selectTest]: (state, { payload }) => {
-            state.selectedTest = payload.test;
+        [deleteTest.pending]: (state) => {
+            onPendingDefault(state);
+        },
+        [deleteTest.fulfilled]: (state, { payload: { testId, isDeleted } }) => {
+            onFulfilledDefault(state);
+
+            if (isDeleted)
+                state.tests = state.tests.filter((test) => test.id !== testId);
+
+            if (state.selectedTest.id === testId)
+                state.selectedTest = state.tests[0];
+        },
+        [deleteTest.rejected]: (state) => {
+            onRejectedDefault(state);
+        },
+        [selectTest]: (state, { payload: { test } }) => {
+            state.selectedTest = test;
         }
     }
 });

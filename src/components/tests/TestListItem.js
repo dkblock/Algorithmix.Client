@@ -10,6 +10,7 @@ import Popover from "@material-ui/core/Popover";
 import { useExecutiveRole } from "../../hooks";
 import { Icon, IconButton, iconTypes } from "../_common/Icon";
 import { selectTest } from "../../store/actions/test";
+import { showDeleteTestModal } from "../../store/actions/test";
 
 const TestListItem = ({ test, isSelected }) => {
     const dispatch = useDispatch();
@@ -39,7 +40,12 @@ const TestListItem = ({ test, isSelected }) => {
 
     const handleClick = useCallback(() => {
         dispatch(selectTest(test));
-    }, []);
+    }, [dispatch, test]);
+
+    const handleTestDelete = useCallback((e) => {
+        handleMenuClose(e);
+        dispatch(showDeleteTestModal(test));
+    }, [dispatch, test]);
 
     return (
         <ListItem
@@ -78,7 +84,7 @@ const TestListItem = ({ test, isSelected }) => {
                                 </ListItemIcon>
                                 Редактировать
                             </MenuItem>
-                            <MenuItem onClick={handleMenuClose}>
+                            <MenuItem onClick={handleTestDelete}>
                                 <ListItemIcon>
                                     <Icon type={iconTypes.delete}/>
                                 </ListItemIcon>

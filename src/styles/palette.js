@@ -1,4 +1,10 @@
 const palette = {
+    danger: {
+        light: "#e33371",
+        main: "#dc004e",
+        dark: "#9a0036",
+        contrastText: "#fff"
+    },
     default: {
         light: "#F5F5F5",
         main: "#EEEEEE",

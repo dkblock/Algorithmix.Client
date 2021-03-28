@@ -1,10 +1,14 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useExecutiveRole } from "../../../hooks";
+import { useCurrentUser, useExecutiveRole } from "../../../hooks";
 import routes from "../../../utils/routes";
 
-const ExecutiveRoute = ({ component: Component, path, exact }) => {
+const ExecutiveRoute = ({ render, path, exact }) => {
+    const { isFetching } = useCurrentUser();
     const isExecutive = useExecutiveRole();
+
+    if (isFetching)
+        return null;
 
     return (
         <Route
@@ -12,7 +16,7 @@ const ExecutiveRoute = ({ component: Component, path, exact }) => {
             exact={exact}
             render={(props) => (
                 isExecutive
-                    ? <Component {...props}/>
+                    ? render(props)
                     : <Redirect to={routes.login}/>
             )}
         />

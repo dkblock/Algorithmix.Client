@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import useCurrentUser from "./useCurrentUser";
 
 const useExecutiveRole = () => {
-    const { role } = useSelector(state => state.account.currentUser);
+    const { currentUser: { role } } = useCurrentUser();
     return role === "admin" || role === "moderator";
 };
 

@@ -5,6 +5,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Typography from "@material-ui/core/Typography";
+
 import Button, { buttonTypes } from "../Button";
 import { IconButton, iconTypes } from "../Icon";
 import { hideModal } from "../../../store/actions/modal";
@@ -17,8 +18,8 @@ const InfoModal = ({ infoText, okButtonText = "Ок", size = modalSizes.small, t
 
     return (
         <Dialog maxWidth={size} onClose={handleClose} fullWidth open>
-            <DialogTitle className="modal-common__title" disableTypography>
-                <h5>{title}</h5>
+            <DialogTitle className="modal-common__header" disableTypography>
+                <h5 className="modal-common__title">{title}</h5>
                 <IconButton type={iconTypes.close} onClick={handleClose}/>
             </DialogTitle>
             <DialogContent className="modal-common__content"  dividers>

@@ -8,6 +8,9 @@ const TestFilter = () => {
     return (
         <div className="test-list__filter">
             <Switch label="Только выполненные" checked={true} onChange={() => {}}/>
+            <Switch label="Только выполненные" checked={true} onChange={() => {}}/>
+            <Switch label="Только выполненные" checked={true} onChange={() => {}}/>
+            <Switch label="Только выполненные" checked={true} onChange={() => {}}/>
         </div>
     );
 };

@@ -22,7 +22,7 @@ const Switch = ({ checked, label, onChange }) => {
                 control={
                     <MuiSwitch
                         checked={isChecked}
-                        color={colors.success}
+                        color={colors.primary}
                         onChange={handleChange}
                     />
                 }

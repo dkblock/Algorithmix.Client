@@ -11,6 +11,7 @@ import { useExecutiveRole } from "../../hooks";
 import { Icon, IconButton, iconTypes } from "../_common/Icon";
 import { selectTest } from "../../store/actions/test";
 import { showDeleteTestModal } from "../../store/actions/test";
+import { navigateToTestEdit } from "../../utils/navigator";
 
 const TestListItem = ({ test, isSelected }) => {
     const dispatch = useDispatch();
@@ -46,6 +47,11 @@ const TestListItem = ({ test, isSelected }) => {
         handleMenuClose(e);
         dispatch(showDeleteTestModal(test));
     }, [dispatch, test]);
+    
+    const handleTestEdit = useCallback((e) => {
+        handleMenuClose(e);
+        navigateToTestEdit(test.id);
+    }, [test.id]);
 
     return (
         <ListItem
@@ -78,7 +84,7 @@ const TestListItem = ({ test, isSelected }) => {
                         transformOrigin={{ vertical: "top", horizontal: "right", }}
                     >
                         <div className="test-list-item__secondary-menu">
-                            <MenuItem onClick={handleMenuClose}>
+                            <MenuItem onClick={handleTestEdit}>
                                 <ListItemIcon>
                                     <Icon type={iconTypes.edit}/>
                                 </ListItemIcon>

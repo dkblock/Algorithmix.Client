@@ -6,7 +6,7 @@ import AlgorithmCard from "./AlgorithmCard";
 const AlgorithmGrid = () => {
     const { algorithms } = useSelector(state => state.algorithm);
 
-    useTitle("Алгоритмы");
+    useTitle("Алгоритмы и структуры данных");
 
     if (!algorithms)
         return null;

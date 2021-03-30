@@ -34,7 +34,7 @@ const AppHeader = () => {
                     startIcon={iconTypes.home}
                     onClick={navigateToHome}
                 >
-                    Visual Algorithms
+                    Algorithmix
                 </Button>
             </section>
             <section className="app-header__section">

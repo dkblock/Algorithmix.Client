@@ -14,7 +14,7 @@
 .test-list {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 50%;
   max-height: 100%;
   height: calc(100vh - 100px);
 
@@ -22,13 +22,14 @@
     display: flex;
     background-color: #fff;
     max-height: 100%;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 100px);
+    border-top: $panel-border;
   }
 
   &__items {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 65%;
     max-height: 100%;
     overflow-y: auto;
     margin-bottom: 0;
@@ -37,9 +38,8 @@
   &__filter {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40%;
+    width: 35%;
+    padding: 12px 18px;
     border-right: $panel-border;
   }
 
@@ -59,6 +59,34 @@
 
   &__loader {
     margin: auto;
+  }
+}
+
+.test-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-height: 100%;
+  width: 50%;
+  margin: 18px;
+  padding: 24px;
+  gap: 10px;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+
+    &--description {
+      width: 60%;
+    }
+
+    &--image {
+      width: 40%;
+    }
+  }
+
+  &__image {
+    width: 100%;
   }
 }
 
@@ -86,34 +114,6 @@
 
   &__secondary-menu {
     padding: 5px 0;
-  }
-}
-
-.test-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  max-height: 100%;
-  width: 40%;
-  margin: 18px;
-  padding: 24px;
-  gap: 10px;
-
-  &__section {
-    display: flex;
-    flex-direction: column;
-
-    &--description {
-      width: 60%;
-    }
-
-    &--image {
-      width: 40%;
-    }
-  }
-
-  &__image {
-    width: 100%;
   }
 }
 

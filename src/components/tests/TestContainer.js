@@ -20,14 +20,14 @@ const TestContainer = () => {
     return (
         <div className="test-container">
             <div className="test-list">
-                <div className="test-list__header">
-                    Тесты
-                    {isExecutive && (
-                        <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateTest}>
-                            Новый тест
-                        </Button>
-                    )}
-                </div>
+                {/*<div className="test-list__header">*/}
+                {/*    Тесты*/}
+                {/*    {isExecutive && (*/}
+                {/*        <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateTest}>*/}
+                {/*            Новый тест*/}
+                {/*        </Button>*/}
+                {/*    )}*/}
+                {/*</div>*/}
                 <div className="test-list__content">
                     <TestFilter/>
                     <TestListItems/>

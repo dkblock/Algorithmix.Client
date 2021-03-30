@@ -4,7 +4,7 @@ import { useTitle } from "../../hooks";
 import "./Home.scss";
 
 const HomePage = () => {
-    useTitle("Visual Algorithms");
+    useTitle("Algorithmix");
     return <Home/>;
 };
 

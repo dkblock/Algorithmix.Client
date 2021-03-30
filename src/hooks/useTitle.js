@@ -6,10 +6,10 @@ const useTitle = (title) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (title === "Visual Algorithms")
-            document.title = "Главная - Visual Algorithms";
+        if (title === "Algorithmix")
+            document.title = "Главная - Algorithmix";
         else
-            document.title = `${title} - Visual Algorithms`;
+            document.title = `${title} - Algorithmix`;
 
         dispatch(setHeader(title));
     }, [dispatch, title]);

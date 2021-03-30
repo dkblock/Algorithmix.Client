@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { setHeader } from "../actions/app";
 
 const initialState = {
-    header: "Visual Algorithms"
+    header: "Algorithmix"
 };
 
 const appSlice = createSlice({

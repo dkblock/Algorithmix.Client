@@ -1,6 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import { getImageSrc } from "../../utils/get-image-src";
+import { getImageSrc } from "../../../utils/get-image-src";
 
 const TestInfo = ({ test }) => {
     if (!test)

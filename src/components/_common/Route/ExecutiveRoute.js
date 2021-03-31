@@ -1,7 +1,7 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
+import Redirect, { routes } from "./Redirect";
 import { useCurrentUser, useExecutiveRole } from "../../../hooks";
-import routes from "../../../utils/routes";
 
 const ExecutiveRoute = ({ render, path, exact }) => {
     const { isFetching } = useCurrentUser();

@@ -22,7 +22,7 @@ const DeleteModal = ({ deleteText, deleteButtonText = "Удалить", size = m
                 <h5 className="modal-common__title">{title}</h5>
                 <IconButton type={iconTypes.close} onClick={handleClose}/>
             </DialogTitle>
-            <DialogContent className="modal-common__content" dividers>
+            <DialogContent className="modal-common__content">
                 <Typography>{deleteText}</Typography>
             </DialogContent>
             <DialogActions>

@@ -23,6 +23,7 @@ const accountSlice = createSlice({
         [authenticate.rejected]: (state) => {
             onRejected(state);
         },
+
         [login.pending]: (state) => {
             onPendingDefault(state);
         },
@@ -32,11 +33,13 @@ const accountSlice = createSlice({
         [login.rejected]: (state) => {
             onRejected(state);
         },
+
         [logout.fulfilled]: (state) => {
             onFulfilledDefault(state);
             state.currentUser = {};
             state.isAuthenticated = false;
         },
+
         [register.pending]: (state) => {
             onPendingDefault(state);
         },
@@ -50,7 +53,7 @@ const accountSlice = createSlice({
 });
 
 const onFulfilled = (state, { currentUser, isAuthenticated }) => {
-    onFulfilledDefault(state);
+    onFulfilledDefault(state, isAuthenticated);
     state.currentUser = currentUser;
     state.isAuthenticated = isAuthenticated;
 };

@@ -6,6 +6,11 @@ const useTitle = (title) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if (!title) {
+            document.title = "Algorithmix";
+            return;
+        }
+
         if (title === "Algorithmix")
             document.title = "Главная - Algorithmix";
         else

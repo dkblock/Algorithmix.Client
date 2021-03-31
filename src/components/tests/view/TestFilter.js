@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Switch from "../_common/Switch";
+import Switch from "../../_common/Switch";
 
 const TestFilter = () => {
     const dispatch = useDispatch();

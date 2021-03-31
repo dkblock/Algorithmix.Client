@@ -16,9 +16,8 @@ const algorithmSlice = createSlice({
             onPendingDefault(state);
         },
         [fetchAlgorithms.fulfilled]: (state, { payload: { algorithms, hasError } }) => {
-            onFulfilledDefault(state);
+            onFulfilledDefault(state, hasError);
             state.algorithms = algorithms;
-            state.hasError = hasError;
         },
         [fetchAlgorithms.rejected]: (state) => {
             onRejectedDefault(state);

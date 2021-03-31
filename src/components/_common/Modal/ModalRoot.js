@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CreateTestModal from "../../tests/CreateTestModal";
-import DeleteTestModal from "../../tests/DeleteTestModal";
+import CreateTestModal from "../../tests/view/CreateTestModal";
+import DeleteTestModal from "../../tests/view/DeleteTestModal";
 import LogoutModal from "../../_app/LogoutModal";
 import modalTypes from "../../../constants/modal-types";
 

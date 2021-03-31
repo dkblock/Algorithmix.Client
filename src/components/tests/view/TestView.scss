@@ -1,11 +1,6 @@
-@import "../../styles/_variables";
+@import "../../../styles/variables";
 
-.test-page {
-  display: flex;
-  width: 100%;
-}
-
-.test-container {
+.test-view {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -29,7 +24,7 @@
   &__items {
     display: flex;
     flex-direction: column;
-    width: 65%;
+    width: 60%;
     max-height: 100%;
     overflow-y: auto;
     margin-bottom: 0;
@@ -38,7 +33,7 @@
   &__filter {
     display: flex;
     flex-direction: column;
-    width: 35%;
+    width: 40%;
     padding: 12px 18px;
     border-right: $panel-border;
   }
@@ -92,12 +87,12 @@
 
 .test-list-item {
   width: 100%;
-  padding-left: 25px !important;
+  padding-left: 26px !important;
   border-bottom: $panel-border !important;
 
   &--selected {
     padding-left: 20px !important;
-    border-left: 5px solid #1976d2 !important;
+    border-left: 6px solid #1976d2 !important;
   }
 
   &:last-child {
@@ -127,3 +122,4 @@
     }
   }
 }
+

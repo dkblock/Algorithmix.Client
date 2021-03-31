@@ -3,9 +3,9 @@ export const onPendingDefault = (state) => {
     state.hasError = false;
 };
 
-export const onFulfilledDefault = (state) => {
+export const onFulfilledDefault = (state, hasError) => {
     state.isFetching = false;
-    state.hasError = false;
+    state.hasError = hasError;
 };
 
 export const onRejectedDefault = (state) => {

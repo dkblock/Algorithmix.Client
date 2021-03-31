@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { showModal, hideModal } from "./modal";
+import { navigateToTestEdit } from "../../utils/navigator";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
@@ -21,10 +22,11 @@ export const createTest = createAsyncThunk("createTest", async (test, thunkAPI) 
 
     if (statusCode(response).created) {
         const createdTest = await response.json();
+        navigateToTestEdit(createdTest.id);
         return { test: createdTest, hasError: false };
     }
 
-    return { test: null, hasError: true };
+    return { hasError: true };
 });
 
 export const deleteTest = createAsyncThunk("deleteTest", async (testId, thunkAPI) => {
@@ -32,9 +34,9 @@ export const deleteTest = createAsyncThunk("deleteTest", async (testId, thunkAPI
     const response = await testService.deleteTest(testId);
 
     if (statusCode(response).noContent)
-        return { testId, isDeleted: true };
+        return { testId, hasError: false };
 
-    return { isDeleted: false };
+    return { hasError: true };
 })
 
 export const selectTest = createAction("selectTest", (test) => ({ payload: { test } }))

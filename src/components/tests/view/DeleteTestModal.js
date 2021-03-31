@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTest } from "../../store/actions/test";
-import { DeleteModal } from "../_common/Modal";
+import { deleteTest } from "../../../store/actions/test";
+import { DeleteModal } from "../../_common/Modal";
 
 const DeleteTestModal = () => {
     const dispatch = useDispatch();

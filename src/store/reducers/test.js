@@ -17,9 +17,8 @@ const testSlice = createSlice({
             onPendingDefault(state);
         },
         [fetchTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
-            onFulfilledDefault(state);
+            onFulfilledDefault(state, hasError);
             state.tests = tests;
-            state.hasError = hasError;
 
             if (!state.selectedTest)
                 state.selectedTest = tests[0];
@@ -29,37 +28,39 @@ const testSlice = createSlice({
             state.tests = [];
             state.selectedTest = null;
         },
+
         [createTest.pending]: (state) => {
             onPendingDefault(state);
         },
         [createTest.fulfilled]: (state, { payload: { test, hasError } }) => {
-            onFulfilledDefault(state);
+            onFulfilledDefault(state, hasError);
 
-            if (Boolean(test)) {
+            if (!hasError) {
                 state.tests = [test, ...state.tests];
                 state.selectedTest = test;
             }
-
-            state.hasError = hasError;
         },
         [createTest.rejected]: (state) => {
             onRejectedDefault(state);
         },
+
         [deleteTest.pending]: (state) => {
             onPendingDefault(state);
         },
-        [deleteTest.fulfilled]: (state, { payload: { testId, isDeleted } }) => {
-            onFulfilledDefault(state);
+        [deleteTest.fulfilled]: (state, { payload: { testId, hasError } }) => {
+            onFulfilledDefault(state, hasError);
 
-            if (isDeleted)
+            if (!hasError) {
                 state.tests = state.tests.filter((test) => test.id !== testId);
 
-            if (state.selectedTest.id === testId)
-                state.selectedTest = state.tests[0];
+                if (state.selectedTest.id === testId)
+                    state.selectedTest = state.tests[0];
+            }
         },
         [deleteTest.rejected]: (state) => {
             onRejectedDefault(state);
         },
+
         [selectTest]: (state, { payload: { test } }) => {
             state.selectedTest = test;
         }

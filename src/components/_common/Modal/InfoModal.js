@@ -22,7 +22,7 @@ const InfoModal = ({ infoText, okButtonText = "Ок", size = modalSizes.small, t
                 <h5 className="modal-common__title">{title}</h5>
                 <IconButton type={iconTypes.close} onClick={handleClose}/>
             </DialogTitle>
-            <DialogContent className="modal-common__content"  dividers>
+            <DialogContent className="modal-common__content">
                 <Typography>{infoText}</Typography>
             </DialogContent>
             <DialogActions>

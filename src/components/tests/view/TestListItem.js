@@ -7,11 +7,11 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Popover from "@material-ui/core/Popover";
 
-import { useExecutiveRole } from "../../hooks";
-import { Icon, IconButton, iconTypes } from "../_common/Icon";
-import { selectTest } from "../../store/actions/test";
-import { showDeleteTestModal } from "../../store/actions/test";
-import { navigateToTestEdit } from "../../utils/navigator";
+import { useExecutiveRole } from "../../../hooks";
+import { Icon, IconButton, iconTypes } from "../../_common/Icon";
+import { selectTest } from "../../../store/actions/test";
+import { showDeleteTestModal } from "../../../store/actions/test";
+import { navigateToTestEdit } from "../../../utils/navigator";
 
 const TestListItem = ({ test, isSelected }) => {
     const dispatch = useDispatch();

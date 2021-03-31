@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import TestListItem from "./TestListItem";
-import Loader from "../_common/Loader";
+import Loader from "../../_common/Loader";
 
 const TestListItems = () => {
     const { tests, selectedTest, isFetching } = useSelector(state => state.test);

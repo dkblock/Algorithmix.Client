@@ -1,31 +1,31 @@
 import api from "../api";
 import baseService from "./base-service";
 
-const testsQuestionService = {
+const testQuestionService = {
     fetchQuestions: async (testId) => {
-        const url = api.tests.fetchTestQuestions(testId);
+        const url = api.testQuestions.fetchTestQuestions(testId);
         return await baseService.get(url);
     },
 
     fetchQuestion: async (testId, questionId) => {
-        const url = api.tests.fetchTestQuestion(testId, questionId);
+        const url = api.testQuestions.fetchTestQuestion(testId, questionId);
         return await baseService.get(url);
     },
 
     createQuestion: async (testId, createdQuestion) => {
-        const url = api.tests.createTest();
+        const url = api.testQuestions.createTestQuestion(testId);
         return await baseService.post(url, createdQuestion);
     },
 
     deleteQuestion: async (testId, questionId) => {
-        const url = api.tests.deleteTestQuestion(testId, questionId);
+        const url = api.testQuestions.deleteTestQuestion(testId, questionId);
         return await baseService.delete(url);
     },
 
     updateQuestion: async (testId, questionId, updatedQuestion) => {
-        const url = api.tests.updateTestQuestion(testId, questionId);
+        const url = api.testQuestions.updateTestQuestion(testId, questionId);
         return await baseService.put(url, updatedQuestion);
     }
 };
 
-export default testsQuestionService;
+export default testQuestionService;

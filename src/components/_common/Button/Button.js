@@ -1,6 +1,6 @@
 import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { Button as MuiButton } from "@material-ui/core";
+import MuiButton from "@material-ui/core/Button";
 import { Icon } from "../Icon";
 import buttonTypes from "../../../constants/button-types";
 import colors from "../../../constants/colors";

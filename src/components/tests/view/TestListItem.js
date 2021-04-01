@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -9,16 +10,27 @@ import Popover from "@material-ui/core/Popover";
 
 import { useExecutiveRole } from "../../../hooks";
 import { Icon, IconButton, iconTypes } from "../../_common/Icon";
+import Badge from "../../_common/Badge";
 import { selectTest } from "../../../store/actions/test";
 import { showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestEdit } from "../../../utils/navigator";
 
-const TestListItem = ({ test, isSelected }) => {
+const useStyles = makeStyles({
+    primary: {
+        fontSize: "18px"
+    },
+    secondary: {
+        fontSize: "14px"
+    }
+});
+
+const TestListItem = ({ test, isSelected, index }) => {
     const dispatch = useDispatch();
     const isExecutive = useExecutiveRole();
     const [isHovered, setIsHovered] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const selectedClass = isSelected ? "test-list-item--selected" : "";
+    const classes = useStyles();
 
     const handleMenuOpen = (e) => {
         e.stopPropagation();
@@ -47,7 +59,7 @@ const TestListItem = ({ test, isSelected }) => {
         handleMenuClose(e);
         dispatch(showDeleteTestModal(test));
     }, [dispatch, test]);
-    
+
     const handleTestEdit = useCallback((e) => {
         handleMenuClose(e);
         navigateToTestEdit(test.id);
@@ -55,15 +67,19 @@ const TestListItem = ({ test, isSelected }) => {
 
     return (
         <ListItem
-            className={`test-list-item ${selectedClass}`}
+            className="test-list-item"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
+            selected={isSelected}
             button
-            dense
         >
+            <ListItemIcon>
+                <Badge content={index} color={isSelected ? "primary" : "secondary"}/>
+            </ListItemIcon>
             <ListItemText
-                primary={`${test.id} | ${test.name} | ${test.questions.length} вопросов | ${test.algorithm.id}`}
+                classes={classes}
+                primary={test.name}
                 secondary={test.algorithm.name}
             />
 

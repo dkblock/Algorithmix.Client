@@ -9,22 +9,16 @@
 .test-list {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 40%;
   max-height: 100%;
   height: calc(100vh - 100px);
-
-  &__content {
-    display: flex;
-    background-color: #fff;
-    max-height: 100%;
-    height: calc(100vh - 100px);
-    border-top: $panel-border;
-  }
+  background-color: #fff;
+  border-right: $panel-border;
 
   &__items {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     max-height: 100%;
     overflow-y: auto;
     margin-bottom: 0;
@@ -35,7 +29,6 @@
     flex-direction: column;
     width: 40%;
     padding: 12px 18px;
-    border-right: $panel-border;
   }
 
   &__header {
@@ -62,7 +55,7 @@
   justify-content: space-between;
   align-items: flex-start;
   max-height: 100%;
-  width: 50%;
+  width: 60%;
   margin: 18px;
   padding: 24px;
   gap: 10px;
@@ -70,9 +63,10 @@
   &__section {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 
     &--description {
-      width: 60%;
+      width: 45%;
     }
 
     &--image {
@@ -82,6 +76,9 @@
 
   &__image {
     width: 100%;
+    border: $panel-border;
+    border-radius: 4px;
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   }
 }
 
@@ -96,7 +93,7 @@
   }
 
   &:last-child {
-    margin-bottom: 30px;
+    margin-bottom: 75px;
   }
 
   &__secondary {

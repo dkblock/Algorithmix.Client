@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { createTest, deleteTest, fetchTests, selectTest } from "../actions/test";
+import { createTest, deleteTest, fetchTest, fetchTests, selectTest } from "../actions/test";
 
 const initialState = {
     tests: [],
@@ -26,6 +26,18 @@ const testSlice = createSlice({
         [fetchTests.rejected]: (state) => {
             onRejectedDefault(state);
             state.tests = [];
+            state.selectedTest = null;
+        },
+
+        [fetchTest.pending]: (state) => {
+            onPendingDefault(state);
+        },
+        [fetchTest.fulfilled]: (state, { payload: { test, hasError } }) => {
+            onFulfilledDefault(state, hasError);
+            state.selectedTest = test;
+        },
+        [fetchTest.rejected]: (state) => {
+            onRejectedDefault(state);
             state.selectedTest = null;
         },
 

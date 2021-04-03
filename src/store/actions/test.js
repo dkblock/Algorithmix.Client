@@ -16,6 +16,17 @@ export const fetchTests = createAsyncThunk("fetchTests", async () => {
     return { tests: [], hasError: true };
 });
 
+export const fetchTest = createAsyncThunk("fetchTest", async (testId) => {
+    const response = await testService.fetchTest(testId);
+
+    if (statusCode(response).ok) {
+        const test = await response.json();
+        return { test, hasError: false };
+    }
+
+    return { test: null, hasError: true };
+});
+
 export const createTest = createAsyncThunk("createTest", async (test, thunkAPI) => {
     thunkAPI.dispatch(hideModal());
     const response = await testService.createTest(test);

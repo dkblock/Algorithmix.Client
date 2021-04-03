@@ -51,6 +51,6 @@ const InnerTooltipIcon = ({ tooltip, position, withMargin, children }) => {
             <div>{children}</div>
         </OverlayTrigger>
     );
-}
+};
 
 export { Icon, IconButton };

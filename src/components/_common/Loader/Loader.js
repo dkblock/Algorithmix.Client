@@ -6,14 +6,10 @@ import "./Loader.scss";
 
 const theme = createMuiTheme({ palette });
 
-const Loader = ({ className, size }) => {
-    const loaderSize = size ?? "medium";
-
-    return (
-        <MuiThemeProvider theme={theme}>
-            <CircularProgress className={`${className} loader--${loaderSize}`}/>
-        </MuiThemeProvider>
-    );
-};
+const Loader = ({ className, color = "primary", size = "medium" }) => (
+    <MuiThemeProvider theme={theme}>
+        <CircularProgress className={`${className} loader--${size}`} color={color}/>
+    </MuiThemeProvider>
+);
 
 export default Loader;

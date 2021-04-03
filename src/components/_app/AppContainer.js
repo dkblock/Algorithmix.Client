@@ -7,6 +7,8 @@ import { store, history } from "../../store";
 import "./App.scss";
 
 const AppContainer = () => {
+    console.log("Привет :)");
+
     return (
         <Provider store={store}>
             <ConnectedRouter history={history}>

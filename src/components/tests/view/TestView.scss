@@ -39,7 +39,6 @@
     height: 70px;
     background-color: #fff;
     padding: 20px;
-    border-top: $panel-border;
     border-bottom: $panel-border;
     font-size: 20px;
     font-weight: 600;
@@ -78,34 +77,7 @@
     width: 100%;
     border: $panel-border;
     border-radius: 4px;
-    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  }
-}
-
-.test-list-item {
-  width: 100%;
-  padding-left: 26px !important;
-  border-bottom: $panel-border !important;
-
-  &--selected {
-    padding-left: 20px !important;
-    border-left: 6px solid #1976d2 !important;
-  }
-
-  &:last-child {
-    margin-bottom: 75px;
-  }
-
-  &__secondary {
-    visibility: hidden;
-
-    &--hovered {
-      visibility: visible;
-    }
-  }
-
-  &__secondary-menu {
-    padding: 5px 0;
+    box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
   }
 }
 

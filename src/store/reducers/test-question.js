@@ -16,7 +16,7 @@ const testQuestionSlice = createSlice({
         [fetchTestQuestions.pending]: (state) => {
             onPendingDefault(state);
         },
-        [fetchTestQuestions.fulfilled]: (state, { questions, hasError }) => {
+        [fetchTestQuestions.fulfilled]: (state, { payload: { questions, hasError } }) => {
             onFulfilledDefault(state, hasError);
             state.questions = questions;
         },
@@ -28,7 +28,7 @@ const testQuestionSlice = createSlice({
         [createTestQuestion.pending]: (state) => {
             onPendingDefault(state);
         },
-        [createTestQuestion.fulfilled]: (state, { question, hasError }) => {
+        [createTestQuestion.fulfilled]: (state, { payload: { question, hasError } }) => {
             onFulfilledDefault(state, hasError);
 
             if (!hasError) {
@@ -42,7 +42,7 @@ const testQuestionSlice = createSlice({
         [deleteTestQuestion.pending]: (state) => {
             onPendingDefault(state);
         },
-        [deleteTestQuestion.fulfilled]: (state, { questionId, hasError }) => {
+        [deleteTestQuestion.fulfilled]: (state, { payload: { questionId, hasError } }) => {
             onFulfilledDefault(state, hasError);
 
             if (!hasError) {

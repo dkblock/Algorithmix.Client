@@ -1,5 +1,9 @@
 @import "../../../styles/variables";
 
+.list {
+  pointer-events: auto !important;
+}
+
 .list-item {
   width: 100%;
   padding-left: 26px !important;
@@ -8,6 +12,10 @@
   &--selected {
     padding-left: 20px !important;
     border-left: 6px solid #1976d2 !important;
+  }
+
+  &--draggable {
+    cursor: move !important;
   }
 
   &:last-child {

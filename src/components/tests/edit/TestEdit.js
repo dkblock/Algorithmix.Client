@@ -8,33 +8,36 @@ import Loader from "../../_common/Loader";
 import TestQuestionList from "./TestQuestionList";
 import TestQuestionInfo from "./TestQuestionInfo";
 import { fetchTest } from "../../../store/actions/test";
-import "./TestEdit.scss";
 import { fetchTestQuestions } from "../../../store/actions/test-question";
+import "./TestEdit.scss";
 
 const TestEdit = () => {
-    const dispatch = useDispatch();
-    const { id } = useParams();
-    const { selectedTest: test, isFetching } = useSelector(state => state.test);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { selectedTest: test, isFetching } = useSelector((state) => state.test);
+  const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
 
-    useTitle("Тесты");
+  useTitle("Тесты");
 
-    useEffect(() => {
-        dispatch(fetchTest(id));
-        dispatch(fetchTestQuestions(id));
-    }, [dispatch, id]);
+  useEffect(() => {
+    dispatch(fetchTest(id));
+    dispatch(fetchTestQuestions(id));
+  }, [dispatch, id]);
 
-    if (isFetching)
-        return <Loader/>;
+  if (isFetching) {
+    return <Loader />;
+  }
 
-    if (!test)
-        return <Redirect to={routes.tests}/>;
+  if (!test) {
+    return <Redirect to={routes.tests} />;
+  }
 
-    return (
-        <div className="test-edit">
-            <TestQuestionList/>
-            <TestQuestionInfo/>
-        </div>
-    );
+  return (
+    <div className="test-edit">
+      <TestQuestionList />
+      <TestQuestionInfo question={question} />
+    </div>
+  );
 };
 
 export default TestEdit;

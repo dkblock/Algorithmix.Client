@@ -6,6 +6,7 @@ const initialState = {
     tests: [],
     selectedTest: null,
     isFetching: false,
+    hasUnsavedChanges: false,
     hasError: false
 };
 
@@ -75,6 +76,7 @@ const testSlice = createSlice({
 
         [selectTest]: (state, { payload: { test } }) => {
             state.selectedTest = test;
+            state.hasUnsavedChanges = false;
         }
     }
 });

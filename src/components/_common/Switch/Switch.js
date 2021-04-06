@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MuiSwitch from "@material-ui/core/Switch";
-import palette from "../../../styles/palette";
+import palette from "../../../utils/palette";
 import colors from "../../../constants/colors";
 
 const theme = createMuiTheme({ palette });

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import {
-  addTestQuestionTemplate,
   fetchTestQuestions,
   createTestQuestion,
   deleteTestQuestion,
@@ -36,13 +35,11 @@ const testQuestionSlice = createSlice({
     [createTestQuestion.pending]: (state) => {
       onPendingDefault(state);
     },
-    [createTestQuestion.fulfilled]: (state, { payload: { createdQuestion, questionTemplateId, hasError } }) => {
+    [createTestQuestion.fulfilled]: (state, { payload: { createdQuestion, hasError } }) => {
       onFulfilledDefault(state, hasError);
 
       if (!hasError) {
-        state.questions = state.questions.map((question) =>
-          question.id === questionTemplateId ? createdQuestion : question
-        );
+        state.questions = [...state.questions, createdQuestion];
       }
     },
     [createTestQuestion.rejected]: (state) => {
@@ -61,11 +58,6 @@ const testQuestionSlice = createSlice({
     },
     [deleteTestQuestion.rejected]: (state) => {
       onRejectedDefault(state);
-    },
-
-    [addTestQuestionTemplate]: (state, { payload: { question } }) => {
-      state.questions = [...state.questions, question];
-      state.selectedQuestion = question;
     },
 
     [selectTestQuestion]: (state, { payload: { question } }) => {

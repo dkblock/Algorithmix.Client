@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import MuiTextField from "@material-ui/core/TextField";
-import palette from "../../../styles/palette";
+import palette from "../../../utils/palette";
 
 const theme = createMuiTheme({ palette });
 

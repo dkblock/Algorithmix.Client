@@ -1,0 +1,52 @@
+$danger-light: #E33371;
+$danger-main: #DC004E;
+$danger-dark: #9A0036;
+$danger-text: #FFF;
+
+$default-light: #F5F5F5;
+$default-main: #EEEEEE;
+$default-dark: #E0E0E0;
+$default-text: #000;
+
+$primary-light: #4791DB;
+$primary-main: #1976D2;
+$primary-dark: #115293;
+$primary-text: #FFF;
+
+$success-light: #81C784;
+$success-main: #4CAF50;
+$success-dark: #388E3C;
+$success-text: #FFF;
+
+$transparent-black-light: transparent;
+$transparent-black-main: transparent;
+$transparent-black-dark: transparent;
+$transparent-black-text: #000;
+
+
+:export {
+  dangerLight: $danger-light;
+  dangerMain: $danger-main;
+  dangerDark: $danger-dark;
+  dangerText: $danger-text;
+
+  defaultLight: $default-light;
+  defaultMain: $default-main;
+  defaultDark: $default-dark;
+  defaultText: $default-text;
+
+  primaryLight: $primary-light;
+  primaryMain: $primary-main;
+  primaryDark: $primary-dark;
+  primaryText: $primary-text;
+
+  successLight: $success-light;
+  successMain: $success-main;
+  successDark: $success-dark;
+  successText: $success-text;
+
+  transparentBlackLight: $transparent-black-light;
+  transparentBlackMain: $transparent-black-main;
+  transparentBlackDark: $transparent-black-dark;
+  transparentBlackText: $transparent-black-text;
+}

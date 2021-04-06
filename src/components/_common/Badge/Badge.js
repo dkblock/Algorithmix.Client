@@ -1,7 +1,7 @@
 import React from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import MuiBadge from "@material-ui/core/Badge";
-import palette from "../../../styles/palette";
+import palette from "../../../utils/palette";
 
 const theme = createMuiTheme({
     palette: {

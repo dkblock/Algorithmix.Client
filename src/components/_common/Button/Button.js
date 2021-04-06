@@ -4,7 +4,7 @@ import MuiButton from "@material-ui/core/Button";
 import { Icon } from "../Icon";
 import buttonTypes from "../../../constants/button-types";
 import colors from "../../../constants/colors";
-import palette from "../../../styles/palette";
+import palette from "../../../utils/palette";
 import "./Button.scss";
 
 const theme = createMuiTheme({ palette });

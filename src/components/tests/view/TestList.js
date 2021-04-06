@@ -23,19 +23,19 @@ const prepareTests = (tests, selectedTest, isExecutive, onClick, onTestEdit, onT
             id: "edit",
             label: "Редактировать",
             icon: iconTypes.edit,
-            onClick: (e, onMenuClose) => onTestEdit(e, onMenuClose, test),
+            onClick: () => onTestEdit(test),
           },
           {
             id: "delete",
             label: "Удалить",
             icon: iconTypes.delete,
-            onClick: (e, onMenuClose) => onTestDelete(e, onMenuClose, test),
+            onClick: () => onTestDelete(test),
           },
           {
             id: "stats",
             label: "Статистика",
             icon: iconTypes.stats,
-            onClick: (e, onMenuClose) => onTestEdit(e, onMenuClose, test),
+            onClick: () => onTestEdit(test),
           },
         ]
       : null,
@@ -50,13 +50,11 @@ const TestList = () => {
     dispatch(selectTest(test));
   }, []);
 
-  const handleTestDelete = useCallback((e, onMenuClose, test) => {
-    onMenuClose(e);
+  const handleTestDelete = useCallback((test) => {
     dispatch(showDeleteTestModal(test));
   }, []);
 
-  const handleTestEdit = useCallback((e, onMenuClose, test) => {
-    onMenuClose(e);
+  const handleTestEdit = useCallback((test) => {
     navigateToTestEdit(test.id);
   }, []);
 

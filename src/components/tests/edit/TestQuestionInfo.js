@@ -3,6 +3,10 @@ import { Paper } from "@material-ui/core";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
 import testQuestionTypes from "../../../constants/test-question-types";
+import Button, { colors } from "../../_common/Button";
+import validator from "../../../utils/validator";
+
+const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
 const questionTypeItems = [
   { value: testQuestionTypes.singleAnswerQuestion, name: "С одним ответом" },
@@ -24,7 +28,8 @@ const TestQuestionInfo = ({ question }) => {
   }, [validationErrors]);
 
   const handleQuestionValueFocusOut = useCallback(() => {
-    // validate
+    const validationError = validateQuestionValue(questionValue);
+    setValidationErrors({ ...validationErrors, questionValue: validationError });
   }, [questionValue, validationErrors]);
 
   const handleQuestionTypeChange = useCallback((value) => {
@@ -56,6 +61,7 @@ const TestQuestionInfo = ({ question }) => {
         items={questionTypeItems}
         onChange={handleQuestionTypeChange}
       />
+      <Button color={colors.success}>Сохранить изменения</Button>
     </Paper>
   );
 };

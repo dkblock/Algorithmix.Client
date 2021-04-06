@@ -4,7 +4,7 @@ import { SortableList } from "../../_common/List";
 import Loader from "../../_common/Loader";
 import Button, { colors } from "../../_common/Button";
 import { iconTypes } from "../../_common/Icon";
-import { addTestQuestionTemplate, selectTestQuestion } from "../../../store/actions/test-question";
+import { createTestQuestion, selectTestQuestion } from "../../../store/actions/test-question";
 
 const prepareQuestions = (questions, selectedQuestion, onClick) =>
   questions.map((question, index) => ({
@@ -13,6 +13,14 @@ const prepareQuestions = (questions, selectedQuestion, onClick) =>
     isSelected: question.id === selectedQuestion.id,
     index: index + 1,
     onClick: () => onClick(question),
+    actions: [
+      {
+        id: "delete",
+        label: "Удалить",
+        icon: iconTypes.delete,
+        onClick: () => {},
+      },
+    ],
   }));
 
 const TestQuestionList = () => {
@@ -24,7 +32,7 @@ const TestQuestionList = () => {
     dispatch(selectTestQuestion(question));
   }, []);
 
-  const handleCreateQuestion = () => dispatch(addTestQuestionTemplate());
+  const handleCreateQuestion = () => dispatch(createTestQuestion(test.id));
 
   const preparedQuestions = prepareQuestions(questions, selectedQuestion, handleQuestionClick);
 

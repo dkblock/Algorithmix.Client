@@ -1,7 +1,7 @@
 import React from "react";
 import { IconButton as MaterialIconButton } from "@material-ui/core";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import palette from "../../../styles/palette";
+import palette from "../../../utils/palette";
 import icons from "./icons";
 import "./Icon.scss";
 

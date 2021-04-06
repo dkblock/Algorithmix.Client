@@ -4,7 +4,8 @@
 
 .MuiFormHelperText-root {
   position: absolute;
-  top: 36px;
+  top: 100%;
+  margin-top: 0 !important;
 }
 
 .MuiListItemText-primary {

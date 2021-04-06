@@ -1,5 +1,4 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { v4 as uuid } from "uuid";
 import testQuestionService from "../../api/services/test-question-service";
 import testQuestionTypes from "../../constants/test-question-types";
 import statusCode from "../../utils/status-code-reader";
@@ -18,29 +17,21 @@ export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async (
   return { questions: [], hasError: true };
 });
 
-export const addTestQuestionTemplate = createAction("addTestQuestionTemplate", () => ({
-  payload: {
-    question: {
-      id: uuid(),
-      value: "",
-      image: null,
-      type: testQuestionTypes.singleAnswerQuestion,
-      correctAnswerId: null,
-      isCreated: false,
-    },
-  },
-}));
-
 export const selectTestQuestion = createAction("selectQuestion", (question) => ({
   payload: { question },
 }));
 
-export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, question }) => {
-  const response = await testQuestionService.createQuestion(testId, question);
+export const createTestQuestion = createAsyncThunk("createTestQuestion", async (testId) => {
+  const response = await testQuestionService.createQuestion(testId, {
+    value: "",
+    image: null,
+    type: testQuestionTypes.singleAnswerQuestion,
+    testId,
+  });
 
   if (statusCode(response).created) {
     const createdQuestion = await response.json();
-    return { createdQuestion, questionTemplateId: question.id, hasError: false };
+    return { createdQuestion, hasError: false };
   }
 
   return { hasError: true };

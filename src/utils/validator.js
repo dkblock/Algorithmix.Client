@@ -1,29 +1,50 @@
 const validator = () => {
-    const validateTestName = (name) => {
-        if (isEmptyString(name))
-            return "Введите название теста" ;
+  const validateTestName = (name) => {
+    if (isEmptyString(name)) {
+      return "Введите название теста";
+    }
 
-        return null;
-    };
+    return null;
+  };
 
-    const validateTest = (test) => {
-        const validationErrors = {};
-        validationErrors.name = validateTestName(test.name);
+  const validateTest = (test) => {
+    const validationErrors = {};
+    validationErrors.name = validateTestName(test.name);
 
-        return { isValid: isValid(validationErrors), validationErrors };
-    };
+    return { isValid: isValid(validationErrors), validationErrors };
+  };
 
-    const isEmptyString = (str) => !str || str.length === 0;
+  const validateQuestionValue = (value) => {
+    if (isEmptyString(value)) {
+      return "Введите вопрос";
+    }
 
-    const isValid = (validationErrors) =>
-        Object.keys(validationErrors).filter((key) => validationErrors[key] !== null).length === 0;
+    return null;
+  };
 
-    return {
-        test: {
-            validateName: validateTestName,
-            validateTest
-        }
-    };
+  const validateQuestion = (question) => {
+    const validationErrors = {};
+    validationErrors.questionValue = validateQuestionValue(question.value);
+
+    return { isValid: isValid(validationErrors), validationErrors };
+  };
+
+  const isEmptyString = (str) => !str || str.length === 0;
+
+  const isValid = (validationErrors) =>
+    Object.keys(validationErrors).filter((key) => validationErrors[key] !== null).length === 0;
+
+  return {
+    test: {
+      validateName: validateTestName,
+      validateTest,
+    },
+
+    testQuestion: {
+      validateQuestionValue,
+      validateQuestion,
+    },
+  };
 };
 
 export default validator();

@@ -1,29 +1,38 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Divider from "@material-ui/core/Divider";
 import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
 import { getImageSrc } from "../../utils/get-image-src";
 import { navigateToAlgorithm } from "../../utils/navigator";
 
 const AlgorithmCard = ({ algorithm }) => {
-    const onInfoButtonClick = () => navigateToAlgorithm(algorithm.id);
+  const headerProps = { align: "center", fontFamily: "inherit", fontWeight: 500 };
 
-    return (
-        <Card className="mb-3 algorithm-card">
-            <Card.Header className="text-center bg-white pt-3">
-                <h5>{algorithm.name}</h5>
-            </Card.Header>
-            <Card.Img variant="top" src={getImageSrc(algorithm.imageUrl)}/>
-            <Card.Body className="algorithm-card__body">
-                <div className="algorithm-card__button-container">
-                    <Button color={colors.default} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
-                        Информация
-                    </Button>
-                    <Button startIcon={iconTypes.constructor}>Конструктор</Button>
-                </div>
-            </Card.Body>
-        </Card>
-    );
+  const onInfoButtonClick = () => navigateToAlgorithm(algorithm.id);
+
+  return (
+    <Card className="algorithm-card">
+      <CardActionArea className="algorithm-card__body" onClick={onInfoButtonClick}>
+        <CardHeader className="algorithm-card__header" title={algorithm.name} titleTypographyProps={headerProps} />
+        <Divider />
+        <CardMedia>
+          <img className="w-100" src={getImageSrc(algorithm.imageUrl)} alt="algorithm-img" />
+        </CardMedia>
+      </CardActionArea>
+      <Divider />
+      <CardActions className="algorithm-card__button-container">
+        <Button color={colors.default} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
+          Информация
+        </Button>
+        <Button startIcon={iconTypes.constructor}>Конструктор</Button>
+      </CardActions>
+    </Card>
+  );
 };
 
 export default AlgorithmCard;

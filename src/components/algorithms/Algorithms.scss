@@ -18,13 +18,20 @@
   max-width: 350px;
   margin-bottom: 25px;
 
+  &__header {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
   &__body {
-    border-top: 1px solid rgba(0, 0, 0, .125);
+    outline: none !important;
   }
 
   &__button-container {
     display: flex;
     justify-content: space-between;
+    padding: 12px !important;
     gap: 15px;
   }
 }

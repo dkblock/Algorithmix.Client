@@ -2,6 +2,8 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import testQuestionService from "../../api/services/test-question-service";
 import testQuestionTypes from "../../constants/test-question-types";
 import statusCode from "../../utils/status-code-reader";
+import { hideModal, showModal } from "./modal";
+import modalTypes from "../../constants/modal-types";
 
 export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async (testId) => {
   const response = await testQuestionService.fetchQuestions(testId);
@@ -21,7 +23,7 @@ export const selectTestQuestion = createAction("selectQuestion", (question) => (
   payload: { question },
 }));
 
-export const createTestQuestion = createAsyncThunk("createTestQuestion", async (testId) => {
+export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId }) => {
   const response = await testQuestionService.createQuestion(testId, {
     value: "",
     image: null,
@@ -37,10 +39,20 @@ export const createTestQuestion = createAsyncThunk("createTestQuestion", async (
   return { hasError: true };
 });
 
-export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async ({ testId, questionId }) => {
+export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async ({ testId, questionId }, thunkAPI) => {
+  thunkAPI.dispatch(hideModal());
   const response = await testQuestionService.deleteQuestion(testId, questionId);
 
-  if (statusCode(response).noContent) return { questionId, hasError: false };
+  if (statusCode(response).noContent) {
+    return { questionId, hasError: false };
+  }
 
   return { hasError: true };
 });
+
+export const showDeleteTestQuestionModal = createAsyncThunk(
+  "showDeleteTestQuestionModal",
+  ({ testId, questionId }, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.deleteTestQuestion, { testId, questionId }));
+  }
+);

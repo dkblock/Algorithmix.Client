@@ -4,16 +4,19 @@
 }
 
 .home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 50px 100px 50px 100px;
   height: 100%;
   width: 100%;
 }
 
 .home-carousel {
-  margin-bottom: 50px;
-  border-radius: 0.25rem;
+  margin: 30px auto;
+  width: 80%;
 
-  &__link {
+  &__item {
     cursor: pointer;
   }
 
@@ -23,10 +26,14 @@
     width: 100%;
   }
 
-  li {
-    width: 10px !important;
-    height: 10px !important;
-    border-radius: 50%;
+  &__caption {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -37,7 +44,15 @@
   margin: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
+  .home-carousel {
+    &__caption {
+      top: 60%;
+    }
+  }
+}
+
+@media (max-width: 950px) {
   .home-carousel {
     &__caption {
       display: none;

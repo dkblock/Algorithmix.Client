@@ -1,12 +1,16 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { iconTypes } from "../../_common/Icon";
+import {
+  createTestQuestion,
+  selectTestQuestion,
+  showDeleteTestQuestionModal,
+} from "../../../store/actions/test-question";
 import { SortableList } from "../../_common/List";
 import Loader from "../../_common/Loader";
 import Button, { colors } from "../../_common/Button";
-import { iconTypes } from "../../_common/Icon";
-import { createTestQuestion, selectTestQuestion } from "../../../store/actions/test-question";
 
-const prepareQuestions = (questions, selectedQuestion, onClick) =>
+const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete) =>
   questions.map((question, index) => ({
     id: question.id,
     primaryText: question.value || "Введите вопрос",
@@ -18,7 +22,7 @@ const prepareQuestions = (questions, selectedQuestion, onClick) =>
         id: "delete",
         label: "Удалить",
         icon: iconTypes.delete,
-        onClick: () => {},
+        onClick: () => onQuestionDelete(question),
       },
     ],
   }));
@@ -32,9 +36,13 @@ const TestQuestionList = () => {
     dispatch(selectTestQuestion(question));
   }, []);
 
-  const handleCreateQuestion = () => dispatch(createTestQuestion(test.id));
+  const handleQuestionDelete = useCallback((question) => {
+    dispatch(showDeleteTestQuestionModal({ testId: question.test.id, questionId: question.id }));
+  }, []);
 
-  const preparedQuestions = prepareQuestions(questions, selectedQuestion, handleQuestionClick);
+  const handleCreateQuestion = () => dispatch(createTestQuestion({ testId: test.id }));
+
+  const preparedQuestions = prepareQuestions(questions, selectedQuestion, handleQuestionClick, handleQuestionDelete);
 
   return (
     <div className="test-question-list">

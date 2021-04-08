@@ -54,6 +54,12 @@ const testQuestionSlice = createSlice({
 
       if (!hasError) {
         state.questions = state.questions.filter((question) => question.id !== questionId);
+
+        if (state.questions.length > 0 && state.selectedQuestion.id === questionId) {
+          state.selectedQuestion = state.questions[0];
+        } else {
+          state.selectedQuestion = null;
+        }
       }
     },
     [deleteTestQuestion.rejected]: (state) => {

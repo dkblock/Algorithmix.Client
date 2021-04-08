@@ -1,6 +1,7 @@
 const modalTypes = {
     createTest: "createTest",
     deleteTest: "deleteTest",
+    deleteTestQuestion: "deleteTestQuestion",
     logout: "logout"
 };
 

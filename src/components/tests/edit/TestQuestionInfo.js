@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Paper } from "@material-ui/core";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
@@ -18,6 +18,10 @@ const TestQuestionInfo = ({ question }) => {
   const [questionValue, setQuestionValue] = useState(question?.value);
   const [questionType, setQuestionType] = useState(question?.type);
   const [validationErrors, setValidationErrors] = useState({});
+
+  useEffect(() => {
+    setValidationErrors({});
+  }, [question]);
 
   const handleQuestionValueChange = useCallback((value) => {
     setQuestionValue(value);

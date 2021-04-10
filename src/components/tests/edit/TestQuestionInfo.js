@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { Paper } from "@material-ui/core";
+import { updateTestQuestion } from "../../../store/actions/test-question";
+import testQuestionTypes from "../../../constants/test-question-types";
+import validator from "../../../utils/validator";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
-import testQuestionTypes from "../../../constants/test-question-types";
-import Button, { colors } from "../../_common/Button";
-import validator from "../../../utils/validator";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -14,31 +16,66 @@ const questionTypeItems = [
   { value: testQuestionTypes.freeAnswerQuestion, name: "Со свободным ответом" },
 ];
 
-const TestQuestionInfo = ({ question }) => {
-  const [questionValue, setQuestionValue] = useState(question?.value);
-  const [questionType, setQuestionType] = useState(question?.type);
+const TestQuestionInfo = () => {
+  const dispatch = useDispatch();
+  const { testId } = useParams();
+  const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
+
+  const [questionId, setQuestionId] = useState(null);
+  const [value, setValue] = useState("");
+  const [type, setType] = useState(testQuestionTypes.singleAnswerQuestion);
   const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
-    setValidationErrors({});
-  }, [question]);
+    if (question) {
+      setQuestionId(question.id);
+      setValue(question.value);
+      setType(question.type);
+      setValidationErrors({});
+    }
+  }, [question?.id]);
 
-  const handleQuestionValueChange = useCallback((value) => {
-    setQuestionValue(value);
-  }, []);
+  const handleUpdateQuestion = useCallback(
+    (updatedQuestion) => {
+      const { isValid } = validateQuestion(updatedQuestion);
+
+      if (isValid) {
+        dispatch(
+          updateTestQuestion({
+            testId,
+            questionId,
+            question: { ...updatedQuestion, testId: parseInt(testId) },
+          })
+        );
+      }
+    },
+    [dispatch, questionId, testId]
+  );
+
+  const handleQuestionValueChange = useCallback(
+    (newValue) => {
+      setValue(newValue);
+      handleUpdateQuestion({ ...question, value: newValue });
+    },
+    [handleUpdateQuestion, question]
+  );
 
   const handleQuestionValueFocus = useCallback(() => {
-    setValidationErrors({ ...validationErrors, questionValue: null });
+    setValidationErrors({ ...validationErrors, value: null });
   }, [validationErrors]);
 
   const handleQuestionValueFocusOut = useCallback(() => {
-    const validationError = validateQuestionValue(questionValue);
-    setValidationErrors({ ...validationErrors, questionValue: validationError });
-  }, [questionValue, validationErrors]);
+    const validationError = validateQuestionValue(value);
+    setValidationErrors({ ...validationErrors, value: validationError });
+  }, [value, validationErrors]);
 
-  const handleQuestionTypeChange = useCallback((value) => {
-    setQuestionType(value);
-  }, []);
+  const handleQuestionTypeChange = useCallback(
+    (newValue) => {
+      setType(newValue);
+      handleUpdateQuestion({ ...question, type: newValue });
+    },
+    [handleUpdateQuestion, question]
+  );
 
   if (!question) {
     return null;
@@ -49,9 +86,9 @@ const TestQuestionInfo = ({ question }) => {
       <TextField
         className="test-form__control"
         label="Вопрос"
-        error={Boolean(validationErrors.questionValue)}
-        helperText={validationErrors.questionValue}
-        value={questionValue}
+        error={Boolean(validationErrors.value)}
+        helperText={validationErrors.value}
+        value={value}
         multiline
         rows={5}
         onChange={handleQuestionValueChange}
@@ -61,11 +98,10 @@ const TestQuestionInfo = ({ question }) => {
       <Dropdown
         className="test-form__control"
         label="Тип вопроса"
-        value={questionType}
+        value={type}
         items={questionTypeItems}
         onChange={handleQuestionTypeChange}
       />
-      <Button color={colors.success}>Сохранить изменения</Button>
     </Paper>
   );
 };

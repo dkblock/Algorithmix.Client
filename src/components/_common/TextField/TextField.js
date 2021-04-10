@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import MuiTextField from "@material-ui/core/TextField";
 import palette from "../../../utils/palette";
@@ -19,6 +19,10 @@ const TextField = ({
   onFocusOut,
 }) => {
   const [fieldValue, setFieldValue] = useState(value);
+
+  useEffect(() => {
+    setFieldValue(value);
+  }, [value]);
 
   const handleChange = (event) => {
     const newValue = event.target.value;

@@ -47,18 +47,18 @@ const TestList = () => {
   const { tests, selectedTest, isFetching } = useSelector((state) => state.test);
 
   const handleTestClick = useCallback((test) => {
-    dispatch(selectTest(test));
+    dispatch(selectTest({ test }));
   }, []);
 
   const handleTestDelete = useCallback((test) => {
-    dispatch(showDeleteTestModal(test));
+    dispatch(showDeleteTestModal({ test }));
   }, []);
 
   const handleTestEdit = useCallback((test) => {
     navigateToTestEdit(test.id);
   }, []);
 
-  const handleCreateTest = () => dispatch(showCreateTestModal());
+  const handleTestCreate = () => dispatch(showCreateTestModal());
 
   const preparedTests = prepareTests(
     tests,
@@ -74,7 +74,7 @@ const TestList = () => {
       <div className="test-list__header">
         <TextField label="Поиск здоровый" />
         {isExecutive && (
-          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateTest}>
+          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleTestCreate}>
             Новый тест
           </Button>
         )}

@@ -5,27 +5,24 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async (testId) => {
+export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async ({ testId }) => {
   const response = await testQuestionService.fetchQuestions(testId);
 
   if (statusCode(response).ok) {
     const questions = await response.json();
-    return {
-      questions: questions.map((question) => ({ ...question, isCreated: true })),
-      hasError: false,
-    };
+    return { questions, hasError: false };
   }
 
   return { questions: [], hasError: true };
 });
 
-export const selectTestQuestion = createAction("selectQuestion", (question) => ({
+export const selectTestQuestion = createAction("selectTestQuestion", ({ question }) => ({
   payload: { question },
 }));
 
-export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId }) => {
+export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, count }) => {
   const response = await testQuestionService.createQuestion(testId, {
-    value: "",
+    value: `Вопрос ${count + 1}`,
     image: null,
     type: testQuestionTypes.singleAnswerQuestion,
     testId,
@@ -45,6 +42,28 @@ export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async (
 
   if (statusCode(response).noContent) {
     return { questionId, hasError: false };
+  }
+
+  return { hasError: true };
+});
+
+export const updateTestQuestion = createAsyncThunk("updateTestQuestion", async ({ testId, questionId, question }) => {
+  const response = await testQuestionService.updateQuestion(testId, questionId, question);
+
+  if (statusCode(response).ok) {
+    const updatedQuestion = await response.json();
+    return { updatedQuestion, hasError: false };
+  }
+
+  return { hasError: true };
+});
+
+export const moveTestQuestions = createAsyncThunk("swapTestQuestions", async ({ testId, indexes }) => {
+  const response = await testQuestionService.moveQuestions(testId, indexes);
+
+  if (statusCode(response).ok) {
+    const questions = await response.json();
+    return { questions, hasError: false };
   }
 
   return { hasError: true };

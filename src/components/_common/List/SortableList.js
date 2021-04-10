@@ -3,7 +3,7 @@ import { SortableContainer, SortableElement } from "react-sortable-hoc";
 import arrayMove from "array-move";
 import ListItem from "./ListItem";
 
-const SortableList = ({ items, onSort }) => {
+const SortableList = ({ items, onSwap }) => {
   const [listItems, setListItems] = useState(items);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const SortableList = ({ items, onSort }) => {
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const newItems = arrayMove(listItems, oldIndex, newIndex);
     setListItems(newItems);
-    onSort(newItems);
+    onSwap(newItems, oldIndex, newIndex);
   };
 
   return (

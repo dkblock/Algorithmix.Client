@@ -24,7 +24,7 @@ const validator = () => {
 
   const validateQuestion = (question) => {
     const validationErrors = {};
-    validationErrors.questionValue = validateQuestionValue(question.value);
+    validationErrors.value = validateQuestionValue(question.value);
 
     return { isValid: isValid(validationErrors), validationErrors };
   };

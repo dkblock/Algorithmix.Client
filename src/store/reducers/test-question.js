@@ -5,6 +5,8 @@ import {
   createTestQuestion,
   deleteTestQuestion,
   selectTestQuestion,
+  updateTestQuestion,
+  moveTestQuestions,
 } from "../actions/test-question";
 
 const initialState = {
@@ -21,6 +23,7 @@ const testQuestionSlice = createSlice({
   extraReducers: {
     [fetchTestQuestions.pending]: (state) => {
       onPendingDefault(state);
+      state.selectedQuestion = null;
     },
     [fetchTestQuestions.fulfilled]: (state, { payload: { questions, hasError } }) => {
       onFulfilledDefault(state, hasError);
@@ -40,6 +43,10 @@ const testQuestionSlice = createSlice({
 
       if (!hasError) {
         state.questions = [...state.questions, createdQuestion];
+
+        if (!state.selectedQuestion) {
+          state.selectedQuestion = createdQuestion;
+        }
       }
     },
     [createTestQuestion.rejected]: (state) => {
@@ -55,14 +62,43 @@ const testQuestionSlice = createSlice({
       if (!hasError) {
         state.questions = state.questions.filter((question) => question.id !== questionId);
 
-        if (state.questions.length > 0 && state.selectedQuestion.id === questionId) {
-          state.selectedQuestion = state.questions[0];
-        } else {
-          state.selectedQuestion = null;
+        if (state.selectedQuestion.id === questionId) {
+          if (state.questions.length > 0) state.selectedQuestion = state.questions[0];
+          else state.selectedQuestion = null;
         }
       }
     },
     [deleteTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [updateTestQuestion.pending]: (state) => {
+      state.isSaving = true;
+    },
+    [updateTestQuestion.fulfilled]: (state, { payload: { updatedQuestion, hasError } }) => {
+      state.isSaving = false;
+
+      if (!hasError) {
+        state.selectedQuestion = updatedQuestion;
+        state.questions = state.questions.map((question) =>
+          question.id === updatedQuestion.id ? updatedQuestion : question
+        );
+      }
+    },
+    [updateTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.isSaving = false;
+    },
+
+    [moveTestQuestions.pending]: (state) => {
+      state.isSaving = true;
+    },
+    [moveTestQuestions.fulfilled]: (state, { payload: { questions, hasError } }) => {
+      if (!hasError) {
+        state.questions = questions;
+      }
+    },
+    [moveTestQuestions.rejected]: (state) => {
       onRejectedDefault(state);
     },
 

@@ -1,20 +1,22 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { iconTypes } from "../../_common/Icon";
 import {
   createTestQuestion,
   selectTestQuestion,
   showDeleteTestQuestionModal,
+  moveTestQuestions,
 } from "../../../store/actions/test-question";
+import { iconTypes } from "../../_common/Icon";
+import Button, { colors } from "../../_common/Button";
 import { SortableList } from "../../_common/List";
 import Loader from "../../_common/Loader";
-import Button, { colors } from "../../_common/Button";
+import { useParams } from "react-router";
 
 const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete) =>
   questions.map((question, index) => ({
     id: question.id,
-    primaryText: question.value || "Введите вопрос",
-    isSelected: question.id === selectedQuestion.id,
+    primaryText: question.value,
+    isSelected: question.id === selectedQuestion?.id,
     index: index + 1,
     onClick: () => onClick(question),
     actions: [
@@ -29,38 +31,60 @@ const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete
 
 const TestQuestionList = () => {
   const dispatch = useDispatch();
-  const { selectedTest: test } = useSelector((state) => state.test);
-  const { questions, selectedQuestion, isFetching } = useSelector((state) => state.testQuestion);
+  const { testId } = useParams();
+  const { tests, isFetching: isTestFetching } = useSelector((state) => state.test);
+  const { questions, selectedQuestion, isFetching: isQuestionsFetching } = useSelector((state) => state.testQuestion);
+
+  const test = tests.find((t) => t.id === parseInt(testId));
 
   const handleQuestionClick = useCallback((question) => {
-    dispatch(selectTestQuestion(question));
+    dispatch(selectTestQuestion({ question }));
   }, []);
 
   const handleQuestionDelete = useCallback((question) => {
-    dispatch(showDeleteTestQuestionModal({ testId: question.test.id, questionId: question.id }));
+    dispatch(showDeleteTestQuestionModal({ testId: parseInt(testId), questionId: question.id }));
   }, []);
 
-  const handleCreateQuestion = () => dispatch(createTestQuestion({ testId: test.id }));
+  const handleQuestionsSwap = useCallback((newQuestions, oldIndex, newIndex) => {
+    dispatch(moveTestQuestions({ testId: parseInt(testId), indexes: { oldIndex, newIndex } }));
+  }, []);
+
+  const handleQuestionCreate = () =>
+    dispatch(
+      createTestQuestion({
+        testId: parseInt(testId),
+        count: questions.length,
+      })
+    );
 
   const preparedQuestions = prepareQuestions(questions, selectedQuestion, handleQuestionClick, handleQuestionDelete);
 
   return (
     <div className="test-question-list">
-      <div className="test-question-list__header">
-        <h5>{test.name}</h5>
-        <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateQuestion}>
-          Новый вопрос
-        </Button>
-      </div>
-      <div className="test-question-list__items">
-        {isFetching ? (
-          <Loader />
-        ) : preparedQuestions.length > 0 ? (
-          <SortableList items={preparedQuestions} onSort={() => {}} />
-        ) : (
-          <div>Ничего нет</div>
-        )}
-      </div>
+      {isTestFetching ? (
+        <Loader className="test-list__loader" />
+      ) : (
+        <>
+          <div className="test-question-list__header">
+            <h5>{test.name}</h5>
+            <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleQuestionCreate}>
+              Новый вопрос
+            </Button>
+          </div>
+
+          {isQuestionsFetching ? (
+            <Loader className="test-list__loader" />
+          ) : (
+            <div className="test-question-list__items">
+              {preparedQuestions.length > 0 ? (
+                <SortableList items={preparedQuestions} onSwap={handleQuestionsSwap} />
+              ) : (
+                <div>Нет вопросов</div>
+              )}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

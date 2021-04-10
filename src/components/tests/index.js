@@ -22,7 +22,7 @@ const Tests = () => {
                 render={(props) => <TestView {...props}/>}
             />
             <ExecutiveRoute
-                path={`${routes.tests}/:id/edit`}
+                path={`${routes.tests}/:testId/edit`}
                 render={(props) => <TestEdit {...props}/>}
             />
         </>

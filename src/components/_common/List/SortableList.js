@@ -37,7 +37,6 @@ const SortableComponent = SortableContainer(({ items }) => (
 
 const SortableItem = SortableElement(({ value: item }) => (
   <ListItem
-    className="list-item--draggable"
     primaryText={item.primaryText}
     secondaryText={item.secondaryText}
     isSelected={item.isSelected}

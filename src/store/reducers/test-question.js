@@ -96,10 +96,12 @@ const testQuestionSlice = createSlice({
     [moveTestQuestions.fulfilled]: (state, { payload: { questions, hasError } }) => {
       if (!hasError) {
         state.questions = questions;
+        state.isSaving = false;
       }
     },
     [moveTestQuestions.rejected]: (state) => {
       onRejectedDefault(state);
+      state.isSaving = false;
     },
 
     [selectTestQuestion]: (state, { payload: { question } }) => {

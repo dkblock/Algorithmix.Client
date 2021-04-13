@@ -6,11 +6,11 @@ import {
   showDeleteTestQuestionModal,
   moveTestQuestions,
 } from "../../../store/actions/test-question";
+import { fetchTestAnswers } from "../../../store/actions/test-answer";
 import { iconTypes } from "../../_common/Icon";
 import Button, { colors } from "../../_common/Button";
 import { SortableList } from "../../_common/List";
 import Loader from "../../_common/Loader";
-import { useParams } from "react-router";
 
 const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete) =>
   questions.map((question, index) => ({
@@ -31,14 +31,12 @@ const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete
 
 const TestQuestionList = () => {
   const dispatch = useDispatch();
-  const { testId } = useParams();
-  const { tests, isFetching: isTestFetching } = useSelector((state) => state.test);
+  const { editedTest: test, isFetching: isTestFetching } = useSelector((state) => state.test);
   const { questions, selectedQuestion, isSaving, isFetching: isQuestionsFetching } = useSelector(
     (state) => state.testQuestion
   );
 
   const [orderedQuestions, setOrderedQuestions] = useState([]);
-  const test = tests.find((t) => t.id === parseInt(testId));
 
   useEffect(() => {
     setOrderedQuestions(questions);
@@ -47,15 +45,16 @@ const TestQuestionList = () => {
   const handleQuestionClick = useCallback(
     (question) => {
       dispatch(selectTestQuestion({ question }));
+      dispatch(fetchTestAnswers({ testId: test.id, questionId: question.id }));
     },
-    [dispatch]
+    [dispatch, test.id]
   );
 
   const handleQuestionDelete = useCallback(
     (question) => {
-      dispatch(showDeleteTestQuestionModal({ testId: parseInt(testId), questionId: question.id }));
+      dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId: question.id }));
     },
-    [dispatch, testId]
+    [dispatch, test.id]
   );
 
   const handleQuestionMove = useCallback(
@@ -63,21 +62,24 @@ const TestQuestionList = () => {
       if (!isSaving) {
         const newOrderedQuestions = newQuestions.map(({ id }) => questions.find((q) => q.id === id));
         setOrderedQuestions(newOrderedQuestions);
-        dispatch(moveTestQuestions({ testId: parseInt(testId), indexes: { oldIndex, newIndex } }));
+
+        if (oldIndex !== newIndex) {
+          dispatch(moveTestQuestions({ testId: test.id, indexes: { oldIndex, newIndex } }));
+        }
       }
     },
-    [dispatch, isSaving, questions, testId]
+    [dispatch, test.id, isSaving, questions]
   );
 
   const handleQuestionCreate = useCallback(
     () =>
       dispatch(
         createTestQuestion({
-          testId: parseInt(testId),
+          testId: test.id,
           count: questions.length,
         })
       ),
-    [dispatch, questions.length, testId]
+    [dispatch, test.id, questions.length]
   );
 
   const preparedQuestions = prepareQuestions(

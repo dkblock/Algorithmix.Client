@@ -1,57 +1,64 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import { fetchTestAnswers, createTestAnswer, deleteTestAnswer } from "../actions/test-answer";
+import { fetchTestQuestions } from "../actions/test-question";
 
 const initialState = {
-    answers: [],
-    isFetching: false,
-    hasError: false
+  answers: [],
+  isFetching: false,
+  hasError: false,
 };
 
 const testAnswerSlice = createSlice({
-    name: "testAnswerSlice",
-    initialState: initialState,
-    extraReducers: {
-        [fetchTestAnswers.pending]: (state) => {
-            onPendingDefault(state);
-        },
-        [fetchTestAnswers.fulfilled]: (state, { payload: { answers, hasError } }) => {
-            onFulfilledDefault(state, hasError);
-            state.answers = answers;
-        },
-        [fetchTestAnswers.rejected]: (state) => {
-            onRejectedDefault(state);
-            state.answers = [];
-        },
+  name: "testAnswerSlice",
+  initialState: initialState,
+  extraReducers: {
+    [fetchTestQuestions.fulfilled]: (state, { payload: { questions } }) => {
+      if (questions.length > 0) {
+        state.answers = questions[0].answers;
+      }
+    },
 
-        [createTestAnswer.pending]: (state) => {
-            onPendingDefault(state);
-        },
-        [createTestAnswer.fulfilled]: (state, { payload: { answer, hasError } }) => {
-            onFulfilledDefault(state, hasError);
+    [fetchTestAnswers.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [fetchTestAnswers.fulfilled]: (state, { payload: { answers, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      state.answers = answers;
+    },
+    [fetchTestAnswers.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.answers = [];
+    },
 
-            if (!hasError) {
-                state.answers = [answer, ...state.answers];
-            }
-        },
-        [createTestAnswer.rejected]: (state) => {
-            onRejectedDefault(state);
-        },
+    [createTestAnswer.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [createTestAnswer.fulfilled]: (state, { payload: { answer, hasError } }) => {
+      onFulfilledDefault(state, hasError);
 
-        [deleteTestAnswer.pending]: (state) => {
-            onPendingDefault(state);
-        },
-        [deleteTestAnswer.fulfilled]: (state, { payload: { answerId, hasError } }) => {
-            onFulfilledDefault(state, hasError);
+      if (!hasError) {
+        state.answers = [...state.answers, answer];
+      }
+    },
+    [createTestAnswer.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
 
-            if (!hasError) {
-                state.answers = state.answers.filter(answer => answer.id !== answerId);
-            }
-        },
-        [deleteTestAnswer.rejected]: (state) => {
-            onRejectedDefault(state);
-        }
-    }
+    [deleteTestAnswer.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [deleteTestAnswer.fulfilled]: (state, { payload: { answerId, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+
+      if (!hasError) {
+        state.answers = state.answers.filter((answer) => answer.id !== answerId);
+      }
+    },
+    [deleteTestAnswer.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+  },
 });
 
 export default testAnswerSlice.reducer;

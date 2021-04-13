@@ -24,9 +24,8 @@ const TextField = ({
     setFieldValue(value);
   }, [value]);
 
-  const handleChange = (event) => {
-    const newValue = event.target.value;
-
+  const handleChange = (e) => {
+    const newValue = e.target.value;
     setFieldValue(newValue);
     onChange(newValue);
   };

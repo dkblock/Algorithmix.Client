@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchTests } from "../../store/actions/test";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import TestView from "./view/TestView";
-import TestEdit from "./edit/TestEdit";
+import TestDesigner from "./design/TestDesigner";
 import routes from "../../utils/routes";
 
 const Tests = () => {
@@ -22,8 +22,8 @@ const Tests = () => {
                 render={(props) => <TestView {...props}/>}
             />
             <ExecutiveRoute
-                path={`${routes.tests}/:testId/edit`}
-                render={(props) => <TestEdit {...props}/>}
+                path={`${routes.tests}/:testId/design`}
+                render={(props) => <TestDesigner {...props}/>}
             />
         </>
     );

@@ -37,12 +37,15 @@ const SortableComponent = SortableContainer(({ items }) => (
 
 const SortableItem = SortableElement(({ value: item }) => (
   <ListItem
+    id={item.id}
     primaryText={item.primaryText}
     secondaryText={item.secondaryText}
     isSelected={item.isSelected}
     index={item.index}
     onClick={item.onClick}
     actions={item.actions}
+    button={item.button}
+    children={item.content}
   />
 ));
 

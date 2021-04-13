@@ -23,11 +23,11 @@
     margin-bottom: 75px;
   }
 
-  &__secondary {
-    visibility: hidden;
+  &__actions {
+    visibility: visible;
 
-    &--hovered {
-      visibility: visible;
+    &-hidden {
+      visibility: hidden;
     }
   }
 

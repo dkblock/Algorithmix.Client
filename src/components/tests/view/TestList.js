@@ -6,8 +6,8 @@ import Loader from "../../_common/Loader";
 import TextField from "../../_common/TextField";
 import Button, { colors } from "../../_common/Button";
 import { iconTypes } from "../../_common/Icon";
-import { selectTest, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
-import { navigateToTestEdit } from "../../../utils/navigator";
+import { editTest, selectTest, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
+import { navigateToTestDesigner } from "../../../utils/navigator";
 
 const prepareTests = (tests, selectedTest, isExecutive, onClick, onTestEdit, onTestDelete) =>
   tests.map((test, index) => ({
@@ -46,17 +46,27 @@ const TestList = () => {
   const isExecutive = useExecutiveRole();
   const { tests, selectedTest, isFetching } = useSelector((state) => state.test);
 
-  const handleTestClick = useCallback((test) => {
-    dispatch(selectTest({ test }));
-  }, []);
+  const handleTestClick = useCallback(
+    (test) => {
+      dispatch(selectTest({ test }));
+    },
+    [dispatch]
+  );
 
-  const handleTestDelete = useCallback((test) => {
-    dispatch(showDeleteTestModal({ test }));
-  }, []);
+  const handleTestDelete = useCallback(
+    (test) => {
+      dispatch(showDeleteTestModal({ test }));
+    },
+    [dispatch]
+  );
 
-  const handleTestEdit = useCallback((test) => {
-    navigateToTestEdit(test.id);
-  }, []);
+  const handleTestEdit = useCallback(
+    (test) => {
+      dispatch(editTest({ test }));
+      navigateToTestDesigner(test.id);
+    },
+    [dispatch]
+  );
 
   const handleTestCreate = () => dispatch(showCreateTestModal());
 

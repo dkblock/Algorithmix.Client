@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 import { Paper } from "@material-ui/core";
 import { updateTestQuestion } from "../../../store/actions/test-question";
 import testQuestionTypes from "../../../constants/test-question-types";
 import validator from "../../../utils/validator";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
+import TestAnswerList from "./TestAnswerList";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -16,10 +16,12 @@ const questionTypeItems = [
   { value: testQuestionTypes.freeAnswerQuestion, name: "Со свободным ответом" },
 ];
 
-const TestQuestionInfo = () => {
+const TestQuestionDesigner = () => {
   const dispatch = useDispatch();
-  const { testId } = useParams();
   const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
+  const {
+    editedTest: { id: testId },
+  } = useSelector((state) => state.test);
 
   const [questionId, setQuestionId] = useState(null);
   const [value, setValue] = useState("");
@@ -44,7 +46,7 @@ const TestQuestionInfo = () => {
           updateTestQuestion({
             testId,
             questionId,
-            question: { ...updatedQuestion, testId: parseInt(testId) },
+            question: { ...updatedQuestion, testId },
           })
         );
       }
@@ -102,8 +104,9 @@ const TestQuestionInfo = () => {
         items={questionTypeItems}
         onChange={handleQuestionTypeChange}
       />
+      <TestAnswerList />
     </Paper>
   );
 };
 
-export default TestQuestionInfo;
+export default TestQuestionDesigner;

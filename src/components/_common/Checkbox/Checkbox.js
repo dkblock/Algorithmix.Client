@@ -22,7 +22,13 @@ const Checkbox = ({ className, value, onChange }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <MuiCheckbox className={className} color={colors.primary} checked={checkboxValue} onChange={handleChange} />
+      <MuiCheckbox
+        className={className}
+        color={colors.primary}
+        checked={checkboxValue}
+        onChange={handleChange}
+        onMouseDown={(e) => e.stopPropagation()}
+      />
     </ThemeProvider>
   );
 };

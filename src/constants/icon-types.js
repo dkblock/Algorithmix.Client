@@ -5,6 +5,7 @@ const iconTypes = {
     close: "close",
     constructor: "constructor",
     delete: "delete",
+    draggable: "draggable",
     edit: "edit",
     home: "home",
     info: "info",

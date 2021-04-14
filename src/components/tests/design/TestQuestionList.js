@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTestQuestion,
   selectTestQuestion,
   showDeleteTestQuestionModal,
-  moveTestQuestions,
+  moveTestQuestion,
 } from "../../../store/actions/test-question";
 import { fetchTestAnswers } from "../../../store/actions/test-answer";
 import { iconTypes } from "../../_common/Icon";
@@ -13,11 +13,10 @@ import { SortableList } from "../../_common/List";
 import Loader from "../../_common/Loader";
 
 const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete) =>
-  questions.map((question, index) => ({
+  questions.map((question) => ({
     id: question.id,
     primaryText: question.value,
     isSelected: question.id === selectedQuestion?.id,
-    index: index + 1,
     onClick: () => onClick(question),
     actions: [
       {
@@ -59,16 +58,13 @@ const TestQuestionList = () => {
 
   const handleQuestionMove = useCallback(
     (newQuestions, oldIndex, newIndex) => {
-      if (!isSaving) {
-        const newOrderedQuestions = newQuestions.map(({ id }) => questions.find((q) => q.id === id));
+      if (!isSaving && oldIndex !== newIndex) {
+        const newOrderedQuestions = newQuestions.map(({ id }) => orderedQuestions.find((q) => q.id === id));
         setOrderedQuestions(newOrderedQuestions);
-
-        if (oldIndex !== newIndex) {
-          dispatch(moveTestQuestions({ testId: test.id, indexes: { oldIndex, newIndex } }));
-        }
+        dispatch(moveTestQuestion({ testId: test.id, indexes: { oldIndex, newIndex } }));
       }
     },
-    [dispatch, test.id, isSaving, questions]
+    [isSaving, orderedQuestions, dispatch, test.id]
   );
 
   const handleQuestionCreate = useCallback(
@@ -82,11 +78,9 @@ const TestQuestionList = () => {
     [dispatch, test.id, questions.length]
   );
 
-  const preparedQuestions = prepareQuestions(
-    orderedQuestions,
-    selectedQuestion,
-    handleQuestionClick,
-    handleQuestionDelete
+  const preparedQuestions = useMemo(
+    () => prepareQuestions(orderedQuestions, selectedQuestion, handleQuestionClick, handleQuestionDelete),
+    [handleQuestionClick, handleQuestionDelete, orderedQuestions, selectedQuestion]
   );
 
   return (

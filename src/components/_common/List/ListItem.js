@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core";
 import MuiListItem from "@material-ui/core/ListItem";
 import MuiListItemText from "@material-ui/core/ListItemText";
 import MuiListItemIcon from "@material-ui/core/ListItemIcon";
-import Badge from "../Badge";
 import Checkbox from "../Checkbox";
 import Radio from "../Radio";
 import ListItemActions from "./ListItemActions";
@@ -20,21 +19,21 @@ const useStyles = makeStyles({
 
 const ListItem = ({
   id,
-  className,
   children,
   primaryText,
   secondaryText,
   isSelected,
-  index,
   button = true,
   actions,
   onClick,
   onCheck,
   checked,
   checkControlType,
+  Draggable,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const classes = useStyles();
+  const className = isSelected ? "list-item list-item--selected" : "list-item";
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
@@ -46,16 +45,16 @@ const ListItem = ({
 
   return (
     <MuiListItem
-      className={`list-item ${className}`}
+      className={className}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
       selected={isSelected}
       button={button}
     >
-      {index && (
-        <MuiListItemIcon>
-          <Badge content={index} color={isSelected ? "primary" : "secondary"} />
+      {Draggable && (
+        <MuiListItemIcon onMouseDown={(e) => e.stopPropagation()} className="list-item__draggable">
+          <Draggable />
         </MuiListItemIcon>
       )}
 

@@ -6,7 +6,7 @@ import {
   deleteTestQuestion,
   selectTestQuestion,
   updateTestQuestion,
-  moveTestQuestions,
+  moveTestQuestion,
 } from "../actions/test-question";
 
 const initialState = {
@@ -90,16 +90,16 @@ const testQuestionSlice = createSlice({
       state.isSaving = false;
     },
 
-    [moveTestQuestions.pending]: (state) => {
+    [moveTestQuestion.pending]: (state) => {
       state.isSaving = true;
     },
-    [moveTestQuestions.fulfilled]: (state, { payload: { questions, hasError } }) => {
+    [moveTestQuestion.fulfilled]: (state, { payload: { questions, hasError } }) => {
       if (!hasError) {
         state.questions = questions;
         state.isSaving = false;
       }
     },
-    [moveTestQuestions.rejected]: (state) => {
+    [moveTestQuestion.rejected]: (state) => {
       onRejectedDefault(state);
       state.isSaving = false;
     },

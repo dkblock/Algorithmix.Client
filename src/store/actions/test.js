@@ -1,6 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { showModal, hideModal } from "./modal";
-import { navigateToTestDesigner } from "../../utils/navigator";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
@@ -27,13 +26,12 @@ export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }) => {
   return { test: null, hasError: true };
 });
 
-export const createTest = createAsyncThunk("createTest", async (test, thunkAPI) => {
+export const createTest = createAsyncThunk("createTest", async ({ test }, thunkAPI) => {
   thunkAPI.dispatch(hideModal());
   const response = await testService.createTest(test);
 
   if (statusCode(response).created) {
     const createdTest = await response.json();
-    navigateToTestDesigner(createdTest.id);
     return { test: createdTest, hasError: false };
   }
 

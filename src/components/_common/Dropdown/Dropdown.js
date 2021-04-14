@@ -29,7 +29,7 @@ const Dropdown = ({ className, items, label, value, onChange }) => {
         <Select label={label} value={dropdownValue} variant="outlined" size="small" onChange={handleChange}>
           {items.map((item) => (
             <MenuItem key={`dropdown-item-${item.value}`} value={item.value}>
-              {item.name}
+              {item.label}
             </MenuItem>
           ))}
         </Select>

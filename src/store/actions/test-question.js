@@ -58,8 +58,8 @@ export const updateTestQuestion = createAsyncThunk("updateTestQuestion", async (
   return { hasError: true };
 });
 
-export const moveTestQuestions = createAsyncThunk("swapTestQuestions", async ({ testId, indexes }) => {
-  const response = await testQuestionService.moveQuestions(testId, indexes);
+export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ testId, indexes }) => {
+  const response = await testQuestionService.moveQuestion(testId, indexes);
 
   if (statusCode(response).ok) {
     const questions = await response.json();

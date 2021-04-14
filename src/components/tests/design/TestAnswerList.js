@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTestAnswer } from "../../../store/actions/test-answer";
-import { IconButton, iconTypes } from "../../_common/Icon";
 import testAnswerListTypes from "./test-answer-lists";
 
 const TestAnswerList = () => {
@@ -19,18 +18,7 @@ const TestAnswerList = () => {
   const AnswerList = testAnswerListTypes[question.type];
 
   return (
-    <AnswerList answers={answers} onCreateAnswer={handleCreateAnswer}/>
-    // <div className="test-answer-list">
-    //   <div className="test-answer-list__header">
-    //     Ответы
-    //     <IconButton type={iconTypes.plus} onClick={handleAnswerCreate} />
-    //   </div>
-    //   <div className="test-answer-list__items">
-    //     {answers.map((answer) => (
-    //       <div>{answer.value}</div>
-    //     ))}
-    //   </div>
-    // </div>
+    <AnswerList onCreateAnswer={handleCreateAnswer}/>
   );
 };
 

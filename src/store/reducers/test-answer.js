@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { fetchTestAnswers, createTestAnswer, deleteTestAnswer } from "../actions/test-answer";
+import {
+  fetchTestAnswers,
+  createTestAnswer,
+  deleteTestAnswer,
+  updateTestAnswer,
+  moveTestAnswer,
+} from "../actions/test-answer";
 import { fetchTestQuestions } from "../actions/test-question";
 
 const initialState = {
@@ -57,6 +63,35 @@ const testAnswerSlice = createSlice({
     },
     [deleteTestAnswer.rejected]: (state) => {
       onRejectedDefault(state);
+    },
+
+    [updateTestAnswer.pending]: (state) => {
+      state.isSaving = true;
+    },
+    [updateTestAnswer.fulfilled]: (state, { payload: { updatedAnswer, hasError } }) => {
+      state.isSaving = false;
+
+      if (!hasError) {
+        state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
+      }
+    },
+    [updateTestAnswer.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.isSaving = false;
+    },
+
+    [moveTestAnswer.pending]: (state) => {
+      state.isSaving = true;
+    },
+    [moveTestAnswer.fulfilled]: (state, { payload: { answers, hasError } }) => {
+      if (!hasError) {
+        state.answers = answers;
+        state.isSaving = false;
+      }
+    },
+    [moveTestAnswer.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.isSaving = false;
     },
   },
 });

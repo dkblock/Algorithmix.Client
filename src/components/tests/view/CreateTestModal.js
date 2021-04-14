@@ -11,7 +11,7 @@ const { validateName, validateTest } = validator.test;
 const CreateTestModal = () => {
   const dispatch = useDispatch();
   const { algorithms } = useSelector((state) => state.algorithm);
-  const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, name: algorithm.name }));
+  const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, label: algorithm.name }));
 
   const [name, setName] = useState("");
   const [algorithmId, setAlgorithmId] = useState(algorithms[0]?.id);
@@ -39,7 +39,7 @@ const CreateTestModal = () => {
     const { isValid, validationErrors: nextValidationErrors } = validateTest(test);
 
     if (isValid) {
-      dispatch(createTest(test));
+      dispatch(createTest({ test }));
     } else {
       setValidationErrors(nextValidationErrors);
     }

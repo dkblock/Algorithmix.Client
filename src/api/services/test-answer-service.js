@@ -25,7 +25,12 @@ const testAnswerService = {
     updateAnswer: async (testId, questionId, answerId, updatedAnswer) => {
         const url = api.testAnswers.updateTestAnswer(testId, questionId, answerId);
         return await baseService.put(url, updatedAnswer);
-    }
+    },
+
+    moveAnswer: async (testId, questionId, indexes) => {
+        const url = api.testAnswers.moveTestAnswer(testId, questionId);
+        return await baseService.put(url, indexes);
+    },
 };
 
 export default testAnswerService;

@@ -27,7 +27,7 @@ const testQuestionService = {
     return await baseService.put(url, updatedQuestion);
   },
 
-  moveQuestions: async (testId, indexes) => {
+  moveQuestion: async (testId, indexes) => {
     const url = api.testQuestions.moveTestQuestions(testId);
     return await baseService.put(url, indexes);
   },

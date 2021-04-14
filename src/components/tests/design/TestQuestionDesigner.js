@@ -11,9 +11,9 @@ import TestAnswerList from "./TestAnswerList";
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
 const questionTypeItems = [
-  { value: testQuestionTypes.singleAnswerQuestion, name: "С одним ответом" },
-  { value: testQuestionTypes.multiAnswerQuestion, name: "С несколькими ответами" },
-  { value: testQuestionTypes.freeAnswerQuestion, name: "Со свободным ответом" },
+  { value: testQuestionTypes.singleAnswerQuestion, label: "С одним ответом" },
+  { value: testQuestionTypes.multiAnswerQuestion, label: "С несколькими ответами" },
+  { value: testQuestionTypes.freeAnswerQuestion, label: "Со свободным ответом" },
 ];
 
 const TestQuestionDesigner = () => {

@@ -8,6 +8,7 @@ const icons = {
     [iconTypes.close]: materialIcons.Close,
     [iconTypes.constructor]: materialIcons.Extension,
     [iconTypes.delete]: materialIcons.Delete,
+    [iconTypes.draggable]: materialIcons.DragIndicator,
     [iconTypes.edit]: materialIcons.Edit,
     [iconTypes.home]: materialIcons.Home,
     [iconTypes.info]: materialIcons.Info,

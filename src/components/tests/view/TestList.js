@@ -10,12 +10,11 @@ import { editTest, selectTest, showCreateTestModal, showDeleteTestModal } from "
 import { navigateToTestDesigner } from "../../../utils/navigator";
 
 const prepareTests = (tests, selectedTest, isExecutive, onClick, onTestEdit, onTestDelete) =>
-  tests.map((test, index) => ({
+  tests.map((test) => ({
     id: test.id,
     primaryText: test.name,
     secondaryText: test.algorithm.name,
     isSelected: test.id === selectedTest.id,
-    index: index + 1,
     onClick: () => onClick(test),
     actions: isExecutive
       ? [

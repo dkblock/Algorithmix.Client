@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import { updateTestQuestion } from "../../../store/actions/test-question";
 import testQuestionTypes from "../../../constants/test-question-types";
-import validator from "../../../utils/validator";
+import validator from "../../../utils/validation";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
 import TestAnswerList from "./TestAnswerList";

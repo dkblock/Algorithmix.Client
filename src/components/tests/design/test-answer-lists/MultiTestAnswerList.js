@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTestAnswer, moveTestAnswer } from "../../../../store/actions/test-answer";
+import { deleteTestAnswer, moveTestAnswer, updateTestAnswer } from "../../../../store/actions/test-answer";
 import { IconButton, iconTypes } from "../../../_common/Icon";
 import { SortableList } from "../../../_common/List";
 import TextField from "../../../_common/TextField";
@@ -32,9 +32,11 @@ const MultiTestAnswerList = ({ onCreateAnswer }) => {
   const questionId = question.id;
 
   const [orderedAnswers, setOrderedAnswers] = useState([]);
+  const [correctAnswerIds, setCorrectAnswerIds] = useState([]);
 
   useEffect(() => {
     setOrderedAnswers(answers);
+    setCorrectAnswerIds(answers.filter((answer) => answer.isCorrect).map((answer) => answer.id));
   }, [answers]);
 
   const handleAnswerDelete = useCallback(
@@ -42,6 +44,37 @@ const MultiTestAnswerList = ({ onCreateAnswer }) => {
       dispatch(deleteTestAnswer({ testId, questionId, answerId }));
     },
     [dispatch, questionId, testId]
+  );
+
+  const handleAnswerUpdate = useCallback(() => {}, []);
+
+  const handleIsCorrectAnswerChange = useCallback(
+    (newCorrectAnswerIds) => {
+      const checked = newCorrectAnswerIds.filter((answerId) => correctAnswerIds.indexOf(answerId) === -1);
+      const unchecked = correctAnswerIds.filter((answerId) => newCorrectAnswerIds.indexOf(answerId) === -1);
+      const answerId = checked.concat(unchecked)[0];
+      const isCorrect = checked.length > unchecked.length;
+      const newOrderedAnswers = orderedAnswers.map((answer) => ({
+        ...answer,
+        isCorrect: answer.id === answerId ? isCorrect : answer.isCorrect,
+      }));
+
+      setOrderedAnswers(newOrderedAnswers);
+      setCorrectAnswerIds(newCorrectAnswerIds);
+
+      const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
+      dispatch(
+        updateTestAnswer({
+          testId,
+          questionId,
+          answer: {
+            ...answer,
+            isCorrect,
+          },
+        })
+      );
+    },
+    [correctAnswerIds, dispatch, orderedAnswers, questionId, testId]
   );
 
   const handleAnswerMove = useCallback(
@@ -77,7 +110,7 @@ const MultiTestAnswerList = ({ onCreateAnswer }) => {
           <SortableList
             items={preparedAnswers}
             onSwap={handleAnswerMove}
-            onCheck={(ids) => console.log(ids)}
+            onCheck={handleIsCorrectAnswerChange}
             checkControlType="checkbox"
           />
         ) : (

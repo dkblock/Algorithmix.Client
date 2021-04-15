@@ -45,6 +45,7 @@ const TextField = ({
         multiline={multiline}
         rows={multiline ? rows : null}
         onChange={handleChange}
+        onMouseDown={(e) => e.stopPropagation()}
         onFocus={onFocus}
         onBlur={onFocusOut}
         InputLabelProps={{

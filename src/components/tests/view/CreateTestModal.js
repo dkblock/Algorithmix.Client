@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTest } from "../../../store/actions/test";
+import validator from "../../../utils/validation";
 import { CreateModal, modalSizes } from "../../_common/Modal";
 import Dropdown from "../../_common/Dropdown";
 import TextField from "../../_common/TextField";
-import validator from "../../../utils/validator";
 
 const { validateName, validateTest } = validator.test;
 

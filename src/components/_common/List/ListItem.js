@@ -43,6 +43,10 @@ const ListItem = ({
     setIsHovered(false);
   }, []);
 
+  const handleCheck = useCallback((newValue) => {
+    onCheck(id, newValue);
+  }, [id, onCheck]);
+
   return (
     <MuiListItem
       className={className}
@@ -61,9 +65,9 @@ const ListItem = ({
       {onCheck && (
         <MuiListItemIcon>
           {checkControlType === "radio" ? (
-            <Radio value={checked} onChange={() => onCheck(id)} />
+            <Radio value={checked} onChange={handleCheck} />
           ) : (
-            <Checkbox value={checked} onChange={() => onCheck(id)} />
+            <Checkbox value={checked} onChange={handleCheck} />
           )}
         </MuiListItemIcon>
       )}

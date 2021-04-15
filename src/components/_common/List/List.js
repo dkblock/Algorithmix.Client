@@ -6,11 +6,14 @@ const List = ({ className, items, onCheck, checkControlType }) => {
   const [checkedItemIds, setCheckedItemIds] = useState(checkedItems.map((item) => item.id));
 
   const handleCheckItem = useCallback(
-    (itemId) => {
+    (itemId, isChecked) => {
       let newCheckedItemIds;
 
       if (checkControlType === "radio") newCheckedItemIds = [itemId];
-      else newCheckedItemIds = [...checkedItemIds, itemId];
+      else {
+        if (isChecked) newCheckedItemIds = [...checkedItemIds, itemId];
+        else newCheckedItemIds = checkedItemIds.filter((id) => id !== itemId);
+      }
 
       setCheckedItemIds(newCheckedItemIds);
       onCheck(newCheckedItemIds);

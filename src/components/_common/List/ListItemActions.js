@@ -30,12 +30,20 @@ const ListItemActions = ({ actions, visible, setVisible }) => {
   );
 
   return actions.length === 1 ? (
-    <div className="list-item__actions" onClick={(e) => handleActionClick(e, actions[0].onClick)}>
+    <div
+      className="list-item__actions"
+      onClick={(e) => handleActionClick(e, actions[0].onClick)}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
       <IconButton type={actions[0].icon} />
     </div>
   ) : (
     <>
-      <div className={visible ? "list-item__actions" : "list-item__actions-hidden"} onClick={handleMenuOpen}>
+      <div
+        className={visible ? "list-item__actions" : "list-item__actions-hidden"}
+        onClick={handleMenuOpen}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
         <IconButton type={iconTypes.more} />
       </div>
       <Popover

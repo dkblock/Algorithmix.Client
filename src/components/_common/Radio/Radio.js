@@ -20,7 +20,13 @@ const Radio = ({ className, value, onChange }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <MuiRadio className={className} color={colors.primary} checked={radioValue} onChange={handleChange} />
+      <MuiRadio
+        className={className}
+        color={colors.primary}
+        checked={radioValue}
+        onChange={handleChange}
+        onMouseDown={(e) => e.stopPropagation()}
+      />
     </ThemeProvider>
   );
 };

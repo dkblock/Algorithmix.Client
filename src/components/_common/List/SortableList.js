@@ -5,12 +5,14 @@ import { Icon, iconTypes } from "../Icon";
 import ListItem from "./ListItem";
 
 const SortableList = ({ items, onSwap, onCheck, checkControlType }) => {
-  const checkedItems = items.filter((item) => item.checked);
   const [listItems, setListItems] = useState(items);
-  const [checkedItemIds, setCheckedItemIds] = useState(checkedItems.map((item) => item.id));
+  const [checkedItemIds, setCheckedItemIds] = useState([]);
 
   useEffect(() => {
+    const checkedItems = items.filter((item) => item.checked);
+
     setListItems(items);
+    setCheckedItemIds(checkedItems.map((item) => item.id));
   }, [items]);
 
   const handleCheckItem = useCallback(

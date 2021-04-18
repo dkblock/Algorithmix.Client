@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
 import {
   fetchTestQuestions,
   createTestQuestion,
@@ -36,17 +36,18 @@ const testQuestionSlice = createSlice({
     },
 
     [createTestQuestion.pending]: (state) => {
-      onPendingDefault(state);
+      onSavingDefault(state);
     },
     [createTestQuestion.fulfilled]: (state, { payload: { createdQuestion, hasError } }) => {
       onFulfilledDefault(state, hasError);
 
       if (!hasError) {
-        state.questions = [...state.questions, createdQuestion];
-
-        if (!state.selectedQuestion) {
-          state.selectedQuestion = createdQuestion;
+        if (state.questions.length > 0) {
+          state.questions[state.questions.length - 1].nextQuestionId = createdQuestion.id;
         }
+
+        state.questions = [...state.questions, createdQuestion];
+        state.selectedQuestion = createdQuestion;
       }
     },
     [createTestQuestion.rejected]: (state) => {
@@ -54,17 +55,31 @@ const testQuestionSlice = createSlice({
     },
 
     [deleteTestQuestion.pending]: (state) => {
-      onPendingDefault(state);
+      onSavingDefault(state);
     },
     [deleteTestQuestion.fulfilled]: (state, { payload: { questionId, hasError } }) => {
       onFulfilledDefault(state, hasError);
 
       if (!hasError) {
+        const deletedQuestion = state.questions.find((q) => q.id === questionId);
+
+        if (deletedQuestion.previousQuestionId) {
+          const previousQuestion = state.questions.find((q) => q.id === deletedQuestion.previousQuestionId);
+          previousQuestion.nextQuestionId = deletedQuestion.nextQuestionId;
+        }
+
+        if (deletedQuestion.nextQuestionId) {
+          const nextQuestion = state.questions.find((q) => q.id === deletedQuestion.nextQuestionId);
+          nextQuestion.previousQuestionId = deletedQuestion.previousQuestionId;
+        }
+
         state.questions = state.questions.filter((question) => question.id !== questionId);
 
         if (state.selectedQuestion.id === questionId) {
           if (state.questions.length > 0) state.selectedQuestion = state.questions[0];
           else state.selectedQuestion = null;
+        } else {
+          state.selectedQuestion = state.questions.find((q) => q.id === state.selectedQuestion.id);
         }
       }
     },
@@ -73,10 +88,10 @@ const testQuestionSlice = createSlice({
     },
 
     [updateTestQuestion.pending]: (state) => {
-      state.isSaving = true;
+      onSavingDefault(state);
     },
     [updateTestQuestion.fulfilled]: (state, { payload: { updatedQuestion, hasError } }) => {
-      state.isSaving = false;
+      onFulfilledDefault(state, hasError);
 
       if (!hasError) {
         state.selectedQuestion = updatedQuestion;
@@ -87,21 +102,21 @@ const testQuestionSlice = createSlice({
     },
     [updateTestQuestion.rejected]: (state) => {
       onRejectedDefault(state);
-      state.isSaving = false;
     },
 
     [moveTestQuestion.pending]: (state) => {
-      state.isSaving = true;
+      onSavingDefault(state);
     },
     [moveTestQuestion.fulfilled]: (state, { payload: { questions, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+
       if (!hasError) {
         state.questions = questions;
-        state.isSaving = false;
+        state.selectedQuestion = questions.find((q) => q.id === state.selectedQuestion.id);
       }
     },
     [moveTestQuestion.rejected]: (state) => {
       onRejectedDefault(state);
-      state.isSaving = false;
     },
 
     [selectTestQuestion]: (state, { payload: { question } }) => {

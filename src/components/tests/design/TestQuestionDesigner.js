@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebouncedCallback } from "use-debounce";
 import { Paper } from "@material-ui/core";
 import { updateTestQuestion } from "../../../store/actions/test-question";
 import testQuestionTypes from "../../../constants/test-question-types";
@@ -37,21 +38,15 @@ const TestQuestionDesigner = () => {
     }
   }, [question?.id]);
 
-  const handleUpdateQuestion = useCallback(
+  const handleUpdateQuestion = useDebouncedCallback(
     (updatedQuestion) => {
       const { isValid } = validateQuestion(updatedQuestion);
 
       if (isValid) {
-        dispatch(
-          updateTestQuestion({
-            testId,
-            questionId,
-            question: { ...updatedQuestion, testId },
-          })
-        );
+        dispatch(updateTestQuestion({ testId, questionId, question: { ...updatedQuestion, testId } }));
       }
     },
-    [dispatch, questionId, testId]
+    500
   );
 
   const handleQuestionValueChange = useCallback(

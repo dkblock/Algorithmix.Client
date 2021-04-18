@@ -1,19 +1,14 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteTestAnswer, moveTestAnswer, updateTestAnswer } from "../../../../store/actions/test-answer";
+import React, { useCallback, useMemo } from "react";
+import Divider from "@material-ui/core/Divider";
 import { IconButton, iconTypes } from "../../../_common/Icon";
 import { SortableList } from "../../../_common/List";
-import TextField from "../../../_common/TextField";
+import TestAnswerListItem from "./TestAnswerListItem";
 
-const prepareAnswers = (answers, onAnswerDelete) =>
+const prepareAnswers = (answers, onAnswerValueChange, onAnswerDelete) =>
   answers.map((answer) => ({
     id: answer.id,
     checked: answer.isCorrect,
-    content: (
-      <div className="test-answer-list__item">
-        <TextField value={answer.value} />
-      </div>
-    ),
+    content: <TestAnswerListItem answer={answer} onAnswerValueChange={onAnswerValueChange} />,
     actions: [
       {
         id: "delete",
@@ -24,92 +19,49 @@ const prepareAnswers = (answers, onAnswerDelete) =>
     ],
   }));
 
-const MultiTestAnswerList = ({ onCreateAnswer }) => {
-  const dispatch = useDispatch();
-  const { answers, isSaving } = useSelector((state) => state.testAnswer);
-  const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
-  const testId = question.test.id;
-  const questionId = question.id;
-
-  const [orderedAnswers, setOrderedAnswers] = useState([]);
-  const [correctAnswerIds, setCorrectAnswerIds] = useState([]);
-
-  useEffect(() => {
-    setOrderedAnswers(answers);
-    setCorrectAnswerIds(answers.filter((answer) => answer.isCorrect).map((answer) => answer.id));
-  }, [answers]);
-
-  const handleAnswerDelete = useCallback(
-    (answerId) => {
-      dispatch(deleteTestAnswer({ testId, questionId, answerId }));
-    },
-    [dispatch, questionId, testId]
-  );
-
-  const handleAnswerUpdate = useCallback(() => {}, []);
-
+const MultiTestAnswerList = ({
+  answers,
+  correctAnswerIds,
+  onAnswerCreate,
+  onAnswerDelete,
+  onAnswerValueChange,
+  onIsCorrectAnswerChange,
+  onAnswerMove,
+}) => {
   const handleIsCorrectAnswerChange = useCallback(
     (newCorrectAnswerIds) => {
       const checked = newCorrectAnswerIds.filter((answerId) => correctAnswerIds.indexOf(answerId) === -1);
       const unchecked = correctAnswerIds.filter((answerId) => newCorrectAnswerIds.indexOf(answerId) === -1);
       const answerId = checked.concat(unchecked)[0];
       const isCorrect = checked.length > unchecked.length;
-      const newOrderedAnswers = orderedAnswers.map((answer) => ({
+      const newOrderedAnswers = answers.map((answer) => ({
         ...answer,
         isCorrect: answer.id === answerId ? isCorrect : answer.isCorrect,
       }));
 
-      setOrderedAnswers(newOrderedAnswers);
-      setCorrectAnswerIds(newCorrectAnswerIds);
-
-      const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
-      dispatch(
-        updateTestAnswer({
-          testId,
-          questionId,
-          answer: {
-            ...answer,
-            isCorrect,
-          },
-        })
-      );
+      onIsCorrectAnswerChange(newOrderedAnswers, newCorrectAnswerIds, answerId);
     },
-    [correctAnswerIds, dispatch, orderedAnswers, questionId, testId]
+    [answers, correctAnswerIds, onIsCorrectAnswerChange]
   );
 
-  const handleAnswerMove = useCallback(
-    (newAnswers, oldIndex, newIndex) => {
-      if (!isSaving && oldIndex !== newIndex) {
-        const newOrderedAnswers = newAnswers.map(({ id }) => orderedAnswers.find((a) => a.id === id));
-        setOrderedAnswers(newOrderedAnswers);
-        dispatch(
-          moveTestAnswer({
-            testId,
-            questionId,
-            indexes: { oldIndex, newIndex },
-          })
-        );
-      }
-    },
-    [dispatch, isSaving, orderedAnswers, questionId, testId]
-  );
-
-  const preparedAnswers = useMemo(() => prepareAnswers(orderedAnswers, handleAnswerDelete), [
-    handleAnswerDelete,
-    orderedAnswers,
+  const preparedAnswers = useMemo(() => prepareAnswers(answers, onAnswerValueChange, onAnswerDelete), [
+    answers,
+    onAnswerDelete,
+    onAnswerValueChange,
   ]);
 
   return (
     <div className="test-answer-list">
       <div className="test-answer-list__header">
         Ответы
-        <IconButton type={iconTypes.plus} onClick={onCreateAnswer} />
+        <IconButton type={iconTypes.plus} onClick={onAnswerCreate} />
       </div>
+      <Divider/>
       <div className="test-answer-list__items">
         {preparedAnswers.length > 0 ? (
           <SortableList
             items={preparedAnswers}
-            onSwap={handleAnswerMove}
+            onSwap={onAnswerMove}
             onCheck={handleIsCorrectAnswerChange}
             checkControlType="checkbox"
           />

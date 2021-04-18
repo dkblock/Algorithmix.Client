@@ -22,7 +22,7 @@ export const createTestAnswer = createAsyncThunk("createTestAnswer", async ({ te
 
   if (statusCode(response).created) {
     const createdAnswer = await response.json();
-    return { answer: createdAnswer, hasError: false };
+    return { createdAnswer, hasError: false };
   }
 
   return { hasError: true };

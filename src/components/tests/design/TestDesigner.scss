@@ -89,7 +89,8 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    padding: 0 16px 0 24px;
+    align-items: center;
+    padding-bottom: 15px;
   }
 
   &__items {
@@ -99,5 +100,6 @@
 
   &__item {
     display: flex;
+    padding: 15px 0;
   }
 }

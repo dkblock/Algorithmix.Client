@@ -1,0 +1,11 @@
+.test-pass {
+  width: 100%;
+  padding: 18px;
+  min-height: calc(100vh - 148px);
+
+  &__content {
+    width: 100%;
+    padding: 36px 48px;
+    height: 100%;
+  }
+}

@@ -38,7 +38,7 @@ const TestQuestionDesigner = () => {
     }
   }, [question?.id]);
 
-  const handleUpdateQuestion = useDebouncedCallback(
+  const handleUpdateQuestion = useCallback(
     (updatedQuestion) => {
       const { isValid } = validateQuestion(updatedQuestion);
 
@@ -46,15 +46,15 @@ const TestQuestionDesigner = () => {
         dispatch(updateTestQuestion({ testId, questionId, question: { ...updatedQuestion, testId } }));
       }
     },
-    500
+    [dispatch, questionId, testId]
   );
 
-  const handleQuestionValueChange = useCallback(
+  const handleQuestionValueChange = useDebouncedCallback(
     (newValue) => {
       setValue(newValue);
       handleUpdateQuestion({ ...question, value: newValue });
     },
-    [handleUpdateQuestion, question]
+    1000
   );
 
   const handleQuestionValueFocus = useCallback(() => {

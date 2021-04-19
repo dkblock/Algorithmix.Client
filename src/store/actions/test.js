@@ -1,4 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchNextTestQuestion } from "./test-question";
 import { showModal, hideModal } from "./modal";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
@@ -52,6 +53,10 @@ export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thun
 export const selectTest = createAction("selectTest", ({ test }) => ({ payload: { test } }));
 
 export const editTest = createAction("editTest", ({ test }) => ({ payload: { test } }));
+
+export const startTest = createAsyncThunk("startTest", async ({ testId }, thunkAPI) => {
+  thunkAPI.dispatch(fetchNextTestQuestion({ testId, userAnswer: null }));
+});
 
 export const showCreateTestModal = createAsyncThunk("showCreateTestModal", async (params, thunkAPI) => {
   thunkAPI.dispatch(showModal(modalTypes.createTest));

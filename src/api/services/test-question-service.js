@@ -31,6 +31,16 @@ const testQuestionService = {
     const url = api.testQuestions.moveTestQuestions(testId);
     return await baseService.put(url, indexes);
   },
+
+  fetchNextQuestion: async (testId, userAnswer) => {
+    const url = api.testQuestions.fetchNextTestQuestion(testId);
+    return await baseService.post(url, userAnswer);
+  },
+
+  fetchPreviousQuestion: async (testId, userAnswer) => {
+    const url = api.testQuestions.fetchPreviousTestQuestion(testId);
+    return await baseService.post(url, userAnswer);
+  },
 };
 
 export default testQuestionService;

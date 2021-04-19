@@ -19,9 +19,10 @@ export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async (
   return { questions: [], hasError: true };
 });
 
-export const selectTestQuestion = createAction("selectTestQuestion", ({ question }) => ({
-  payload: { question },
-}));
+export const selectTestQuestion = createAsyncThunk("selectTestQuestion", ({ question }, thunkAPI) => {
+  thunkAPI.dispatch(fetchTestAnswers({ testId: question.test.id, questionId: question.id }));
+  return { question };
+});
 
 export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, count }, thunkAPI) => {
   const response = await testQuestionService.createQuestion(testId, {
@@ -78,6 +79,31 @@ export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ te
 
   return { hasError: true };
 });
+
+export const fetchNextTestQuestion = createAsyncThunk("fetchNextTestQuestion", async ({ testId, userAnswer }) => {
+  const response = await testQuestionService.fetchNextQuestion(testId, userAnswer);
+
+  if (statusCode(response).ok) {
+    const nextQuestion = await response.json();
+    return { question: nextQuestion, hasError: false };
+  }
+
+  return { hasError: true };
+});
+
+export const fetchPreviousTestQuestion = createAsyncThunk(
+  "fetchPreviousTestQuestion",
+  async ({ testId, currentQuestionId }) => {
+    const response = await testQuestionService.fetchPreviousQuestion(testId, { questionId: currentQuestionId });
+
+    if (statusCode(response).ok) {
+      const previousQuestion = await response.json();
+      return { question: previousQuestion, hasError: false };
+    }
+
+    return { hasError: true };
+  }
+);
 
 export const showDeleteTestQuestionModal = createAsyncThunk(
   "showDeleteTestQuestionModal",

@@ -49,7 +49,7 @@ const TestAnswerList = () => {
         dispatch(updateTestAnswer({ testId, questionId, answer: { ...updatedAnswer, questionId } }));
       }
     },
-    500
+    1000
   );
 
   const handleAnswerValueChange = useCallback(

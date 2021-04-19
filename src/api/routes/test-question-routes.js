@@ -7,6 +7,9 @@ const testQuestionRoutes = {
   deleteTestQuestion: (testId, questionId) => getRoute(`tests/${testId}/questions/${questionId}`),
   updateTestQuestion: (testId, questionId) => getRoute(`tests/${testId}/questions/${questionId}`),
   moveTestQuestions: (testId) => getRoute(`tests/${testId}/questions/move`),
+
+  fetchNextTestQuestion: (testId) => getRoute(`tests/${testId}/questions/next`),
+  fetchPreviousTestQuestion: (testId) => getRoute(`tests/${testId}/questions/previous`),
 };
 
 export default testQuestionRoutes;

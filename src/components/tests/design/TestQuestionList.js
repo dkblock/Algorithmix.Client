@@ -6,7 +6,6 @@ import {
   showDeleteTestQuestionModal,
   moveTestQuestion,
 } from "../../../store/actions/test-question";
-import { fetchTestAnswers } from "../../../store/actions/test-answer";
 import { iconTypes } from "../../_common/Icon";
 import Button, { colors } from "../../_common/Button";
 import { SortableList } from "../../_common/List";
@@ -44,7 +43,6 @@ const TestQuestionList = () => {
   const handleQuestionClick = useCallback(
     (question) => {
       dispatch(selectTestQuestion({ question }));
-      dispatch(fetchTestAnswers({ testId: test.id, questionId: question.id }));
     },
     [dispatch, test.id]
   );

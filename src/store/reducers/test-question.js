@@ -7,10 +7,13 @@ import {
   selectTestQuestion,
   updateTestQuestion,
   moveTestQuestion,
+  fetchNextTestQuestion,
+  fetchPreviousTestQuestion,
 } from "../actions/test-question";
 
 const initialState = {
   questions: [],
+  currentQuestion: null,
   selectedQuestion: null,
   isFetching: false,
   isSaving: false,
@@ -119,7 +122,35 @@ const testQuestionSlice = createSlice({
       onRejectedDefault(state);
     },
 
-    [selectTestQuestion]: (state, { payload: { question } }) => {
+    [fetchNextTestQuestion.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [fetchNextTestQuestion.fulfilled]: (state, { payload: { question, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+
+      if (!hasError) {
+        state.currentQuestion = question;
+      }
+    },
+    [fetchNextTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [fetchPreviousTestQuestion.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [fetchPreviousTestQuestion.fulfilled]: (state, { payload: { question, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+
+      if (!hasError) {
+        state.currentQuestion = question;
+      }
+    },
+    [fetchPreviousTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [selectTestQuestion.fulfilled]: (state, { payload: { question } }) => {
       state.selectedQuestion = question;
     },
   },

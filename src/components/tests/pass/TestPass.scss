@@ -4,8 +4,22 @@
   min-height: calc(100vh - 148px);
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     padding: 36px 48px;
     height: 100%;
   }
+
+  &__loader {
+    margin: auto;
+  }
+}
+
+.test-pass-navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

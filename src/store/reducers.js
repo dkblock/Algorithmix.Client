@@ -6,16 +6,18 @@ import modalReducer from "./reducers/modal";
 import testReducer from "./reducers/test";
 import testAnswerReducer from "./reducers/test-answer";
 import testQuestionReducer from "./reducers/test-question";
+import testPassReducer from "./reducers/test-pass";
 
 const createRootReducer = (history) => ({
-    router: connectRouter(history),
-    app: appReducer,
-    account: accountReducer,
-    algorithm: algorithmReducer,
-    modal: modalReducer,
-    test: testReducer,
-    testAnswer: testAnswerReducer,
-    testQuestion: testQuestionReducer
+  router: connectRouter(history),
+  app: appReducer,
+  account: accountReducer,
+  algorithm: algorithmReducer,
+  modal: modalReducer,
+  test: testReducer,
+  testAnswer: testAnswerReducer,
+  testQuestion: testQuestionReducer,
+  testPass: testPassReducer,
 });
 
 export default createRootReducer;

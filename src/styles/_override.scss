@@ -18,3 +18,7 @@
 .MuiListItem-container {
   list-style-type: none;
 }
+
+.MuiFormControlLabel-root, label {
+  margin: 0 !important;
+}

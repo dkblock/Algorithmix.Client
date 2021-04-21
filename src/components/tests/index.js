@@ -19,7 +19,7 @@ const Tests = () => {
   return (
     <>
       <ExecutiveRoute path={`${routes.tests}/:testId/design`} render={(props) => <TestDesigner {...props} />} />
-      <PrivateRoute path={`${routes.tests}/:testId/pass`} render={(props) => <TestPass {...props} />} />
+      <PrivateRoute path={`${routes.tests}/:testId`} exact render={(props) => <TestPass {...props} />} />
       <Route path={routes.tests} exact render={(props) => <TestView {...props} />} />
     </>
   );

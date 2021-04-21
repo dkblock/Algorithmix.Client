@@ -8,8 +8,8 @@ const testQuestionRoutes = {
   updateTestQuestion: (testId, questionId) => getRoute(`tests/${testId}/questions/${questionId}`),
   moveTestQuestions: (testId) => getRoute(`tests/${testId}/questions/move`),
 
-  fetchNextTestQuestion: (testId) => getRoute(`tests/${testId}/questions/next`),
-  fetchPreviousTestQuestion: (testId) => getRoute(`tests/${testId}/questions/previous`),
+  fetchNextTestQuestion: (testId) => getRoute(`tests/${testId}/pass/next`),
+  fetchPreviousTestQuestion: (testId) => getRoute(`tests/${testId}/pass/previous`),
 };
 
 export default testQuestionRoutes;

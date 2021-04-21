@@ -38,7 +38,7 @@ const FreeTestAnswerListItem = ({ answer, onAnswerValueChange }) => {
     <div className="test-answer-list__item">
       <TextField
         className="w-100"
-        label="Ответ"
+        label="Правильный ответ"
         error={Boolean(error)}
         helperText={error}
         value={answerValue}

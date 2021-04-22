@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../actions/test-pass";
+import { fetchNextTestQuestion, fetchPreviousTestQuestion, fetchTestResult, startTestPass } from "../actions/test-pass";
 
 const initialState = {
   currentTest: null,
   currentQuestion: null,
+  testResult: null,
+
   isFetching: false,
+  isHandlingResult: false,
   hasError: false,
 };
 
@@ -29,9 +32,12 @@ const testPassSlice = createSlice({
 
     [fetchNextTestQuestion.pending]: (state) => {
       onPendingDefault(state);
+      state.isHandlingResult = true;
+      state.currentQuestion = null;
     },
     [fetchNextTestQuestion.fulfilled]: (state, { payload: { question, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      state.isHandlingResult = false;
 
       if (!hasError) {
         state.currentQuestion = question;
@@ -52,6 +58,18 @@ const testPassSlice = createSlice({
       }
     },
     [fetchPreviousTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [fetchTestResult.pending]: (state) => {
+      onPendingDefault(state);
+      state.testResult = null;
+    },
+    [fetchTestResult.fulfilled]: (state, { payload: { testResult, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      state.testResult = testResult;
+    },
+    [fetchTestResult.rejected]: (state) => {
       onRejectedDefault(state);
     },
   },

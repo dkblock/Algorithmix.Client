@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { Paper } from "@material-ui/core";
 import { useTitle } from "../../../hooks";
 import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../../../store/actions/test-pass";
+import { navigateToTestResult } from "../../../utils/navigator";
 import Loader from "../../_common/Loader";
 import TestPassNavigation from "./TestPassNavigation";
 import "./TestPass.scss";
@@ -12,7 +13,7 @@ import TestAnswerList from "./TestAnswerList";
 const TestPass = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { currentQuestion, isFetching } = useSelector((state) => state.testPass);
+  const { currentQuestion, testResult, isFetching } = useSelector((state) => state.testPass);
 
   const [userAnswers, setUserAnswers] = useState([]);
 
@@ -34,7 +35,11 @@ const TestPass = () => {
     );
 
     setUserAnswers([]);
-  }, [currentQuestion?.id, dispatch, testId, userAnswers]);
+
+    if (!currentQuestion.nextQuestionId) {
+      navigateToTestResult(testId);
+    }
+  }, [currentQuestion?.id, currentQuestion?.nextQuestionId, dispatch, testId, userAnswers]);
 
   const handlePreviousQuestionClick = useCallback(() => {
     dispatch(
@@ -47,9 +52,7 @@ const TestPass = () => {
     setUserAnswers([]);
   }, [currentQuestion?.id, dispatch, testId]);
 
-  if (!currentQuestion) {
-    return null;
-  }
+  if (!currentQuestion) return null;
 
   return (
     <div className="test-pass">

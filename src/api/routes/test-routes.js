@@ -6,7 +6,9 @@ const testRoutes = {
   createTest: () => getRoute("tests"),
   deleteTest: (testId) => getRoute(`tests/${testId}`),
   updateTest: (testId) => getRoute(`tests/${testId}`),
+
   startTestPass: (testId) => getRoute(`tests/${testId}/pass`),
+  fetchTestResult: (testId) => getRoute(`tests/${testId}/result`),
 };
 
 export default testRoutes;

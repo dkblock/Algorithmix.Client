@@ -22,6 +22,10 @@ export const fetchNextTestQuestion = createAsyncThunk("fetchNextTestQuestion", a
     return { question: nextQuestion, hasError: false };
   }
 
+  if (statusCode(response).noContent) {
+    return { question: null, hasError: false };
+  }
+
   return { hasError: true };
 });
 
@@ -38,3 +42,14 @@ export const fetchPreviousTestQuestion = createAsyncThunk(
     return { hasError: true };
   }
 );
+
+export const fetchTestResult = createAsyncThunk("fetchTestResult", async ({ testId }) => {
+  const response = await testService.fetchTestResult(testId);
+
+  if (statusCode(response).ok) {
+    const testResult = await response.json();
+    return { testResult, hasError: false };
+  }
+
+  return { hasError: true };
+});

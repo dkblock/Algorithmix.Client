@@ -31,6 +31,11 @@ const testService = {
     const url = api.tests.startTestPass(testId);
     return await baseService.get(url);
   },
+
+  fetchTestResult: async (testId) => {
+    const url = api.tests.fetchTestResult(testId);
+    return await baseService.get(url);
+  },
 };
 
 export default testService;

@@ -7,6 +7,7 @@ import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import PrivateRoute from "../_common/Route/PrivateRoute";
 import TestDesigner from "./design/TestDesigner";
 import TestPass from "./pass/TestPass";
+import TestResult from "./pass/TestResult";
 import TestView from "./view/TestView";
 
 const Tests = () => {
@@ -20,6 +21,7 @@ const Tests = () => {
     <>
       <ExecutiveRoute path={`${routes.tests}/:testId/design`} render={(props) => <TestDesigner {...props} />} />
       <PrivateRoute path={`${routes.tests}/:testId`} exact render={(props) => <TestPass {...props} />} />
+      <PrivateRoute path={`${routes.tests}/:testId/result`} render={(props) => <TestResult {...props} />} />
       <Route path={routes.tests} exact render={(props) => <TestView {...props} />} />
     </>
   );

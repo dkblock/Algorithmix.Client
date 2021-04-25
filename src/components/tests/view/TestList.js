@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useExecutiveRole } from "../../../hooks";
 import { List } from "../../_common/List";
@@ -9,13 +9,13 @@ import { iconTypes } from "../../_common/Icon";
 import { editTest, selectTest, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesigner } from "../../../utils/navigator";
 
-const prepareTests = (tests, selectedTest, isExecutive, onClick, onTestEdit, onTestDelete) =>
+const prepareTests = (tests, selectedTestId, isExecutive, onTestClick, onTestEdit, onTestDelete) =>
   tests.map((test) => ({
     id: test.id,
     primaryText: test.name,
     secondaryText: test.algorithm.name,
-    isSelected: test.id === selectedTest.id,
-    onClick: () => onClick(test),
+    isSelected: test.id === selectedTestId,
+    onClick: () => onTestClick(test.id),
     actions: isExecutive
       ? [
           {
@@ -43,11 +43,11 @@ const prepareTests = (tests, selectedTest, isExecutive, onClick, onTestEdit, onT
 const TestList = () => {
   const dispatch = useDispatch();
   const isExecutive = useExecutiveRole();
-  const { tests, selectedTest, isFetching } = useSelector((state) => state.test);
+  const { tests, selectedTestId, isFetching } = useSelector((state) => state.test);
 
   const handleTestClick = useCallback(
-    (test) => {
-      dispatch(selectTest({ test }));
+    (testId) => {
+      dispatch(selectTest({ testId }));
     },
     [dispatch]
   );
@@ -69,13 +69,9 @@ const TestList = () => {
 
   const handleTestCreate = () => dispatch(showCreateTestModal());
 
-  const preparedTests = prepareTests(
-    tests,
-    selectedTest,
-    isExecutive,
-    handleTestClick,
-    handleTestEdit,
-    handleTestDelete
+  const preparedTests = useMemo(
+    () => prepareTests(tests, selectedTestId, isExecutive, handleTestClick, handleTestEdit, handleTestDelete),
+    [handleTestClick, handleTestDelete, handleTestEdit, isExecutive, selectedTestId, tests]
   );
 
   return (

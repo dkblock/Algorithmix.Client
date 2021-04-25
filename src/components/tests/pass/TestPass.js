@@ -2,20 +2,26 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Paper } from "@material-ui/core";
+import Divider from "@material-ui/core/Divider";
 import { useTitle } from "../../../hooks";
 import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../../../store/actions/test-pass";
 import { navigateToTestResult } from "../../../utils/navigator";
+import Redirect, { routes } from "../../_common/Route/Redirect";
 import Loader from "../../_common/Loader";
 import TestPassNavigation from "./TestPassNavigation";
-import "./TestPass.scss";
 import TestAnswerList from "./TestAnswerList";
+import "./TestPass.scss";
 
 const TestPass = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { currentQuestion, testResult, isFetching } = useSelector((state) => state.testPass);
+  const { currentQuestion, isFetching, userAnswers: allUserAnswers } = useSelector((state) => state.testPass);
+  const { tests } = useSelector((state) => state.test);
 
   const [userAnswers, setUserAnswers] = useState([]);
+  const [questionOrder, setQuestionOrder] = useState(1);
+
+  const currentTest = tests.find((t) => t.id === parseInt(testId));
 
   useTitle("Тест");
 
@@ -24,6 +30,8 @@ const TestPass = () => {
   }, [dispatch, testId]);
 
   const handleNextQuestionClick = useCallback(() => {
+    if (userAnswers.length === 0) return;
+
     dispatch(
       fetchNextTestQuestion({
         testId,
@@ -34,12 +42,13 @@ const TestPass = () => {
       })
     );
 
-    setUserAnswers([]);
+    setUserAnswers(allUserAnswers[currentQuestion.nextQuestionId] ?? []);
+    setQuestionOrder((prevState) => prevState + 1);
 
     if (!currentQuestion.nextQuestionId) {
       navigateToTestResult(testId);
     }
-  }, [currentQuestion?.id, currentQuestion?.nextQuestionId, dispatch, testId, userAnswers]);
+  }, [allUserAnswers, currentQuestion?.id, currentQuestion?.nextQuestionId, dispatch, testId, userAnswers]);
 
   const handlePreviousQuestionClick = useCallback(() => {
     dispatch(
@@ -49,16 +58,20 @@ const TestPass = () => {
       })
     );
 
-    setUserAnswers([]);
-  }, [currentQuestion?.id, dispatch, testId]);
+    setUserAnswers(allUserAnswers[currentQuestion.previousQuestionId]);
+    setQuestionOrder((prevState) => prevState - 1);
+  }, [allUserAnswers, currentQuestion?.id, currentQuestion?.previousQuestionId, dispatch, testId]);
 
+  if (currentTest?.userResult) return <Redirect to={routes.testResult(testId)} />;
   if (!currentQuestion) return null;
 
   return (
     <div className="test-pass">
       <Paper className="test-pass__content">
         <div className="w-100">
-          {currentQuestion.value}
+          <div className="test-pass__header">Вопрос {questionOrder}</div>
+          <div>{currentQuestion.value}</div>
+          <Divider className="test-pass__divider" />
           <TestAnswerList userAnswers={userAnswers} setUserAnswers={setUserAnswers} />
         </div>
         <TestPassNavigation

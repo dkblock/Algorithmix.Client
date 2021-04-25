@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import Divider from "@material-ui/core/Divider";
 import Checkbox from "../../../_common/Checkbox";
 
 const MultiTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
@@ -19,8 +18,7 @@ const MultiTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
 
   return (
     <div className="test-answer-list">
-      <div className="test-answer-list__header">Ответы</div>
-      <Divider />
+      <div className="test-answer-list__header">Выберите правильный ответ(-ы)</div>
       <div className="test-answer-list__items">
         {answers.map((answer) => (
           <Checkbox

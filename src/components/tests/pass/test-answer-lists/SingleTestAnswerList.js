@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import Divider from "@material-ui/core/Divider";
 import Radio from "../../../_common/Radio";
 
 const SingleTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
@@ -12,8 +11,7 @@ const SingleTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
 
   return (
     <div className="test-answer-list">
-      <div className="test-answer-list__header">Ответы</div>
-      <Divider />
+      <div className="test-answer-list__header">Выберите правильный ответ</div>
       <div className="test-answer-list__items">
         {answers.map((answer) => (
           <Radio

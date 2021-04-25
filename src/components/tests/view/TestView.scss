@@ -51,30 +51,50 @@
 
 .test-info {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  max-height: 100%;
+  height: calc(100vh - 136px);
   width: 60%;
   margin: 18px;
   padding: 24px;
-  gap: 10px;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__divider {
+    margin: 12px 0 24px !important;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    width: 40%;
+    font-size: 18px;
+    font-weight: 400;
+    gap: 18px;
 
-    &--description {
-      width: 45%;
+    span {
+      font-weight: 600;
     }
+  }
 
-    &--image {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-      width: 40%;
-    }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__result {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
   }
 
   &__image {

@@ -19,7 +19,7 @@ export const fetchNextTestQuestion = createAsyncThunk("fetchNextTestQuestion", a
 
   if (statusCode(response).ok) {
     const nextQuestion = await response.json();
-    return { question: nextQuestion, hasError: false };
+    return { userAnswer, question: nextQuestion, hasError: false };
   }
 
   if (statusCode(response).noContent) {

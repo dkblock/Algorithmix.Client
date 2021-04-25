@@ -2,6 +2,7 @@
   width: 100%;
   padding: 18px;
   min-height: calc(100vh - 148px);
+  font-size: 18px !important;
 
   &__content {
     display: flex;
@@ -15,6 +16,15 @@
 
   &__loader {
     margin: auto;
+  }
+
+  &__divider {
+    margin: 18px 0 24px !important;
+  }
+
+  &__header {
+    font-weight: 700;
+    margin-bottom: 12px;
   }
 }
 

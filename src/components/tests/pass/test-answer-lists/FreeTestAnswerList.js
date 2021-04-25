@@ -1,18 +1,19 @@
 import React, { useCallback, useState } from "react";
-import Divider from "@material-ui/core/Divider";
 import validator from "../../../../utils/validation";
 import TextField from "../../../_common/TextField";
 
 const { validateAnswerValue } = validator.testAnswer;
 
-const FreeTestAnswerList = ({ setUserAnswers }) => {
-  const [answerValue, setAnswerValue] = useState("");
+const FreeTestAnswerList = ({ userAnswers, setUserAnswers }) => {
+  const [answerValue, setAnswerValue] = useState(userAnswers[0] ?? "");
   const [error, setError] = useState(null);
 
   const handleUserAnswerChange = useCallback(
     (newUserAnswer) => {
       setAnswerValue(newUserAnswer);
-      setUserAnswers([newUserAnswer]);
+
+      if (newUserAnswer) setUserAnswers([newUserAnswer]);
+      else setUserAnswers([]);
     },
     [setUserAnswers]
   );
@@ -28,8 +29,6 @@ const FreeTestAnswerList = ({ setUserAnswers }) => {
 
   return (
     <div className="test-answer-list">
-      <div className="test-answer-list__header">Ответы</div>
-      <Divider />
       <div className="test-answer-list__items">
         <TextField
           className="w-100"

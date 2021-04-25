@@ -6,16 +6,16 @@ import TestInfo from "./TestInfo";
 import "./TestView.scss";
 
 const TestView = () => {
-    const selectedTest = useSelector(state => state.test.selectedTest);
+  const { selectedTestId } = useSelector((state) => state.test);
 
-    useTitle("Тесты");
+  useTitle("Тесты");
 
-    return (
-        <div className="test-view">
-            <TestList/>
-            <TestInfo test={selectedTest}/>
-        </div>
-    );
+  return (
+    <div className="test-view">
+      <TestList />
+      <TestInfo testId={selectedTestId} />
+    </div>
+  );
 };
 
 export default TestView;

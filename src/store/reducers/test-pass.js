@@ -6,6 +6,7 @@ const initialState = {
   currentTest: null,
   currentQuestion: null,
   testResult: null,
+  userAnswers: {},
 
   isFetching: false,
   isHandlingResult: false,
@@ -18,6 +19,10 @@ const testPassSlice = createSlice({
   extraReducers: {
     [startTestPass.pending]: (state) => {
       onPendingDefault(state);
+      state.currentQuestion = null;
+      state.currentTest = null;
+      state.testResult = null;
+      state.userAnswers = {};
     },
     [startTestPass.fulfilled]: (state, { payload: { question, hasError } }) => {
       onFulfilledDefault(state);
@@ -35,12 +40,13 @@ const testPassSlice = createSlice({
       state.isHandlingResult = true;
       state.currentQuestion = null;
     },
-    [fetchNextTestQuestion.fulfilled]: (state, { payload: { question, hasError } }) => {
+    [fetchNextTestQuestion.fulfilled]: (state, { payload: { userAnswer, question, hasError } }) => {
       onFulfilledDefault(state, hasError);
       state.isHandlingResult = false;
 
-      if (!hasError) {
+      if (!hasError && question) {
         state.currentQuestion = question;
+        state.userAnswers = { ...state.userAnswers, [question.previousQuestionId]: userAnswer.answers };
       }
     },
     [fetchNextTestQuestion.rejected]: (state) => {
@@ -68,6 +74,9 @@ const testPassSlice = createSlice({
     [fetchTestResult.fulfilled]: (state, { payload: { testResult, hasError } }) => {
       onFulfilledDefault(state, hasError);
       state.testResult = testResult;
+      state.currentQuestion = null;
+      state.currentTest = null;
+      state.userAnswers = {};
     },
     [fetchTestResult.rejected]: (state) => {
       onRejectedDefault(state);

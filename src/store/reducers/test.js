@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import { createTest, deleteTest, editTest, fetchTest, fetchTests, selectTest } from "../actions/test";
+import { fetchTestResult } from "../actions/test-pass";
 
 const initialState = {
   tests: [],
-  selectedTest: null,
   editedTest: null,
+  selectedTestId: null,
+
   isFetching: false,
   isSaving: false,
   hasError: false,
@@ -21,13 +23,12 @@ const testSlice = createSlice({
     [fetchTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
       onFulfilledDefault(state, hasError);
       state.tests = tests;
-
-      if (!state.selectedTest) state.selectedTest = tests[0];
+      state.selectedTestId = tests[0].id;
     },
     [fetchTests.rejected]: (state) => {
       onRejectedDefault(state);
       state.tests = [];
-      state.selectedTest = null;
+      state.selectedTestId = null;
     },
 
     [fetchTest.pending]: (state) => {
@@ -35,11 +36,11 @@ const testSlice = createSlice({
     },
     [fetchTest.fulfilled]: (state, { payload: { test, hasError } }) => {
       onFulfilledDefault(state, hasError);
-      state.selectedTest = test;
+      state.selectedTestId = test.id;
     },
     [fetchTest.rejected]: (state) => {
       onRejectedDefault(state);
-      state.selectedTest = null;
+      state.selectedTestId = null;
     },
 
     [createTest.pending]: (state) => {
@@ -50,7 +51,7 @@ const testSlice = createSlice({
 
       if (!hasError) {
         state.tests = [test, ...state.tests];
-        state.selectedTest = test;
+        state.selectedTestId = test.id;
       }
     },
     [createTest.rejected]: (state) => {
@@ -66,15 +67,30 @@ const testSlice = createSlice({
       if (!hasError) {
         state.tests = state.tests.filter((test) => test.id !== testId);
 
-        if (state.selectedTest.id === testId) state.selectedTest = state.tests[0];
+        if (state.selectedTestId === testId) {
+          state.selectedTestId = state.tests[0]?.id;
+        }
       }
     },
     [deleteTest.rejected]: (state) => {
       onRejectedDefault(state);
     },
 
-    [selectTest]: (state, { payload: { test } }) => {
-      state.selectedTest = test;
+    [fetchTestResult.fulfilled]: (state, { payload: { testResult, hasError } }) => {
+      if (!hasError) {
+        state.tests = state.tests.map((test) =>
+          test.id === testResult.test.id
+            ? {
+                ...test,
+                userResult: testResult,
+              }
+            : test
+        );
+      }
+    },
+
+    [selectTest]: (state, { payload: { testId } }) => {
+      state.selectedTestId = testId;
     },
     [editTest]: (state, { payload: { test } }) => {
       state.editedTest = test;

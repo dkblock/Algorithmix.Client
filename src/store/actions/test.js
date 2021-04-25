@@ -49,7 +49,7 @@ export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thun
   return { hasError: true };
 });
 
-export const selectTest = createAction("selectTest", ({ test }) => ({ payload: { test } }));
+export const selectTest = createAction("selectTest", ({ testId }) => ({ payload: { testId } }));
 
 export const editTest = createAction("editTest", ({ test }) => ({ payload: { test } }));
 

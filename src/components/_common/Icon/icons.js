@@ -20,7 +20,8 @@ const icons = {
     [iconTypes.plus]: materialIcons.Add,
     [iconTypes.settings]: materialIcons.Settings,
     [iconTypes.stats]: materialIcons.Equalizer,
-    [iconTypes.tests]: materialIcons.ListAlt
+    [iconTypes.tests]: materialIcons.ListAlt,
+    [iconTypes.upload]: materialIcons.Publish,
 };
 
 export default icons;

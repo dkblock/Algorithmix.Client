@@ -1,5 +1,6 @@
 import api from "../api";
 import baseService from "./base-service";
+import imageService from "./image-service";
 
 const testQuestionService = {
   fetchQuestions: async (testId) => {
@@ -30,6 +31,11 @@ const testQuestionService = {
   moveQuestion: async (testId, indexes) => {
     const url = api.testQuestions.moveTestQuestions(testId);
     return await baseService.put(url, indexes);
+  },
+
+  uploadQuestionImage: async (testId, questionId, image) => {
+    const url = api.testQuestions.uploadTestQuestionImage(testId, questionId);
+    return await imageService.post(url, image);
   },
 
   fetchNextQuestion: async (testId, userAnswer) => {

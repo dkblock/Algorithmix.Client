@@ -2,12 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 import { Paper } from "@material-ui/core";
-import { updateTestQuestion } from "../../../store/actions/test-question";
+import { showUploadTestQuestionImageModal, updateTestQuestion } from "../../../store/actions/test-question";
 import testQuestionTypes from "../../../constants/test-question-types";
 import validator from "../../../utils/validation";
 import TextField from "../../_common/TextField";
 import Dropdown from "../../_common/Dropdown";
 import TestAnswerList from "./TestAnswerList";
+import Button, { colors } from "../../_common/Button";
+import { iconTypes } from "../../_common/Icon";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -49,13 +51,10 @@ const TestQuestionDesigner = () => {
     [dispatch, questionId, testId]
   );
 
-  const handleQuestionValueChange = useDebouncedCallback(
-    (newValue) => {
-      setValue(newValue);
-      handleUpdateQuestion({ ...question, value: newValue });
-    },
-    1000
-  );
+  const handleQuestionValueChange = useDebouncedCallback((newValue) => {
+    setValue(newValue);
+    handleUpdateQuestion({ ...question, value: newValue });
+  }, 1000);
 
   const handleQuestionValueFocus = useCallback(() => {
     setValidationErrors({ ...validationErrors, value: null });
@@ -73,6 +72,10 @@ const TestQuestionDesigner = () => {
     },
     [handleUpdateQuestion, question]
   );
+
+  const handleQuestionImageUpload = useCallback(() => {
+    dispatch(showUploadTestQuestionImageModal({ testId, questionId }));
+  }, [dispatch, questionId, testId]);
 
   if (!question) {
     return null;
@@ -92,6 +95,9 @@ const TestQuestionDesigner = () => {
         onFocus={handleQuestionValueFocus}
         onFocusOut={handleQuestionValueFocusOut}
       />
+      <Button color={colors.success} endIcon={iconTypes.upload} onClick={handleQuestionImageUpload}>
+        Загрузить изображение
+      </Button>
       <Dropdown
         className="test-form__control"
         label="Тип вопроса"

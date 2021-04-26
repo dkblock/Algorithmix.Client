@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import testQuestionService from "../../api/services/test-question-service";
 import testQuestionTypes from "../../constants/test-question-types";
 import statusCode from "../../utils/status-code-reader";
@@ -80,9 +80,24 @@ export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ te
   return { hasError: true };
 });
 
+export const uploadTestQuestionImage = createAsyncThunk(
+  "uploadTestQuestionImage",
+  async ({ testId, questionId, image }) => {
+    const response = await testQuestionService.uploadQuestionImage(testId, questionId, image);
+    console.log(await response.json());
+  }
+);
+
 export const showDeleteTestQuestionModal = createAsyncThunk(
   "showDeleteTestQuestionModal",
   ({ testId, questionId }, thunkAPI) => {
     thunkAPI.dispatch(showModal(modalTypes.deleteTestQuestion, { testId, questionId }));
+  }
+);
+
+export const showUploadTestQuestionImageModal = createAsyncThunk(
+  "showUploadTestQuestionImageModal",
+  ({ testId, questionId }, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.uploadTestQuestionImage, { testId, questionId }));
   }
 );

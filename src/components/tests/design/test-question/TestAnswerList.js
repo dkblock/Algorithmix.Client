@@ -6,10 +6,10 @@ import {
   deleteTestAnswer,
   moveTestAnswer,
   updateTestAnswer,
-} from "../../../store/actions/test-answer";
-import validator from "../../../utils/validation";
+} from "../../../../store/actions/test-answer";
+import validator from "../../../../utils/validation";
 import testAnswerListTypes from "./test-answer-lists";
-import Loader from "../../_common/Loader";
+import Loader from "../../../_common/Loader";
 
 const { validateAnswer } = validator.testAnswer;
 

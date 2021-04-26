@@ -5,6 +5,7 @@ import DeleteTestModal from "../../tests/view/DeleteTestModal";
 import DeleteTestQuestionModal from "../../tests/design/DeleteTestQuestionModal";
 import LogoutModal from "../../_app/LogoutModal";
 import UploadTestQuestionImageModal from "../../tests/design/UploadTestQuestionImageModal";
+import { ZoomImageModal } from "../ZoomImage";
 import modalTypes from "../../../constants/modal-types";
 
 const modals = {
@@ -13,6 +14,7 @@ const modals = {
   [modalTypes.deleteTestQuestion]: DeleteTestQuestionModal,
   [modalTypes.logout]: LogoutModal,
   [modalTypes.uploadTestQuestionImage]: UploadTestQuestionImageModal,
+  [modalTypes.zoomImage]: ZoomImageModal,
 };
 
 const ModalRoot = () => {

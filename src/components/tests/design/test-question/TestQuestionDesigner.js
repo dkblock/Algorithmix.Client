@@ -2,14 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 import { Paper } from "@material-ui/core";
-import { showUploadTestQuestionImageModal, updateTestQuestion } from "../../../store/actions/test-question";
-import testQuestionTypes from "../../../constants/test-question-types";
-import validator from "../../../utils/validation";
-import TextField from "../../_common/TextField";
-import Dropdown from "../../_common/Dropdown";
+import { updateTestQuestion } from "../../../../store/actions/test-question";
+import testQuestionTypes from "../../../../constants/test-question-types";
+import validator from "../../../../utils/validation";
+import TextField from "../../../_common/TextField";
+import Dropdown from "../../../_common/Dropdown";
 import TestAnswerList from "./TestAnswerList";
-import Button, { colors } from "../../_common/Button";
-import { iconTypes } from "../../_common/Icon";
+import TestQuestionImage from "./TestQuestionImage";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -73,38 +72,34 @@ const TestQuestionDesigner = () => {
     [handleUpdateQuestion, question]
   );
 
-  const handleQuestionImageUpload = useCallback(() => {
-    dispatch(showUploadTestQuestionImageModal({ testId, questionId }));
-  }, [dispatch, questionId, testId]);
-
   if (!question) {
     return null;
   }
 
   return (
     <Paper className="test-question-info">
-      <TextField
-        className="test-form__control"
-        label="Вопрос"
-        error={Boolean(validationErrors.value)}
-        helperText={validationErrors.value}
-        value={value}
-        multiline
-        rows={5}
-        onChange={handleQuestionValueChange}
-        onFocus={handleQuestionValueFocus}
-        onFocusOut={handleQuestionValueFocusOut}
-      />
-      <Button color={colors.success} endIcon={iconTypes.upload} onClick={handleQuestionImageUpload}>
-        Загрузить изображение
-      </Button>
-      <Dropdown
-        className="test-form__control"
-        label="Тип вопроса"
-        value={type}
-        items={questionTypeItems}
-        onChange={handleQuestionTypeChange}
-      />
+      <div className="test-question-info__main">
+        <section className="test-question-info__section test-question-info__section--left">
+          <TextField
+            label="Вопрос"
+            error={Boolean(validationErrors.value)}
+            helperText={validationErrors.value}
+            value={value}
+            multiline
+            rows={5}
+            onChange={handleQuestionValueChange}
+            onFocus={handleQuestionValueFocus}
+            onFocusOut={handleQuestionValueFocusOut}
+          />
+          <Dropdown
+            label="Тип вопроса"
+            value={type}
+            items={questionTypeItems}
+            onChange={handleQuestionTypeChange}
+          />
+        </section>
+        <TestQuestionImage question={question} />
+      </div>
       <TestAnswerList />
     </Paper>
   );

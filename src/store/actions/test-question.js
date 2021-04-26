@@ -82,11 +82,28 @@ export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ te
 
 export const uploadTestQuestionImage = createAsyncThunk(
   "uploadTestQuestionImage",
-  async ({ testId, questionId, image }) => {
+  async ({ testId, questionId, image }, thunkAPI) => {
     const response = await testQuestionService.uploadQuestionImage(testId, questionId, image);
-    console.log(await response.json());
+    thunkAPI.dispatch(hideModal());
+
+    if (statusCode(response).ok) {
+      const updatedQuestion = await response.json();
+      return { updatedQuestion, hasError: false };
+    }
+
+    return { hasError: true };
   }
 );
+
+export const clearTestQuestionImage = createAsyncThunk("clearTestQuestionImage", async ({ testId, questionId }) => {
+  const response = await testQuestionService.clearQuestionImage(testId, questionId);
+
+  if (statusCode(response).noContent) {
+    return { questionId, hasError: false };
+  }
+
+  return { hasError: true };
+});
 
 export const showDeleteTestQuestionModal = createAsyncThunk(
   "showDeleteTestQuestionModal",

@@ -7,6 +7,8 @@ import {
   selectTestQuestion,
   updateTestQuestion,
   moveTestQuestion,
+  uploadTestQuestionImage,
+  clearTestQuestionImage,
 } from "../actions/test-question";
 
 const initialState = {
@@ -102,6 +104,40 @@ const testQuestionSlice = createSlice({
       }
     },
     [updateTestQuestion.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [uploadTestQuestionImage.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [uploadTestQuestionImage.fulfilled]: (state, { payload: { updatedQuestion, hasError } }) => {
+      onFulfilledDefault(state);
+
+      if (!hasError) {
+        state.selectedQuestion = updatedQuestion;
+        state.questions = state.questions.map((question) =>
+          question.id === updatedQuestion.id ? updatedQuestion : question
+        );
+      }
+    },
+    [uploadTestQuestionImage.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [clearTestQuestionImage.pending]: (state) => {
+      onPendingDefault(state);
+    },
+    [clearTestQuestionImage.fulfilled]: (state, { payload: { questionId, hasError } }) => {
+      onFulfilledDefault(state);
+
+      if (!hasError) {
+        const updatedQuestion = { ...state.selectedQuestion, image: null };
+
+        state.selectedQuestion = updatedQuestion;
+        state.questions = state.questions.map((question) => (question.id === questionId ? updatedQuestion : question));
+      }
+    },
+    [clearTestQuestionImage.rejected]: (state) => {
       onRejectedDefault(state);
     },
 

@@ -59,17 +59,24 @@
   padding: 24px;
   gap: 10px;
 
+  &__main {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
+
   &__section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 
-    &--description {
-      width: 45%;
+    &--left {
+      width: 60%;
+      gap: 25px;
     }
 
-    &--image {
+    &--right {
       width: 40%;
+      gap: 15px;
     }
   }
 

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Divider from "@material-ui/core/Divider";
-import { IconButton, iconTypes } from "../../../_common/Icon";
-import validator from "../../../../utils/validation";
-import TextField from "../../../_common/TextField";
+import { IconButton, iconTypes } from "../../../../_common/Icon";
+import validator from "../../../../../utils/validation";
+import TextField from "../../../../_common/TextField";
 
 const { validateAnswerValue } = validator.testAnswer;
 

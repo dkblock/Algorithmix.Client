@@ -38,6 +38,11 @@ const testQuestionService = {
     return await imageService.post(url, image);
   },
 
+  clearQuestionImage: async (testId, questionId) => {
+    const url = api.testQuestions.clearTestQuestionImage(testId, questionId);
+    return await baseService.delete(url);
+  },
+
   fetchNextQuestion: async (testId, userAnswer) => {
     const url = api.testQuestions.fetchNextTestQuestion(testId);
     return await baseService.post(url, userAnswer);

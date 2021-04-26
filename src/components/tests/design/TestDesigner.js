@@ -6,7 +6,7 @@ import { editTest } from "../../../store/actions/test";
 import { fetchTestQuestions } from "../../../store/actions/test-question";
 import Redirect, { routes } from "../../_common/Route/Redirect";
 import TestQuestionList from "./TestQuestionList";
-import TestQuestionDesigner from "./TestQuestionDesigner";
+import TestQuestionDesigner from "./test-question/TestQuestionDesigner";
 import "./TestDesigner.scss";
 
 const TestDesigner = () => {

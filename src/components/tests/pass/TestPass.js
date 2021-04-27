@@ -6,8 +6,10 @@ import Divider from "@material-ui/core/Divider";
 import { useTitle } from "../../../hooks";
 import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../../../store/actions/test-pass";
 import { navigateToTestResult } from "../../../utils/navigator";
+import { getImageSrc } from "../../../utils/get-image-src";
 import Redirect, { routes } from "../../_common/Route/Redirect";
 import Loader from "../../_common/Loader";
+import ZoomImage from "../../_common/ZoomImage";
 import TestPassNavigation from "./TestPassNavigation";
 import TestAnswerList from "./TestAnswerList";
 import "./TestPass.scss";
@@ -70,7 +72,14 @@ const TestPass = () => {
       <Paper className="test-pass__content">
         <div className="w-100">
           <div className="test-pass__header">Вопрос {questionOrder}</div>
-          <div>{currentQuestion.value}</div>
+          <div className="test-pass__main">
+            {currentQuestion.value}
+            {currentQuestion.image && (
+              <div>
+                <ZoomImage className="test-pass__image" src={getImageSrc(currentQuestion.image)} alt="question-image" />
+              </div>
+            )}
+          </div>
           <Divider className="test-pass__divider" />
           <TestAnswerList userAnswers={userAnswers} setUserAnswers={setUserAnswers} />
         </div>

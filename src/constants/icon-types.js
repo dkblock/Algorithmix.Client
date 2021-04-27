@@ -19,6 +19,7 @@ const iconTypes = {
   stats: "stats",
   tests: "tests",
   upload: "upload",
+  uploadCloud: "uploadCloud",
 };
 
 export default iconTypes;

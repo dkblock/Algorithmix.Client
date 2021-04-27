@@ -1,46 +1,90 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { Icon, iconTypes } from "../Icon";
+import { activeStyle, acceptStyle, rejectStyle } from "./styles";
+import "./FileDropzone.scss";
+
+const validateFiles = (files, maxFiles, acceptedFileExtensions) => {
+  if (files.length > maxFiles) {
+    return `Максимально допустимое количество файлов: ${maxFiles}`;
+  }
+
+  const fileWithUnacceptedExtension = files.find(
+    (file) => !acceptedFileExtensions.includes(file.name.split(".").pop())
+  );
+
+  if (fileWithUnacceptedExtension) {
+    return `Недопустимый формат файла: ${fileWithUnacceptedExtension.name}`;
+  }
+
+  return null;
+};
 
 const FileDropzone = ({ acceptedFileTypes, maxFiles = 1, onDrop }) => {
-  const handleDrop = useCallback((files) => {
-   onDrop(files);
-  }, [onDrop]);
+  const [files, setFiles] = useState([]);
+  const [validationError, setValidationError] = useState(null);
 
-  const { acceptedFiles, fileRejections, getInputProps, getRootProps } = useDropzone({
-    accept: acceptedFileTypes.join(", "),
+  const acceptedFileExtensions = acceptedFileTypes.map((t) => t.extensions).reduce((a, b) => a.concat(b), []);
+
+  useEffect(
+    () => () => {
+      files.forEach((file) => URL.revokeObjectURL(file.preview));
+    },
+    [files]
+  );
+
+  const handleDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      const rejected = rejectedFiles.map(({ file }) => file);
+      const error = validateFiles(rejected, maxFiles, acceptedFileExtensions);
+
+      onDrop(acceptedFiles);
+      setValidationError(error);
+      setFiles(acceptedFiles.map((file) => ({ ...file, preview: URL.createObjectURL(file) })));
+    },
+    [acceptedFileExtensions, maxFiles, onDrop]
+  );
+
+  const {
+    acceptedFiles,
+    fileRejections,
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+    getInputProps,
+    getRootProps,
+  } = useDropzone({
     maxFiles,
+    accept: acceptedFileTypes.map((t) => t.value).join(", "),
     onDrop: handleDrop,
   });
 
-  const acceptedFileItems = acceptedFiles.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
-
-  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-      <ul>
-        {errors.map((e) => (
-          <li key={e.code}>{e.message}</li>
-        ))}
-      </ul>
-    </li>
-  ));
+  const style = useMemo(
+    () => ({
+      ...(isDragActive ? activeStyle : {}),
+      ...(isDragAccept || acceptedFiles.length > 0 ? acceptStyle : {}),
+      ...(isDragReject || fileRejections.length > 0 ? rejectStyle : {}),
+    }),
+    [isDragActive, isDragAccept, acceptedFiles.length, isDragReject, fileRejections.length]
+  );
 
   return (
-    <section>
-      <div {...getRootProps()}>
+    <section className="file-dropzone">
+      <div className="file-dropzone__dropzone" {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-        <em>(Only *.jpeg and *.png images will be accepted)</em>
+        <p>
+          {!isDragActive && "Перетащите файлы сюда или кликните, чтобы выбрать вручную"}
+          {isDragAccept && "Отпустите, чтобы начать загрузку"}
+          {isDragReject && "Данный формат не поддерживается"}
+        </p>
+        <Icon type={iconTypes.uploadCloud} size="large" />
+        <em>{acceptedFileExtensions.join(", ").toUpperCase()}</em>
       </div>
-      <aside>
-        <h4>Accepted files</h4>
-        <ul>{acceptedFileItems}</ul>
-        <h4>Rejected files</h4>
-        <ul>{fileRejectionItems}</ul>
+      {validationError}
+      <aside className="thumbs">
+        {files.map((file, index) => (
+          <img key={index} className="thumbs__img" src={file.preview} alt={file.name} />
+        ))}
       </aside>
     </section>
   );

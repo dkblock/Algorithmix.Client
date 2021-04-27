@@ -1,8 +1,20 @@
 const fileTypes = {
-  application: "application/json, application/pdf, application/zip",
-  audio: "audio/mp4, audio/mpeg, audio/webm",
-  image: "image/jpg, image/jpeg, image/png, image/gif",
-  video: "video/mpeg, video/mp4, video/3gpp, video/webm",
+  application: {
+    extensions: ["json", "pdf", "zip"],
+    value: "application/json, application/pdf, application/zip",
+  },
+  audio: {
+    extensions: ["mp4", "mpeg", "webm"],
+    value: "audio/mp4, audio/mpeg, audio/webm",
+  },
+  image: {
+    extensions: ["jpg", "jpeg", "png", "bmp", "gif"],
+    value: "image/jpg, image/jpeg, image/png, image/bmp, image/gif",
+  },
+  video: {
+    extensions: ["mpeg", "mp4", "3gpp", "webm"],
+    value: "video/mpeg, video/mp4, video/3gpp, video/webm",
+  },
 };
 
 export default fileTypes;

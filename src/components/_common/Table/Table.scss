@@ -1,0 +1,9 @@
+.table {
+  border: none !important;
+
+  &__actions-cell {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}

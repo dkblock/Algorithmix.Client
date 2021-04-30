@@ -27,6 +27,11 @@ const testService = {
     return await baseService.put(url, updatedTest);
   },
 
+  publishTest: async (testId) => {
+    const url = api.tests.publishTest(testId);
+    return await baseService.get(url);
+  },
+
   startTestPass: async (testId) => {
     const url = api.tests.startTestPass(testId);
     return await baseService.get(url);

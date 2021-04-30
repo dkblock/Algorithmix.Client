@@ -15,6 +15,7 @@ const icons = {
   [iconTypes.home]: materialIcons.Home,
   [iconTypes.info]: materialIcons.Info,
   [iconTypes.logout]: materialIcons.ExitToApp,
+  [iconTypes.manage]: materialIcons.Build,
   [iconTypes.more]: materialIcons.MoreVert,
   [iconTypes.play]: materialIcons.PlayCircleFilled,
   [iconTypes.plus]: materialIcons.Add,

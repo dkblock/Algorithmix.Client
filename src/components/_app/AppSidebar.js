@@ -2,7 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useExecutiveRole } from "../../hooks";
 import { showLogoutModal } from "../../store/actions/account";
-import { navigateToHome, navigateToAlgorithms, navigateToConstructor, navigateToTests } from "../../utils/navigator";
+import {
+  navigateToHome,
+  navigateToAlgorithms,
+  navigateToConstructor,
+  navigateToTests,
+  navigateToTestsManagement,
+} from "../../utils/navigator";
 import routes from "../../utils/routes";
 import { IconButton, iconTypes } from "../_common/Icon";
 import Tooltip from "../_common/Tooltip";
@@ -43,15 +49,23 @@ const AppSidebar = () => {
           />
         </Tooltip>
         <Tooltip title="Тесты" placement="right">
-          <IconButton type={iconTypes.tests} selected={isSelected(routes.tests)} onClick={navigateToTests} />
+          <IconButton
+            type={iconTypes.tests}
+            selected={isSelected(routes.tests.main) && !currentRoute.includes("management")}
+            onClick={navigateToTests}
+          />
         </Tooltip>
 
         {isAuthenticated && (
           <>
             <div className="app-sidebar__divider" />
             {isExecutive && (
-              <Tooltip title="Админ-панель" placement="right">
-                <IconButton type={iconTypes.delete} selected={isSelected("admin")} onClick={navigateToHome} />
+              <Tooltip title="Управление" placement="right">
+                <IconButton
+                  type={iconTypes.manage}
+                  selected={isSelected(routes.management.main)}
+                  onClick={navigateToTestsManagement}
+                />
               </Tooltip>
             )}
             <Tooltip title="Статистика" placement="right">

@@ -9,6 +9,8 @@ import TextField from "../../../_common/TextField";
 import Dropdown from "../../../_common/Dropdown";
 import TestAnswerList from "./TestAnswerList";
 import TestQuestionImage from "./TestQuestionImage";
+import Button from "../../../_common/Button";
+import { publishTest } from "../../../../store/actions/test";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -91,12 +93,8 @@ const TestQuestionDesigner = () => {
             onFocus={handleQuestionValueFocus}
             onFocusOut={handleQuestionValueFocusOut}
           />
-          <Dropdown
-            label="Тип вопроса"
-            value={type}
-            items={questionTypeItems}
-            onChange={handleQuestionTypeChange}
-          />
+          <Dropdown label="Тип вопроса" value={type} items={questionTypeItems} onChange={handleQuestionTypeChange} />
+          <Button onClick={() => dispatch(publishTest({ testId }))}>Опубликовать тест!</Button>
         </section>
         <TestQuestionImage question={question} />
       </div>

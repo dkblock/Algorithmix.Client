@@ -4,10 +4,20 @@ const routes = {
   algorithms: "/algorithms",
   constructor: "/constructor",
 
-  tests: "/tests",
-  testDesign: (testId) => `/tests/${testId}/design`,
-  testPass: (testId) => `/tests/${testId}`,
-  testResult: (testId) => `/tests/${testId}/result`,
+  tests: {
+    main: "/tests",
+    design: (testId) => `/tests/${testId}/design`,
+    pass: (testId) => `/tests/${testId}`,
+    result: (testId) => `/tests/${testId}/result`,
+  },
+
+  management: {
+    main: "/management",
+    tests: "/management/tests",
+    testResults: "/management/testResults",
+    users: "/management/users",
+    groups: "/management/groups",
+  },
 
   login: "/login",
   register: "/register",

@@ -49,6 +49,10 @@ export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thun
   return { hasError: true };
 });
 
+export const publishTest = createAsyncThunk("publishTest", async ({ testId }) => {
+  const response = await testService.publishTest(testId);
+});
+
 export const selectTest = createAction("selectTest", ({ testId }) => ({ payload: { testId } }));
 
 export const editTest = createAction("editTest", ({ test }) => ({ payload: { test } }));

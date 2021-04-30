@@ -22,3 +22,15 @@
 .MuiFormControlLabel-root, label {
   margin: 0 !important;
 }
+
+.MuiDataGrid-cell, .MuiDataGrid-colCell {
+  outline: none !important;
+}
+
+.MuiDataGrid-colCellTitle {
+  font-weight: 600 !important;
+}
+
+.MuiDataGrid-columnSeparator {
+  display: none !important;
+}

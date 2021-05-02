@@ -2,8 +2,8 @@ import routes from "./routes";
 import { history } from "../components/_app/AppContainer";
 
 export const navigateToHome = () => history.push(routes.home);
-export const navigateToLogin = () => history.push(routes.login);
-export const navigateToRegister = () => history.push(routes.register);
+export const navigateToLogin = () => history.push(routes.account.login);
+export const navigateToRegister = () => history.push(routes.account.register);
 
 export const navigateToAlgorithms = () => history.push(routes.algorithms);
 export const navigateToAlgorithm = (algorithmId) => history.push(`${routes.algorithms}/${algorithmId}`);

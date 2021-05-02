@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTests } from "../../../store/actions/test";
+import { editTest, fetchTests, showDeleteTestModal } from "../../../store/actions/test";
 import Table from "../../_common/Table";
 import { iconTypes } from "../../_common/Icon";
+import { navigateToTestDesigner } from "../../../utils/navigator";
 
 const columns = [
   { field: "name", headerName: "Название теста", flex: 1 },
@@ -10,18 +11,18 @@ const columns = [
   { field: "questionsCount", headerName: "Количество вопросов", flex: 1 },
 ];
 
-const actions = [
+const getActions = (onTestEdit, onTestDelete) => ([
   {
     label: "Редактировать",
     icon: iconTypes.edit,
-    onClick: () => {},
+    onClick: (test) => onTestEdit(test),
   },
   {
     label: "Удалить",
     icon: iconTypes.delete,
-    onClick: () => {},
+    onClick: (test) => onTestDelete(test),
   },
-];
+]);
 
 const prepareTests = (tests) =>
   tests.map((test) => ({
@@ -39,6 +40,22 @@ const TestList = () => {
     dispatch(fetchTests());
   }, [dispatch]);
 
+  const handleTestDelete = useCallback(
+    (test) => {
+      dispatch(showDeleteTestModal({ test }));
+    },
+    [dispatch]
+  );
+
+  const handleTestEdit = useCallback(
+    (test) => {
+      dispatch(editTest({ test }));
+      navigateToTestDesigner(test.id);
+    },
+    [dispatch]
+  );
+
+  const actions = useMemo(() => getActions(handleTestEdit, handleTestDelete), [handleTestDelete, handleTestEdit]);
   const preparedTests = useMemo(() => prepareTests(tests), [tests]);
 
   return <Table columns={columns} data={preparedTests} actions={actions} isFetching={isFetching} />;

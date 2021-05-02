@@ -2,10 +2,10 @@ import React from "react";
 import { IconButton } from "../Icon";
 import Tooltip from "../Tooltip";
 
-const getActionsCell = (actions) => {
+const getActionsCell = (actions, row) => {
   const handleClick = (e, onClick) => {
     e.stopPropagation();
-    onClick();
+    onClick(row);
   };
 
   return (
@@ -30,7 +30,7 @@ const prepareColumns = (columns, actions) => {
         headerName: "Действия",
         headerAlign: "center",
         width: actions.length * 50,
-        renderCell: () => getActionsCell(actions),
+        renderCell: ({ row }) => getActionsCell(actions, row),
       },
     ];
 

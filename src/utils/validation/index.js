@@ -1,8 +1,10 @@
+import accountValidator from "./account-validator";
 import testValidator from "./test-validator";
 import testAnswerValidator from "./test-answer-validator";
 import testQuestionValidator from "./test-question-validator";
 
 const validator = {
+  account: accountValidator,
   test: testValidator,
   testAnswer: testAnswerValidator,
   testQuestion: testQuestionValidator,

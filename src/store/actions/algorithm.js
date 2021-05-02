@@ -5,7 +5,7 @@ import statusCode from "../../utils/status-code-reader";
 export const fetchAlgorithms = createAsyncThunk("fetchAlgorithms", async () => {
     const response = await algorithmService.fetchAlgorithms();
 
-    if (statusCode(response).ok) {
+    if (statusCode.ok(response)) {
         const algorithms = await response.json();
         return { algorithms, hasError: false };
     }

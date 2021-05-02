@@ -7,7 +7,7 @@ import modalTypes from "../../constants/modal-types";
 export const fetchTests = createAsyncThunk("fetchTests", async () => {
   const response = await testService.fetchTests();
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const tests = await response.json();
     return { tests, hasError: false };
   }
@@ -18,7 +18,7 @@ export const fetchTests = createAsyncThunk("fetchTests", async () => {
 export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }) => {
   const response = await testService.fetchTest(testId);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const test = await response.json();
     return { test, hasError: false };
   }
@@ -30,7 +30,7 @@ export const createTest = createAsyncThunk("createTest", async ({ test }, thunkA
   thunkAPI.dispatch(hideModal());
   const response = await testService.createTest(test);
 
-  if (statusCode(response).created) {
+  if (statusCode.created(response)) {
     const createdTest = await response.json();
     return { test: createdTest, hasError: false };
   }
@@ -42,7 +42,7 @@ export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thun
   thunkAPI.dispatch(hideModal());
   const response = await testService.deleteTest(testId);
 
-  if (statusCode(response).noContent) {
+  if (statusCode.noContent(response)) {
     return { testId, hasError: false };
   }
 

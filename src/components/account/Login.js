@@ -1,37 +1,94 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
-import Button from "../_common/Button";
-import TextField from "../_common/TextField";
+import { useCurrentUser, useTitle } from "../../hooks";
 import { login } from "../../store/actions/account";
-import "./Account.scss";
+import validator from "../../utils/validation";
+import routes from "../../utils/routes";
+import Button, { colors } from "../_common/Button";
+import TextField from "../_common/TextField";
+import Redirect from "../_common/Route/Redirect";
+
+const {
+  validateEmailOnLogin: validateEmail,
+  validatePasswordOnLogin: validatePassword,
+  validateOnLogin,
+} = validator.account;
 
 const Login = () => {
-    const dispatch = useDispatch();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useCurrentUser();
+  const { validationErrors: serverValidationErrors } = useSelector((state) => state.account);
 
-    const clearFields = () => {
-        setEmail("");
-        setPassword("");
-    };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
 
-    const handleEmailChange = (value) => setEmail(value);
-    const handlePasswordChange = (value) => setPassword(value);
+  useTitle("Вход", "Algorithmix");
 
-    const handleSubmit = () => {
-        const credentials = { email, password };
-        dispatch(login(credentials));
-        clearFields();
-    };
+  useEffect(() => {
+    setValidationErrors({ ...validationErrors, ...serverValidationErrors });
+  }, [serverValidationErrors]);
 
-    return (
-        <Paper className="account-form">
-            <TextField value={email} onChange={handleEmailChange} label="Email"/>
-            <TextField value={password} onChange={handlePasswordChange} label="Пароль" type="password"/>
-            <Button onClick={handleSubmit}>Войти</Button>
-        </Paper>
-    )
+  const handleEmailChange = useCallback((value) => setEmail(value), []);
+  const handleEmailFocus = useCallback(() => setValidationErrors({}), []);
+  const handleEmailFocusOut = useCallback(() => {
+    const error = validateEmail(email);
+    setValidationErrors({ ...validationErrors, email: error });
+  }, [email, validationErrors]);
+
+  const handlePasswordChange = useCallback((value) => setPassword(value), []);
+  const handlePasswordFocus = useCallback(() => setValidationErrors({}), []);
+  const handlePasswordFocusOut = useCallback(() => {
+    const error = validatePassword(password);
+    setValidationErrors({ ...validationErrors, password: error });
+  }, [password, validationErrors]);
+
+  const handleSubmit = () => {
+    const credentials = { email, password };
+    const { isValid, validationErrors: nextValidationErrors } = validateOnLogin(credentials);
+
+    if (isValid) {
+      dispatch(login({ credentials }));
+    } else {
+      setValidationErrors(nextValidationErrors);
+    }
+  };
+
+  if (isAuthenticated) return <Redirect to={routes.account.settings} />;
+
+  return (
+    <div className="account-sign">
+      <Paper className="account-sign-form account-sign-form--login">
+        <TextField
+          className="account-sign-form__control--login"
+          label="Email"
+          value={email}
+          error={Boolean(validationErrors.email)}
+          helperText={validationErrors.email}
+          onChange={handleEmailChange}
+          onFocus={handleEmailFocus}
+          onFocusOut={handleEmailFocusOut}
+        />
+        <TextField
+          className="account-sign-form__control--login"
+          value={password}
+          label="Пароль"
+          type="password"
+          error={Boolean(validationErrors.password)}
+          helperText={validationErrors.password}
+          onChange={handlePasswordChange}
+          onFocus={handlePasswordFocus}
+          onFocusOut={handlePasswordFocusOut}
+        />
+        <div className="account-sign-form__submit">
+          <Button color={colors.success} onClick={handleSubmit}>
+            Войти
+          </Button>
+        </div>
+      </Paper>
+    </div>
+  );
 };
 
 export default Login;

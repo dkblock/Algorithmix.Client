@@ -9,7 +9,7 @@ import palette from "../../../utils/palette";
 const theme = createMuiTheme({ palette });
 
 const Dropdown = ({ className, items, label, value, onChange }) => {
-  const [dropdownValue, setDropdownValue] = useState(value ?? items[0].value);
+  const [dropdownValue, setDropdownValue] = useState(value ?? items[0]?.value);
 
   useEffect(() => {
     setDropdownValue(value);

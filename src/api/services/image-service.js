@@ -10,7 +10,7 @@ const imageService = {
         method: "POST",
         body: formData,
         headers: {
-          Authorization: `Bearer ${getAccessToken()}`,
+          Authorization: getAccessToken() ? `Bearer ${getAccessToken()}` : null,
         },
       });
     } catch (e) {

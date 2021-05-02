@@ -6,7 +6,7 @@ import statusCode from "../../utils/status-code-reader";
 export const startTestPass = createAsyncThunk("startTestPass", async ({ testId }) => {
   const response = await testService.startTestPass(testId);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const firstQuestion = await response.json();
     return { question: firstQuestion, hasError: false };
   }
@@ -17,12 +17,12 @@ export const startTestPass = createAsyncThunk("startTestPass", async ({ testId }
 export const fetchNextTestQuestion = createAsyncThunk("fetchNextTestQuestion", async ({ testId, userAnswer }) => {
   const response = await testQuestionService.fetchNextQuestion(testId, userAnswer);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const nextQuestion = await response.json();
     return { userAnswer, question: nextQuestion, hasError: false };
   }
 
-  if (statusCode(response).noContent) {
+  if (statusCode.noContent(response)) {
     return { question: null, hasError: false };
   }
 
@@ -34,7 +34,7 @@ export const fetchPreviousTestQuestion = createAsyncThunk(
   async ({ testId, currentQuestionId }) => {
     const response = await testQuestionService.fetchPreviousQuestion(testId, { questionId: currentQuestionId });
 
-    if (statusCode(response).ok) {
+    if (statusCode.ok(response)) {
       const previousQuestion = await response.json();
       return { question: previousQuestion, hasError: false };
     }
@@ -46,7 +46,7 @@ export const fetchPreviousTestQuestion = createAsyncThunk(
 export const fetchTestResult = createAsyncThunk("fetchTestResult", async ({ testId }) => {
   const response = await testService.fetchTestResult(testId);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const testResult = await response.json();
     return { testResult, hasError: false };
   }

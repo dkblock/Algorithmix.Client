@@ -5,7 +5,7 @@ import statusCode from "../../utils/status-code-reader";
 export const fetchTestAnswers = createAsyncThunk("fetchTestAnswers", async ({ testId, questionId }) => {
   const response = await testAnswerService.fetchAnswers(testId, questionId);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const answers = await response.json();
     return { answers, hasError: false };
   }
@@ -20,7 +20,7 @@ export const createTestAnswer = createAsyncThunk("createTestAnswer", async ({ te
     questionId,
   });
 
-  if (statusCode(response).created) {
+  if (statusCode.created(response)) {
     const createdAnswer = await response.json();
     return { createdAnswer, hasError: false };
   }
@@ -31,7 +31,7 @@ export const createTestAnswer = createAsyncThunk("createTestAnswer", async ({ te
 export const deleteTestAnswer = createAsyncThunk("deleteTestAnswer", async ({ testId, questionId, answerId }) => {
   const response = await testAnswerService.deleteAnswer(testId, questionId, answerId);
 
-  if (statusCode(response).noContent) {
+  if (statusCode.noContent(response)) {
     return { answerId, hasError: false };
   }
 
@@ -41,7 +41,7 @@ export const deleteTestAnswer = createAsyncThunk("deleteTestAnswer", async ({ te
 export const updateTestAnswer = createAsyncThunk("updateTestAnswer", async ({ testId, questionId, answer }) => {
   const response = await testAnswerService.updateAnswer(testId, questionId, answer.id, answer);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const updatedAnswer = await response.json();
     return { updatedAnswer, hasError: false };
   }
@@ -52,7 +52,7 @@ export const updateTestAnswer = createAsyncThunk("updateTestAnswer", async ({ te
 export const moveTestAnswer = createAsyncThunk("moveTestAnswer", async ({testId, questionId, indexes}) => {
   const response = await testAnswerService.moveAnswer(testId, questionId, indexes);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const answers = await response.json();
     return { answers, hasError: false };
   }

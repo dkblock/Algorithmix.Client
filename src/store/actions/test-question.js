@@ -9,7 +9,7 @@ import { fetchTestAnswers } from "./test-answer";
 export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async ({ testId }, thunkAPI) => {
   const response = await testQuestionService.fetchQuestions(testId);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const questions = await response.json();
     thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: questions[0].id }));
 
@@ -32,7 +32,7 @@ export const createTestQuestion = createAsyncThunk("createTestQuestion", async (
     testId,
   });
 
-  if (statusCode(response).created) {
+  if (statusCode.created(response)) {
     const createdQuestion = await response.json();
     thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: createdQuestion.id }));
 
@@ -46,7 +46,7 @@ export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async (
   thunkAPI.dispatch(hideModal());
   const response = await testQuestionService.deleteQuestion(testId, questionId);
 
-  if (statusCode(response).noContent) {
+  if (statusCode.noContent(response)) {
     return { questionId, hasError: false };
   }
 
@@ -58,7 +58,7 @@ export const updateTestQuestion = createAsyncThunk(
   async ({ testId, questionId, question }, thunkAPI) => {
     const response = await testQuestionService.updateQuestion(testId, questionId, question);
 
-    if (statusCode(response).ok) {
+    if (statusCode.ok(response)) {
       const updatedQuestion = await response.json();
       thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: updatedQuestion.id }));
 
@@ -72,7 +72,7 @@ export const updateTestQuestion = createAsyncThunk(
 export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ testId, indexes }) => {
   const response = await testQuestionService.moveQuestion(testId, indexes);
 
-  if (statusCode(response).ok) {
+  if (statusCode.ok(response)) {
     const questions = await response.json();
     return { questions, hasError: false };
   }
@@ -86,7 +86,7 @@ export const uploadTestQuestionImage = createAsyncThunk(
     const response = await testQuestionService.uploadQuestionImage(testId, questionId, image);
     thunkAPI.dispatch(hideModal());
 
-    if (statusCode(response).ok) {
+    if (statusCode.ok(response)) {
       const updatedQuestion = await response.json();
       return { updatedQuestion, hasError: false };
     }
@@ -98,7 +98,7 @@ export const uploadTestQuestionImage = createAsyncThunk(
 export const clearTestQuestionImage = createAsyncThunk("clearTestQuestionImage", async ({ testId, questionId }) => {
   const response = await testQuestionService.clearQuestionImage(testId, questionId);
 
-  if (statusCode(response).noContent) {
+  if (statusCode.noContent(response)) {
     return { questionId, hasError: false };
   }
 

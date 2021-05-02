@@ -2,22 +2,16 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setHeader } from "../store/actions/app";
 
-const useTitle = (title) => {
-    const dispatch = useDispatch();
+const useTitle = (pageTitle, pageHeader) => {
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (!title) {
-            document.title = "Algorithmix";
-            return;
-        }
+  useEffect(() => {
+    if (!pageTitle) document.title = "Algorithmix";
+    if (!pageHeader) dispatch(setHeader("Algorithmix"));
 
-        if (title === "Algorithmix")
-            document.title = "Главная - Algorithmix";
-        else
-            document.title = `${title} - Algorithmix`;
-
-        dispatch(setHeader(title));
-    }, [dispatch, title]);
+    document.title = `${pageTitle} - Algorithmix`;
+    dispatch(setHeader(pageHeader));
+  }, [dispatch, pageHeader, pageTitle]);
 };
 
 export default useTitle;

@@ -2,8 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import Home from "../home";
-import Login from "../account/Login";
-import Register from "../account/Register";
+import Account from "../account";
 import Algorithms from "../algorithms";
 import Constructor from "../constructor";
 import Tests from "../tests";
@@ -16,8 +15,7 @@ const AppContent = () => (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path={routes.home} component={Home} />
-      <Route path={routes.login} component={Login} />
-      <Route path={routes.register} component={Register} />
+      <Route path={routes.account.main} component={Account}/>
       <Route path={routes.algorithms} component={Algorithms} />
       <Route path={routes.constructor} component={Constructor} />
       <Route path={routes.tests.main} component={Tests} />

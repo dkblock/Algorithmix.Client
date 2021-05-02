@@ -1,8 +1,14 @@
 const routes = {
   home: "/home",
-  account: "/account",
   algorithms: "/algorithms",
   constructor: "/constructor",
+
+  account: {
+    main: "/account",
+    login: "/account/login",
+    register: "/account/register",
+    settings: "/account/settings",
+  },
 
   tests: {
     main: "/tests",
@@ -18,9 +24,6 @@ const routes = {
     users: "/management/users",
     groups: "/management/groups",
   },
-
-  login: "/login",
-  register: "/register",
 };
 
 export default routes;

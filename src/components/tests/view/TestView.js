@@ -8,7 +8,7 @@ import "./TestView.scss";
 const TestView = () => {
   const { selectedTestId } = useSelector((state) => state.test);
 
-  useTitle("Тесты");
+  useTitle("Тесты", "Тесты");
 
   return (
     <div className="test-view">

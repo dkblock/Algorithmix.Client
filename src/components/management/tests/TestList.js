@@ -1,17 +1,13 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editTest, fetchTests, showDeleteTestModal } from "../../../store/actions/test";
-import Table from "../../_common/Table";
-import { iconTypes } from "../../_common/Icon";
+import { useTitle } from "../../../hooks";
+import { editTest, fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesigner } from "../../../utils/navigator";
+import Table, { TableToolbar } from "../../_common/Table";
+import { iconTypes } from "../../_common/Icon";
+import Button, { colors } from "../../_common/Button";
 
-const columns = [
-  { field: "name", headerName: "Название теста", flex: 1 },
-  { field: "algorithmName", headerName: "Алгоритм", flex: 1 },
-  { field: "questionsCount", headerName: "Количество вопросов", flex: 1 },
-];
-
-const getActions = (onTestEdit, onTestDelete) => ([
+const getActions = (onTestEdit, onTestDelete) => [
   {
     label: "Редактировать",
     icon: iconTypes.edit,
@@ -22,7 +18,15 @@ const getActions = (onTestEdit, onTestDelete) => ([
     icon: iconTypes.delete,
     onClick: (test) => onTestDelete(test),
   },
-]);
+];
+
+const columns = [
+  { field: "name", headerName: "Название" },
+  { field: "algorithmName", headerName: "Алгоритм" },
+  { field: "questionsCount", headerName: "Вопросы", width: 120 },
+  { field: "createdBy", headerName: "Автор" },
+  { field: "createdDate", headerName: "Создан", type: "dateTime" },
+];
 
 const prepareTests = (tests) =>
   tests.map((test) => ({
@@ -30,11 +34,15 @@ const prepareTests = (tests) =>
     name: test.name,
     algorithmName: test.algorithm.name,
     questionsCount: test.questions.length,
+    createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
+    createdDate: new Date(test.createdDate),
   }));
 
 const TestList = () => {
   const dispatch = useDispatch();
   const { tests, isFetching } = useSelector((state) => state.test);
+
+  useTitle("Тесты", "Тесты");
 
   useEffect(() => {
     dispatch(fetchTests());
@@ -55,10 +63,28 @@ const TestList = () => {
     [dispatch]
   );
 
+  const handleTestCreate = useCallback(() => dispatch(showCreateTestModal()), [dispatch]);
+
   const actions = useMemo(() => getActions(handleTestEdit, handleTestDelete), [handleTestDelete, handleTestEdit]);
   const preparedTests = useMemo(() => prepareTests(tests), [tests]);
 
-  return <Table columns={columns} data={preparedTests} actions={actions} isFetching={isFetching} />;
+  return (
+    <Table
+      toolbar={
+        <TableToolbar title="Тесты" count={tests.length}>
+          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleTestCreate}>
+            Новый тест
+          </Button>
+        </TableToolbar>
+      }
+      columns={columns}
+      data={preparedTests}
+      actions={actions}
+      isFetching={isFetching}
+      sortBy="createdDate"
+      sortDirection="desc"
+    />
+  );
 };
 
 export default TestList;

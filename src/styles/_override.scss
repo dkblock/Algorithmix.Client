@@ -28,9 +28,13 @@
 }
 
 .MuiDataGrid-colCellTitle {
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 .MuiDataGrid-columnSeparator {
   display: none !important;
+}
+
+.MuiTab-root {
+  font-family: inherit !important;
 }

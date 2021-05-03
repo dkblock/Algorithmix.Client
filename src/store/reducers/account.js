@@ -20,7 +20,6 @@ const accountSlice = createSlice({
     },
     [authenticate.fulfilled]: (state, { payload }) => {
       onFulfilled(state, payload);
-      console.log(payload)
     },
     [authenticate.rejected]: (state) => {
       onRejected(state);

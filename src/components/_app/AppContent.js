@@ -19,7 +19,7 @@ const AppContent = () => (
       <Route path={routes.algorithms} component={Algorithms} />
       <Route path={routes.constructor} component={Constructor} />
       <Route path={routes.tests.main} component={Tests} />
-      <ExecutiveRoute path={routes.management.tests} render={(props) => <Management {...props} />} />
+      <ExecutiveRoute path={routes.management.main} render={(props) => <Management {...props} />} />
     </Switch>
     <ModalRoot />
   </div>

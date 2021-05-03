@@ -20,19 +20,21 @@ const getActionsCell = (actions, row) => {
 };
 
 const prepareColumns = (columns, actions) => {
-  let preparedColumns = columns;
+  let preparedColumns = columns.map((column) => ({
+    ...column,
+    flex: column.width ? null : 1,
+    width: column.width,
+  }));
 
   if (actions)
-    preparedColumns = [
-      ...preparedColumns,
-      {
-        field: "TABLE_ACTIONS",
-        headerName: "Действия",
-        headerAlign: "center",
-        width: actions.length * 50,
-        renderCell: ({ row }) => getActionsCell(actions, row),
-      },
-    ];
+    preparedColumns.push({
+      field: "TABLE_ACTIONS",
+      headerName: " ",
+      headerAlign: "center",
+      width: actions.length * 50,
+      sortable: false,
+      renderCell: ({ row }) => getActionsCell(actions, row),
+    });
 
   return preparedColumns;
 };

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import CreateTestModal from "../../management/tests/CreateTestModal";
 import DeleteTestModal from "../../management/tests/DeleteTestModal";
 import DeleteTestQuestionModal from "../../tests/design/DeleteTestQuestionModal";
+import DeleteUserModal from "../../management/users/DeleteUserModal";
 import LogoutModal from "../../_app/LogoutModal";
 import UploadTestQuestionImageModal from "../../tests/design/UploadTestQuestionImageModal";
 import { ZoomImageModal } from "../ZoomImage";
@@ -12,6 +13,7 @@ const modals = {
   [modalTypes.createTest]: CreateTestModal,
   [modalTypes.deleteTest]: DeleteTestModal,
   [modalTypes.deleteTestQuestion]: DeleteTestQuestionModal,
+  [modalTypes.deleteUser]: DeleteUserModal,
   [modalTypes.logout]: LogoutModal,
   [modalTypes.uploadTestQuestionImage]: UploadTestQuestionImageModal,
   [modalTypes.zoomImage]: ZoomImageModal,

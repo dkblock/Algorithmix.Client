@@ -4,6 +4,7 @@ import groupRoutes from "./routes/group-routes";
 import testRoutes from "./routes/test-routes";
 import testAnswerRoutes from "./routes/test-answer-routes";
 import testQuestionRoutes from "./routes/test-question-routes";
+import userRoutes from "./routes/user-routes";
 
 const api = {
   account: accountRoutes,
@@ -12,6 +13,7 @@ const api = {
   tests: testRoutes,
   testAnswers: testAnswerRoutes,
   testQuestions: testQuestionRoutes,
+  users: userRoutes,
 };
 
 export default api;

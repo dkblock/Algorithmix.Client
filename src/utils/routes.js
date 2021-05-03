@@ -20,7 +20,7 @@ const routes = {
   management: {
     main: "/management",
     tests: "/management/tests",
-    testResults: "/management/testResults",
+    testResults: "/management/test-results",
     users: "/management/users",
     groups: "/management/groups",
   },

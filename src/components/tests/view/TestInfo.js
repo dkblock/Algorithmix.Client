@@ -37,6 +37,12 @@ const TestInfo = ({ testId }) => {
               <span>Количество вопросов:</span> {test.questions.length}
             </div>
             <div>
+              <span>Создан:</span> {new Date(test.createdDate).toLocaleDateString("ru-RU")}
+            </div>
+            <div>
+              <span>Автор:</span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
+            </div>
+            <div>
               <span>Статус:</span> {test.userResult ? "Выполнен" : "Не выполнен"}
             </div>
           </section>

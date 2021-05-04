@@ -12,6 +12,7 @@ import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import TabPanel from "../_common/TabPanel";
 import TestList from "./tests/TestList";
 import UserList from "./users/UserList";
+import GroupList from "./groups/GroupList";
 import "./Management.scss";
 
 const tabRoutes = [
@@ -39,7 +40,7 @@ const Management = () => {
           <ExecutiveRoute path={routes.management.tests} render={(props) => <TestList {...props} />} />
           <ExecutiveRoute path={routes.management.testResults} render={(props) => <TestList {...props} />} />
           <ExecutiveRoute path={routes.management.users} render={(props) => <UserList {...props} />} />
-          <ExecutiveRoute path={routes.management.groups} render={(props) => <TestList {...props} />} />
+          <ExecutiveRoute path={routes.management.groups} render={(props) => <GroupList {...props} />} />
         </Paper>
       </div>
     </div>

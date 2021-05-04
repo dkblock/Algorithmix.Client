@@ -7,7 +7,7 @@ const GroupCell = ({ row, onUserUpdate }) => {
   const [groupId, setGroupId] = useState(row.groupId);
 
   const availableGroups = useMemo(
-    () => (groups.length > 0 ? groups.filter((group) => group.id !== 1) : [{ id: 1, name: "Не назначена" }]),
+    () => (groups.length > 0 ? groups : [{ id: 1, name: "Не назначена" }]),
     [groups]
   );
   const groupItems = availableGroups.map((group) => ({ value: group.id, label: group.name }));

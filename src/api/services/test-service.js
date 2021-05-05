@@ -2,6 +2,11 @@ import api from "../api";
 import baseService from "./base-service";
 
 const testService = {
+  fetchPublishedTests: async () => {
+    const url = api.tests.fetchPublishedTests();
+    return await baseService.get(url);
+  },
+
   fetchTests: async () => {
     const url = api.tests.fetchTests();
     return await baseService.get(url);

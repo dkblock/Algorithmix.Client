@@ -8,7 +8,7 @@ import DeleteTestResultModal from "../../management/test-results/DeleteTestResul
 import DeleteTestQuestionModal from "../../tests/design/DeleteTestQuestionModal";
 import DeleteUserModal from "../../management/users/DeleteUserModal";
 import LogoutModal from "../../_app/LogoutModal";
-import UploadTestQuestionImageModal from "../../tests/design/UploadTestQuestionImageModal";
+import UploadTestQuestionImageModal from "../../tests/design/test-question/UploadTestQuestionImageModal";
 import { ZoomImageModal } from "../ZoomImage";
 import modalTypes from "../../../constants/modal-types";
 

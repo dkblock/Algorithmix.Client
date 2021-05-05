@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadTestQuestionImage } from "../../../store/actions/test-question";
-import CreateModal from "../../_common/Modal/CreateModal";
-import FileDropzone, { fileTypes } from "../../_common/FileDropzone";
+import { uploadTestQuestionImage } from "../../../../store/actions/test-question";
+import CreateModal from "../../../_common/Modal/CreateModal";
+import FileDropzone, { fileTypes } from "../../../_common/FileDropzone";
 
 const UploadTestQuestionImageModal = () => {
   const dispatch = useDispatch();

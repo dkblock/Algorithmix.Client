@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTitle } from "../../../hooks";
-import { editTest } from "../../../store/actions/test";
-import { fetchTestQuestions } from "../../../store/actions/test-question";
+import { fetchTest } from "../../../store/actions/test";
 import Redirect, { routes } from "../../_common/Route/Redirect";
 import TestQuestionList from "./TestQuestionList";
 import TestQuestionDesigner from "./test-question/TestQuestionDesigner";
@@ -12,32 +11,23 @@ import "./TestDesigner.scss";
 const TestDesigner = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { editedTest, tests } = useSelector((state) => state.test);
-  const isTestExist = tests.length === 0 || tests.some((test) => test.id === parseInt(testId));
+  const { tests, isFetching } = useSelector((state) => state.test);
+  const { test } = useSelector((state) => state.testDesign);
+  const isTestExist = isFetching || tests.some((test) => test.id === parseInt(testId));
 
-  useTitle("Тесты");
+  useTitle(test?.name, test?.name);
 
   useEffect(() => {
-    if (!editedTest) {
-      const test = tests.find((t) => t.id === parseInt(testId));
-      dispatch(editTest({ test }));
-    }
+    dispatch(fetchTest({ testId }));
+  }, [dispatch, testId]);
 
-    dispatch(fetchTestQuestions({ testId }));
-  }, [dispatch, editedTest, testId, tests]);
-
-  if (!isTestExist) {
-    return <Redirect to={routes.tests} />;
-  }
-
-  if (!editedTest) {
-    return null;
-  }
+  if (!isTestExist) return <Redirect to={routes.management.tests} />;
+  if (!test) return null;
 
   return (
-    <div className="test-edit">
+    <div className="test-design">
       <TestQuestionList />
-      <TestQuestionDesigner />
+      {/*<TestQuestionDesigner />*/}
     </div>
   );
 };

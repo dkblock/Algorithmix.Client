@@ -1,11 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { createTest, deleteTest, editTest, fetchTest, fetchTests, selectTest } from "../actions/test";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import {
+  createTest,
+  deleteTest,
+  fetchPublishedTests,
+  fetchTests,
+  selectTest
+} from "../actions/test";
 import { fetchTestResult } from "../actions/test-pass";
 
 const initialState = {
+  publishedTests: [],
   tests: [],
-  editedTest: null,
   selectedTestId: null,
 
   isFetching: false,
@@ -17,41 +23,41 @@ const testSlice = createSlice({
   name: "testSlice",
   initialState: initialState,
   extraReducers: {
+    [fetchPublishedTests.pending]: (state) => {
+      onPendingDefault(state);
+      state.publishedTests = [];
+    },
+    [fetchPublishedTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      state.publishedTests = tests;
+      state.selectedTestId = state.selectedTestId ?? tests[0]?.id;
+    },
+    [fetchPublishedTests.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.publishedTests = [];
+      state.selectedTestId = null;
+    },
+
     [fetchTests.pending]: (state) => {
       onPendingDefault(state);
     },
     [fetchTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
       onFulfilledDefault(state, hasError);
       state.tests = tests;
-      state.selectedTestId = tests[0].id;
     },
     [fetchTests.rejected]: (state) => {
       onRejectedDefault(state);
       state.tests = [];
-      state.selectedTestId = null;
-    },
-
-    [fetchTest.pending]: (state) => {
-      onPendingDefault(state);
-    },
-    [fetchTest.fulfilled]: (state, { payload: { test, hasError } }) => {
-      onFulfilledDefault(state, hasError);
-      state.selectedTestId = test.id;
-    },
-    [fetchTest.rejected]: (state) => {
-      onRejectedDefault(state);
-      state.selectedTestId = null;
     },
 
     [createTest.pending]: (state) => {
-      onPendingDefault(state);
+      onSavingDefault(state);
     },
     [createTest.fulfilled]: (state, { payload: { test, hasError } }) => {
       onFulfilledDefault(state, hasError);
 
       if (!hasError) {
         state.tests = [test, ...state.tests];
-        state.selectedTestId = test.id;
       }
     },
     [createTest.rejected]: (state) => {
@@ -59,17 +65,14 @@ const testSlice = createSlice({
     },
 
     [deleteTest.pending]: (state) => {
-      onPendingDefault(state);
+      onSavingDefault(state);
     },
     [deleteTest.fulfilled]: (state, { payload: { testId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      state.tests = state.tests.filter((test) => test.id !== testId);
 
-      if (!hasError) {
-        state.tests = state.tests.filter((test) => test.id !== testId);
-
-        if (state.selectedTestId === testId) {
-          state.selectedTestId = state.tests[0]?.id;
-        }
+      if (state.selectedTestId === testId) {
+        state.selectedTestId = state.tests[0]?.id;
       }
     },
     [deleteTest.rejected]: (state) => {
@@ -91,10 +94,7 @@ const testSlice = createSlice({
 
     [selectTest]: (state, { payload: { testId } }) => {
       state.selectedTestId = testId;
-    },
-    [editTest]: (state, { payload: { test } }) => {
-      state.editedTest = test;
-    },
+    }
   },
 });
 

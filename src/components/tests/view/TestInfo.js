@@ -10,7 +10,7 @@ import CompletionResult from "../../_common/CompletionResult";
 
 const TestInfo = ({ testId }) => {
   const { isAuthenticated } = useSelector((state) => state.account);
-  const { tests } = useSelector((state) => state.test);
+  const { publishedTests: tests } = useSelector((state) => state.test);
   const test = tests.find((t) => t.id === testId);
 
   const handleTestStart = () => {

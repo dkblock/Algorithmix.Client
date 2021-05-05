@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Route } from "react-router";
 import { useDispatch } from "react-redux";
+import { Route } from "react-router";
 import { fetchTests } from "../../store/actions/test";
 import routes from "../../utils/routes";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";

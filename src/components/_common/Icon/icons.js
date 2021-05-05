@@ -7,7 +7,7 @@ const icons = {
   [iconTypes.arrowLeft]: materialIcons.NavigateBefore,
   [iconTypes.arrowRight]: materialIcons.NavigateNext,
   [iconTypes.close]: materialIcons.Close,
-  [iconTypes.constructor]: materialIcons.Extension,
+  [iconTypes.constructor]: materialIcons.Dashboard,
   [iconTypes.delete]: materialIcons.Delete,
   [iconTypes.draggable]: materialIcons.DragIndicator,
   [iconTypes.edit]: materialIcons.Edit,
@@ -21,7 +21,7 @@ const icons = {
   [iconTypes.plus]: materialIcons.Add,
   [iconTypes.settings]: materialIcons.Settings,
   [iconTypes.stats]: materialIcons.Equalizer,
-  [iconTypes.tests]: materialIcons.ListAlt,
+  [iconTypes.tests]: materialIcons.PlaylistAddCheck,
   [iconTypes.upload]: materialIcons.Publish,
   [iconTypes.uploadCloud]: materialIcons.CloudUpload,
 };

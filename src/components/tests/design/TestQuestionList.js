@@ -2,36 +2,35 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTestQuestion,
-  selectTestQuestion,
   showDeleteTestQuestionModal,
   moveTestQuestion,
+  fetchTestQuestion,
 } from "../../../store/actions/test-question";
-import { iconTypes } from "../../_common/Icon";
 import Button, { colors } from "../../_common/Button";
-import { SortableList } from "../../_common/List";
+import { iconTypes } from "../../_common/Icon";
 import Loader from "../../_common/Loader";
+import { SortableList } from "../../_common/List";
 
-const prepareQuestions = (questions, selectedQuestion, onClick, onQuestionDelete) =>
+const prepareQuestions = (questions, selectedQuestionId, onQuestionClick, onQuestionDelete) =>
   questions.map((question) => ({
     id: question.id,
     primaryText: question.value,
-    isSelected: question.id === selectedQuestion?.id,
-    onClick: () => onClick(question),
+    isSelected: question.id === selectedQuestionId,
+    onClick: () => onQuestionClick(question.id),
     actions: [
       {
         id: "delete",
         label: "Удалить",
         icon: iconTypes.delete,
-        onClick: () => onQuestionDelete(question),
+        onClick: () => onQuestionDelete(question.id),
       },
     ],
   }));
 
 const TestQuestionList = () => {
   const dispatch = useDispatch();
-  const { editedTest: test, isFetching: isTestFetching } = useSelector((state) => state.test);
-  const { questions, selectedQuestion, isSaving, isFetching: isQuestionsFetching } = useSelector(
-    (state) => state.testQuestion
+  const { test, question: selectedQuestion, questions, isSaving, isFetching } = useSelector(
+    (state) => state.testDesign
   );
 
   const [orderedQuestions, setOrderedQuestions] = useState([]);
@@ -41,15 +40,15 @@ const TestQuestionList = () => {
   }, [questions]);
 
   const handleQuestionClick = useCallback(
-    (question) => {
-      dispatch(selectTestQuestion({ question }));
+    (questionId) => {
+      dispatch(fetchTestQuestion({ testId: test.id, questionId }));
     },
     [dispatch, test.id]
   );
 
   const handleQuestionDelete = useCallback(
-    (question) => {
-      dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId: question.id }));
+    (questionId) => {
+      dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId }));
     },
     [dispatch, test.id]
   );
@@ -77,36 +76,27 @@ const TestQuestionList = () => {
   );
 
   const preparedQuestions = useMemo(
-    () => prepareQuestions(orderedQuestions, selectedQuestion, handleQuestionClick, handleQuestionDelete),
+    () => prepareQuestions(orderedQuestions, selectedQuestion?.id, handleQuestionClick, handleQuestionDelete),
     [handleQuestionClick, handleQuestionDelete, orderedQuestions, selectedQuestion]
   );
 
   return (
     <div className="test-question-list">
-      {isTestFetching ? (
-        <Loader className="test-list__loader" />
-      ) : (
-        <>
-          <div className="test-question-list__header">
-            <h5>{test.name}</h5>
-            <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleQuestionCreate}>
-              Новый вопрос
-            </Button>
-          </div>
-
-          {isQuestionsFetching ? (
-            <Loader className="test-list__loader" />
-          ) : (
-            <div className="test-question-list__items">
-              {preparedQuestions.length > 0 ? (
-                <SortableList items={preparedQuestions} onSwap={handleQuestionMove} />
-              ) : (
-                <div>Нет вопросов</div>
-              )}
-            </div>
-          )}
-        </>
-      )}
+      <div className="test-question-list__header">
+        <h5>{test.name}</h5>
+        <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleQuestionCreate}>
+          Новый вопрос
+        </Button>
+      </div>
+      <div className="test-question-list__items">
+        {isFetching ? (
+          <Loader className="test-list__loader" />
+        ) : preparedQuestions.length > 0 ? (
+          <SortableList items={preparedQuestions} onSwap={handleQuestionMove} />
+        ) : (
+          <div className="test-list__loader">Нет вопросов</div>
+        )}
+      </div>
     </div>
   );
 };

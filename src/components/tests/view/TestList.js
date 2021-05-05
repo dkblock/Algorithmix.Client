@@ -1,12 +1,11 @@
 import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useExecutiveRole } from "../../../hooks";
+import { selectTest } from "../../../store/actions/test";
 import { List } from "../../_common/List";
 import Loader from "../../_common/Loader";
 import TextField from "../../_common/TextField";
-import { selectTest } from "../../../store/actions/test";
 
-const prepareTests = (tests, selectedTestId, isExecutive, onTestClick, onTestEdit, onTestDelete) =>
+const prepareTests = (tests, selectedTestId, onTestClick) =>
   tests.map((test) => ({
     id: test.id,
     primaryText: test.name,
@@ -17,8 +16,7 @@ const prepareTests = (tests, selectedTestId, isExecutive, onTestClick, onTestEdi
 
 const TestList = () => {
   const dispatch = useDispatch();
-  const isExecutive = useExecutiveRole();
-  const { tests, selectedTestId, isFetching } = useSelector((state) => state.test);
+  const { publishedTests: tests, selectedTestId, isFetching } = useSelector((state) => state.test);
 
   const handleTestClick = useCallback(
     (testId) => {
@@ -27,9 +25,8 @@ const TestList = () => {
     [dispatch]
   );
 
-  const preparedTests = useMemo(() => prepareTests(tests, selectedTestId, isExecutive, handleTestClick), [
+  const preparedTests = useMemo(() => prepareTests(tests, selectedTestId, handleTestClick), [
     handleTestClick,
-    isExecutive,
     selectedTestId,
     tests,
   ]);
@@ -42,10 +39,12 @@ const TestList = () => {
 
       {isFetching ? (
         <Loader className="test-list__loader" size="medium" />
-      ) : (
+      ) : preparedTests.length > 0 ? (
         <div className="test-list__items">
           <List items={preparedTests} />
         </div>
+      ) : (
+        <div className="test-list__loader">Нет тестов</div>
       )}
     </div>
   );

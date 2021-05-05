@@ -1,41 +1,35 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchTestAnswers } from "./test-answer";
+import { hideModal, showModal } from "./modal";
 import testQuestionService from "../../api/services/test-question-service";
 import testQuestionTypes from "../../constants/test-question-types";
 import statusCode from "../../utils/status-code-reader";
-import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
-import { fetchTestAnswers } from "./test-answer";
 
-export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async ({ testId }, thunkAPI) => {
-  const response = await testQuestionService.fetchQuestions(testId);
+export const fetchTestQuestion = createAsyncThunk("fetchTestQuestion", async ({ testId, questionId }, thunkAPI) => {
+  const response = await testQuestionService.fetchQuestion(testId, questionId);
 
   if (statusCode.ok(response)) {
-    const questions = await response.json();
-    thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: questions[0].id }));
+    const question = await response.json();
+    const {
+      payload: { answers, hasError },
+    } = await thunkAPI.dispatch(fetchTestAnswers({ testId, questionId }));
 
-    return { questions, hasError: false };
+    return { question, answers, hasError };
   }
 
-  return { questions: [], hasError: true };
-});
-
-export const selectTestQuestion = createAsyncThunk("selectTestQuestion", ({ question }, thunkAPI) => {
-  thunkAPI.dispatch(fetchTestAnswers({ testId: question.test.id, questionId: question.id }));
-  return { question };
+  return { question: null, answers: [], hasError: true };
 });
 
 export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, count }, thunkAPI) => {
   const response = await testQuestionService.createQuestion(testId, {
     value: `Вопрос ${count + 1}`,
-    image: null,
     type: testQuestionTypes.singleAnswerQuestion,
     testId,
   });
 
   if (statusCode.created(response)) {
     const createdQuestion = await response.json();
-    thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: createdQuestion.id }));
-
     return { createdQuestion, hasError: false };
   }
 
@@ -43,31 +37,26 @@ export const createTestQuestion = createAsyncThunk("createTestQuestion", async (
 });
 
 export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async ({ testId, questionId }, thunkAPI) => {
-  thunkAPI.dispatch(hideModal());
   const response = await testQuestionService.deleteQuestion(testId, questionId);
 
   if (statusCode.noContent(response)) {
+    thunkAPI.dispatch(hideModal());
     return { questionId, hasError: false };
   }
 
   return { hasError: true };
 });
 
-export const updateTestQuestion = createAsyncThunk(
-  "updateTestQuestion",
-  async ({ testId, questionId, question }, thunkAPI) => {
-    const response = await testQuestionService.updateQuestion(testId, questionId, question);
+export const updateTestQuestion = createAsyncThunk("updateTestQuestion", async ({ testId, questionId, question }) => {
+  const response = await testQuestionService.updateQuestion(testId, questionId, question);
 
-    if (statusCode.ok(response)) {
-      const updatedQuestion = await response.json();
-      thunkAPI.dispatch(fetchTestAnswers({ testId, questionId: updatedQuestion.id }));
-
-      return { updatedQuestion, hasError: false };
-    }
-
-    return { hasError: true };
+  if (statusCode.ok(response)) {
+    const updatedQuestion = await response.json();
+    return { updatedQuestion, hasError: false };
   }
-);
+
+  return { hasError: true };
+});
 
 export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ testId, indexes }) => {
   const response = await testQuestionService.moveQuestion(testId, indexes);
@@ -84,9 +73,10 @@ export const uploadTestQuestionImage = createAsyncThunk(
   "uploadTestQuestionImage",
   async ({ testId, questionId, image }, thunkAPI) => {
     const response = await testQuestionService.uploadQuestionImage(testId, questionId, image);
-    thunkAPI.dispatch(hideModal());
 
     if (statusCode.ok(response)) {
+      thunkAPI.dispatch(hideModal());
+
       const updatedQuestion = await response.json();
       return { updatedQuestion, hasError: false };
     }

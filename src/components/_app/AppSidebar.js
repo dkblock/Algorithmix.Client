@@ -8,53 +8,43 @@ import {
   navigateToTests,
   navigateToTestsManagement,
 } from "../../utils/navigator";
-import routes from "../../utils/routes";
+import sidebarSelector from "../../utils/sidebar-selector";
 import { IconButton, iconTypes } from "../_common/Icon";
 import Tooltip from "../_common/Tooltip";
 
 const AppSidebar = () => {
   const currentRoute = useSelector((state) => state.router.location.pathname);
-
   const isExecutive = useExecutiveRole();
-  const isSelected = (route) => currentRoute.includes(route);
 
   return (
     <div className="app-sidebar bg-light">
       <div className="app-sidebar__items">
         <Tooltip title="Главная" placement="right">
-          <IconButton
-            type={iconTypes.home}
-            selected={isSelected(routes.home) || currentRoute === "/"}
-            onClick={navigateToHome}
-          />
+          <IconButton type={iconTypes.home} selected={sidebarSelector.home(currentRoute)} onClick={navigateToHome} />
         </Tooltip>
         <Tooltip title="Алгоритмы" placement="right">
           <IconButton
             type={iconTypes.algorithms}
-            selected={isSelected(routes.algorithms)}
+            selected={sidebarSelector.algorithms(currentRoute)}
             onClick={navigateToAlgorithms}
           />
         </Tooltip>
         <Tooltip title="Конструктор" placement="right">
           <IconButton
             type={iconTypes.constructor}
-            selected={isSelected(routes.constructor)}
+            selected={sidebarSelector.constructor(currentRoute)}
             onClick={navigateToConstructor}
           />
         </Tooltip>
         <Tooltip title="Тесты" placement="right">
-          <IconButton
-            type={iconTypes.tests}
-            selected={isSelected(routes.tests.main) && !currentRoute.includes("management")}
-            onClick={navigateToTests}
-          />
+          <IconButton type={iconTypes.tests} selected={sidebarSelector.tests(currentRoute)} onClick={navigateToTests} />
         </Tooltip>
 
         {isExecutive && (
           <Tooltip title="Управление" placement="right">
             <IconButton
               type={iconTypes.manage}
-              selected={isSelected(routes.management.main)}
+              selected={sidebarSelector.management(currentRoute)}
               onClick={navigateToTestsManagement}
             />
           </Tooltip>

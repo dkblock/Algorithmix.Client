@@ -1,8 +1,20 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { fetchTestQuestion } from "./test-question";
 import { showModal, hideModal } from "./modal";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
+
+export const fetchPublishedTests = createAsyncThunk("fetchPublishedTests", async () => {
+  const response = await testService.fetchPublishedTests();
+
+  if (statusCode.ok(response)) {
+    const tests = await response.json();
+    return { tests, hasError: false };
+  }
+
+  return { tests: [], hasError: true };
+});
 
 export const fetchTests = createAsyncThunk("fetchTests", async () => {
   const response = await testService.fetchTests();
@@ -15,22 +27,39 @@ export const fetchTests = createAsyncThunk("fetchTests", async () => {
   return { tests: [], hasError: true };
 });
 
-export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }) => {
+export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }, thunkAPI) => {
   const response = await testService.fetchTest(testId);
 
   if (statusCode.ok(response)) {
     const test = await response.json();
-    return { test, hasError: false };
+    const questions = test.questions;
+
+    if (questions.length > 0) {
+      const questionId = questions[0].id;
+      const {
+        payload: { question, answers, hasError },
+      } = await thunkAPI.dispatch(
+        fetchTestQuestion({
+          testId,
+          questionId,
+        })
+      );
+
+      return { test, question, questions, answers, hasError };
+    }
+
+    return { test, question: null, questions, answers: [], hasError: false };
   }
 
-  return { test: null, hasError: true };
+  return { test: null, question: null, questions: [], answers: [], hasError: true };
 });
 
 export const createTest = createAsyncThunk("createTest", async ({ test }, thunkAPI) => {
-  thunkAPI.dispatch(hideModal());
   const response = await testService.createTest(test);
 
   if (statusCode.created(response)) {
+    thunkAPI.dispatch(hideModal());
+
     const createdTest = await response.json();
     return { test: createdTest, hasError: false };
   }
@@ -39,14 +68,14 @@ export const createTest = createAsyncThunk("createTest", async ({ test }, thunkA
 });
 
 export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thunkAPI) => {
-  thunkAPI.dispatch(hideModal());
   const response = await testService.deleteTest(testId);
 
   if (statusCode.noContent(response)) {
+    thunkAPI.dispatch(hideModal());
     return { testId, hasError: false };
   }
 
-  return { hasError: true };
+  return { testId: null, hasError: true };
 });
 
 export const publishTest = createAsyncThunk("publishTest", async ({ testId }) => {
@@ -54,8 +83,6 @@ export const publishTest = createAsyncThunk("publishTest", async ({ testId }) =>
 });
 
 export const selectTest = createAction("selectTest", ({ testId }) => ({ payload: { testId } }));
-
-export const editTest = createAction("editTest", ({ test }) => ({ payload: { test } }));
 
 export const showCreateTestModal = createAsyncThunk("showCreateTestModal", async (params, thunkAPI) => {
   thunkAPI.dispatch(showModal(modalTypes.createTest));

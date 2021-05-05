@@ -5,10 +5,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 
 import { useCurrentUser } from "../../hooks";
-import { logout } from "../../store/actions/account";
-import Button, { colors } from "../_common/Button";
-import { Icon, iconTypes } from "../_common/Icon";
+import { showLogoutModal } from "../../store/actions/account";
 import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
+import Button, { colors } from "../_common/Button";
+import Avatar from "../_common/Avatar";
+import { Icon, iconTypes } from "../_common/Icon";
 
 const AppHeader = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const AppHeader = () => {
   const handleLoginClick = () => navigateToLogin();
   const handleRegisterClick = () => navigateToRegister();
   const handleLogoutClick = () => {
-    dispatch(logout());
+    dispatch(showLogoutModal());
     handleMenuClose();
   };
 
@@ -51,14 +52,12 @@ const AppHeader = () => {
           <div>Загрузка...</div>
         ) : (
           <>
-            <Button
-              className="app-header__button"
-              color={colors.transparentBlack}
-              endIcon={iconTypes.account}
+            <Avatar
+              className="app-header__avatar"
+              firstName={currentUser.firstName}
+              lastName={currentUser.lastName}
               onClick={handleMenuOpen}
-            >
-              {currentUser.firstName} {currentUser.lastName}
-            </Button>
+            />
             <Popover
               id="app-header-popover"
               open={Boolean(anchorEl)}

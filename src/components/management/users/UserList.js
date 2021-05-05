@@ -5,6 +5,7 @@ import { fetchUsers, showDeleteUserModal, updateUser } from "../../../store/acti
 import { fetchGroups } from "../../../store/actions/group";
 import Table, { TableToolbar } from "../../_common/Table";
 import { iconTypes } from "../../_common/Icon";
+import AvatarCell from "./AvatarCell";
 import GroupCell from "./GroupCell";
 import RoleCell from "./RoleCell";
 
@@ -17,6 +18,7 @@ const getActions = (onUserDelete) => [
 ];
 
 const getColumns = (onUserUpdate) => [
+  { field: "avatar", headerName: " ", width: 64, renderCell: ({ row }) => <AvatarCell row={row} /> },
   { field: "fullName", headerName: "Имя" },
   { field: "email", headerName: "Email" },
   {

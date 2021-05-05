@@ -11,6 +11,7 @@ import routes from "../../utils/routes";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import TabPanel from "../_common/TabPanel";
 import TestList from "./tests/TestList";
+import TestResultList from "./test-results/TestResultList";
 import UserList from "./users/UserList";
 import GroupList from "./groups/GroupList";
 import "./Management.scss";
@@ -38,7 +39,7 @@ const Management = () => {
       <div className="management">
         <Paper className="management__content">
           <ExecutiveRoute path={routes.management.tests} render={(props) => <TestList {...props} />} />
-          <ExecutiveRoute path={routes.management.testResults} render={(props) => <TestList {...props} />} />
+          <ExecutiveRoute path={routes.management.testResults} render={(props) => <TestResultList {...props} />} />
           <ExecutiveRoute path={routes.management.users} render={(props) => <UserList {...props} />} />
           <ExecutiveRoute path={routes.management.groups} render={(props) => <GroupList {...props} />} />
         </Paper>

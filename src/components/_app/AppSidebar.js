@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useExecutiveRole } from "../../hooks";
-import { showLogoutModal } from "../../store/actions/account";
 import {
   navigateToHome,
   navigateToAlgorithms,
@@ -14,15 +13,10 @@ import { IconButton, iconTypes } from "../_common/Icon";
 import Tooltip from "../_common/Tooltip";
 
 const AppSidebar = () => {
-  const dispatch = useDispatch();
-
   const currentRoute = useSelector((state) => state.router.location.pathname);
-  const { isAuthenticated } = useSelector((state) => state.account);
 
   const isExecutive = useExecutiveRole();
   const isSelected = (route) => currentRoute.includes(route);
-
-  const handleLogout = () => dispatch(showLogoutModal());
 
   return (
     <div className="app-sidebar bg-light">
@@ -56,28 +50,14 @@ const AppSidebar = () => {
           />
         </Tooltip>
 
-        {isAuthenticated && (
-          <>
-            <div className="app-sidebar__divider" />
-            {isExecutive && (
-              <Tooltip title="Управление" placement="right">
-                <IconButton
-                  type={iconTypes.manage}
-                  selected={isSelected(routes.management.main)}
-                  onClick={navigateToTestsManagement}
-                />
-              </Tooltip>
-            )}
-            <Tooltip title="Статистика" placement="right">
-              <IconButton type={iconTypes.stats} selected={isSelected("stats")} onClick={navigateToHome} />
-            </Tooltip>
-            <Tooltip title="Настройки" placement="right">
-              <IconButton type={iconTypes.settings} selected={isSelected("settings")} onClick={navigateToHome} />
-            </Tooltip>
-            <Tooltip title="Выход" placement="right">
-              <IconButton type={iconTypes.logout} selected={false} onClick={handleLogout} />
-            </Tooltip>
-          </>
+        {isExecutive && (
+          <Tooltip title="Управление" placement="right">
+            <IconButton
+              type={iconTypes.manage}
+              selected={isSelected(routes.management.main)}
+              onClick={navigateToTestsManagement}
+            />
+          </Tooltip>
         )}
       </div>
     </div>

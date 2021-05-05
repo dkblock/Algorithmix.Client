@@ -9,6 +9,7 @@ import testAnswerReducer from "./reducers/test-answer";
 import testQuestionReducer from "./reducers/test-question";
 import testPassReducer from "./reducers/test-pass";
 import userReducer from "./reducers/user";
+import userTestResultReducer from "./reducers/user-test-result";
 
 const createRootReducer = (history) => ({
   router: connectRouter(history),
@@ -22,6 +23,7 @@ const createRootReducer = (history) => ({
   testQuestion: testQuestionReducer,
   testPass: testPassReducer,
   user: userReducer,
+  userTestResult: userTestResultReducer,
 });
 
 export default createRootReducer;

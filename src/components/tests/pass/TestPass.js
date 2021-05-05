@@ -64,7 +64,7 @@ const TestPass = () => {
     setQuestionOrder((prevState) => prevState - 1);
   }, [allUserAnswers, currentQuestion?.id, currentQuestion?.previousQuestionId, dispatch, testId]);
 
-  if (currentTest?.userResult) return <Redirect to={routes.testResult(testId)} />;
+  if (currentTest?.userResult) return <Redirect to={routes.tests.result(testId)} />;
   if (!currentQuestion) return null;
 
   return (

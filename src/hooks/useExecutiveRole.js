@@ -2,11 +2,10 @@ import useCurrentUser from "./useCurrentUser";
 import roles from "../constants/roles";
 
 const useExecutiveRole = () => {
-  const {
-    currentUser: { role },
-  } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
-  return role === roles.administrator || role === roles.moderator;
+  if (!currentUser) return false;
+  return currentUser.role === roles.administrator || currentUser.role === roles.moderator;
 };
 
 export default useExecutiveRole;

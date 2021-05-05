@@ -55,6 +55,7 @@
 
   &__section {
     display: flex;
+    align-items: center;
   }
 
   &__logo {
@@ -68,6 +69,11 @@
     padding: 5px 0;
   }
 
+  &__avatar {
+    cursor: pointer;
+    margin-right: 12px;
+  }
+
   &__menu-divider {
     margin: 5px 2px;
     width: 100%;
@@ -79,6 +85,7 @@
     box-shadow: none !important;
     border-radius: 0 !important;
     text-transform: none !important;
+    height: 45px;
   }
 }
 

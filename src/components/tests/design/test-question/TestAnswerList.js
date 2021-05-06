@@ -15,12 +15,10 @@ const { validateAnswer } = validator.testAnswer;
 
 const TestAnswerList = () => {
   const dispatch = useDispatch();
-  const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
-  const { editedTest } = useSelector((state) => state.test);
-  const { answers, isFetching, isSaving } = useSelector((state) => state.testAnswer);
+  const { test, question, answers, isFetching, isSaving } = useSelector((state) => state.testDesign);
 
-  const testId = editedTest.id;
-  const questionId = question.id;
+  const { id: testId } = test;
+  const { id: questionId } = question;
 
   const [orderedAnswers, setOrderedAnswers] = useState([]);
   const [correctAnswerIds, setCorrectAnswerIds] = useState([]);
@@ -34,14 +32,13 @@ const TestAnswerList = () => {
     dispatch(createTestAnswer({ testId, questionId: question.id, count: answers.length }));
   }, [answers.length, dispatch, question.id, testId]);
 
-  const handleAnswerDelete = useCallback(
-    (answerId) => {
-      dispatch(deleteTestAnswer({ testId, questionId, answerId }));
-    },
-    [dispatch, questionId, testId]
-  );
+  const handleAnswerDelete = useCallback((answerId) => dispatch(deleteTestAnswer({ testId, questionId, answerId })), [
+    dispatch,
+    questionId,
+    testId,
+  ]);
 
-  const handleAnswerUpdate = useDebouncedCallback(
+  const handleAnswerUpdate = useCallback(
     (updatedAnswer) => {
       const { isValid } = validateAnswer(updatedAnswer);
 
@@ -49,21 +46,18 @@ const TestAnswerList = () => {
         dispatch(updateTestAnswer({ testId, questionId, answer: { ...updatedAnswer, questionId } }));
       }
     },
-    1000
+    [dispatch, questionId, testId]
   );
 
-  const handleAnswerValueChange = useCallback(
-    (answerId, newValue) => {
-      const newOrderedAnswers = orderedAnswers.map((answer) => ({
-        ...answer,
-        value: answer.id === answerId ? newValue : answer.value,
-      }));
+  const handleAnswerValueChange = useDebouncedCallback((answerId, newValue) => {
+    const newOrderedAnswers = orderedAnswers.map((answer) => ({
+      ...answer,
+      value: answer.id === answerId ? newValue : answer.value,
+    }));
 
-      const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
-      handleAnswerUpdate(answer);
-    },
-    [handleAnswerUpdate, orderedAnswers]
-  );
+    const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
+    handleAnswerUpdate(answer);
+  }, 1000);
 
   const handleIsCorrectAnswerChange = useCallback(
     (newOrderedAnswers, newCorrectAnswerIds, answerId) => {

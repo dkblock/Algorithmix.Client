@@ -22,20 +22,24 @@ const getActions = (onTestEdit, onTestDelete) => [
 
 const columns = [
   { field: "name", headerName: "Название" },
+  { field: "status", headerName: "Статус" },
   { field: "algorithmName", headerName: "Алгоритм" },
   { field: "questionsCount", headerName: "Вопросы", width: 120 },
   { field: "createdBy", headerName: "Автор" },
   { field: "createdDate", headerName: "Создан", type: "dateTime" },
+  { field: "updatedDate", headerName: "Изменён", type: "dateTime" },
 ];
 
 const prepareTests = (tests) =>
   tests.map((test) => ({
     id: test.id,
     name: test.name,
+    status: test.isPublished ? "Опубликован" : "Не опубликован",
     algorithmName: test.algorithm.name,
     questionsCount: test.questions.length,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
     createdDate: new Date(test.createdDate),
+    updatedDate: new Date(test.updatedDate),
   }));
 
 const TestList = () => {
@@ -74,7 +78,7 @@ const TestList = () => {
       data={preparedTests}
       actions={actions}
       isFetching={isFetching}
-      sortBy="createdDate"
+      sortBy="updatedDate"
       sortDirection="desc"
     />
   );

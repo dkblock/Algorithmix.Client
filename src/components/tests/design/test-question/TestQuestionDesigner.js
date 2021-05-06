@@ -7,9 +7,9 @@ import testQuestionTypes from "../../../../constants/test-question-types";
 import validator from "../../../../utils/validation";
 import TextField from "../../../_common/TextField";
 import Dropdown from "../../../_common/Dropdown";
-import TestAnswerList from "./TestAnswerList";
 import TestQuestionImage from "./TestQuestionImage";
 import Button from "../../../_common/Button";
+import TestAnswerList from "./TestAnswerList";
 import { publishTest } from "../../../../store/actions/test";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
@@ -22,10 +22,8 @@ const questionTypeItems = [
 
 const TestQuestionDesigner = () => {
   const dispatch = useDispatch();
-  const { selectedQuestion: question } = useSelector((state) => state.testQuestion);
-  const {
-    editedTest: { id: testId },
-  } = useSelector((state) => state.test);
+  const { test, question } = useSelector((state) => state.testDesign);
+  const { id: testId } = test;
 
   const [questionId, setQuestionId] = useState(null);
   const [value, setValue] = useState("");
@@ -56,11 +54,9 @@ const TestQuestionDesigner = () => {
     setValue(newValue);
     handleUpdateQuestion({ ...question, value: newValue });
   }, 1000);
-
-  const handleQuestionValueFocus = useCallback(() => {
-    setValidationErrors({ ...validationErrors, value: null });
-  }, [validationErrors]);
-
+  const handleQuestionValueFocus = useCallback(() => setValidationErrors({ ...validationErrors, value: null }), [
+    validationErrors,
+  ]);
   const handleQuestionValueFocusOut = useCallback(() => {
     const validationError = validateQuestionValue(value);
     setValidationErrors({ ...validationErrors, value: validationError });
@@ -74,9 +70,7 @@ const TestQuestionDesigner = () => {
     [handleUpdateQuestion, question]
   );
 
-  if (!question) {
-    return null;
-  }
+  if (!question) return null;
 
   return (
     <Paper className="test-question-info">

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
+import { fetchTest } from "../actions/test";
 import testAnswerDesignReducer from "./test-answer-design";
 import testQuestionDesignReducer from "./test-question-design";
-import { fetchTest } from "../actions/test";
 
 const initialState = {
   test: null,

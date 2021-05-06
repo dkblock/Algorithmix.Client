@@ -83,7 +83,7 @@ const TestQuestionList = () => {
   return (
     <div className="test-question-list">
       <div className="test-question-list__header">
-        <h5>{test.name}</h5>
+        Вопросы
         <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleQuestionCreate}>
           Новый вопрос
         </Button>

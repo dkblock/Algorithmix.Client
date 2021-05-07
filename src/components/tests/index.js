@@ -6,9 +6,10 @@ import routes from "../../utils/routes";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import PrivateRoute from "../_common/Route/PrivateRoute";
 import TestDesigner from "./design/TestDesigner";
+import TestList from "./list/TestList";
 import TestPass from "./pass/TestPass";
 import TestResult from "./pass/TestResult";
-import TestView from "./view/TestView";
+import TestView from "./list/TestList";
 
 const Tests = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Tests = () => {
       <ExecutiveRoute path={routes.tests.design(":testId")} render={(props) => <TestDesigner {...props} />} />
       <PrivateRoute path={routes.tests.pass(":testId")} exact render={(props) => <TestPass {...props} />} />
       <PrivateRoute path={routes.tests.result(":testId")} render={(props) => <TestResult {...props} />} />
-      <Route path={routes.tests.main} exact render={(props) => <TestView {...props} />} />
+      <Route path={routes.tests.main} exact render={(props) => <TestList {...props} />} />
     </>
   );
 };

@@ -86,7 +86,7 @@ const TestList = () => {
       actions={actions}
       isFetching={isFetching}
       sortBy="updatedDate"
-      sortDirection="desc"
+      sortDirection="asc"
     />
   );
 };

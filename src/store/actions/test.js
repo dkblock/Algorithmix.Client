@@ -78,8 +78,31 @@ export const deleteTest = createAsyncThunk("deleteTest", async ({ testId }, thun
   return { testId: null, hasError: true };
 });
 
-export const publishTest = createAsyncThunk("publishTest", async ({ testId }) => {
+export const updateTest = createAsyncThunk("updateTest", async ({ testId, test }) => {
+  const response = await testService.updateTest(testId, test);
+
+  if (statusCode.ok(response)) {
+    const updatedTest = await response.json();
+    return { updatedTest, hasError: false };
+  }
+
+  return { hasError: true };
+});
+
+export const publishTest = createAsyncThunk("publishTest", async ({ testId }, thunkAPI) => {
   const response = await testService.publishTest(testId);
+
+  if (statusCode.ok(response)) {
+    thunkAPI.dispatch(hideModal());
+    return { publishErrors: [], isPublished: true, hasError: false };
+  }
+
+  if (statusCode.badRequest(response)) {
+    const { validationErrors } = await response.json();
+    return { publishErrors: validationErrors, isPublished: false, hasError: true };
+  }
+
+  return { publishErrors: [], isPublished: false, hasError: true };
 });
 
 export const selectTest = createAction("selectTest", ({ testId }) => ({ payload: { testId } }));
@@ -90,4 +113,8 @@ export const showCreateTestModal = createAsyncThunk("showCreateTestModal", async
 
 export const showDeleteTestModal = createAsyncThunk("showDeleteTestModal", async ({ test }, thunkAPI) => {
   thunkAPI.dispatch(showModal(modalTypes.deleteTest, { test }));
+});
+
+export const showPublishTestModal = createAsyncThunk("showPublishTestModal", async ({ test }, thunkAPI) => {
+  thunkAPI.dispatch(showModal(modalTypes.publishTest, { test }));
 });

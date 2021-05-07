@@ -17,6 +17,7 @@ const testAnswerDesignReducer = {
     }
 
     state.answers = [...state.answers, createdAnswer];
+    state.test.isPublished = false;
   },
   [createTestAnswer.rejected]: (state) => {
     onRejectedDefault(state);
@@ -42,6 +43,7 @@ const testAnswerDesignReducer = {
     }
 
     state.answers = state.answers.filter((answer) => answer.id !== answerId);
+    state.test.isPublished = false;
   },
   [deleteTestAnswer.rejected]: (state) => {
     onRejectedDefault(state);
@@ -55,6 +57,7 @@ const testAnswerDesignReducer = {
     if (hasError) return;
 
     updateCorrectAnswers(updatedAnswer, state);
+    state.test.isPublished = false;
   },
   [updateTestAnswer.rejected]: (state) => {
     onRejectedDefault(state);
@@ -68,6 +71,7 @@ const testAnswerDesignReducer = {
     if (hasError) return;
 
     state.answers = answers;
+    state.test.isPublished = false;
   },
   [moveTestAnswer.rejected]: (state) => {
     onRejectedDefault(state);

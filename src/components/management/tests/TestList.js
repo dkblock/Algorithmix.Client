@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesigner } from "../../../utils/navigator";
+import { getMomentFromNow } from "../../../utils/moment";
 import Table, { TableToolbar } from "../../_common/Table";
 import { iconTypes } from "../../_common/Icon";
 import Button, { colors } from "../../_common/Button";
+import palette from "../../../utils/palette";
 
 const getActions = (onTestEdit, onTestDelete) => [
   {
@@ -22,7 +24,16 @@ const getActions = (onTestEdit, onTestDelete) => [
 
 const columns = [
   { field: "name", headerName: "Название" },
-  { field: "status", headerName: "Статус" },
+  {
+    field: "status",
+    headerName: "Статус",
+    width: 150,
+    renderCell: ({ row }) => (
+      <span style={{ color: row.status ? palette.success.dark : palette.warning.dark, fontWeight: 600 }}>
+        {row.status ? "Опубликован" : "Не опубликован"}
+      </span>
+    ),
+  },
   { field: "algorithmName", headerName: "Алгоритм" },
   { field: "questionsCount", headerName: "Вопросы", width: 120 },
   { field: "createdBy", headerName: "Автор" },
@@ -34,12 +45,12 @@ const prepareTests = (tests) =>
   tests.map((test) => ({
     id: test.id,
     name: test.name,
-    status: test.isPublished ? "Опубликован" : "Не опубликован",
+    status: test.isPublished,
     algorithmName: test.algorithm.name,
     questionsCount: test.questions.length,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
-    createdDate: new Date(test.createdDate),
-    updatedDate: new Date(test.updatedDate),
+    createdDate: getMomentFromNow(test.createdDate),
+    updatedDate: getMomentFromNow(test.updatedDate),
   }));
 
 const TestList = () => {
@@ -52,11 +63,7 @@ const TestList = () => {
     dispatch(fetchTests());
   }, [dispatch]);
 
-  const handleTestDelete = useCallback(
-    (test) => dispatch(showDeleteTestModal({ test })),
-
-    [dispatch]
-  );
+  const handleTestDelete = useCallback((test) => dispatch(showDeleteTestModal({ test })), [dispatch]);
 
   const handleTestEdit = useCallback((test) => navigateToTestDesigner(test.id), []);
 

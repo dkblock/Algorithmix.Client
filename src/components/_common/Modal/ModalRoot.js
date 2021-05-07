@@ -8,6 +8,7 @@ import DeleteTestResultModal from "../../management/test-results/DeleteTestResul
 import DeleteTestQuestionModal from "../../tests/design/DeleteTestQuestionModal";
 import DeleteUserModal from "../../management/users/DeleteUserModal";
 import LogoutModal from "../../_app/LogoutModal";
+import PublishTestModal from "../../tests/design/PublishTestModal";
 import UploadTestQuestionImageModal from "../../tests/design/test-question/UploadTestQuestionImageModal";
 import { ZoomImageModal } from "../ZoomImage";
 import modalTypes from "../../../constants/modal-types";
@@ -21,6 +22,7 @@ const modals = {
   [modalTypes.deleteTestQuestion]: DeleteTestQuestionModal,
   [modalTypes.deleteUser]: DeleteUserModal,
   [modalTypes.logout]: LogoutModal,
+  [modalTypes.publishTest]: PublishTestModal,
   [modalTypes.uploadTestQuestionImage]: UploadTestQuestionImageModal,
   [modalTypes.zoomImage]: ZoomImageModal,
 };

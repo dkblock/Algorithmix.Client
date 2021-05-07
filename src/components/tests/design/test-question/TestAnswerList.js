@@ -9,13 +9,12 @@ import {
 } from "../../../../store/actions/test-answer";
 import validator from "../../../../utils/validation";
 import testAnswerListTypes from "./test-answer-lists";
-import Loader from "../../../_common/Loader";
 
 const { validateAnswer } = validator.testAnswer;
 
 const TestAnswerList = () => {
   const dispatch = useDispatch();
-  const { test, question, answers, isFetching, isSaving } = useSelector((state) => state.testDesign);
+  const { test, question, answers, isSaving } = useSelector((state) => state.testDesign);
 
   const { id: testId } = test;
   const { id: questionId } = question;
@@ -29,8 +28,8 @@ const TestAnswerList = () => {
   }, [answers]);
 
   const handleAnswerCreate = useCallback(() => {
-    dispatch(createTestAnswer({ testId, questionId: question.id, count: answers.length }));
-  }, [answers.length, dispatch, question.id, testId]);
+    dispatch(createTestAnswer({ testId, questionId, count: answers.length }));
+  }, [answers.length, dispatch, questionId, testId]);
 
   const handleAnswerDelete = useCallback((answerId) => dispatch(deleteTestAnswer({ testId, questionId, answerId })), [
     dispatch,
@@ -38,26 +37,26 @@ const TestAnswerList = () => {
     testId,
   ]);
 
-  const handleAnswerUpdate = useCallback(
-    (updatedAnswer) => {
-      const { isValid } = validateAnswer(updatedAnswer);
+  const handleAnswerUpdate = useDebouncedCallback((updatedAnswer) => {
+    const { isValid } = validateAnswer(updatedAnswer);
 
-      if (isValid) {
-        dispatch(updateTestAnswer({ testId, questionId, answer: { ...updatedAnswer, questionId } }));
-      }
-    },
-    [dispatch, questionId, testId]
-  );
-
-  const handleAnswerValueChange = useDebouncedCallback((answerId, newValue) => {
-    const newOrderedAnswers = orderedAnswers.map((answer) => ({
-      ...answer,
-      value: answer.id === answerId ? newValue : answer.value,
-    }));
-
-    const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
-    handleAnswerUpdate(answer);
+    if (isValid) {
+      dispatch(updateTestAnswer({ testId, questionId, answer: { ...updatedAnswer, questionId } }));
+    }
   }, 1000);
+
+  const handleAnswerValueChange = useCallback(
+    (answerId, newValue) => {
+      const newOrderedAnswers = orderedAnswers.map((answer) => ({
+        ...answer,
+        value: answer.id === answerId ? newValue : answer.value,
+      }));
+
+      const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
+      handleAnswerUpdate(answer);
+    },
+    [handleAnswerUpdate, orderedAnswers]
+  );
 
   const handleIsCorrectAnswerChange = useCallback(
     (newOrderedAnswers, newCorrectAnswerIds, answerId) => {
@@ -88,10 +87,6 @@ const TestAnswerList = () => {
   );
 
   const SpecificTestAnswerList = testAnswerListTypes[question.type];
-
-  // if (isFetching) {
-  //   return <Loader />;
-  // }
 
   return (
     <SpecificTestAnswerList

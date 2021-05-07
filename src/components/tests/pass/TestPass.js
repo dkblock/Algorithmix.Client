@@ -18,7 +18,7 @@ const TestPass = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
   const { currentQuestion, isFetching, userAnswers: allUserAnswers } = useSelector((state) => state.testPass);
-  const { tests } = useSelector((state) => state.test);
+  const { publishedTests: tests } = useSelector((state) => state.test);
 
   const [userAnswers, setUserAnswers] = useState([]);
   const [questionOrder, setQuestionOrder] = useState(1);

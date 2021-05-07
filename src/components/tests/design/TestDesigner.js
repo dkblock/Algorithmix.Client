@@ -5,6 +5,7 @@ import { useTitle } from "../../../hooks";
 import { fetchTest } from "../../../store/actions/test";
 import TabPanel from "../../_common/TabPanel";
 import Redirect, { routes } from "../../_common/Route/Redirect";
+import TestSettings from "./TestSettings";
 import TestQuestionList from "./TestQuestionList";
 import TestQuestionDesigner from "./test-question/TestQuestionDesigner";
 import "./TestDesigner.scss";
@@ -46,6 +47,7 @@ const TestDesigner = () => {
         <TabPanel tabs={tabs} value={currentTab} />
         <div className="test-design-dashboard__body">
           {currentTab === 0 && <TestQuestionList />}
+          {currentTab === 1 && <TestSettings />}
         </div>
       </div>
       <TestQuestionDesigner />

@@ -7,7 +7,6 @@ import {
   fetchTests,
   selectTest
 } from "../actions/test";
-import { fetchTestResult } from "../actions/test-pass";
 
 const initialState = {
   publishedTests: [],
@@ -77,19 +76,6 @@ const testSlice = createSlice({
     },
     [deleteTest.rejected]: (state) => {
       onRejectedDefault(state);
-    },
-
-    [fetchTestResult.fulfilled]: (state, { payload: { testResult, hasError } }) => {
-      if (!hasError) {
-        state.tests = state.tests.map((test) =>
-          test.id === testResult.test.id
-            ? {
-                ...test,
-                userResult: testResult,
-              }
-            : test
-        );
-      }
     },
 
     [selectTest]: (state, { payload: { testId } }) => {

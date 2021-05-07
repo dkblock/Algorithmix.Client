@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { fetchTest } from "../actions/test";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import { fetchTest, publishTest, showPublishTestModal, updateTest } from "../actions/test";
 import testAnswerDesignReducer from "./test-answer-design";
 import testQuestionDesignReducer from "./test-question-design";
 
@@ -9,7 +9,9 @@ const initialState = {
   question: null,
   questions: [],
   answers: [],
+  publishErrors: [],
 
+  isPublishing: false,
   isFetching: false,
   isSaving: false,
   hasError: false,
@@ -31,6 +33,39 @@ const testDesignSlice = createSlice({
     },
     [fetchTest.rejected]: (state) => {
       onRejectedDefault(state);
+    },
+
+    [updateTest.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [updateTest.fulfilled]: (state, { payload: { updatedTest, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
+      state.test = updatedTest;
+    },
+    [updateTest.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [publishTest.pending]: (state) => {
+      state.isPublishing = true;
+      state.publishErrors = [];
+    },
+    [publishTest.fulfilled]: (state, { payload: { publishErrors, isPublished, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      state.isPublishing = false;
+      state.publishErrors = publishErrors;
+      state.test.isPublished = isPublished;
+    },
+    [publishTest.rejected]: (state) => {
+      onRejectedDefault(state);
+      state.isPublishing = false;
+      state.publishErrors = [];
+    },
+
+    [showPublishTestModal.pending]: (state) => {
+      state.publishErrors = [];
     },
 
     ...testAnswerDesignReducer,

@@ -38,6 +38,7 @@ const testQuestionDesignReducer = {
     state.questions = [...state.questions, createdQuestion];
     state.question = createdQuestion;
     state.answers = [];
+    state.test.isPublished = false;
   },
   [createTestQuestion.rejected]: (state) => {
     onRejectedDefault(state);
@@ -65,6 +66,7 @@ const testQuestionDesignReducer = {
     state.questions = state.questions.filter((question) => question.id !== questionId);
     state.question = state.questions[0];
     state.answers = state.question?.answers ?? [];
+    state.test.isPublished = false;
   },
   [deleteTestQuestion.rejected]: (state) => {
     onRejectedDefault(state);
@@ -81,6 +83,7 @@ const testQuestionDesignReducer = {
     state.questions = state.questions.map((question) =>
       question.id === updatedQuestion.id ? updatedQuestion : question
     );
+    state.test.isPublished = false;
   },
   [updateTestQuestion.rejected]: (state) => {
     onRejectedDefault(state);
@@ -97,6 +100,7 @@ const testQuestionDesignReducer = {
     state.questions = state.questions.map((question) =>
       question.id === updatedQuestion.id ? updatedQuestion : question
     );
+    state.test.isPublished = false;
   },
   [uploadTestQuestionImage.rejected]: (state) => {
     onRejectedDefault(state);
@@ -113,6 +117,7 @@ const testQuestionDesignReducer = {
 
     state.question = updatedQuestion;
     state.questions = state.questions.map((question) => (question.id === questionId ? updatedQuestion : question));
+    state.test.isPublished = false;
   },
   [clearTestQuestionImage.rejected]: (state) => {
     onRejectedDefault(state);
@@ -127,6 +132,7 @@ const testQuestionDesignReducer = {
 
     state.questions = questions;
     state.question = questions.find((question) => question.id === state.question.id);
+    state.test.isPublished = false;
   },
   [moveTestQuestion.rejected]: (state) => {
     onRejectedDefault(state);

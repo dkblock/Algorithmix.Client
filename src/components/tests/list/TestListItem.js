@@ -37,9 +37,14 @@ const TestListItem = ({ test }) => {
       <section className="test-list-item__result">
         <>
           {isAuthenticated && (
-            <CompletionResult value={test.userResult ? test.userResult.result : 0} size="large" label="Ваш результат" />
+            <CompletionResult
+              value={test.userResult ? test.userResult.result : 0}
+              color="success"
+              size="large"
+              label="Ваш результат"
+            />
           )}
-          <CompletionResult value={test.averageResult} size="large" label="Средний результат" />
+          <CompletionResult value={test.averageResult} color="primary" size="large" label="Средний результат" />
         </>
       </section>
       <section className="test-list-item__image">

@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchTestQuestion } from "./test-question";
+import { fetchTestQuestion, fetchTestQuestions } from "./test-question";
 import { showModal, hideModal } from "./modal";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
@@ -32,18 +32,13 @@ export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }, thunkA
 
   if (statusCode.ok(response)) {
     const test = await response.json();
-    const questions = test.questions;
+    const {
+      payload: { questions, hasError },
+    } = await thunkAPI.dispatch(fetchTestQuestions({ testId: test.id }));
 
     if (questions.length > 0) {
-      const questionId = questions[0].id;
-      const {
-        payload: { question, answers, hasError },
-      } = await thunkAPI.dispatch(
-        fetchTestQuestion({
-          testId,
-          questionId,
-        })
-      );
+      const question = questions[0];
+      const answers = question.answers;
 
       return { test, question, questions, answers, hasError };
     }

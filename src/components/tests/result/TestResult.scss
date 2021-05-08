@@ -1,0 +1,88 @@
+@import "../../../styles/variables";
+
+.test-result-container {
+  width: 100%;
+  padding: 18px;
+  min-height: calc(100vh - 148px);
+}
+
+.test-result {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 24px 36px;
+  height: 100%;
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 20px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__divider {
+    padding: 12px 0 0 !important;
+  }
+
+  &__user-answers {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.test-result-user-answer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: $panel-border;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  &__header {
+    font-weight: 600;
+    margin-top: 24px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__image-container {
+    display: flex;
+    align-items: center;
+    max-width: 450px;
+  }
+
+  &__image {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  &__answers {
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
+  }
+}

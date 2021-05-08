@@ -5,11 +5,11 @@ import CreateTestModal from "../../management/tests/CreateTestModal";
 import DeleteGroupModal from "../../management/groups/DeleteGroupModal";
 import DeleteTestModal from "../../management/tests/DeleteTestModal";
 import DeleteTestResultModal from "../../management/test-results/DeleteTestResultModal";
-import DeleteTestQuestionModal from "../../tests/design/DeleteTestQuestionModal";
+import DeleteTestQuestionModal from "../../management/tests/design/DeleteTestQuestionModal";
 import DeleteUserModal from "../../management/users/DeleteUserModal";
 import LogoutModal from "../../_app/LogoutModal";
-import PublishTestModal from "../../tests/design/PublishTestModal";
-import UploadTestQuestionImageModal from "../../tests/design/test-question/UploadTestQuestionImageModal";
+import PublishTestModal from "../../management/tests/design/PublishTestModal";
+import UploadTestQuestionImageModal from "../../management/tests/design/test-question/UploadTestQuestionImageModal";
 import { ZoomImageModal } from "../ZoomImage";
 import modalTypes from "../../../constants/modal-types";
 

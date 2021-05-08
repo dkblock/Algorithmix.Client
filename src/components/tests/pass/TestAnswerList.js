@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import testAnswerListTypes from "./test-answer-lists";
 
@@ -9,11 +9,7 @@ const TestAnswerList = ({ userAnswers, setUserAnswers }) => {
 
   const SpecificAnswerList = testAnswerListTypes[type];
 
-  return (
-    <div>
-      <SpecificAnswerList answers={answers} userAnswers={userAnswers} setUserAnswers={setUserAnswers} />
-    </div>
-  );
+  return <SpecificAnswerList answers={answers} userAnswers={userAnswers} setUserAnswers={setUserAnswers} />;
 };
 
 export default TestAnswerList;

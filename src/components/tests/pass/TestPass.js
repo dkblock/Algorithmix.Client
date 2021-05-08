@@ -8,7 +8,6 @@ import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from 
 import { navigateToTestResult } from "../../../utils/navigator";
 import { getImageSrc } from "../../../utils/get-image-src";
 import Redirect, { routes } from "../../_common/Route/Redirect";
-import Loader from "../../_common/Loader";
 import ZoomImage from "../../_common/ZoomImage";
 import TestPassNavigation from "./TestPassNavigation";
 import TestAnswerList from "./TestAnswerList";
@@ -17,7 +16,7 @@ import "./TestPass.scss";
 const TestPass = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { currentQuestion, isFetching, userAnswers: allUserAnswers } = useSelector((state) => state.testPass);
+  const { currentQuestion, userAnswers: allUserAnswers } = useSelector((state) => state.testPass);
   const { publishedTests: tests } = useSelector((state) => state.test);
 
   const [userAnswers, setUserAnswers] = useState([]);
@@ -68,8 +67,8 @@ const TestPass = () => {
   if (!currentQuestion) return null;
 
   return (
-    <div className="test-pass">
-      <Paper className="test-pass__content">
+    <div className="test-pass-container">
+      <Paper className="test-pass">
         <div className="w-100">
           <div className="test-pass__header">Вопрос {questionOrder}</div>
           <div className="test-pass__main">

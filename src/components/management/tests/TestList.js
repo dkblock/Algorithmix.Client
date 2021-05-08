@@ -37,8 +37,8 @@ const columns = [
   { field: "algorithmName", headerName: "Алгоритм" },
   { field: "questionsCount", headerName: "Вопросы", width: 120 },
   { field: "createdBy", headerName: "Автор" },
-  { field: "createdDate", headerName: "Создан", type: "dateTime" },
-  { field: "updatedDate", headerName: "Изменён", type: "dateTime" },
+  { field: "createdDate", headerName: "Создан", type: "dateTime", renderCell: ({ row }) => row.createdDateInMoment },
+  { field: "updatedDate", headerName: "Изменён", type: "dateTime", renderCell: ({ row }) => row.updatedDateInMoment },
 ];
 
 const prepareTests = (tests) =>
@@ -49,8 +49,10 @@ const prepareTests = (tests) =>
     algorithmName: test.algorithm.name,
     questionsCount: test.questions.length,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
-    createdDate: getMomentFromNow(test.createdDate),
-    updatedDate: getMomentFromNow(test.updatedDate),
+    createdDate: new Date(test.createdDate),
+    updatedDate: new Date(test.updatedDate),
+    createdDateInMoment: getMomentFromNow(test.createdDate),
+    updatedDateInMoment: getMomentFromNow(test.updatedDate),
   }));
 
 const TestList = () => {
@@ -86,7 +88,7 @@ const TestList = () => {
       actions={actions}
       isFetching={isFetching}
       sortBy="updatedDate"
-      sortDirection="asc"
+      sortDirection="desc"
     />
   );
 };

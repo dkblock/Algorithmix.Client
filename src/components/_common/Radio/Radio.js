@@ -7,7 +7,7 @@ import palette from "../../../utils/palette";
 
 const theme = createMuiTheme({ palette });
 
-const Radio = ({ className, value, label, onChange }) => {
+const Radio = ({ className, color = colors.primary, value, label, onChange, disabled = false }) => {
   const [radioValue, setRadioValue] = useState(value);
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const Radio = ({ className, value, label, onChange }) => {
         control={
           <MuiRadio
             className={className}
-            color={colors.primary}
+            color={color}
             checked={radioValue}
-            onChange={handleChange}
+            onChange={disabled ? null : handleChange}
             onMouseDown={(e) => e.stopPropagation()}
           />
         }

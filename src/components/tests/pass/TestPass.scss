@@ -1,18 +1,18 @@
-.test-pass {
+.test-pass-container {
   width: 100%;
   padding: 18px;
   min-height: calc(100vh - 148px);
   font-size: 18px !important;
+}
 
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 36px 48px;
-    height: 100%;
-  }
+.test-pass {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 36px 48px;
+  height: 100%;
 
   &__loader {
     margin: auto;

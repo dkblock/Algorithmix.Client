@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Paper } from "@material-ui/core";
 import { useTitle } from "../../../hooks";
 import { fetchPublishedTests } from "../../../store/actions/test";
+import Loader from "../../_common/Loader";
 import TableToolbar from "../../_common/Table/TableToolbar";
 import TestListItem from "./TestListItem";
 import "./TestList.scss";
@@ -22,11 +23,13 @@ const TestList = () => {
       <Paper className="test-list">
         <TableToolbar title="Тесты" count={tests.length} />
         <div className="test-list__items">
-          <div>
-            {tests.map((test) => (
-              <TestListItem key={test.id} test={test} />
-            ))}
-          </div>
+          {isFetching ? (
+            <Loader className="m-auto" />
+          ) : tests.length > 0 ? (
+            tests.map((test) => <TestListItem key={test.id} test={test} />)
+          ) : (
+            <div className="m-auto">Нет тестов</div>
+          )}
         </div>
       </Paper>
     </div>

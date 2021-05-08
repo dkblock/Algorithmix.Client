@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { clearTestQuestionImage, showUploadTestQuestionImageModal } from "../../../../store/actions/test-question";
-import { getImageSrc } from "../../../../utils/get-image-src";
-import Button, { colors } from "../../../_common/Button";
-import { iconTypes } from "../../../_common/Icon";
-import ZoomImage from "../../../_common/ZoomImage";
+import { clearTestQuestionImage, showUploadTestQuestionImageModal } from "../../../../../store/actions/test-question";
+import { getImageSrc } from "../../../../../utils/get-image-src";
+import Button, { colors } from "../../../../_common/Button";
+import { iconTypes } from "../../../../_common/Icon";
+import ZoomImage from "../../../../_common/ZoomImage";
 
 const TestQuestionImage = ({ question }) => {
   const dispatch = useDispatch();

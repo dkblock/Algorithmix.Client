@@ -1,5 +1,5 @@
-export const onPendingDefault = (state) => {
-  state.isFetching = true;
+export const onPendingDefault = (state, fetchingProp = "isFetching") => {
+  state[fetchingProp] = true;
   state.hasError = false;
 };
 
@@ -8,8 +8,8 @@ export const onSavingDefault = (state) => {
   state.hasError = false;
 };
 
-export const onFulfilledDefault = (state, hasError) => {
-  state.isFetching = false;
+export const onFulfilledDefault = (state, hasError, fetchingProp = "isFetching") => {
+  state[fetchingProp] = false;
   state.hasError = hasError;
 
   if (!!state.isSaving) {
@@ -17,8 +17,8 @@ export const onFulfilledDefault = (state, hasError) => {
   }
 };
 
-export const onRejectedDefault = (state) => {
-  state.isFetching = false;
+export const onRejectedDefault = (state, fetchingProp = "isFetching") => {
+  state[fetchingProp] = false;
   state.hasError = true;
 
   if (!!state.isSaving) {

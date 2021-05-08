@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import Divider from "@material-ui/core/Divider";
-import { IconButton, iconTypes } from "../../../../_common/Icon";
-import validator from "../../../../../utils/validation";
-import TextField from "../../../../_common/TextField";
+import validator from "../../../../../../utils/validation";
+import Button, { buttonTypes, colors } from "../../../../../_common/Button";
+import { iconTypes } from "../../../../../_common/Icon";
+import TextField from "../../../../../_common/TextField";
 
 const { validateAnswerValue } = validator.testAnswer;
 
@@ -57,14 +57,17 @@ const FreeTestAnswerList = ({ answers, onAnswerCreate, onAnswerValueChange }) =>
     <div className="test-answer-list">
       <div className="test-answer-list__header">
         Ответы
-        {!preparedAnswer && <IconButton type={iconTypes.plus} onClick={onAnswerCreate} />}
+        {!preparedAnswer && (
+          <Button color={colors.success} type={buttonTypes.text} startIcon={iconTypes.plus} onClick={onAnswerCreate}>
+            Новый ответ
+          </Button>
+        )}
       </div>
-      <Divider />
       <div className="test-answer-list__items">
         {preparedAnswer ? (
           <FreeTestAnswerListItem answer={preparedAnswer} onAnswerValueChange={onAnswerValueChange} />
         ) : (
-          <div>Добавьте ответ</div>
+          <div className="m-auto pt-5">Нет ответов</div>
         )}
       </div>
     </div>

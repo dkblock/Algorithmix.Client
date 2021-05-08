@@ -1,14 +1,12 @@
 import { getAccessToken } from "../../utils/local-storage-manager";
 
-const token = getAccessToken();
-
 const baseService = {
   get: async (url) => {
     try {
       return await fetch(url, {
         method: "GET",
         headers: {
-          Authorization: token ? `Bearer ${token}` : null,
+          Authorization: getAccessToken() ? `Bearer ${getAccessToken()}` : null,
         },
       });
     } catch (e) {
@@ -22,7 +20,7 @@ const baseService = {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          Authorization: token ? `Bearer ${token}` : null,
+          Authorization: getAccessToken() ? `Bearer ${getAccessToken()}` : null,
           "Content-Type": "application/json",
         },
       });
@@ -36,7 +34,7 @@ const baseService = {
       return await fetch(url, {
         method: "DELETE",
         headers: {
-          Authorization: token ? `Bearer ${token}` : null,
+          Authorization: getAccessToken() ? `Bearer ${getAccessToken()}` : null,
         },
       });
     } catch (e) {
@@ -50,7 +48,7 @@ const baseService = {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
-          Authorization: token ? `Bearer ${token}` : null,
+          Authorization: getAccessToken() ? `Bearer ${getAccessToken()}` : null,
           "Content-Type": "application/json",
         },
       });

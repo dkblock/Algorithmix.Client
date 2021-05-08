@@ -1,6 +1,7 @@
 import { onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
 import { createTestAnswer, deleteTestAnswer, updateTestAnswer, moveTestAnswer } from "../actions/test-answer";
 import testQuestionTypes from "../../constants/test-question-types";
+import { updateTestQuestionType } from "../actions/test-question";
 
 const testAnswerDesignReducer = {
   [createTestAnswer.pending]: (state) => {
@@ -76,10 +77,30 @@ const testAnswerDesignReducer = {
   [moveTestAnswer.rejected]: (state) => {
     onRejectedDefault(state);
   },
+
+  [updateTestQuestionType]: (state, { payload: { questionType } }) => {
+    state.answers = state.answers.map((answer) => ({ ...answer, isCorrect: false }));
+
+    switch (questionType) {
+      case testQuestionTypes.freeAnswerQuestion:
+        if (state.answers[0]) state.answers[0] = { ...state.answers[0], isCorrect: true };
+        break;
+      case testQuestionTypes.singleAnswerQuestion:
+        if (state.answers[0]) state.answers[0] = { ...state.answers[0], isCorrect: true };
+        break;
+      case testQuestionTypes.multiAnswerQuestion:
+        break;
+      default:
+        break;
+    }
+  },
 };
 
 const updateCorrectAnswers = (updatedAnswer, state) => {
   switch (updatedAnswer.question.type) {
+    case testQuestionTypes.freeAnswerQuestion:
+      state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
+      break;
     case testQuestionTypes.singleAnswerQuestion:
       state.answers = state.answers.map((answer) => {
         if (answer.id === updatedAnswer.id) return updatedAnswer;
@@ -88,9 +109,6 @@ const updateCorrectAnswers = (updatedAnswer, state) => {
       });
       break;
     case testQuestionTypes.multiAnswerQuestion:
-      state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
-      break;
-    case testQuestionTypes.freeAnswerQuestion:
       state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
       break;
     default:

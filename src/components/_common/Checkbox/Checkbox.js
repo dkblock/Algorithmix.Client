@@ -7,7 +7,7 @@ import palette from "../../../utils/palette";
 
 const theme = createMuiTheme({ palette });
 
-const Checkbox = ({ className, value, label, onChange }) => {
+const Checkbox = ({ className, value, label, onChange, disabled = false }) => {
   const [checkboxValue, setCheckboxValue] = useState(value);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Checkbox = ({ className, value, label, onChange }) => {
             className={className}
             color={colors.primary}
             checked={checkboxValue}
-            onChange={handleChange}
+            onChange={disabled ? null : handleChange}
             onMouseDown={(e) => e.stopPropagation()}
           />
         }

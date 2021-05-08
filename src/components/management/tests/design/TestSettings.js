@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
-import { showPublishTestModal, updateTest } from "../../../store/actions/test";
-import validator from "../../../utils/validation";
-import TextField from "../../_common/TextField";
-import Dropdown from "../../_common/Dropdown";
-import Button, { colors } from "../../_common/Button";
-import palette from "../../../utils/palette";
+import { showPublishTestModal, updateTest } from "../../../../store/actions/test";
+import validator from "../../../../utils/validation";
+import TextField from "../../../_common/TextField";
+import Dropdown from "../../../_common/Dropdown";
+import Button, { colors } from "../../../_common/Button";
+import palette from "../../../../utils/palette";
 
 const { validateName, validateTest } = validator.test;
 

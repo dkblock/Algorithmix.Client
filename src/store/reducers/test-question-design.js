@@ -11,15 +11,15 @@ import {
 
 const testQuestionDesignReducer = {
   [fetchTestQuestion.pending]: (state) => {
-    onPendingDefault(state);
+    onPendingDefault(state, "isQuestionFetching");
   },
   [fetchTestQuestion.fulfilled]: (state, { payload: { question, answers, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isQuestionFetching");
     state.question = question;
     state.answers = answers;
   },
   [fetchTestQuestion.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionFetching");
   },
 
   [createTestQuestion.pending]: (state) => {

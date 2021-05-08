@@ -18,7 +18,7 @@ const MultiTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
 
   return (
     <div className="test-answer-list">
-      <div className="test-answer-list__header">Выберите правильный ответ(-ы)</div>
+      <div className="test-answer-list__header">Выберите правильный ответ (-ы)</div>
       <div className="test-answer-list__items">
         {answers.map((answer) => (
           <Checkbox

@@ -4,9 +4,9 @@ import palette from "../../../utils/palette";
 import icons from "./icons";
 import "./Icon.scss";
 
-const Icon = ({ type, size = "medium" }) => {
+const Icon = ({ type, color = "", size = "medium" }) => {
   const SpecificIcon = icons[type];
-  return <SpecificIcon fontSize={size} />;
+  return <SpecificIcon style={{ color: color ? palette[color].main : "" }} fontSize={size} />;
 };
 
 const IconButton = ({ type, selected, onClick }) => {

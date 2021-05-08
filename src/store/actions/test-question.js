@@ -1,10 +1,21 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchTestAnswers } from "./test-answer";
 import { hideModal, showModal } from "./modal";
 import testQuestionService from "../../api/services/test-question-service";
 import testQuestionTypes from "../../constants/test-question-types";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
+
+export const fetchTestQuestions = createAsyncThunk("fetchTestQuestions", async ({ testId }) => {
+  const response = await testQuestionService.fetchQuestions(testId);
+
+  if (statusCode.ok(response)) {
+    const questions = await response.json();
+    return { questions, hasError: false };
+  }
+
+  return { questions: [], hasError: true };
+});
 
 export const fetchTestQuestion = createAsyncThunk("fetchTestQuestion", async ({ testId, questionId }, thunkAPI) => {
   const response = await testQuestionService.fetchQuestion(testId, questionId);
@@ -47,16 +58,28 @@ export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async (
   return { hasError: true };
 });
 
-export const updateTestQuestion = createAsyncThunk("updateTestQuestion", async ({ testId, questionId, question }) => {
-  const response = await testQuestionService.updateQuestion(testId, questionId, question);
+export const updateTestQuestion = createAsyncThunk(
+  "updateTestQuestion",
+  async ({ testId, questionId, question }, thunkAPI) => {
+    const response = await testQuestionService.updateQuestion(testId, questionId, question);
 
-  if (statusCode.ok(response)) {
-    const updatedQuestion = await response.json();
-    return { updatedQuestion, hasError: false };
+    if (statusCode.ok(response)) {
+      const { type } = thunkAPI.getState().testDesign.question;
+      const updatedQuestion = await response.json();
+
+      if (type !== updatedQuestion.type)
+        thunkAPI.dispatch(updateTestQuestionType({ questionType: updatedQuestion.type }));
+
+      return { updatedQuestion, hasError: false };
+    }
+
+    return { hasError: true };
   }
+);
 
-  return { hasError: true };
-});
+export const updateTestQuestionType = createAction("updateTestQuestionType", ({ questionType }) => ({
+  payload: { questionType },
+}));
 
 export const moveTestQuestion = createAsyncThunk("moveTestQuestion", async ({ testId, indexes }) => {
   const response = await testQuestionService.moveQuestion(testId, indexes);

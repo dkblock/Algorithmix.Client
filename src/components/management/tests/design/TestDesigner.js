@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { useTitle } from "../../../hooks";
-import { fetchTest } from "../../../store/actions/test";
-import TabPanel from "../../_common/TabPanel";
-import Redirect, { routes } from "../../_common/Route/Redirect";
+import { useTitle } from "../../../../hooks";
+import { fetchTest } from "../../../../store/actions/test";
+import TabPanel from "../../../_common/TabPanel";
+import Redirect, { routes } from "../../../_common/Route/Redirect";
 import TestSettings from "./TestSettings";
 import TestQuestionList from "./TestQuestionList";
 import TestQuestionDesigner from "./test-question/TestQuestionDesigner";
@@ -19,7 +19,7 @@ const TestDesigner = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
   const { tests, isFetching } = useSelector((state) => state.test);
-  const { test } = useSelector((state) => state.testDesign);
+  const { test, question } = useSelector((state) => state.testDesign);
 
   const [currentTab, setCurrentTab] = useState(0);
   const isTestExist = isFetching || tests.some((test) => test.id === parseInt(testId));
@@ -50,7 +50,7 @@ const TestDesigner = () => {
           {currentTab === 1 && <TestSettings />}
         </div>
       </div>
-      <TestQuestionDesigner />
+      {question && <TestQuestionDesigner />}
     </div>
   );
 };

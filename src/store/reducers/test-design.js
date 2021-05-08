@@ -11,6 +11,7 @@ const initialState = {
   answers: [],
   publishErrors: [],
 
+  isQuestionFetching: false,
   isPublishing: false,
   isFetching: false,
   isSaving: false,

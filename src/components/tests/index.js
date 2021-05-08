@@ -5,11 +5,10 @@ import { fetchTests } from "../../store/actions/test";
 import routes from "../../utils/routes";
 import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
 import PrivateRoute from "../_common/Route/PrivateRoute";
-import TestDesigner from "./design/TestDesigner";
+import TestDesigner from "../management/tests/design/TestDesigner";
 import TestList from "./list/TestList";
 import TestPass from "./pass/TestPass";
-import TestResult from "./pass/TestResult";
-import TestView from "./list/TestList";
+import TestResult from "./result/TestResult";
 
 const Tests = () => {
   const dispatch = useDispatch();

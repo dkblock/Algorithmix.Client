@@ -22,7 +22,7 @@ const List = ({ className, items, onCheck, checkControlType }) => {
   );
 
   return (
-    <ul className={className}>
+    <ul className={`${className} w-100`}>
       {items.map((item) => (
         <ListItem
           id={item.id}

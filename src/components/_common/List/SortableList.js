@@ -56,7 +56,7 @@ const SortableList = ({ items, onSwap, onCheck, checkControlType }) => {
 };
 
 const SortableComponent = SortableContainer(({ items, onCheck, checkedItemIds, checkControlType }) => (
-  <ul>
+  <ul className="w-100">
     {items.map((item, index) => (
       <SortableItem
         key={item.id}

@@ -10,7 +10,7 @@ import CompletionResult from "../../_common/CompletionResult";
 import UserAnswer from "./UserAnswer";
 import "./TestResult.scss";
 
-const TestResult = () => {
+const OwnTestResult = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
   const { testResult, isFetching, isHandlingResult } = useSelector((state) => state.testPass);
@@ -32,8 +32,12 @@ const TestResult = () => {
         <div className="test-result__main">
           <div className="test-result__info">
             <div className="test-result__title">{testResult.test.name}</div>
-            <div>Всего вопросов: {testResult.test.questions.length}</div>
-            <div>Правильных ответов: {testResult.correctAnswers}</div>
+            <div>
+              <span>Всего вопросов:</span> {testResult.test.questions.length}
+            </div>
+            <div>
+              <span>Правильных ответов:</span> {testResult.correctAnswers}
+            </div>
           </div>
           <CompletionResult value={testResult.result} color="success" size="large" label="Ваш результат" />
         </div>
@@ -43,7 +47,7 @@ const TestResult = () => {
         <div>
           {testResult.userAnswers.map((userAnswer, index) => (
             <div key={userAnswer.question.id}>
-              <UserAnswer userAnswer={userAnswer} questionOrder={index + 1}/>
+              <UserAnswer userAnswer={userAnswer} questionOrder={index + 1} own />
             </div>
           ))}
         </div>
@@ -52,4 +56,4 @@ const TestResult = () => {
   );
 };
 
-export default TestResult;
+export default OwnTestResult;

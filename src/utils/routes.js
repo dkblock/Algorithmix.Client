@@ -15,12 +15,13 @@ const routes = {
     design: (testId) => `/tests/${testId}/design`,
     pass: (testId) => `/tests/${testId}`,
     result: (testId) => `/tests/${testId}/result`,
+    userResult: (testId, userId) => `/tests/${testId}/result/${userId}`,
   },
 
   management: {
     main: "/management",
     tests: "/management/tests",
-    testResults: "/management/test-results",
+    testResults: "/management/user-test-results",
     users: "/management/users",
     groups: "/management/groups",
   },

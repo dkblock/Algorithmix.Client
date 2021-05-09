@@ -1,15 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTestResult } from "../../../store/actions/user-test-result";
+import { deleteUserTestResult } from "../../../store/actions/user-test-result";
 import { DeleteModal } from "../../_common/Modal";
 
-const DeleteTestResultModal = () => {
+const DeleteUserTestResultModal = () => {
   const dispatch = useDispatch();
   const { testResult } = useSelector((state) => state.modal.modalProps);
 
   const handleTestResultDelete = () =>
     dispatch(
-      deleteTestResult({
+      deleteUserTestResult({
         testId: testResult.testId,
         userId: testResult.userId,
       })
@@ -24,4 +24,4 @@ const DeleteTestResultModal = () => {
   );
 };
 
-export default DeleteTestResultModal;
+export default DeleteUserTestResultModal;

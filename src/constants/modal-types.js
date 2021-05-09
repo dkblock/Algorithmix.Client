@@ -3,7 +3,7 @@ const modalTypes = {
   createTest: "createTest",
   deleteGroup: "deleteGroup",
   deleteTest: "deleteTest",
-  deleteTestResult: "deleteTestResult",
+  deleteUserTestResult: "deleteUserTestResult",
   deleteTestQuestion: "deleteTestQuestion",
   deleteUser: "deleteUser",
   logout: "logout",

@@ -4,7 +4,7 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchTestResults = createAsyncThunk("fetchTestResults", async () => {
+export const fetchUserTestResults = createAsyncThunk("fetchUserTestResults", async () => {
   const response = await userTestResultService.fetchTestResults();
 
   if (statusCode.ok(response)) {
@@ -15,7 +15,18 @@ export const fetchTestResults = createAsyncThunk("fetchTestResults", async () =>
   return { testResults: [], hasError: true };
 });
 
-export const deleteTestResult = createAsyncThunk("deleteTestResult", async ({ testId, userId }, thunkAPI) => {
+export const fetchUserTestResult = createAsyncThunk("fetchUserTestResult", async ({ testId, userId }) => {
+  const response = await userTestResultService.fetchTestResult(testId, userId);
+
+  if (statusCode.ok(response)) {
+    const testResult = await response.json();
+    return { testResult, hasError: false };
+  }
+
+  return { testResult: null, hasError: true };
+});
+
+export const deleteUserTestResult = createAsyncThunk("deleteUserTestResult", async ({ testId, userId }, thunkAPI) => {
   const response = await userTestResultService.deleteTestResult(testId, userId);
 
   if (statusCode.noContent(response)) {
@@ -26,9 +37,9 @@ export const deleteTestResult = createAsyncThunk("deleteTestResult", async ({ te
   return { testId: null, userId: null, hasError: true };
 });
 
-export const showDeleteTestResultModal = createAsyncThunk(
-  "showDeleteTestResultModal",
+export const showDeleteUserTestResultModal = createAsyncThunk(
+  "showDeleteUserTestResultModal",
   async ({ testResult }, thunkAPI) => {
-    thunkAPI.dispatch(showModal(modalTypes.deleteTestResult, { testResult }));
+    thunkAPI.dispatch(showModal(modalTypes.deleteUserTestResult, { testResult }));
   }
 );

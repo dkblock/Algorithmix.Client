@@ -29,7 +29,11 @@
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+
+    span {
+      font-weight: 600;
+    }
   }
 
   &__divider {
@@ -72,12 +76,21 @@
   &__image-container {
     display: flex;
     align-items: center;
-    max-width: 450px;
+    width: 30%;
   }
 
   &__image {
     width: 100%;
     border-radius: 4px;
+  }
+
+  &__answer-list-container {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  &__answer-list {
+    width: 50%;
   }
 
   &__answers {

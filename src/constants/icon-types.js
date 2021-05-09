@@ -18,6 +18,8 @@ const iconTypes = {
   more: "more",
   play: "play",
   plus: "plus",
+  result: "result",
+  search: "search",
   settings: "settings",
   stats: "stats",
   tests: "tests",

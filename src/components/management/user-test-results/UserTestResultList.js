@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
+import { fetchUserTestResults, showDeleteUserTestResultModal } from "../../../store/actions/user-test-result";
+import { navigateToUserTestResult } from "../../../utils/navigator";
 import Table, { TableToolbar } from "../../_common/Table";
 import { iconTypes } from "../../_common/Icon";
-import { fetchTestResults, showDeleteTestResultModal } from "../../../store/actions/user-test-result";
 
 const getActions = (onTestResultDelete) => [
   {
     label: "Подробно",
-    icon: iconTypes.info,
-    onClick: (test) => {},
+    icon: iconTypes.result,
+    onClick: (testResult) => navigateToUserTestResult(testResult.testId, testResult.userId),
   },
   {
     label: "Удалить",
@@ -38,17 +39,17 @@ const prepareTestResults = (testResults) =>
     passedDate: new Date(result.passingTime),
   }));
 
-const TestResultList = () => {
+const UserTestResultList = () => {
   const dispatch = useDispatch();
   const { testResults, isFetching } = useSelector((state) => state.userTestResult);
 
   useTitle("Результаты", "Результаты");
 
   useEffect(() => {
-    dispatch(fetchTestResults());
+    dispatch(fetchUserTestResults());
   }, [dispatch]);
 
-  const handleTestResultDelete = useCallback((testResult) => dispatch(showDeleteTestResultModal({ testResult })), [
+  const handleTestResultDelete = useCallback((testResult) => dispatch(showDeleteUserTestResultModal({ testResult })), [
     dispatch,
   ]);
 
@@ -68,4 +69,4 @@ const TestResultList = () => {
   );
 };
 
-export default TestResultList;
+export default UserTestResultList;

@@ -21,6 +21,8 @@ const icons = {
   [iconTypes.more]: materialIcons.MoreVert,
   [iconTypes.play]: materialIcons.PlayCircleFilled,
   [iconTypes.plus]: materialIcons.Add,
+  [iconTypes.result]: materialIcons.AssignmentTurnedIn,
+  [iconTypes.search]: materialIcons.Search,
   [iconTypes.settings]: materialIcons.Settings,
   [iconTypes.stats]: materialIcons.Equalizer,
   [iconTypes.tests]: materialIcons.PlaylistAddCheck,

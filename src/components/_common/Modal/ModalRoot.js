@@ -4,7 +4,7 @@ import CreateGroupModal from "../../management/groups/CreateGroupModal";
 import CreateTestModal from "../../management/tests/CreateTestModal";
 import DeleteGroupModal from "../../management/groups/DeleteGroupModal";
 import DeleteTestModal from "../../management/tests/DeleteTestModal";
-import DeleteTestResultModal from "../../management/test-results/DeleteTestResultModal";
+import DeleteUserTestResultModal from "../../management/user-test-results/DeleteUserTestResultModal";
 import DeleteTestQuestionModal from "../../management/tests/design/DeleteTestQuestionModal";
 import DeleteUserModal from "../../management/users/DeleteUserModal";
 import LogoutModal from "../../_app/LogoutModal";
@@ -18,7 +18,7 @@ const modals = {
   [modalTypes.createTest]: CreateTestModal,
   [modalTypes.deleteGroup]: DeleteGroupModal,
   [modalTypes.deleteTest]: DeleteTestModal,
-  [modalTypes.deleteTestResult]: DeleteTestResultModal,
+  [modalTypes.deleteUserTestResult]: DeleteUserTestResultModal,
   [modalTypes.deleteTestQuestion]: DeleteTestQuestionModal,
   [modalTypes.deleteUser]: DeleteUserModal,
   [modalTypes.logout]: LogoutModal,

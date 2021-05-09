@@ -43,9 +43,12 @@
   &__info {
     display: flex;
     flex-direction: column;
-    font-size: 18px;
-    gap: 8px;
+    gap: 6px;
     width: 25%;
+
+    span {
+      font-weight: 600;
+    }
   }
 
   &__status {

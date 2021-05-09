@@ -23,7 +23,7 @@ const getActions = (onTestEdit, onTestDelete) => [
 ];
 
 const columns = [
-  { field: "name", headerName: "Название" },
+  { field: "name", headerName: "Название", width: 300 },
   {
     field: "status",
     headerName: "Статус",

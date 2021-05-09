@@ -16,11 +16,21 @@ const TestListItem = ({ test }) => {
     <div className="test-list-item">
       <section className="test-list-item__info">
         <span className="test-list-item__title">{test.name}</span>
-        <span>Алгоритм: {test.algorithm.name}</span>
-        <span>Количество вопросов: {test.questions.length}</span>
-        <span>Создан: {new Date(test.createdDate).toLocaleDateString("ru-RU")}</span>
-        <span>Автор: {`${test.createdBy.firstName} ${test.createdBy.lastName}`}</span>
-        <span>Статус: {test.userResult ? "Выполнен" : "Не выполнен"}</span>
+        <div>
+          <span>Алгоритм:</span> {test.algorithm.name}
+        </div>
+        <div>
+          <span>Количество вопросов:</span> {test.questions.length}
+        </div>
+        <div>
+          <span>Создан:</span> {new Date(test.createdDate).toLocaleDateString("ru-RU")}
+        </div>
+        <div>
+          <span>Автор: </span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
+        </div>
+        <div>
+          <span>Статус:</span> {test.userResult ? "Выполнен" : "Не выполнен"}
+        </div>
       </section>
       <section className="test-list-item__status">
         {isAuthenticated &&

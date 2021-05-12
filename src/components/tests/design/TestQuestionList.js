@@ -5,11 +5,11 @@ import {
   showDeleteTestQuestionModal,
   moveTestQuestion,
   fetchTestQuestion,
-} from "../../../../store/actions/test-question";
-import Button, { colors } from "../../../_common/Button";
-import { iconTypes } from "../../../_common/Icon";
-import Loader from "../../../_common/Loader";
-import { SortableList } from "../../../_common/List";
+} from "../../../store/actions/test-question";
+import Button, { colors } from "../../_common/Button";
+import { iconTypes } from "../../_common/Icon";
+import Loader from "../../_common/Loader";
+import { SortableList } from "../../_common/List";
 
 const prepareQuestions = (questions, selectedQuestionId, onQuestionClick, onQuestionDelete) =>
   questions.map((question) => ({

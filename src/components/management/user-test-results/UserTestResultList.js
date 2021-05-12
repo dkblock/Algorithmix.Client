@@ -8,7 +8,7 @@ import { iconTypes } from "../../_common/Icon";
 
 const getActions = (onTestResultDelete) => [
   {
-    label: "Подробно",
+    label: "Результат",
     icon: iconTypes.result,
     onClick: (testResult) => navigateToUserTestResult(testResult.testId, testResult.userId),
   },

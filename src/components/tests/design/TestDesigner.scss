@@ -1,4 +1,4 @@
-@import "../../../../styles/variables";
+@import "../../../styles/variables";
 
 .test-design {
   display: flex;
@@ -8,7 +8,7 @@
 .test-design-dashboard {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 40% ;
   max-height: 100%;
   height: calc(100vh - 100px);
   background-color: #fff;

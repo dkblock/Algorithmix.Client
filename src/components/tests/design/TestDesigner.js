@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { useTitle } from "../../../../hooks";
-import { fetchTest } from "../../../../store/actions/test";
-import TabPanel from "../../../_common/TabPanel";
-import Redirect, { routes } from "../../../_common/Route/Redirect";
+import { useTitle } from "../../../hooks";
+import { fetchTest } from "../../../store/actions/test";
+import TabPanel from "../../_common/TabPanel";
+import Redirect, { routes } from "../../_common/Route/Redirect";
 import TestSettings from "./TestSettings";
 import TestQuestionList from "./TestQuestionList";
 import TestQuestionDesigner from "./test-question/TestQuestionDesigner";

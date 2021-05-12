@@ -14,6 +14,7 @@ const routes = {
     main: "/tests",
     design: (testId) => `/tests/${testId}/design`,
     pass: (testId) => `/tests/${testId}`,
+    stats: (testId) => `/tests/${testId}/stats`,
     result: (testId) => `/tests/${testId}/result`,
     userResult: (testId, userId) => `/tests/${testId}/result/${userId}`,
   },

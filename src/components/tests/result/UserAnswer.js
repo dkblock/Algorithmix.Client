@@ -1,11 +1,11 @@
 import React from "react";
 import { getImageSrc } from "../../../utils/get-image-src";
-import ZoomImage from "../../_common/ZoomImage";
-import TestAnswerList from "./TestAnswerList";
-import { Icon, iconTypes } from "../../_common/Icon";
 import colors from "../../../constants/colors";
 import testQuestionTypes from "../../../constants/test-question-types";
+import ZoomImage from "../../_common/ZoomImage";
+import { Icon, iconTypes } from "../../_common/Icon";
 import Tooltip from "../../_common/Tooltip";
+import TestAnswerList from "./TestAnswerList";
 
 const getCorrectAnswers = (answers, questionType) => {
   if (questionType === testQuestionTypes.freeAnswerQuestion) return [answers[0].value];

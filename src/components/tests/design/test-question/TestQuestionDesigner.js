@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 import { Paper } from "@material-ui/core";
-import { updateTestQuestion } from "../../../../../store/actions/test-question";
-import testQuestionTypes from "../../../../../constants/test-question-types";
-import validator from "../../../../../utils/validation";
-import TextField from "../../../../_common/TextField";
-import Dropdown from "../../../../_common/Dropdown";
+import { updateTestQuestion } from "../../../../store/actions/test-question";
+import testQuestionTypes from "../../../../constants/test-question-types";
+import validator from "../../../../utils/validation";
+import TextField from "../../../_common/TextField";
+import Dropdown from "../../../_common/Dropdown";
 import TestQuestionImage from "./TestQuestionImage";
 import TestAnswerList from "./TestAnswerList";
-import Loader from "../../../../_common/Loader";
+import Loader from "../../../_common/Loader";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 

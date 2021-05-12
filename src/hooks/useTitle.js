@@ -7,10 +7,10 @@ const useTitle = (pageTitle, pageHeader) => {
 
   useEffect(() => {
     if (!pageTitle) document.title = "Algorithmix";
-    if (!pageHeader) dispatch(setHeader("Algorithmix"));
+    else document.title = `${pageTitle} - Algorithmix`;
 
-    document.title = `${pageTitle} - Algorithmix`;
-    dispatch(setHeader(pageHeader));
+    if (!pageHeader) dispatch(setHeader("Algorithmix"));
+    else dispatch(setHeader(pageHeader));
   }, [dispatch, pageHeader, pageTitle]);
 };
 

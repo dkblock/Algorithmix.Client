@@ -13,6 +13,7 @@ export const navigateToConstructor = () => history.push(routes.constructor);
 export const navigateToTests = () => history.push(routes.tests.main);
 export const navigateToTestDesigner = (testId) => history.push(routes.tests.design(testId));
 export const navigateToTestPass = (testId) => history.push(routes.tests.pass(testId));
+export const navigateToTestStats = (testId) => history.push(routes.tests.stats(testId));
 export const navigateToTestResult = (testId) => history.push(routes.tests.result(testId));
 export const navigateToUserTestResult = (testId, userId) => history.push(routes.tests.userResult(testId, userId));
 

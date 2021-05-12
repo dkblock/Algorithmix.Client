@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
-import { navigateToTestDesigner } from "../../../utils/navigator";
+import { navigateToTestDesigner, navigateToTestStats } from "../../../utils/navigator";
 import { getMomentFromNow } from "../../../utils/moment";
 import Table, { TableToolbar } from "../../_common/Table";
 import { iconTypes } from "../../_common/Icon";
@@ -16,6 +16,11 @@ const getActions = (onTestEdit, onTestDelete) => [
     onClick: (test) => onTestEdit(test),
   },
   {
+    label: "Статистика",
+    icon: iconTypes.stats,
+    onClick: (test) => navigateToTestStats(test.id),
+  },
+  {
     label: "Удалить",
     icon: iconTypes.delete,
     onClick: (test) => onTestDelete(test),
@@ -23,7 +28,7 @@ const getActions = (onTestEdit, onTestDelete) => [
 ];
 
 const columns = [
-  { field: "name", headerName: "Название", width: 300 },
+  { field: "name", headerName: "Название", width: 250 },
   {
     field: "status",
     headerName: "Статус",

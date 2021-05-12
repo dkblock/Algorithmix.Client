@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import validator from "../../../../../../utils/validation";
-import TextField from "../../../../../_common/TextField";
+import validator from "../../../../../utils/validation";
+import TextField from "../../../../_common/TextField";
 
 const { validateAnswerValue } = validator.testAnswer;
 

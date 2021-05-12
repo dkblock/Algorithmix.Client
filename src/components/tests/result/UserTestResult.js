@@ -41,7 +41,7 @@ const UserTestResult = () => {
               <span>Правильных ответов:</span> {testResult.correctAnswers}
             </div>
           </div>
-          <CompletionResult value={testResult.result} color="success" size="large" label="Результат" />
+          <CompletionResult value={testResult.result} color="primary" size="large" label="Результат" />
         </div>
         <div className="test-result__divider">
           <Divider />

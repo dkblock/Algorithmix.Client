@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import validator from "../../../../../../utils/validation";
-import Button, { buttonTypes, colors } from "../../../../../_common/Button";
-import { iconTypes } from "../../../../../_common/Icon";
-import TextField from "../../../../../_common/TextField";
+import validator from "../../../../../utils/validation";
+import Button, { buttonTypes, colors } from "../../../../_common/Button";
+import { iconTypes } from "../../../../_common/Icon";
+import TextField from "../../../../_common/TextField";
 
 const { validateAnswerValue } = validator.testAnswer;
 

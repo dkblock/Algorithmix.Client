@@ -6,8 +6,8 @@ import {
   deleteTestAnswer,
   moveTestAnswer,
   updateTestAnswer,
-} from "../../../../../store/actions/test-answer";
-import validator from "../../../../../utils/validation";
+} from "../../../../store/actions/test-answer";
+import validator from "../../../../utils/validation";
 import testAnswerListTypes from "./test-answer-lists";
 
 const { validateAnswer } = validator.testAnswer;

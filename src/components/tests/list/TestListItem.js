@@ -23,10 +23,10 @@ const TestListItem = ({ test }) => {
           <span>Количество вопросов:</span> {test.questions.length}
         </div>
         <div>
-          <span>Создан:</span> {new Date(test.createdDate).toLocaleDateString("ru-RU")}
+          <span>Автор: </span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
         </div>
         <div>
-          <span>Автор: </span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
+          <span>Создан:</span> {new Date(test.createdDate).toLocaleDateString("ru-RU")}
         </div>
         <div>
           <span>Статус:</span> {test.userResult ? "Выполнен" : "Не выполнен"}

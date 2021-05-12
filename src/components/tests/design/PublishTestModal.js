@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { publishTest } from "../../../../store/actions/test";
-import { CreateModal, modalSizes } from "../../../_common/Modal";
-import palette from "../../../../utils/palette";
+import { publishTest } from "../../../store/actions/test";
+import { CreateModal, modalSizes } from "../../_common/Modal";
+import palette from "../../../utils/palette";
 
 const PublishTestModal = () => {
   const dispatch = useDispatch();

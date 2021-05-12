@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchTestQuestion, fetchTestQuestions } from "./test-question";
+import { fetchTestQuestions } from "./test-question";
 import { showModal, hideModal } from "./modal";
 import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";

@@ -1,33 +1,40 @@
 import React from "react";
+import { Paper } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import images from "../../constants/images";
+import routes from "../../utils/routes";
 
 const HomeInfo = () => (
-    <div className="home-info">
-        <div className="col-4">
-            <div className="section-title text-center">Алгоритмы</div>
-            <hr/>
-            <div className="main-text">
-                Алгоритмы необходимо знать всем! Представленные на сайте материалы помогут Вам изучить или повторить
-                информацию
-                по различным алгоритмам и структурам данных.
-            </div>
-        </div>
-        <div className="col-4">
-            <div className="section-title text-center">Конструктор</div>
-            <hr/>
-            <div className="main-text">
-                Остались вопросы, связанные с алгоритмами? Конструктор поможет Вам визуализировать их работу, а также
-                более подробно разобраться с каждым из них.
-            </div>
-        </div>
-        <div className="col-4">
-            <div className="section-title text-center">Тесты</div>
-            <hr/>
-            <div className="main-text">
-                Зарегистрируйтесь в приложении и закрепите полученные знания, пройдя интересные и сложные тесты по
-                изученным алгоритмам и структурам данных.
-            </div>
-        </div>
+  <Paper className="home">
+    <img className="home__logo" src={images.logo} alt="algorithmix-logo" />
+    <div className="home-info home-info--reverse">
+      <div className="home-info__text">
+        Алгоритмы необходимо знать всем! Представленные на сайте материалы помогут Вам изучить или повторить информацию
+        по различным <Link to={routes.algorithms}>алгоритмам и структурам данных</Link>.
+      </div>
+      <img className="home-info__image" src={images.home.algorithms} alt="home-algorithms" />
     </div>
+    <div className="home-info">
+      <div className="home-info__text">
+        Остались вопросы, связанные с алгоритмами? <Link to={routes.constructor}>Конструктор</Link> поможет Вам
+        визуализировать их работу, а также более подробно разобраться с каждым из них.
+      </div>
+      <img className="home-info__image" src={images.home.constructor} alt="home-constructor" />
+    </div>
+    <div className="home-info home-info--reverse">
+      <div className="home-info__text">
+        Зарегистрируйтесь в приложении и закрепите полученные знания, пройдя интересные и сложные{" "}
+        <Link to={routes.tests.main}>тесты</Link> по изученным алгоритмам и структурам данных.
+      </div>
+      <img className="home-info__image" src={images.home.tests} alt="home-tests" />
+    </div>
+    <div className="home-info">
+      <div className="home-info__text">
+        Сайт находится в стадии разработки. Информация будет дополняться.
+      </div>
+      <img className="home-info__image" src={images.home.workInProgress} alt="home-work-in-progress" />
+    </div>
+  </Paper>
 );
 
 export default HomeInfo;

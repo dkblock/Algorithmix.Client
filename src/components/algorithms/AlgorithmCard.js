@@ -26,7 +26,7 @@ const AlgorithmCard = ({ algorithm }) => {
       </CardActionArea>
       <Divider />
       <CardActions className="algorithm-card__button-container">
-        <Button color={colors.default} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
+        <Button color={colors.success} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
           Информация
         </Button>
         <Button startIcon={iconTypes.constructor}>Конструктор</Button>

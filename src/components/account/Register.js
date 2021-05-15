@@ -10,6 +10,7 @@ import Redirect from "../_common/Route/Redirect";
 import Button, { colors } from "../_common/Button";
 import Dropdown from "../_common/Dropdown";
 import TextField from "../_common/TextField";
+import images from "../../constants/images";
 
 const {
   validateEmail,
@@ -123,6 +124,7 @@ const Register = () => {
   return (
     <div className="account-sign">
       <Paper className="account-sign-form account-sign-form--register">
+        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo"/>
         <div className="account-sign-form__row">
           <TextField
             className="account-sign-form__control--register"

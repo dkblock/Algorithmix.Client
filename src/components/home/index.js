@@ -1,11 +1,16 @@
 import React from "react";
-import Home from "./Home";
 import { useTitle } from "../../hooks";
+import HomeInfo from "./HomeInfo";
 import "./Home.scss";
 
-const HomePage = () => {
-    useTitle("Главная", "Algorithmix");
-    return <Home/>;
+const Home = () => {
+  useTitle("Главная", "Algorithmix");
+
+  return (
+    <div className="home-container">
+      <HomeInfo />
+    </div>
+  );
 };
 
-export default HomePage;
+export default Home;

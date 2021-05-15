@@ -14,7 +14,7 @@ import { SortableList } from "../../_common/List";
 const prepareQuestions = (questions, selectedQuestionId, onQuestionClick, onQuestionDelete) =>
   questions.map((question) => ({
     id: question.id,
-    primaryText: question.value,
+    primaryText: question.value.length <= 50 ? question.value : `${question.value.substring(0, 50)}...`,
     isSelected: question.id === selectedQuestionId,
     onClick: () => onQuestionClick(question.id),
     actions: [

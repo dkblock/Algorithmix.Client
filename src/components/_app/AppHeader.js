@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { useCurrentUser } from "../../hooks";
 import { showLogoutModal } from "../../store/actions/account";
 import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
+import images from "../../constants/images";
 import Button, { colors } from "../_common/Button";
 import Avatar from "../_common/Avatar";
 import { Icon, iconTypes } from "../_common/Icon";
@@ -19,6 +20,7 @@ const AppHeader = () => {
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
 
+  const handleLogoClick = () => navigateToHome();
   const handleLoginClick = () => navigateToLogin();
   const handleRegisterClick = () => navigateToRegister();
   const handleLogoutClick = () => {
@@ -29,14 +31,7 @@ const AppHeader = () => {
   return (
     <header className="app-header">
       <section className="app-header__section">
-        <Button
-          className="app-header__button"
-          color={colors.transparentBlack}
-          startIcon={iconTypes.home}
-          onClick={navigateToHome}
-        >
-          Algorithmix
-        </Button>
+        <img className="app-header__logo" src={images.logo} alt="logo" onClick={handleLogoClick} />
       </section>
       <section className="app-header__section">
         {!isAuthenticated ? (
@@ -71,12 +66,6 @@ const AppHeader = () => {
                   {currentUser.firstName} {currentUser.lastName}
                 </MenuItem>
                 <div className="app-header__menu-divider" />
-                <MenuItem onClick={handleMenuClose}>
-                  <ListItemIcon>
-                    <Icon type={iconTypes.stats} />
-                  </ListItemIcon>
-                  Статистика
-                </MenuItem>
                 <MenuItem onClick={handleMenuClose}>
                   <ListItemIcon>
                     <Icon type={iconTypes.settings} />

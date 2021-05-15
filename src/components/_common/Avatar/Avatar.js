@@ -6,10 +6,10 @@ import palette from "../../../utils/palette";
 const useStyles = makeStyles(() => ({
   primary: {
     color: palette.primary.contrastText,
-    backgroundColor: palette.primary.light,
-    width: "36px",
-    height: "36px",
-    fontSize: "18px",
+    backgroundColor: `${palette.primary.main} !important`,
+    width: "36px !important",
+    height: "36px !important",
+    fontSize: "18px !important",
   },
 }));
 

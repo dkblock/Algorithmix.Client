@@ -5,6 +5,7 @@ import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigat
 import CompletionResult from "../../_common/CompletionResult";
 import Button, { colors } from "../../_common/Button";
 import { iconTypes } from "../../_common/Icon";
+import palette from "../../../utils/palette";
 
 const TestListItem = ({ test }) => {
   const { isAuthenticated } = useCurrentUser();
@@ -28,8 +29,9 @@ const TestListItem = ({ test }) => {
         <div>
           <span>Создан:</span> {new Date(test.createdDate).toLocaleDateString("ru-RU")}
         </div>
-        <div>
-          <span>Статус:</span> {test.userResult ? "Выполнен" : "Не выполнен"}
+        <div className="flex-row">
+          <span>Статус:</span>{" "}
+          {test.userResult ? <span style={{ color: palette.success.main }}>Выполнен</span> : "Не выполнен"}
         </div>
       </section>
       <section className="test-list-item__status">

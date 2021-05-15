@@ -23,7 +23,13 @@ const columns = [
   { field: "fullName", headerName: "Имя" },
   { field: "groupName", headerName: "Группа" },
   { field: "testName", headerName: "Тест" },
-  { field: "result", headerName: "Результат" },
+  {
+    field: "result",
+    headerName: "Результат",
+    headerAlign: "center",
+    type: "number",
+    renderCell: ({ row }) => <div className="table-cell--center">{row.result}%</div>,
+  },
   { field: "passedDate", headerName: "Пройден", type: "dateTime" },
 ];
 
@@ -35,7 +41,7 @@ const prepareTestResults = (testResults) =>
     fullName: `${result.user.firstName} ${result.user.lastName}`,
     groupName: result.user.group.name,
     testName: result.test.name,
-    result: `${result.result}%`,
+    result: result.result,
     passedDate: new Date(result.passingTime),
   }));
 

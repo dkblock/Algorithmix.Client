@@ -59,10 +59,9 @@
   }
 
   &__logo {
-    display: block;
-    align-self: center;
-    margin: 0 12px;
-    font-size: 18px;
+    margin-left: 12px;
+    cursor: pointer;
+    height: 40px;
   }
 
   &__menu {

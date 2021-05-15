@@ -32,3 +32,11 @@
   flex-direction: column;
   width: 100%;
 }
+
+.table-cell {
+  &--center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}

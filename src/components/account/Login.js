@@ -5,6 +5,7 @@ import { useCurrentUser, useTitle } from "../../hooks";
 import { login } from "../../store/actions/account";
 import validator from "../../utils/validation";
 import routes from "../../utils/routes";
+import images from "../../constants/images";
 import Button, { colors } from "../_common/Button";
 import TextField from "../_common/TextField";
 import Redirect from "../_common/Route/Redirect";
@@ -60,6 +61,7 @@ const Login = () => {
   return (
     <div className="account-sign">
       <Paper className="account-sign-form account-sign-form--login">
+        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo"/>
         <TextField
           className="account-sign-form__control--login"
           label="Email"

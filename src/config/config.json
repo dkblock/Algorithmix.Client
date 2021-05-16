@@ -1,4 +1,4 @@
 {
-  "baseUrl": "https://localhost:5001",
+  "baseUrl": "https://algorithmixserver.azurewebsites.net",
   "siteUrl": "http://localhost:8080"
 }

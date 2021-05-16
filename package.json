@@ -1,6 +1,6 @@
 {
   "name": "algorithmix.client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "array-move": "3.0.1",
@@ -11,7 +11,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open --hot",
-    "start": "npm run build && node server.js"
+    "start": "node server.js",
+    "postinstall": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

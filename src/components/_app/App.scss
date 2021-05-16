@@ -91,6 +91,7 @@
 .app-sidebar {
   height: 100%;
   display: flex;
+  flex-direction: column;
   border-top: $panel-border;
   border-right: $panel-border;
 
@@ -100,12 +101,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  &__divider {
-    margin: 5px;
-    width: 80%;
-    height: 1px;
-    background: rgba(18, 24, 33, 0.12);
+    position: sticky;
+    top: 0;
   }
 }

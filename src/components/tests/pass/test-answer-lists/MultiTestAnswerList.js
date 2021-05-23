@@ -17,9 +17,9 @@ const MultiTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
   );
 
   return (
-    <div className="test-answer-list">
-      <div className="test-answer-list__header">Выберите правильный ответ (-ы)</div>
-      <div className="test-answer-list__items">
+    <div className="test-pass-answer-list">
+      <div className="test-pass-answer-list__header">Выберите правильный ответ (-ы)</div>
+      <div className="test-pass-answer-list__answers">
         {answers.map((answer) => (
           <Checkbox
             key={answer.id}

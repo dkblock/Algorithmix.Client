@@ -28,11 +28,11 @@ const FreeTestAnswerList = ({ userAnswers, setUserAnswers }) => {
   }, [answerValue]);
 
   return (
-    <div className="test-answer-list">
-      <div className="test-answer-list__items">
+    <div className="test-pass-answer-list">
+      <div className="test-pass-answer-list__header">Введите правильный ответ</div>
+      <div className="test-pass-answer-list__answers">
         <TextField
           className="w-100"
-          label="Ответ"
           error={Boolean(error)}
           helperText={error}
           value={answerValue}

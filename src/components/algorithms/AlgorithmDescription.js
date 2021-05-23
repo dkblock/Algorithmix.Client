@@ -6,31 +6,29 @@ import Paper from "@material-ui/core/Paper";
 import algorithmDescriptions from "./descriptions";
 
 const DescriptionComponent = (props) => {
-    const { algorithm, component: PassedComponent } = props;
+  const { algorithm, component: PassedComponent } = props;
 
-    if (!PassedComponent)
-        return null;
+  if (!PassedComponent) return null;
 
-    return <PassedComponent algorithm={algorithm}/>;
+  return <PassedComponent algorithm={algorithm} />;
 };
 
 const AlgorithmDescription = () => {
-    const params = useParams();
-    const { algorithms } = useSelector(state => state.algorithm);
-    const algorithm = algorithms.find(a => a.id === params.id);
+  const { id } = useParams();
+  const { algorithms } = useSelector((state) => state.algorithm);
+  const algorithm = algorithms.find((a) => a.id === id);
 
-    useTitle(algorithm?.name);
+  useTitle(algorithm?.name, algorithm?.name);
 
-    if (!algorithm)
-        return null;
+  if (!algorithm) return null;
 
-    const component = algorithmDescriptions[params.id];
+  const component = algorithmDescriptions[id];
 
-    return (
-        <Paper className="algorithm-description">
-            <DescriptionComponent algorithm={algorithm} component={component}/>
-        </Paper>
-    );
+  return (
+    <Paper className="algorithm-description">
+      <DescriptionComponent algorithm={algorithm} component={component} />
+    </Paper>
+  );
 };
 
 export default AlgorithmDescription;

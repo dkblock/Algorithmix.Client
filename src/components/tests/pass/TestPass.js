@@ -24,7 +24,7 @@ const TestPass = () => {
 
   const currentTest = tests.find((t) => t.id === parseInt(testId));
 
-  useTitle("Тест");
+  useTitle("Тесты", currentTest?.name);
 
   useEffect(() => {
     dispatch(startTestPass({ testId }));
@@ -69,18 +69,17 @@ const TestPass = () => {
   return (
     <div className="test-pass-container">
       <Paper className="test-pass">
-        <div className="w-100">
-          <div className="test-pass__header">Вопрос {questionOrder}</div>
-          <div className="test-pass__main">
-            {currentQuestion.value}
+        <div className="test-pass__main">
+          <div className="test-pass__info">
+            <div className="test-pass__title">Вопрос {questionOrder}</div>
+            <div>{currentQuestion.value}</div>
+            <TestAnswerList userAnswers={userAnswers} setUserAnswers={setUserAnswers} />
+          </div>
+          <div className="test-pass__image-container">
             {currentQuestion.image && (
-              <div>
-                <ZoomImage className="test-pass__image" src={getImageSrc(currentQuestion.image)} alt="question-image" />
-              </div>
+              <ZoomImage className="test-pass__image" src={getImageSrc(currentQuestion.image)} alt="question-image" />
             )}
           </div>
-          <Divider className="test-pass__divider" />
-          <TestAnswerList userAnswers={userAnswers} setUserAnswers={setUserAnswers} />
         </div>
         <TestPassNavigation
           onNextQuestionClick={handleNextQuestionClick}

@@ -8,12 +8,13 @@ import Divider from "@material-ui/core/Divider";
 import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
 import { getImageSrc } from "../../utils/get-image-src";
-import { navigateToAlgorithm } from "../../utils/navigator";
+import { navigateToAlgorithm, navigateToConstructorAlgorithm } from "../../utils/navigator";
 
 const AlgorithmCard = ({ algorithm }) => {
   const headerProps = { align: "center", fontFamily: "inherit", fontWeight: 500 };
 
   const onInfoButtonClick = () => navigateToAlgorithm(algorithm.id);
+  const onConstructorButtonClick = () => navigateToConstructorAlgorithm(algorithm.id);
 
   return (
     <Card className="algorithm-card">
@@ -29,7 +30,9 @@ const AlgorithmCard = ({ algorithm }) => {
         <Button color={colors.success} startIcon={iconTypes.info} onClick={onInfoButtonClick}>
           Информация
         </Button>
-        <Button startIcon={iconTypes.constructor}>Конструктор</Button>
+        <Button startIcon={iconTypes.constructor} onClick={onConstructorButtonClick}>
+          Конструктор
+        </Button>
       </CardActions>
     </Card>
   );

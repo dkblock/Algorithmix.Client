@@ -8,7 +8,8 @@ export const navigateToRegister = () => history.push(routes.account.register);
 export const navigateToAlgorithms = () => history.push(routes.algorithms);
 export const navigateToAlgorithm = (algorithmId) => history.push(`${routes.algorithms}/${algorithmId}`);
 
-export const navigateToConstructor = () => history.push(routes.constructor);
+export const navigateToConstructor = () => history.push(routes.constructor.main);
+export const navigateToConstructorAlgorithm = (algorithmId) => history.push(routes.constructor.algorithm(algorithmId));
 
 export const navigateToTests = () => history.push(routes.tests.main);
 export const navigateToTestDesigner = (testId) => history.push(routes.tests.design(testId));

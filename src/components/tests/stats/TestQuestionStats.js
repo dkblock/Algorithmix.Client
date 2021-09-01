@@ -1,5 +1,5 @@
 import React from "react";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 import testQuestionTypes from "../../../constants/test-question-types";
 import ZoomImage from "../../_common/ZoomImage";
 import TestAnswerList from "../result/TestAnswerList";
@@ -41,7 +41,7 @@ const TestQuestionStats = ({ question, questionOrder }) => {
         </div>
       </div>
       <div className="test-question-stats__image-container">
-        {question.image && <ZoomImage className="test-question-stats__image" src={getImageSrc(question.image)} />}
+        {question.image && <ZoomImage className="test-question-stats__image" src={getFileSrc(question.image)} />}
       </div>
     </div>
   );

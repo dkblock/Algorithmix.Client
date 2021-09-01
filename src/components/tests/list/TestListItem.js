@@ -1,6 +1,6 @@
 import React from "react";
 import { useCurrentUser } from "../../../hooks";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigator";
 import CompletionResult from "../../_common/CompletionResult";
 import Button, { colors } from "../../_common/Button";
@@ -60,7 +60,7 @@ const TestListItem = ({ test }) => {
         </>
       </section>
       <section className="test-list-item__image">
-        <img className="w-100" src={getImageSrc(test.algorithm.imageUrl)} alt="test-image" />
+        <img className="w-100" src={getFileSrc(test.algorithm.imageUrl)} alt="test-image" />
       </section>
     </div>
   );

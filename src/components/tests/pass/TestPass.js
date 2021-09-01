@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 import { useTitle } from "../../../hooks";
 import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../../../store/actions/test-pass";
 import { navigateToTestResult } from "../../../utils/navigator";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 import Redirect, { routes } from "../../_common/Route/Redirect";
 import ZoomImage from "../../_common/ZoomImage";
 import TestPassNavigation from "./TestPassNavigation";
@@ -77,7 +77,7 @@ const TestPass = () => {
           </div>
           <div className="test-pass__image-container">
             {currentQuestion.image && (
-              <ZoomImage className="test-pass__image" src={getImageSrc(currentQuestion.image)} alt="question-image" />
+              <ZoomImage className="test-pass__image" src={getFileSrc(currentQuestion.image)} alt="question-image" />
             )}
           </div>
         </div>

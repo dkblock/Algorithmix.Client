@@ -1,6 +1,6 @@
 import React from "react";
 import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 import routes from "../../../utils/routes";
 import { Link } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const BinaryTreeDescription = (props) => {
                     <div className="col-3">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/algorithms/binary-tree.png")}
+                            src={getFileSrc("images/algorithms/binary-tree.png")}
                             alt="binary-tree"
                         />
                     </div>
@@ -60,7 +60,7 @@ const BinaryTreeDescription = (props) => {
                     <div className="col-3">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/binary-tree/example.png")}
+                            src={getFileSrc("images/descriptions/binary-tree/example.png")}
                             alt="binary-tree example"
                         />
                         <h6 className="text-center">Простой пример бинарного дерева</h6>
@@ -107,7 +107,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/insert.gif")}
+                                    src={getFileSrc("images/descriptions/binary-tree/insert.gif")}
                                     alt="binary-tree insert"
                                 />
                                 <h6 className="text-center">Вставка узла 42</h6>
@@ -138,7 +138,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/find.gif")}
+                                    src={getFileSrc("images/descriptions/binary-tree/find.gif")}
                                     alt="binary-tree find"
                                 />
                                 <h6 className="text-center">Поиск узла 14</h6>
@@ -203,7 +203,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/remove.gif")}
+                                    src={getFileSrc("images/descriptions/binary-tree/remove.gif")}
                                     alt="binary-tree remove"
                                 />
                                 <h6 className="text-center">Удаление узла 18</h6>
@@ -273,7 +273,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/pre-order.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/pre-order.png")}
                                     alt="binary-tree pre-order"
                                 />
                                 <h6 className="text-center">Прямой: F, B, A, D, C, E, G, I, H</h6>
@@ -281,7 +281,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/in-order.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/in-order.png")}
                                     alt="binary-tree in-order"
                                 />
                                 <h6 className="text-center">Центрированный: A, B, C, D, E, F, G, H, I</h6>
@@ -289,7 +289,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/post-order.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/post-order.png")}
                                     alt="binary-tree post-order"
                                 />
                                 <h6 className="text-center">Обратный: A, C, E, D, B, H, I, G, F</h6>
@@ -297,7 +297,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/bfs.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/bfs.png")}
                                     alt="binary-tree bfs"
                                 />
                                 <h6 className="text-center">Поиск в ширину: F, B, G, A, D, I, C, E, H</h6>
@@ -337,7 +337,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/balanced.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/balanced.png")}
                                     alt="binary-tree balanced"
                                 />
                                 <h6 className="text-center">Сбалансированное дерево</h6>
@@ -345,7 +345,7 @@ const BinaryTreeDescription = (props) => {
                             <div className="description-image-container">
                                 <img
                                     className="description-image"
-                                    src={getImageSrc("images/descriptions/binary-tree/unbalanced.png")}
+                                    src={getFileSrc("images/descriptions/binary-tree/unbalanced.png")}
                                     alt="binary-tree unbalanced"
                                 />
                                 <h6 className="text-center">Несбалансированное дерево</h6>

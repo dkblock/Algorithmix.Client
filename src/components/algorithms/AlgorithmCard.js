@@ -7,7 +7,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Divider from "@material-ui/core/Divider";
 import Button, { colors } from "../_common/Button";
 import { iconTypes } from "../_common/Icon";
-import { getImageSrc } from "../../utils/get-image-src";
+import { getFileSrc } from "../../utils/get-file-src";
 import { navigateToAlgorithm, navigateToConstructorAlgorithm } from "../../utils/navigator";
 
 const AlgorithmCard = ({ algorithm }) => {
@@ -22,7 +22,7 @@ const AlgorithmCard = ({ algorithm }) => {
         <CardHeader className="algorithm-card__header" title={algorithm.name} titleTypographyProps={headerProps} />
         <Divider />
         <CardMedia>
-          <img className="w-100" src={getImageSrc(algorithm.imageUrl)} alt="algorithm-img" />
+          <img className="w-100" src={getFileSrc(algorithm.imageUrl)} alt="algorithm-img" />
         </CardMedia>
       </CardActionArea>
       <Divider />

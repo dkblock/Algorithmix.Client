@@ -1,6 +1,6 @@
 import React from "react";
 import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 
 const AvlTreeDescription = (props) => {
     const { algorithm: { timeComplexity } } = props;
@@ -49,7 +49,7 @@ const AvlTreeDescription = (props) => {
                     <div className="col-4">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/algorithms/avl-tree.png")}
+                            src={getFileSrc("images/algorithms/avl-tree.png")}
                             alt="avl-tree"
                         />
                         <div className="description-title"/>
@@ -80,7 +80,7 @@ const AvlTreeDescription = (props) => {
                     <div className="col-4">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/avl-tree/example.png")}
+                            src={getFileSrc("images/descriptions/avl-tree/example.png")}
                             alt="avl-tree example"
                         />
                         <h6 className="text-center">Простой пример AVL-дерева</h6>
@@ -119,14 +119,14 @@ const AvlTreeDescription = (props) => {
                     <div className="col-6">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/avl-tree/right-rotate.png")}
+                            src={getFileSrc("images/descriptions/avl-tree/right-rotate.png")}
                             alt="avl-tree right-rotate"
                         />
                         <h6 className="text-center">Одиночный правый поворот</h6>
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/avl-tree/left-right-rotate.png")}
+                            src={getFileSrc("images/descriptions/avl-tree/left-right-rotate.png")}
                             alt="avl-tree left-right-rotate"
                         />
                         <h6 className="text-center">Двойной лево-правый поворот</h6>
@@ -134,14 +134,14 @@ const AvlTreeDescription = (props) => {
                     <div className="col-6">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/avl-tree/left-rotate.png")}
+                            src={getFileSrc("images/descriptions/avl-tree/left-rotate.png")}
                             alt="avl-tree left-rotate"
                         />
                         <h6 className="text-center">Одиночный левый поворот</h6>
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/avl-tree/right-left-rotate.png")}
+                            src={getFileSrc("images/descriptions/avl-tree/right-left-rotate.png")}
                             alt="avl-tree right-left-rotate"
                         />
                         <h6 className="text-center">Двойной право-левый поворот</h6>

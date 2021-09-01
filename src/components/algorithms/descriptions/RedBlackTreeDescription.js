@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AlgorithmTimeComplexity from "../AlgorithmTimeComplexity";
-import { getImageSrc } from "../../../utils/get-image-src";
+import { getFileSrc } from "../../../utils/get-file-src";
 import routes from "../../../utils/routes";
 
 const RedBlackTreeDescription = (props) => {
@@ -33,7 +33,7 @@ const RedBlackTreeDescription = (props) => {
                     <div className="col-4">
                         <img
                             className="description-image"
-                            src={getImageSrc("images/algorithms/red-black-tree.png")}
+                            src={getFileSrc("images/algorithms/red-black-tree.png")}
                             alt="red-black-tree"
                         />
                     </div>
@@ -94,7 +94,7 @@ const RedBlackTreeDescription = (props) => {
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/red-black-tree/example.png")}
+                            src={getFileSrc("images/descriptions/red-black-tree/example.png")}
                             alt="red-black-tree example"
                         />
                         <h6 className="text-center">Простой пример красно-чёрного дерева</h6>
@@ -175,21 +175,21 @@ const RedBlackTreeDescription = (props) => {
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/red-black-tree/insert1.png")}
+                            src={getFileSrc("images/descriptions/red-black-tree/insert1.png")}
                             alt="red-black-tree insert"
                         />
                         <h6 className="text-center">Случай 1</h6>
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/red-black-tree/insert2.png")}
+                            src={getFileSrc("images/descriptions/red-black-tree/insert2.png")}
                             alt="red-black-tree insert"
                         />
                         <h6 className="text-center">Случай 2</h6>
                         <div className="description-title"/>
                         <img
                             className="description-image"
-                            src={getImageSrc("images/descriptions/red-black-tree/insert3.png")}
+                            src={getFileSrc("images/descriptions/red-black-tree/insert3.png")}
                             alt="red-black-tree insert"
                         />
                         <h6 className="text-center">Случай 3</h6>

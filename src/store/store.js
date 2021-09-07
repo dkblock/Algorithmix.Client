@@ -1,9 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createBrowserHistory } from "history";
 import { routerMiddleware } from "connected-react-router";
 import createRootReducer from "./reducers";
+import history from "./utils/history";
 
-const history = createBrowserHistory();
 const rootReducer = createRootReducer(history);
 
 const store = configureStore({
@@ -13,4 +12,4 @@ const store = configureStore({
             .concat(routerMiddleware(history))
 });
 
-export { store, history };
+export default store;

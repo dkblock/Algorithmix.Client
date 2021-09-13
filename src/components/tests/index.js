@@ -3,14 +3,14 @@ import { useDispatch } from "react-redux";
 import { Route } from "react-router";
 import { fetchTests } from "../../store/actions/test";
 import routes from "../../utils/routes";
-import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
-import PrivateRoute from "../_common/Route/PrivateRoute";
-import TestDesigner from "./design/TestDesigner";
-import TestList from "./list/TestList";
-import TestPass from "./pass/TestPass";
-import TestStats from "./stats/TestStats";
-import OwnTestResult from "./result/OwnTestResult";
-import UserTestResult from "./result/UserTestResult";
+import ExecutiveRoute from "../_common/route/executive-route";
+import PrivateRoute from "../_common/route/private-route";
+import TestDesigner from "./design/test-designer";
+import TestList from "./list/test-list";
+import TestPass from "./pass/test-pass";
+import TestStats from "./stats/test-stats";
+import OwnTestResult from "./result/own-test-result";
+import UserTestResult from "./result/user-test-result";
 
 const Tests = () => {
   const dispatch = useDispatch();

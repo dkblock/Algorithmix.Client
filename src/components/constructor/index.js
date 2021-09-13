@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "react-router";
 import routes from "../../utils/routes";
-import ConstructorAlgorithm from "./ConstructorAlgorithm";
-import ConstructorMain from "./ConstructorMain";
+import ConstructorAlgorithm from "./constructor-algorithm";
+import ConstructorMain from "./constructor-main";
 
 const Constructor = () => (
   <>

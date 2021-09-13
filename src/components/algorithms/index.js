@@ -1,11 +1,11 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import AlgorithmGrid from "./AlgorithmGrid";
-import AlgorithmDescription from "./AlgorithmDescription";
-import Loader from "../_common/Loader";
+import AlgorithmGrid from "./algorithm-grid";
+import AlgorithmDescription from "./algorithm-description";
+import Loader from "../_common/loader";
 import routes from "../../utils/routes";
-import "./Algorithms.scss";
+import "./algorithms.scss";
 
 const Algorithms = () => {
   const { isFetching } = useSelector((state) => state.algorithm);

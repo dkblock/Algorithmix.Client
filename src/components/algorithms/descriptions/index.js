@@ -1,6 +1,6 @@
-import AvlTreeDescription from "./AvlTreeDescription";
-import BinaryTreeDescription from "./BinaryTreeDescription";
-import RedBlackTreeDescription from "./RedBlackTreeDescription";
+import AvlTreeDescription from "./avl-tree-description";
+import BinaryTreeDescription from "./binary-tree-description";
+import RedBlackTreeDescription from "./red-black-tree-description";
 
 const algorithmDescriptions = {
     "avl-tree": AvlTreeDescription,

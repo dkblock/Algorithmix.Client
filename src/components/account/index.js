@@ -1,11 +1,11 @@
 import React from "react";
 import { Route } from "react-router";
-import PrivateRoute from "../_common/Route/PrivateRoute";
+import PrivateRoute from "../_common/route/private-route";
 import routes from "../../utils/routes";
-import AccountSettings from "./AccountSettings";
-import Login from "./Login";
-import Register from "./Register";
-import "./Account.scss";
+import AccountSettings from "./account-settings";
+import Login from "./login";
+import Register from "./register";
+import "./account.scss";
 
 const Account = () => {
   return (

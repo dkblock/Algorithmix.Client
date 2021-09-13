@@ -8,13 +8,13 @@ import {
   navigateToUsersManagement,
 } from "../../utils/navigator";
 import routes from "../../utils/routes";
-import ExecutiveRoute from "../_common/Route/ExecutiveRoute";
-import TabPanel from "../_common/TabPanel";
-import TestList from "./tests/TestList";
-import UserTestResultList from "./user-test-results/UserTestResultList";
-import UserList from "./users/UserList";
-import GroupList from "./groups/GroupList";
-import "./Management.scss";
+import ExecutiveRoute from "../_common/route/executive-route";
+import TabPanel from "../_common/tab-panel";
+import TestList from "./tests/test-list";
+import UserTestResultList from "./user-test-results/user-test-result-list";
+import UserList from "./users/user-list";
+import GroupList from "./groups/group-list";
+import "./management.scss";
 
 const tabRoutes = [
   routes.management.tests,

@@ -1,6 +1,6 @@
-import FreeTestAnswerList from "./FreeTestAnswerList";
-import MultiTestAnswerList from "./MultiTestAnswerList";
-import SingleTestAnswerList from "./SingleTestAnswerList";
+import FreeTestAnswerList from "./free-test-answer-list";
+import MultiTestAnswerList from "./multi-test-answer-list";
+import SingleTestAnswerList from "./single-test-answer-list";
 import testQuestionTypes from "../../../../../constants/test-question-types";
 
 const testAnswerListTypes = {

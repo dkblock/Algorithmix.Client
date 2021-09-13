@@ -1,7 +1,7 @@
 import React from "react";
 import { useTitle } from "../../hooks";
-import HomeInfo from "./HomeInfo";
-import "./Home.scss";
+import HomeInfo from "./home-info";
+import "./home.scss";
 
 const Home = () => {
   useTitle("Главная", "Algorithmix");

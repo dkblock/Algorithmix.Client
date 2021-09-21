@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
-import Popover from "@material-ui/core/Popover";
-import MuiMenuItem from "@material-ui/core/MenuItem";
-import MuiListItemIcon from "@material-ui/core/ListItemIcon";
+import Popover from "@mui/material/Popover";
+import MuiMenuItem from "@mui/material/MenuItem";
+import MuiListItemIcon from "@mui/material/ListItemIcon";
 import { Icon, IconButton, iconTypes } from "../icon";
 
 const ListItemActions = ({ actions, visible, setVisible }) => {

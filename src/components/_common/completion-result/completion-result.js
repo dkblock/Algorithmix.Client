@@ -1,13 +1,13 @@
 import React from "react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { createTheme, ThemeProvider } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import palette from "../../../utils/palette";
 import "./completion-result.scss";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const CompletionResult = ({ className, color = "primary", size = "medium", value, label }) => (
-  <MuiThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <div className={`completion-result ${className}`}>
       <div className={className}>
         <div className={`completion-result__back completion-result__back--${size}`} />
@@ -23,7 +23,7 @@ const CompletionResult = ({ className, color = "primary", size = "medium", value
         <span className="completion-result__result">{value}%</span>
       </div>
     </div>
-  </MuiThemeProvider>
+  </ThemeProvider>
 );
 
 export default CompletionResult;

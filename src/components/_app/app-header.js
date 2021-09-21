@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Popover from "@material-ui/core/Popover";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Popover from "@mui/material/Popover";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
 
 import { useCurrentUser } from "../../hooks";
 import { showLogoutModal } from "../../store/actions/account";

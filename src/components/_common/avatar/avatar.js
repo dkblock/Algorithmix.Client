@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
-import MuiAvatar from "@material-ui/core/Avatar";
+import { makeStyles } from "@mui/styles";
+import MuiAvatar from "@mui/material/Avatar";
 import palette from "../../../utils/palette";
 
 const useStyles = makeStyles(() => ({

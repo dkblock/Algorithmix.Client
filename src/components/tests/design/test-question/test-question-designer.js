@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
-import { Paper } from "@material-ui/core";
+import { Paper } from "@mui/material";
 import { updateTestQuestion } from "../../../../store/actions/test-question";
 import testQuestionTypes from "../../../../constants/test-question-types";
 import validator from "../../../../utils/validation";

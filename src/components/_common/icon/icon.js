@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton as MaterialIconButton } from "@material-ui/core";
+import { IconButton as MaterialIconButton } from "@mui/material";
 import palette from "../../../utils/palette";
 import icons from "./icons";
 import "./icon.scss";

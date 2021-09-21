@@ -1,7 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
-import MuiTooltip from "@material-ui/core/Tooltip";
-import Zoom from "@material-ui/core/Zoom";
+import { makeStyles } from "@mui/styles";
+import MuiTooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
 
 const useStyles = makeStyles(() => ({
   arrow: {

@@ -1,13 +1,13 @@
 import React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import MuiButton from "@material-ui/core/Button";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiButton from "@mui/material/Button";
 import { Icon } from "../icon";
 import buttonTypes from "../../../constants/button-types";
 import colors from "../../../constants/colors";
 import palette from "../../../utils/palette";
 import "./button.scss";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const Button = ({ className, type, color, startIcon, endIcon, onClick, children }) => {
   const buttonType = type ?? buttonTypes.contained;

@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { Paper } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
+import { Paper } from "@mui/material";
 import { useTitle } from "../../../hooks";
 import { fetchNextTestQuestion, fetchPreviousTestQuestion, startTestPass } from "../../../store/actions/test-pass";
 import { navigateToTestResult } from "../../../utils/navigator";

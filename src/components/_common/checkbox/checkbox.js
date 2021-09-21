@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import MuiCheckbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiCheckbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import colors from "../../../constants/colors";
 import palette from "../../../utils/palette";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const Checkbox = ({ className, value, label, onChange, disabled = false }) => {
   const [checkboxValue, setCheckboxValue] = useState(value);

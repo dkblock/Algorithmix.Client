@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import MuiSwitch from "@material-ui/core/Switch";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MuiSwitch from "@mui/material/Switch";
 import palette from "../../../utils/palette";
 import colors from "../../../constants/colors";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const Switch = ({ className, checked, label, onChange }) => {
   const [isChecked, setIsChecked] = useState(checked);

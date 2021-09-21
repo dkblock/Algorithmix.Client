@@ -1,9 +1,9 @@
 import React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import MuiBadge from "@material-ui/core/Badge";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiBadge from "@mui/material/Badge";
 import palette from "../../../utils/palette";
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: palette.primary,
         secondary: palette.default

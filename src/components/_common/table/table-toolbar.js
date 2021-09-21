@@ -1,6 +1,6 @@
 import React from "react";
-import { GridToolbarContainer } from "@material-ui/data-grid";
-import { Divider } from "@material-ui/core";
+import { GridToolbarContainer } from "@mui/x-data-grid";
+import { Divider } from "@mui/material";
 
 const TableToolbar = ({ children, title, count }) => {
   return (

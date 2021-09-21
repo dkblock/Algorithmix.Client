@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Paper } from "@material-ui/core";
+import { Paper } from "@mui/material";
 import { useCurrentUser, useTitle } from "../../hooks";
 import { login } from "../../store/actions/account";
 import validator from "../../utils/validation";

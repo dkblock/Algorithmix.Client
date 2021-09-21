@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
-import { makeStyles } from "@material-ui/core";
-import MuiListItem from "@material-ui/core/ListItem";
-import MuiListItemText from "@material-ui/core/ListItemText";
-import MuiListItemIcon from "@material-ui/core/ListItemIcon";
+import { makeStyles } from "@mui/styles";
+import MuiListItem from "@mui/material/ListItem";
+import MuiListItemText from "@mui/material/ListItemText";
+import MuiListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "../checkbox";
 import Radio from "../radio";
 import ListItemActions from "./list-item-actions";

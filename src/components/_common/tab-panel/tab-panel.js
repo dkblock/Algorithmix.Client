@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import palette from "../../../utils/palette";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const TabPanel = ({ tabs, value }) => {
   const [tabsValue, setTabsValue] = useState(value);

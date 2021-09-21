@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
-import { DataGrid, ruRU } from "@material-ui/data-grid";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { DataGrid, ruRU } from "@mui/x-data-grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import palette from "../../../utils/palette";
 import prepareColumns from "./prepare-columns";
 import "./table.scss";
 
-const theme = createMuiTheme({ palette }, ruRU);
+const theme = createTheme({ palette }, ruRU);
 
 const Table = ({ columns, data, toolbar, actions, isFetching, sortBy, sortDirection, pageSize = 20 }) => {
   const preparedColumns = useMemo(() => prepareColumns(columns, actions), [actions, columns]);

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Dialog from "@material-ui/core/Dialog";
+import Dialog from "@mui/material/Dialog";
 import { hideModal } from "../../../store/actions/modal";
 import { modalSizes } from "./index";
 

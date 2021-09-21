@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import MuiTextField from "@material-ui/core/TextField";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MuiTextField from "@mui/material/TextField";
 import palette from "../../../utils/palette";
 
-const theme = createMuiTheme({ palette });
+const theme = createTheme({ palette });
 
 const TextField = ({
   className,
@@ -31,7 +31,7 @@ const TextField = ({
   };
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <MuiTextField
         className={className}
         color="primary"
@@ -52,7 +52,7 @@ const TextField = ({
           shrink: true,
         }}
       />
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 };
 

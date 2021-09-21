@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import Divider from "@material-ui/core/Divider";
-import Paper from "@material-ui/core/Paper";
+import Divider from "@mui/material/Divider";
+import Paper from "@mui/material/Paper";
 import { useTitle } from "../../../hooks";
 import { fetchTestResult } from "../../../store/actions/test-pass";
 import Loader from "../../_common/loader";

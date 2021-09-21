@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Paper } from "@material-ui/core";
+import { Paper } from "@mui/material";
 import { useCurrentUser, useTitle } from "../../hooks";
 import { fetchGroups } from "../../store/actions/group";
 import { register } from "../../store/actions/account";

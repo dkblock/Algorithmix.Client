@@ -1,10 +1,10 @@
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardActions from "@material-ui/core/CardActions";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import Divider from "@material-ui/core/Divider";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardActions from "@mui/material/CardActions";
+import CardActionArea from "@mui/material/CardActionArea";
+import Divider from "@mui/material/Divider";
 import Button, { colors } from "../_common/button";
 import { iconTypes } from "../_common/icon";
 import { getFileSrc } from "../../utils/get-file-src";

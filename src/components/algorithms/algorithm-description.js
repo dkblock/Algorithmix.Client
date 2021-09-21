@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTitle } from "../../hooks";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import algorithmDescriptions from "./descriptions";
 
 const DescriptionComponent = (props) => {

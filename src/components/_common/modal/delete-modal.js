@@ -18,8 +18,8 @@ const DeleteModal = ({ deleteText, deleteButtonText = "Удалить", size = m
 
   return (
     <Dialog maxWidth={size} onClose={handleClose} fullWidth open>
-      <DialogTitle className="modal-common__header" disableTypography>
-        <h5 className="modal-common__title">{title}</h5>
+      <DialogTitle className="modal-common__header">
+        <span className="modal-common__title">{title}</span>
         <IconButton type={iconTypes.close} onClick={handleClose} />
       </DialogTitle>
       <DialogContent className="modal-common__content">

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTest } from "../../../store/actions/test";
 import validator from "../../../utils/validation";
 import { CreateModal, modalSizes } from "../../_common/modal";
-import Dropdown from "../../_common/dropdown";
+import { MultiDropdown } from "../../_common/dropdown";
 import TextField from "../../_common/text-field";
 
 const { validateName, validateTest } = validator.test;
@@ -14,15 +14,16 @@ const CreateTestModal = () => {
   const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, label: algorithm.name }));
 
   const [name, setName] = useState("");
-  const [algorithmId, setAlgorithmId] = useState(algorithms[0]?.id);
+  const [algorithmIds, setAlgorithmIds] = useState([]);
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleNameChange = useCallback((value) => {
     setName(value);
   }, []);
 
-  const handleAlgorithmIdChange = useCallback((value) => {
-    setAlgorithmId(value);
+  const handleAlgorithmIdsChange = useCallback((value) => {
+    setAlgorithmIds(value);
+    setValidationErrors({ ...validationErrors, algorithmIds: null });
   }, []);
 
   const handleNameFocus = useCallback(() => {
@@ -35,7 +36,7 @@ const CreateTestModal = () => {
   }, [name, validationErrors]);
 
   const handleCreate = useCallback(() => {
-    const test = { name, algorithmIds: [algorithmId] };
+    const test = { name, algorithmIds };
     const { isValid, validationErrors: nextValidationErrors } = validateTest(test);
 
     if (isValid) {
@@ -43,7 +44,7 @@ const CreateTestModal = () => {
     } else {
       setValidationErrors(nextValidationErrors);
     }
-  }, [algorithmId, dispatch, name]);
+  }, [algorithmIds, dispatch, name]);
 
   return (
     <CreateModal title="Создание нового теста" size={modalSizes.small} onCreate={handleCreate}>
@@ -57,12 +58,13 @@ const CreateTestModal = () => {
         onFocus={handleNameFocus}
         onFocusOut={handleNameFocusOut}
       />
-      <Dropdown
+      <MultiDropdown
         className="test-form__control"
-        label="Алгоритм"
-        value={algorithmId}
+        label="Алгоритмы"
         items={algorithmItems}
-        onChange={handleAlgorithmIdChange}
+        error={Boolean(validationErrors.algorithmIds)}
+        helperText={validationErrors.algorithmIds}
+        onChange={handleAlgorithmIdsChange}
       />
     </CreateModal>
   );

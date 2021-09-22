@@ -9,9 +9,18 @@ const testValidator = () => {
     return null;
   };
 
+  const validateAlgorithmIds = (algorithmIds) => {
+    if (algorithmIds.length === 0) {
+      return "Выберите алгоритм";
+    }
+
+    return null;
+  };
+
   const validateTest = (test) => {
     const validationErrors = {};
     validationErrors.name = validateName(test.name);
+    validationErrors.algorithmIds = validateAlgorithmIds(test.algorithmIds);
 
     return { isValid: isValid(validationErrors), validationErrors };
   };
@@ -19,6 +28,7 @@ const testValidator = () => {
   return {
     validateTest,
     validateName,
+    validateAlgorithmIds,
   };
 };
 

@@ -9,14 +9,22 @@ import palette from "../../../utils/palette";
 
 const theme = createTheme({ palette });
 
-const MultiDropdown = ({ className, items, label, error, helperText, onChange }) => {
+const MultiDropdown = ({ className, items, value, label, error, helperText, onChange, onClose }) => {
   const [dropdownValue, setDropdownValue] = useState([]);
+
+  useEffect(() => {
+    setDropdownValue(value);
+  }, [value]);
 
   const handleChange = (event) => {
     const newValue = event.target.value;
 
     setDropdownValue(newValue);
     onChange(newValue);
+  };
+
+  const handleClose = () => {
+    onClose();
   };
 
   return (
@@ -29,6 +37,7 @@ const MultiDropdown = ({ className, items, label, error, helperText, onChange })
           displayEmpty
           multiple
           onChange={handleChange}
+          onClose={onClose ? handleClose : null}
         >
           {items.map((item) => (
             <MenuItem key={`dropdown-item-${item.value}`} value={item.value}>

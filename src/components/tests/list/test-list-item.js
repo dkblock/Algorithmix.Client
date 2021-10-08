@@ -9,7 +9,6 @@ import palette from "../../../utils/palette";
 
 const TestListItem = ({ test }) => {
   const { isAuthenticated } = useCurrentUser();
-  const algorithms = test.algorithms.map(a => a.name).join(", ");
 
   const handleTestStart = () => navigateToTestPass(test.id);
   const handleTestResult = () => navigateToTestResult(test.id);
@@ -19,7 +18,7 @@ const TestListItem = ({ test }) => {
       <section className="test-list-item__info">
         <span className="test-list-item__title">{test.name}</span>
         <div>
-          <span>Алгоритмы:</span> {algorithms}
+          <span>Алгоритмы:</span> {test.algorithms.map((a) => a.name).join(", ")}
         </div>
         <div>
           <span>Количество вопросов:</span> {test.questions.length}
@@ -60,9 +59,9 @@ const TestListItem = ({ test }) => {
           <CompletionResult value={test.averageResult} color="primary" size="large" label="Средний результат" />
         </>
       </section>
-      {/*<section className="test-list-item__image">*/}
-      {/*  <img className="w-100" src={getFileSrc(test.algorithm.imageUrl)} alt="test-image" />*/}
-      {/*</section>*/}
+      <section className="test-list-item__image">
+        <img className="w-100" src={getFileSrc(test.algorithms[0].imageUrl)} alt="test-image" />
+      </section>
     </div>
   );
 };

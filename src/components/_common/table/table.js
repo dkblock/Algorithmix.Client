@@ -3,7 +3,6 @@ import { DataGrid, ruRU } from "@mui/x-data-grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import palette from "../../../utils/palette";
 import prepareColumns from "./prepare-columns";
-import "./table.scss";
 
 const theme = createTheme({ palette }, ruRU);
 

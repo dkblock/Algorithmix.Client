@@ -4,11 +4,11 @@ import { useDebouncedCallback } from "use-debounce";
 import { showPublishTestModal, updateTest } from "../../../store/actions/test";
 import validator from "../../../utils/validation";
 import TextField from "../../_common/text-field";
-import Dropdown from "../../_common/dropdown";
+import { MultiDropdown } from "../../_common/dropdown";
 import Button, { colors } from "../../_common/button";
 import palette from "../../../utils/palette";
 
-const { validateName, validateTest } = validator.test;
+const { validateName, validateAlgorithmIds, validateTest } = validator.test;
 
 const TestSettings = () => {
   const dispatch = useDispatch();
@@ -17,11 +17,11 @@ const TestSettings = () => {
   const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, label: algorithm.name }));
 
   const [name, setName] = useState(test.name);
-  const [algorithmId, setAlgorithmId] = useState(test.algorithm.id);
+  const [algorithmIds, setAlgorithmIds] = useState(test.algorithms.map((a) => a.id));
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleUpdateTest = useDebouncedCallback(() => {
-    const updatedTest = { name, algorithmId };
+    const updatedTest = { name, algorithmIds };
     const { isValid } = validateTest(updatedTest);
 
     if (isValid) {
@@ -44,17 +44,29 @@ const TestSettings = () => {
     setValidationErrors({ ...validationErrors, name: validationError });
   }, [name, validationErrors]);
 
-  const handleAlgorithmIdChange = useCallback(
+  const handleAlgorithmIdsChange = useCallback(
     (value) => {
-      setAlgorithmId(value);
+      setAlgorithmIds(value);
+      setValidationErrors({ ...validationErrors, algorithmIds: null });
       handleUpdateTest();
     },
-    [handleUpdateTest]
+    [handleUpdateTest, validationErrors]
   );
+  const handleAlgorithmIdsClose = useCallback(() => {
+    const validationError = validateAlgorithmIds(algorithmIds);
+    setValidationErrors({ ...validationErrors, algorithmIds: validationError });
+  }, [algorithmIds]);
 
   const handlePublishTest = useCallback(() => {
-    dispatch(showPublishTestModal({ test }));
-  }, [dispatch, test]);
+    const testToPublish = { id: test.id, name, algorithmIds };
+    const { isValid, validationErrors: nextValidationErrors } = validateTest(testToPublish);
+
+    if (isValid) {
+      dispatch(showPublishTestModal({ test: testToPublish }));
+    } else {
+      setValidationErrors(nextValidationErrors);
+    }
+  }, [name, algorithmIds]);
 
   return (
     <div className="test-settings">
@@ -69,12 +81,15 @@ const TestSettings = () => {
           onFocus={handleNameFocus}
           onFocusOut={handleNameFocusOut}
         />
-        <Dropdown
+        <MultiDropdown
           className="form__control"
-          label="Алгоритм"
-          value={algorithmId}
+          label="Алгоритмы"
+          error={Boolean(validationErrors.algorithmIds)}
+          helperText={validationErrors.algorithmIds}
+          value={algorithmIds}
           items={algorithmItems}
-          onChange={handleAlgorithmIdChange}
+          onChange={handleAlgorithmIdsChange}
+          onClose={handleAlgorithmIdsClose}
         />
         <div>
           Статус:

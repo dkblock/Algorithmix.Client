@@ -5,8 +5,8 @@ import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchPublishedTests = createAsyncThunk("fetchPublishedTests", async () => {
-  const response = await testService.fetchPublishedTests();
+export const fetchPublishedTests = createAsyncThunk("fetchPublishedTests", async ({ searchText }) => {
+  const response = await testService.fetchPublishedTests(searchText);
 
   if (statusCode.ok(response)) {
     const tests = await response.json();

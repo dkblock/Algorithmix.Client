@@ -62,6 +62,7 @@ const CreateTestModal = () => {
         className="test-form__control"
         label="Алгоритмы"
         items={algorithmItems}
+        value={algorithmIds}
         error={Boolean(validationErrors.algorithmIds)}
         helperText={validationErrors.algorithmIds}
         onChange={handleAlgorithmIdsChange}

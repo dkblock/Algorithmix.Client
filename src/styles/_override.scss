@@ -23,7 +23,7 @@
   margin: 0 !important;
 }
 
-.MuiDataGrid-cell, .MuiDataGrid-colCell {
+.MuiDataGrid-cell, .MuiDataGrid-colCell, .MuiDataGrid-columnHeader {
   outline: none !important;
 }
 
@@ -33,6 +33,19 @@
 
 .MuiDataGrid-columnSeparator {
   display: none !important;
+}
+
+.MuiTablePagination-root {
+  overflow: unset !important;
+  box-shadow: 0 -2px 3px -1px rgba(224, 224, 224, 1);
+
+  p {
+    margin-bottom: 0 !important;
+  }
+}
+
+.MuiTableSortLabel-root {
+  font-weight: 700 !important;
 }
 
 .MuiTab-root {

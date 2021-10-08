@@ -29,7 +29,7 @@ const TestStats = () => {
           <div className="test-stats__info">
             <div className="test-stats__title">{test.name}</div>
             <div>
-              <span>Алгоритм:</span> {test.algorithm.name}
+              <span>Алгоритмы:</span> {test.algorithms.map(a => a.name).join(", ")}
             </div>
             <div>
               <span>Всего вопросов:</span> {test.questions.length}

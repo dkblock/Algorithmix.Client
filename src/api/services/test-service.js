@@ -2,8 +2,8 @@ import api from "../api";
 import baseService from "./base-service";
 
 const testService = {
-  fetchPublishedTests: async () => {
-    const url = api.tests.fetchPublishedTests();
+  fetchPublishedTests: async (searchText) => {
+    const url = api.tests.fetchPublishedTests(searchText);
     return await baseService.get(url);
   },
 

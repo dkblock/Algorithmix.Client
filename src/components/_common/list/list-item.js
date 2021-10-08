@@ -65,9 +65,9 @@ const ListItem = ({
       {onCheck && (
         <MuiListItemIcon>
           {checkControlType === "radio" ? (
-            <Radio value={checked} onChange={handleCheck} />
+            <Radio value={checked} label="" onChange={handleCheck} />
           ) : (
-            <Checkbox value={checked} onChange={handleCheck} />
+            <Checkbox value={checked} label="" onChange={handleCheck} />
           )}
         </MuiListItemIcon>
       )}

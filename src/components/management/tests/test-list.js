@@ -4,7 +4,7 @@ import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesigner, navigateToTestStats } from "../../../utils/navigator";
 import { getMomentFromNow } from "../../../utils/moment";
-import Table, { TableToolbar } from "../../_common/table";
+import Table from "../../_common/new-table";
 import { iconTypes } from "../../_common/icon";
 import Button, { colors } from "../../_common/button";
 import palette from "../../../utils/palette";
@@ -28,29 +28,29 @@ const getActions = (onTestEdit, onTestDelete) => [
 ];
 
 const columns = [
-  { field: "name", headerName: "Название", width: 250 },
+  { id: "name", label: "Название", width: 250 },
   {
-    field: "status",
-    headerName: "Статус",
+    id: "status",
+    label: "Статус",
     width: 150,
-    renderCell: ({ row }) => (
+    renderCell: (row) => (
       <span style={{ color: row.status ? palette.success.dark : palette.warning.dark, fontWeight: 600 }}>
         {row.status ? "Опубликован" : "Не опубликован"}
       </span>
     ),
   },
-  { field: "algorithmNames", headerName: "Алгоритмы" },
+  // { id: "algorithmNames", label: "Алгоритмы" },
   {
-    field: "questionsCount",
-    headerName: "Вопросы",
+    id: "questionsCount",
+    label: "Вопросы",
     headerAlign: "center",
     type: "number",
     width: 120,
-    renderCell: ({ row }) => <div className="table-cell--center">{row.questionsCount}</div>,
+    renderCell: (row) => <div className="table-cell--center">{row.questionsCount}</div>,
   },
-  { field: "createdBy", headerName: "Автор" },
-  { field: "createdDate", headerName: "Создан", type: "dateTime", renderCell: ({ row }) => row.createdDateInMoment },
-  { field: "updatedDate", headerName: "Изменён", type: "dateTime", renderCell: ({ row }) => row.updatedDateInMoment },
+  { id: "createdBy", label: "Автор" },
+  { id: "createdDate", label: "Создан", type: "dateTime", renderCell: (row) => row.createdDateInMoment },
+  { id: "updatedDate", label: "Изменён", type: "dateTime", renderCell: (row) => row.updatedDateInMoment },
 ];
 
 const prepareTests = (tests) =>
@@ -89,11 +89,11 @@ const TestList = () => {
   return (
     <Table
       toolbar={
-        <TableToolbar title="Тесты" count={tests.length}>
+        <Table.Toolbar title="Тесты" count={tests.length}>
           <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleTestCreate}>
             Новый тест
           </Button>
-        </TableToolbar>
+        </Table.Toolbar>
       }
       columns={columns}
       data={preparedTests}

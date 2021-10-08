@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MuiTextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import { Icon } from "../icon";
 import palette from "../../../utils/palette";
 
 const theme = createTheme({ palette });
@@ -14,6 +16,7 @@ const TextField = ({
   helperText,
   multiline,
   rows,
+  icon,
   onChange,
   onFocus,
   onFocusOut,
@@ -51,6 +54,17 @@ const TextField = ({
         InputLabelProps={{
           shrink: true,
         }}
+        InputProps={
+          icon
+            ? {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Icon type={icon} />
+                  </InputAdornment>
+                ),
+              }
+            : null
+        }
       />
     </ThemeProvider>
   );

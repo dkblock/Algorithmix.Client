@@ -20,6 +20,13 @@
   &__title-count {
     font-weight: 300;
   }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+  }
 }
 
 .table-toolbar-container {

@@ -5,13 +5,8 @@ import { Paper } from "@mui/material";
 import { useTitle } from "../../../hooks";
 import { fetchPublishedTests } from "../../../store/actions/test";
 import Loader from "../../_common/loader";
-import TableToolbar from "../../_common/table/table-toolbar";
-import TextField from "../../_common/text-field";
-import { iconTypes } from "../../_common/icon";
-import TestListItem from "./test-list-item";
-import "./test-list.scss";
 import TestListTable from "./test-list-table";
-import CollapsibleTable from "./test-list-table";
+import "./test-list.scss";
 
 const TestList = () => {
   const dispatch = useDispatch();
@@ -40,7 +35,7 @@ const TestList = () => {
         {isFetching ? (
           <Loader className="m-auto" />
         ) : tests.length > 0 ? (
-          <TestListTable tests={tests} />
+          <TestListTable tests={tests} searchText={searchText} onTestsSearch={handleSearchTextChange} />
         ) : (
           <div className="m-auto">Нет тестов</div>
         )}

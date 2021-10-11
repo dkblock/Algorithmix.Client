@@ -3,9 +3,11 @@ import { useCurrentUser } from "../../../hooks";
 import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigator";
 import Button, { colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
+import Checkbox from "../../_common/checkbox";
 import TextField from "../../_common/text-field";
 import Table from "../../_common/new-table";
 import palette from "../../../utils/palette";
+import TestListItem from "./test-list-item";
 
 const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
   { id: "name", label: "Название" },
@@ -41,10 +43,14 @@ const prepareTests = (tests) =>
     createdDate: new Date(test.createdDate).toLocaleDateString("ru-RU"),
     name: test.name,
     questionsCount: test.questions.length,
+    algorithms: test.algorithms,
+    questions: test.questions,
+    createdBy: test.createdBy,
+    averageResult: test.averageResult,
     userResult: test.userResult,
   }));
 
-const TestListTable = ({ tests }) => {
+const TestListTable = ({ tests, searchText, onTestsSearch }) => {
   const { isAuthenticated } = useCurrentUser();
 
   const handleTestStart = (id) => navigateToTestPass(id);
@@ -57,9 +63,17 @@ const TestListTable = ({ tests }) => {
     <Table
       columns={columns}
       data={preparedTests}
+      onRowExpand={(row) => <TestListItem test={row}/>}
       toolbar={
         <Table.Toolbar title="Тесты" count={preparedTests.length}>
-          <TextField value="" label="Поиск" onChange={() => {}} onFocus={() => {}} onFocusOut={() => {}} />
+          <Checkbox value={true} label="Только выполненные" onChange={() => {}} />
+          <TextField
+            value={searchText}
+            label="Поиск"
+            onChange={onTestsSearch}
+            onFocus={() => {}}
+            onFocusOut={() => {}}
+          />
         </Table.Toolbar>
       }
     />

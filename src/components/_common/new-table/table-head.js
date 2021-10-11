@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableSortLabel from "@mui/material/TableSortLabel";
 
-const EnhancedTableHead = ({ columns, order, orderBy, onRequestSort }) => {
+const EnhancedTableHead = ({ columns, order, orderBy, expandable, onRequestSort }) => {
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -12,6 +12,7 @@ const EnhancedTableHead = ({ columns, order, orderBy, onRequestSort }) => {
   return (
     <TableHead className="table-head">
       <TableRow>
+        {expandable && <TableCell style={{ width: 50 }} />}
         {columns.map((column) => (
           <TableCell
             key={column.id}

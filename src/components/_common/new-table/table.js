@@ -6,7 +6,7 @@ import TableRow from "./table-row";
 import { prepareColumns } from "./prepare-columns";
 import "./table.scss";
 
-const Table = ({ columns, data, toolbar, actions }) => {
+const Table = ({ columns, data, toolbar, actions, onRowExpand }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [selected, setSelected] = useState([]);
@@ -52,11 +52,22 @@ const Table = ({ columns, data, toolbar, actions }) => {
       {toolbar}
       <div className="table-body">
         <table className="w-100">
-          <TableHead columns={preparedColumns} order={order} orderBy={orderBy} onRequestSort={handleRequestSort} />
+          <TableHead
+            columns={preparedColumns}
+            order={order}
+            orderBy={orderBy}
+            expandable={Boolean(onRowExpand)}
+            onRequestSort={handleRequestSort}
+          />
           <tbody>
-          {data.map((row) => (
-            <TableRow row={row} columns={preparedColumns} onClick={handleClick} />
-          ))}
+            {data.map((row) => (
+              <TableRow
+                row={row}
+                columns={preparedColumns}
+                onExpand={onRowExpand}
+                onClick={handleClick}
+              />
+            ))}
           </tbody>
         </table>
       </div>

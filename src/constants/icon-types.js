@@ -1,6 +1,7 @@
 const iconTypes = {
   account: "account",
   algorithms: "algorithms",
+  arrowDown: "arrowDown",
   arrowLeft: "arrowLeft",
   arrowRight: "arrowRight",
   clear: "clear",

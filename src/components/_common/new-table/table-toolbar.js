@@ -8,7 +8,9 @@ const TableToolbar = ({ children, title, count }) => {
         <div className="table-toolbar__title">
           {title} {count ? <span className="table-toolbar__title-count">({count})</span> : ""}
         </div>
-        {children}
+        <div className="table-toolbar__actions">
+          {children}
+        </div>
       </div>
       <Divider />
     </div>

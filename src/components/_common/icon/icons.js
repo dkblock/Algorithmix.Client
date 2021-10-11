@@ -4,6 +4,7 @@ import iconTypes from "../../../constants/icon-types";
 const icons = {
   [iconTypes.account]: materialIcons.Person,
   [iconTypes.algorithms]: materialIcons.AccountTree,
+  [iconTypes.arrowDown]: materialIcons.KeyboardArrowUp,
   [iconTypes.arrowLeft]: materialIcons.NavigateBefore,
   [iconTypes.arrowRight]: materialIcons.NavigateNext,
   [iconTypes.clear]: materialIcons.Clear,

@@ -31,7 +31,7 @@ const EnhancedTableRow = ({ row, columns, onClick, onExpand }) => {
         sx={{ cursor: expandable ? "pointer" : "default" }}
       >
         {expandable && (
-          <TableCell style={{ width: 50 }}>
+          <TableCell width={75}>
             <IconButton
               type={isExpanded ? iconTypes.arrowDown : iconTypes.arrowRight}
               onClick={(e) => handleExpandIconClick(e)}
@@ -39,7 +39,7 @@ const EnhancedTableRow = ({ row, columns, onClick, onExpand }) => {
           </TableCell>
         )}
         {columns.map((column) => (
-          <TableCell align={column.align ?? "left"}>
+          <TableCell className="table-cell" align={column.align ?? "left"} width={column.width}>
             {column.renderCell ? column.renderCell(row) : row[column.id]}
           </TableCell>
         ))}

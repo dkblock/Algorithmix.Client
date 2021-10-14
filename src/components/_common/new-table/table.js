@@ -3,10 +3,11 @@ import TablePagination from "@mui/material/TablePagination";
 import TableHead from "./table-head";
 import TableToolbar from "./table-toolbar";
 import TableRow from "./table-row";
+import TableLoader from "./table-loader";
 import { prepareColumns } from "./prepare-columns";
 import "./table.scss";
 
-const Table = ({ columns, data, toolbar, actions, onRowExpand }) => {
+const Table = ({ columns, data, toolbar, actions, isFetching, onRowExpand }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
   const [selected, setSelected] = useState([]);
@@ -51,7 +52,7 @@ const Table = ({ columns, data, toolbar, actions, onRowExpand }) => {
     <div className="table-root">
       {toolbar}
       <div className="table-body">
-        <table className="w-100">
+        <table className={isFetching ? "w-100 h-100 table-main" : "w-100 table-main"}>
           <TableHead
             columns={preparedColumns}
             order={order}
@@ -60,14 +61,11 @@ const Table = ({ columns, data, toolbar, actions, onRowExpand }) => {
             onRequestSort={handleRequestSort}
           />
           <tbody>
-            {data.map((row) => (
-              <TableRow
-                row={row}
-                columns={preparedColumns}
-                onExpand={onRowExpand}
-                onClick={handleClick}
-              />
-            ))}
+            {isFetching && <TableLoader columns={preparedColumns} onRowExpand={onRowExpand} />}
+            {!isFetching &&
+              data.map((row) => (
+                <TableRow row={row} columns={preparedColumns} onExpand={onRowExpand} onClick={handleClick} />
+              ))}
           </tbody>
         </table>
       </div>

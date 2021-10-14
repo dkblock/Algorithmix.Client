@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.table-main {
+  table-layout: fixed;
+}
+
 .table-toolbar {
   display: flex;
   justify-content: space-between;
@@ -46,6 +50,13 @@
 .table-body {
   flex-grow: 1;
   overflow-y: auto;
+}
+
+.table-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: inherit !important;
 }
 
 .table-actions-cell {

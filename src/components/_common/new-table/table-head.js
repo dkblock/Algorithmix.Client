@@ -12,12 +12,14 @@ const EnhancedTableHead = ({ columns, order, orderBy, expandable, onRequestSort 
   return (
     <TableHead className="table-head">
       <TableRow>
-        {expandable && <TableCell style={{ width: 50 }} />}
+        {expandable && <TableCell width={75} />}
         {columns.map((column) => (
           <TableCell
             key={column.id}
+            className="table-cell"
             align={column.align ?? "left"}
             sortDirection={orderBy === column.id ? order : false}
+            width={column.width}
           >
             <TableSortLabel
               active={orderBy === column.id}

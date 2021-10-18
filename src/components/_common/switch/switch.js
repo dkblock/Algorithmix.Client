@@ -25,7 +25,7 @@ const Switch = ({ className, checked, label, onChange }) => {
       <FormControlLabel
         className={className}
         control={<MuiSwitch checked={isChecked} color={colors.primary} onChange={handleChange} />}
-        label={label}
+        label={label ?? ""}
       />
     </ThemeProvider>
   );

@@ -1,12 +1,11 @@
-.table {
-  border: none !important;
-  font-family: inherit !important;
+.table-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
-  &__actions-cell {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+.table-main {
+  table-layout: fixed;
 }
 
 .table-toolbar {
@@ -25,6 +24,13 @@
   &__title-count {
     font-weight: 300;
   }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 24px;
+  }
 }
 
 .table-toolbar-container {
@@ -33,10 +39,28 @@
   width: 100%;
 }
 
+.table-head {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 2px -1px rgba(224, 224, 224, 1);
+  z-index: 1;
+}
+
+.table-body {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
 .table-cell {
-  &--center {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: inherit !important;
+}
+
+.table-actions-cell {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

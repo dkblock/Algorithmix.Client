@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
 import { fetchUserTestResults, showDeleteUserTestResultModal } from "../../../store/actions/user-test-result";
 import { navigateToUserTestResult } from "../../../utils/navigator";
-import Table, { TableToolbar } from "../../_common/table";
+import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 
 const getActions = (onTestResultDelete) => [
@@ -20,17 +20,16 @@ const getActions = (onTestResultDelete) => [
 ];
 
 const columns = [
-  { field: "fullName", headerName: "Имя" },
-  { field: "groupName", headerName: "Группа" },
-  { field: "testName", headerName: "Тест" },
+  { id: "fullName", label: "Имя" },
+  { id: "groupName", label: "Группа" },
+  { id: "testName", label: "Тест", width: 450 },
   {
-    field: "result",
-    headerName: "Результат",
+    id: "result",
+    label: "Результат",
     headerAlign: "center",
-    type: "number",
-    renderCell: ({ row }) => <div className="table-cell--center">{row.result}%</div>,
+    renderCell: (row) => <div className="table-cell--center">{row.result}%</div>,
   },
-  { field: "passedDate", headerName: "Пройден", type: "dateTime" },
+  { id: "passedDate", label: "Пройден" },
 ];
 
 const prepareTestResults = (testResults) =>
@@ -42,7 +41,7 @@ const prepareTestResults = (testResults) =>
     groupName: result.user.group.name,
     testName: result.test.name,
     result: result.result,
-    passedDate: new Date(result.passingTime),
+    passedDate: new Date(result.passingTime).toLocaleDateString("ru-RU"),
   }));
 
 const UserTestResultList = () => {
@@ -61,10 +60,10 @@ const UserTestResultList = () => {
 
   const actions = useMemo(() => getActions(handleTestResultDelete), [handleTestResultDelete]);
   const preparedTestResults = useMemo(() => prepareTestResults(testResults), [testResults]);
-
+console.log(preparedTestResults)
   return (
     <Table
-      toolbar={<TableToolbar title="Результаты" count={testResults.length} />}
+      toolbar={<Table.Toolbar title="Результаты" count={testResults.length} />}
       columns={columns}
       data={preparedTestResults}
       actions={actions}

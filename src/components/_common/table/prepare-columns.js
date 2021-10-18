@@ -9,7 +9,7 @@ const getActionsCell = (actions, row) => {
   };
 
   return (
-    <div className="table__actions-cell">
+    <div className="table-actions-cell">
       {actions.map((action) => (
         <Tooltip key={action.label} title={action.label} placement="bottom">
           <IconButton type={action.icon} onClick={(e) => handleClick(e, action.onClick)} />
@@ -19,24 +19,18 @@ const getActionsCell = (actions, row) => {
   );
 };
 
-const prepareColumns = (columns, actions) => {
-  let preparedColumns = columns.map((column) => ({
-    ...column,
-    flex: column.width ? null : 1,
-    width: column.width,
-  }));
+export const prepareColumns = (columns, actions) => {
+  const preparedColumns = [...columns];
 
   if (actions)
     preparedColumns.push({
-      field: "TABLE_ACTIONS",
-      headerName: " ",
-      headerAlign: "center",
-      width: actions.length * 50,
+      id: "TABLE_ACTIONS",
+      label: "",
+      align: "center",
+      width: actions.length * 60,
       sortable: false,
-      renderCell: ({ row }) => getActionsCell(actions, row),
+      renderCell: (row) => getActionsCell(actions, row),
     });
 
   return preparedColumns;
 };
-
-export default prepareColumns;

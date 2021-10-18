@@ -4,7 +4,7 @@ import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesigner, navigateToTestStats } from "../../../utils/navigator";
 import { getMomentFromNow } from "../../../utils/moment";
-import Table from "../../_common/new-table";
+import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import Button, { colors } from "../../_common/button";
 import palette from "../../../utils/palette";
@@ -39,13 +39,12 @@ const columns = [
       </span>
     ),
   },
-  // { id: "algorithmNames", label: "Алгоритмы" },
   {
     id: "questionsCount",
     label: "Вопросы",
     headerAlign: "center",
     type: "number",
-    width: 120,
+    width: 150,
     renderCell: (row) => <div className="table-cell--center">{row.questionsCount}</div>,
   },
   { id: "createdBy", label: "Автор" },
@@ -58,7 +57,6 @@ const prepareTests = (tests) =>
     id: test.id,
     name: test.name,
     status: test.isPublished,
-    algorithmNames: test.algorithms.map(a => a.name).join(", "),
     questionsCount: test.questions.length,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
     createdDate: new Date(test.createdDate),

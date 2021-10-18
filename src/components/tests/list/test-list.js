@@ -5,14 +5,14 @@ import { Paper } from "@mui/material";
 import { useCurrentUser, useTitle } from "../../../hooks";
 import { fetchPublishedTests } from "../../../store/actions/test";
 import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigator";
-import "./test-list.scss";
 import TestListItem from "./test-list-item";
-import Table from "../../_common/new-table";
+import Table from "../../_common/table";
 import Checkbox from "../../_common/checkbox";
 import TextField from "../../_common/text-field";
 import Button, { colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
 import palette from "../../../utils/palette";
+import "./test-list.scss";
 
 const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
   { id: "name", label: "Название", width: 450 },
@@ -28,14 +28,25 @@ const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
     id: "actions",
     label: "",
     align: "right",
+    width: 200,
     renderCell: (row) =>
       isAuthenticated &&
       (row.userResult ? (
-        <Button color={colors.success} endIcon={iconTypes.stats} onClick={() => onTestResultClick(row.id)}>
+        <Button
+          className="w-100"
+          color={colors.success}
+          endIcon={iconTypes.stats}
+          onClick={() => onTestResultClick(row.id)}
+        >
           Результат
         </Button>
       ) : (
-        <Button color={colors.primary} endIcon={iconTypes.play} onClick={() => onTestStartClick(row.id)}>
+        <Button
+          className="w-100"
+          color={colors.primary}
+          endIcon={iconTypes.play}
+          onClick={() => onTestStartClick(row.id)}
+        >
           Начать тест
         </Button>
       )),

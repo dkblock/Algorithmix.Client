@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
 import { fetchUsers, showDeleteUserModal, updateUser } from "../../../store/actions/user";
 import { fetchGroups } from "../../../store/actions/group";
-import Table, { TableToolbar } from "../../_common/table";
+import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import AvatarCell from "./cells/avatar-cell";
 import GroupCell from "./cells/group-cell";
@@ -18,15 +18,15 @@ const getActions = (onUserDelete) => [
 ];
 
 const getColumns = (onUserUpdate) => [
-  { field: "avatar", headerName: " ", width: 64, renderCell: ({ row }) => <AvatarCell row={row} /> },
-  { field: "fullName", headerName: "Имя" },
-  { field: "email", headerName: "Email" },
+  { id: "avatar", label: " ", width: 64, renderCell: (row) => <AvatarCell row={row} /> },
+  { id: "fullName", label: "Имя" },
+  { id: "email", label: "Email" },
   {
-    field: "groupId",
-    headerName: "Группа",
-    renderCell: ({ row }) => <GroupCell row={row} onUserUpdate={onUserUpdate} />,
+    id: "groupId",
+    label: "Группа",
+    renderCell: (row) => <GroupCell row={row} onUserUpdate={onUserUpdate} />,
   },
-  { field: "role", headerName: "Роль", renderCell: ({ row }) => <RoleCell row={row} onUserUpdate={onUserUpdate} /> },
+  { id: "role", label: "Роль", renderCell: (row) => <RoleCell row={row} onUserUpdate={onUserUpdate} /> },
 ];
 
 const prepareUsers = (users) =>
@@ -70,7 +70,7 @@ const UserList = () => {
 
   return (
     <Table
-      toolbar={<TableToolbar title="Пользователи" count={users.length} />}
+      toolbar={<Table.Toolbar title="Пользователи" count={users.length} />}
       columns={columns}
       data={preparedUsers}
       actions={actions}

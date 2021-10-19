@@ -19,8 +19,11 @@ const getActionsCell = (actions, row) => {
   );
 };
 
-export const prepareColumns = (columns, actions) => {
-  const preparedColumns = [...columns];
+export const prepareColumns = (columns, actions, onSort) => {
+  const preparedColumns = columns.map((column) => ({
+    ...column,
+    sortable: Boolean(onSort) && column.sortable !== false,
+  }));
 
   if (actions)
     preparedColumns.push({

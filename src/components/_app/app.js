@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authenticate } from "../../store/actions/account";
 import { fetchAlgorithms } from "../../store/actions/algorithm";
+import { fetchGroups } from "../../store/actions/group";
 import routes from "../../utils/routes";
 import AppContent from "./app-content";
 import AppSidebar from "./app-sidebar";
@@ -16,6 +17,7 @@ const App = () => {
   useEffect(() => {
     dispatch(authenticate());
     dispatch(fetchAlgorithms());
+    dispatch(fetchGroups());
   }, [dispatch]);
 
   return (

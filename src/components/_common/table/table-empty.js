@@ -1,13 +1,12 @@
 import React from "react";
 import TableCell from "@mui/material/TableCell";
-import Loader from "../loader";
 
-const TableLoader = ({ columnsCount }) => (
+const TableEmpty = ({ emptyText, columnsCount }) => (
   <tr>
     <TableCell align="center" colSpan={columnsCount} sx={{ borderBottom: "none" }}>
-      <Loader />
+      <div className="mt-5">{emptyText ?? "Нет данных"}</div>
     </TableCell>
   </tr>
 );
 
-export default TableLoader;
+export default TableEmpty;

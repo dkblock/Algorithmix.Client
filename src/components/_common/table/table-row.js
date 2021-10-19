@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import Collapse from "@mui/material/Collapse";
 import { IconButton, iconTypes } from "../icon";
 
-const EnhancedTableRow = ({ row, columns, onClick, onExpand }) => {
+const EnhancedTableRow = ({ row, columns, onExpand }) => {
   const rowBorder = "1px solid rgba(224, 224, 224, 1)";
   const expandable = Boolean(onExpand);
 

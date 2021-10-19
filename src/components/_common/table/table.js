@@ -4,49 +4,40 @@ import TableHead from "./table-head";
 import TableToolbar from "./table-toolbar";
 import TableRow from "./table-row";
 import TableLoader from "./table-loader";
+import TableEmpty from "./table-empty";
 import { prepareColumns } from "./prepare-columns";
 import "./table.scss";
 
-const Table = ({ columns, data, toolbar, actions, isFetching, onRowExpand }) => {
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("calories");
-  const [selected, setSelected] = useState([]);
+const Table = ({
+  columns,
+  data,
+  toolbar,
+  actions,
+  isFetching,
+  emptyText,
+  sortBy,
+  sortDirection,
+  onSort,
+  onRowExpand,
+}) => {
+  const [orderBy, setOrderBy] = useState(sortBy);
+  const [order, setOrder] = useState(sortDirection);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(20);
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
+  const handleSort = (columnId) => {
+    const newOrder = orderBy === columnId && order === "asc" ? "desc" : "asc";
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
-    }
-
-    setSelected(newSelected);
+    setOrder(newOrder);
+    setOrderBy(columnId);
+    onSort({ sortBy: columnId, sortDirection: newOrder });
   };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const preparedColumns = prepareColumns(columns, actions);
+  const preparedColumns = prepareColumns(columns, actions, onSort);
+  const columnsCount = onRowExpand ? preparedColumns.length + 1 : preparedColumns.length;
 
   return (
     <div className="table-root">
@@ -58,14 +49,14 @@ const Table = ({ columns, data, toolbar, actions, isFetching, onRowExpand }) => 
             order={order}
             orderBy={orderBy}
             expandable={Boolean(onRowExpand)}
-            onRequestSort={handleRequestSort}
+            onSort={handleSort}
           />
           <tbody>
-            {isFetching && <TableLoader columns={preparedColumns} onRowExpand={onRowExpand} />}
+            {isFetching && <TableLoader columnsCount={columnsCount} />}
+            {!isFetching && data.length === 0 && <TableEmpty emptyText={emptyText} columnsCount={columnsCount} />}
             {!isFetching &&
-              data.map((row) => (
-                <TableRow row={row} columns={preparedColumns} onExpand={onRowExpand} onClick={handleClick} />
-              ))}
+              data.length > 0 &&
+              data.map((row) => <TableRow row={row} columns={preparedColumns} onExpand={onRowExpand} />)}
           </tbody>
         </table>
       </div>
@@ -73,10 +64,9 @@ const Table = ({ columns, data, toolbar, actions, isFetching, onRowExpand }) => 
         rowsPerPageOptions={[-1]}
         component="div"
         count={data.length}
-        rowsPerPage={rowsPerPage}
+        rowsPerPage={20}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </div>
   );

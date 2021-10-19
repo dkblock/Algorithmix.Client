@@ -4,16 +4,19 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchUserTestResults = createAsyncThunk("fetchUserTestResults", async () => {
-  const response = await userTestResultService.fetchTestResults();
+export const fetchUserTestResults = createAsyncThunk(
+  "fetchUserTestResults",
+  async ({ searchText, groupId, sortBy, sortDirection }) => {
+    const response = await userTestResultService.fetchTestResults(searchText, groupId, sortBy, sortDirection);
 
-  if (statusCode.ok(response)) {
-    const testResults = await response.json();
-    return { testResults, hasError: false };
+    if (statusCode.ok(response)) {
+      const testResults = await response.json();
+      return { testResults, hasError: false };
+    }
+
+    return { testResults: [], hasError: true };
   }
-
-  return { testResults: [], hasError: true };
-});
+);
 
 export const fetchUserTestResult = createAsyncThunk("fetchUserTestResult", async ({ testId, userId }) => {
   const response = await userTestResultService.fetchTestResult(testId, userId);

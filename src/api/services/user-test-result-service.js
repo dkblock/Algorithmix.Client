@@ -2,8 +2,15 @@ import api from "../api";
 import baseService from "./base-service";
 
 const userTestResultService = {
-  fetchTestResults: async () => {
-    const url = api.userTestResult.fetchTestResults();
+  fetchTestResults: async (searchText, groupId, sortBy, sortDirection) => {
+    const params = {
+      searchText,
+      groupId,
+      sortBy,
+      desc: sortDirection === "desc",
+    };
+
+    const url = api.userTestResult.fetchTestResults(params);
     return await baseService.get(url);
   },
 

@@ -28,7 +28,7 @@ const getActions = (onTestEdit, onTestDelete) => [
 ];
 
 const columns = [
-  { id: "name", label: "Название", width: 250 },
+  { id: "name", label: "Название", width: 450 },
   {
     id: "status",
     label: "Статус",

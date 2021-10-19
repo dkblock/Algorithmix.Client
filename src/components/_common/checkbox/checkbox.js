@@ -24,7 +24,7 @@ const Checkbox = ({ className, value, label, onChange, disabled = false }) => {
   return (
     <ThemeProvider theme={theme}>
       <FormControlLabel
-        label={label}
+        label={label ?? ""}
         control={
           <MuiCheckbox
             className={className}

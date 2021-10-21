@@ -12,7 +12,14 @@ import { hideModal } from "../../../store/actions/modal";
 import modalSizes from "../../../constants/modal-sizes";
 import "./modal.scss";
 
-const DeleteModal = ({ deleteText, deleteButtonText = "Удалить", size = modalSizes.small, title, onDelete }) => {
+const DeleteModal = ({
+  deleteText,
+  deleteButtonText = "Удалить",
+  size = modalSizes.small,
+  title,
+  actions,
+  onDelete,
+}) => {
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideModal());
 
@@ -26,12 +33,17 @@ const DeleteModal = ({ deleteText, deleteButtonText = "Удалить", size = m
         <Typography>{deleteText}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button type={buttonTypes.text} onClick={handleClose}>
-          Отмена
-        </Button>
-        <Button color={colors.danger} onClick={onDelete}>
-          {deleteButtonText}
-        </Button>
+        <div className="modal-common__actions">
+          {!!actions && actions}
+          <div className="modal-common__actions-buttons">
+            <Button type={buttonTypes.text} onClick={handleClose}>
+              Отмена
+            </Button>
+            <Button color={colors.danger} onClick={onDelete}>
+              {deleteButtonText}
+            </Button>
+          </div>
+        </div>
       </DialogActions>
     </Dialog>
   );

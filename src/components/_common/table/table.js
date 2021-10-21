@@ -56,7 +56,7 @@ const Table = ({
             {!isFetching && data.length === 0 && <TableEmpty emptyText={emptyText} columnsCount={columnsCount} />}
             {!isFetching &&
               data.length > 0 &&
-              data.map((row) => <TableRow row={row} columns={preparedColumns} onExpand={onRowExpand} />)}
+              data.map((row) => <TableRow key={row.id} row={row} columns={preparedColumns} onExpand={onRowExpand} />)}
           </tbody>
         </table>
       </div>

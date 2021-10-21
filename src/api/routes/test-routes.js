@@ -7,7 +7,7 @@ const testRoutes = {
   createTest: () => getRoute("tests"),
   deleteTest: (testId) => getRoute(`tests/${testId}`),
   updateTest: (testId) => getRoute(`tests/${testId}`),
-  publishTest: (testId) => getRoute(`tests/${testId}/publish`),
+  publishTest: (testId, params) => getRoute(`tests/${testId}/publish`, params),
 
   startTestPass: (testId) => getRoute(`tests/${testId}/pass`),
   fetchTestResult: (testId) => getRoute(`tests/${testId}/result`),

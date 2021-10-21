@@ -84,8 +84,8 @@ export const updateTest = createAsyncThunk("updateTest", async ({ testId, test }
   return { hasError: true };
 });
 
-export const publishTest = createAsyncThunk("publishTest", async ({ testId }, thunkAPI) => {
-  const response = await testService.publishTest(testId);
+export const publishTest = createAsyncThunk("publishTest", async ({ testId, clearTestResults }, thunkAPI) => {
+  const response = await testService.publishTest(testId, clearTestResults);
 
   if (statusCode.ok(response)) {
     thunkAPI.dispatch(hideModal());

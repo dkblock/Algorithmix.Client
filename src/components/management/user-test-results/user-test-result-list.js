@@ -40,7 +40,7 @@ const prepareTestResults = (testResults) =>
     id: `${result.test.id}__${result.user.id}`,
     testId: result.test.id,
     userId: result.user.id,
-    fullName: `${result.user.firstName} ${result.user.lastName}`,
+    fullName: `${result.user.lastName} ${result.user.firstName}`,
     groupName: result.user.group.name,
     testName: result.test.name,
     result: result.result,
@@ -63,38 +63,45 @@ const UserTestResultList = () => {
     dispatch(fetchUserTestResults({ searchText, groupId, sortBy, sortDirection }));
   }, [dispatch]);
 
-  const handleSearch = useDebouncedCallback(() => {
-    dispatch(fetchUserTestResults({ searchText, groupId, sortBy, sortDirection }));
-  }, 500);
+  const handleSearch = useCallback(
+    (params) => {
+      dispatch(fetchUserTestResults({ searchText, groupId, sortBy, sortDirection, ...params }));
+    },
+    [dispatch, searchText, groupId, sortBy, sortDirection]
+  );
 
-  const handleTestResultDelete = useCallback((testResult) => dispatch(showDeleteUserTestResultModal({ testResult })), [
-    dispatch,
-  ]);
+  const handleSearchDebounced = useDebouncedCallback((value) => {
+    handleSearch({ searchText: value });
+  }, 500);
 
   const handleSearchTextChange = useCallback(
     (value) => {
       setSearchText(value);
-      handleSearch();
+      handleSearchDebounced(value);
     },
-    [handleSearch, setSearchText]
+    [handleSearchDebounced, setSearchText]
   );
 
   const handleGroupIdChange = useCallback(
     (value) => {
       setGroupId(value);
-      handleSearch();
+      handleSearch({ groupId: value });
     },
-    [setGroupId]
+    [setGroupId, handleSearch]
   );
 
   const handleSort = useCallback(
     ({ sortBy: orderBy, sortDirection: sortOrder }) => {
       setSortBy(orderBy);
       setSortDirection(sortOrder);
-      handleSearch();
+      handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
     },
-    [setSortBy, setSortDirection]
+    [setSortBy, setSortDirection, handleSearch]
   );
+
+  const handleTestResultDelete = useCallback((testResult) => dispatch(showDeleteUserTestResultModal({ testResult })), [
+    dispatch,
+  ]);
 
   const actions = useMemo(() => getActions(handleTestResultDelete), [handleTestResultDelete]);
   const preparedTestResults = useMemo(() => prepareTestResults(testResults), [testResults]);

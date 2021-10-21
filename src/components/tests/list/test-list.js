@@ -19,10 +19,11 @@ const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
   {
     id: "status",
     label: "Статус",
+    width: 200,
     renderCell: (row) =>
       row.userResult ? <span style={{ color: palette.success.main }}>Выполнен</span> : "Не выполнен",
   },
-  { id: "questionsCount", label: "Вопросы" },
+  { id: "questionsCount", label: "Вопросы", align: "center" },
   { id: "createdDate", label: "Создан" },
   {
     id: "actions",

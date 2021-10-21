@@ -32,8 +32,10 @@ const testService = {
     return await baseService.put(url, updatedTest);
   },
 
-  publishTest: async (testId) => {
-    const url = api.tests.publishTest(testId);
+  publishTest: async (testId, clearTestResults) => {
+    const params = { clearTestResults };
+    const url = api.tests.publishTest(testId, params);
+
     return await baseService.get(url);
   },
 

@@ -24,7 +24,6 @@ const EnhancedTableRow = ({ row, columns, onExpand }) => {
   return (
     <>
       <TableRow
-        key={row.id}
         tabIndex={-1}
         hover
         onClick={(e) => handleRowClick(e)}
@@ -39,7 +38,7 @@ const EnhancedTableRow = ({ row, columns, onExpand }) => {
           </TableCell>
         )}
         {columns.map((column) => (
-          <TableCell className="table-cell" align={column.align ?? "left"} width={column.width}>
+          <TableCell key={column.id} className="table-cell" align={column.align ?? "left"} width={column.width}>
             {column.renderCell ? column.renderCell(row) : row[column.id]}
           </TableCell>
         ))}

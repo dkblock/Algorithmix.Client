@@ -1,29 +1,28 @@
 import React from "react";
-import { createTheme, ThemeProvider } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import palette from "../../../utils/palette";
-import "./completion-result.scss";
+import colors from "../../../constants/colors";
 
-const theme = createTheme({ palette });
+const sizes = {
+  "extra-small": 50,
+  "small": 75,
+  "medium": 100,
+  "large": 150,
+};
 
-const CompletionResult = ({ className, color = "primary", size = "medium", value, label }) => (
-  <ThemeProvider theme={theme}>
-    <div className={`completion-result ${className}`}>
-      <div className={className}>
-        <div className={`completion-result__back completion-result__back--${size}`} />
-        <CircularProgress
-          className={`completion-result__front--${size}`}
-          color={color}
-          variant="determinate"
-          value={value}
-        />
-      </div>
-      <div className="completion-result__info">
-        <span className="completion-result__label">{label}</span>
-        <span className="completion-result__result">{value}%</span>
-      </div>
-    </div>
-  </ThemeProvider>
+const CompletionResult = ({ className, size = "medium", color = colors.primary, value }) => (
+  <div className={className} style={{ width: `${sizes[size]}px` }}>
+    <CircularProgressbar
+      value={value}
+      text={`${value}%`}
+      styles={buildStyles({
+        strokeLinecap: "butt",
+        pathColor: palette[color].main,
+        textColor: palette[color].main,
+      })}
+    />
+  </div>
 );
 
 export default CompletionResult;

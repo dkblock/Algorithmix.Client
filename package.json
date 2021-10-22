@@ -54,6 +54,7 @@
     "prettier": "2.2.1",
     "prop-types": "15.7.2",
     "qs": "6.10.1",
+    "react-circular-progressbar": "2.0.4",
     "react-dropzone": "11.3.2",
     "react-material-ui-carousel": "2.2.2",
     "react-redux": "7.2.1",

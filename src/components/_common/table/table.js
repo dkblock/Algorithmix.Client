@@ -19,6 +19,7 @@ const Table = ({
   sortDirection,
   onSort,
   onRowExpand,
+  onPageChange,
 }) => {
   const [orderBy, setOrderBy] = useState(sortBy);
   const [order, setOrder] = useState(sortDirection);
@@ -60,14 +61,16 @@ const Table = ({
           </tbody>
         </table>
       </div>
-      <TablePagination
-        rowsPerPageOptions={[-1]}
-        component="div"
-        count={data.length}
-        rowsPerPage={20}
-        page={page}
-        onPageChange={handleChangePage}
-      />
+      {!!onPageChange && (
+        <TablePagination
+          rowsPerPageOptions={[-1]}
+          component="div"
+          count={data.length}
+          rowsPerPage={20}
+          page={page}
+          onPageChange={handleChangePage}
+        />
+      )}
     </div>
   );
 };

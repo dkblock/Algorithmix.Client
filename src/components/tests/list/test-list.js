@@ -7,7 +7,6 @@ import { fetchPublishedTests } from "../../../store/actions/test";
 import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigator";
 import TestListItem from "./test-list-item";
 import Table from "../../_common/table";
-import Checkbox from "../../_common/checkbox";
 import TextField from "../../_common/text-field";
 import Button, { colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
@@ -105,7 +104,6 @@ const TestList = () => {
           isFetching={isFetching}
           toolbar={
             <Table.Toolbar title="Тесты" count={preparedTests.length}>
-              <Checkbox value={true} label="Только выполненные" onChange={() => {}} />
               <TextField
                 value={searchText}
                 label="Поиск"

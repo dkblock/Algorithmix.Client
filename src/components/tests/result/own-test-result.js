@@ -6,8 +6,8 @@ import Paper from "@mui/material/Paper";
 import { useTitle } from "../../../hooks";
 import { fetchTestResult } from "../../../store/actions/test-pass";
 import Loader from "../../_common/loader";
-import CompletionResult from "../../_common/completion-result";
-import UserAnswer from "./user-answer";
+import UserTestResultInfo from "./user-test-result-info";
+import UserAnswersList from "./user-answers-list";
 import "./test-result.scss";
 
 const OwnTestResult = () => {
@@ -29,28 +29,9 @@ const OwnTestResult = () => {
   return (
     <div className="test-result-container">
       <Paper className="test-result">
-        <div className="test-result__main">
-          <div className="test-result__info">
-            <div className="test-result__title">{testResult.test.name}</div>
-            <div>
-              <span>Всего вопросов:</span> {testResult.test.questions.length}
-            </div>
-            <div>
-              <span>Правильных ответов:</span> {testResult.correctAnswers}
-            </div>
-          </div>
-          <CompletionResult value={testResult.result} color="success" size="large" label="Ваш результат" />
-        </div>
-        <div className="test-result__divider">
-          <Divider />
-        </div>
-        <div>
-          {testResult.userAnswers.map((userAnswer, index) => (
-            <div key={userAnswer.question.id}>
-              <UserAnswer userAnswer={userAnswer} questionOrder={index + 1} own />
-            </div>
-          ))}
-        </div>
+        <UserTestResultInfo testResult={testResult} own />
+        <Divider className="test-result__divider" />
+        <UserAnswersList testResult={testResult} own />
       </Paper>
     </div>
   );

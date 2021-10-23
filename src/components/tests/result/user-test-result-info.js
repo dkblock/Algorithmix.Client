@@ -31,7 +31,11 @@ const UserTestResultInfo = ({ testResult, own }) => (
         </tbody>
       </table>
     </div>
-    <CompletionResult value={testResult.result} color={own ? colors.success : colors.primary} size="medium" />
+    <CompletionResult
+      value={testResult.result}
+      label={own ? "Ваш результат" : "Результат"}
+      size="medium"
+    />
   </div>
 );
 

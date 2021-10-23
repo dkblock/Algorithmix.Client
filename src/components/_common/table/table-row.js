@@ -45,7 +45,10 @@ const EnhancedTableRow = ({ row, columns, onExpand }) => {
       </TableRow>
       {expandable && (
         <TableRow>
-          <TableCell sx={{ padding: 0, borderBottom: isExpanded ? rowBorder : "none" }} colSpan={columns.length + 1}>
+          <TableCell
+            sx={{ padding: 0, borderBottom: isExpanded ? rowBorder : "none", fontSize: "1rem" }}
+            colSpan={columns.length + 1}
+          >
             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
               {onExpand(row)}
             </Collapse>

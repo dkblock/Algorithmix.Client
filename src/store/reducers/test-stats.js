@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import { fetchTestStats } from "../actions/test-stats";
 
 const initialState = {
   test: null,
-  questions: [],
+  questionStats: [],
 
   isFetching: false,
   isSaving: false,
@@ -18,10 +18,10 @@ const testStatsSlice = createSlice({
     [fetchTestStats.pending]: (state) => {
       onPendingDefault(state);
     },
-    [fetchTestStats.fulfilled]: (state, { payload: { test, questions, hasError } }) => {
+    [fetchTestStats.fulfilled]: (state, { payload: { test, questionStats, hasError } }) => {
       onFulfilledDefault(state, hasError);
       state.test = test;
-      state.questions = questions;
+      state.questionStats = questionStats;
     },
     [fetchTestStats.rejected]: (state) => {
       onRejectedDefault(state);

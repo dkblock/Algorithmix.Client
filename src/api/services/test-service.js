@@ -17,6 +17,11 @@ const testService = {
     return await baseService.get(url);
   },
 
+  fetchTestStats: async (testId) => {
+    const url = api.tests.fetchTestStats(testId);
+    return await baseService.get(url);
+  },
+
   createTest: async (createdTest) => {
     const url = api.tests.createTest();
     return await baseService.post(url, createdTest);

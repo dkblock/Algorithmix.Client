@@ -1,10 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchTest } from "./test";
+import testService from "../../api/services/test-service";
+import statusCode from "../../utils/status-code-reader";
 
 export const fetchTestStats = createAsyncThunk("fetchTestStats", async ({ testId }, thunkAPI) => {
-  const {
-    payload: { test, questions, hasError },
-  } = await thunkAPI.dispatch(fetchTest({ testId }));
+  const response = await testService.fetchTestStats(testId);
 
-  return { test, questions, hasError };
+  if (statusCode.ok(response)) {
+    const { test, questionStats } = await response.json();
+    return { test, questionStats, hasError: false };
+  }
+
+  return { hasError: true };
 });

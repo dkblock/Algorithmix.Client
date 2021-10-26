@@ -9,6 +9,7 @@ import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import TextField from "../../_common/text-field";
 import { Dropdown } from "../../_common/dropdown";
+import CompletionResult from "../../_common/completion-result";
 
 const getActions = (onTestResultDelete) => [
   {
@@ -26,11 +27,12 @@ const getActions = (onTestResultDelete) => [
 const columns = [
   { id: "fullName", label: "Имя", width: 300 },
   { id: "groupName", label: "Группа", width: 200 },
-  { id: "testName", label: "Тест", width: 450 },
+  { id: "testName", label: "Тест", width: 350 },
   {
     id: "result",
     label: "Результат",
-    renderCell: (row) => <div className="table-cell--center">{row.result}%</div>,
+    align: "center",
+    renderCell: ({ result }) => <CompletionResult value={result} size="extra-small" />,
   },
   { id: "passingTime", label: "Пройден" },
 ];

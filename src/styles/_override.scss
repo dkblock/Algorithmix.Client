@@ -55,3 +55,11 @@
 .MuiTypography-root {
   font-family: inherit !important;
 }
+
+.MuiLinearProgress {
+  &-root {
+    height: 8px !important;
+    margin-top: 4px !important;
+    border-radius: 8px !important;
+  }
+}

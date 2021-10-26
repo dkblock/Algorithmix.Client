@@ -12,7 +12,7 @@ const columns = [
     id: "averageResult",
     label: "Средний результат",
     align: "center",
-    renderCell: (row) => <CompletionResult value={row.averageResult} size="extra-small" />,
+    renderCell: ({ averageResult }) => <CompletionResult value={averageResult} size="extra-small" />,
   },
 ];
 

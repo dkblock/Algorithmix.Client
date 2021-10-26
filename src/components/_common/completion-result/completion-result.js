@@ -5,7 +5,7 @@ import palette from "../../../utils/palette";
 import colors from "../../../constants/colors";
 import "./completion-result.scss";
 
-const getColor = (value) => (value === 100 ? colors.success : value > 50 ? colors.primary : colors.danger);
+const getColor = (value) => (value === 100 ? colors.success : value >= 50 ? colors.primary : colors.danger);
 
 const sizes = {
   "extra-small": 60,
@@ -14,11 +14,11 @@ const sizes = {
   large: 150,
 };
 
-const CompletionResult = ({ className, size = "medium", color, value, label }) => {
+const CompletionResult = ({ size = "medium", color, value, label }) => {
   const resultColor = color ?? getColor(value);
 
   return (
-    <div className={`${className} completion-result`}>
+    <div className="completion-result">
       <div style={{ width: `${sizes[size]}px` }}>
         <CircularProgressbar
           value={value}

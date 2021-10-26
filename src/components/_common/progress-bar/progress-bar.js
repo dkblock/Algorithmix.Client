@@ -6,6 +6,19 @@ import palette from "../../../utils/palette";
 
 const theme = createTheme({ palette });
 
-const ProgressBar = ({ value, label }) => <MuiLinearProgress value={value} variant="determinate" />;
+const ProgressBar = ({ value, maxValue, color = colors.primary, label }) => {
+  const progressBarValue = Math.floor((value / maxValue) * 100) ;
+
+  return (
+    <ThemeProvider theme={theme}>
+      <div>
+        <div>
+          <span style={{ fontWeight: 600 }}>{label}</span> - {`${value} (${progressBarValue}%)`}
+        </div>
+        <MuiLinearProgress value={maxValue === 0 ? 0 : progressBarValue} color={color} variant="determinate" />
+      </div>
+    </ThemeProvider>
+  );
+};
 
 export default ProgressBar;

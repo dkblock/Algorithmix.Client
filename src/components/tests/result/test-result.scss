@@ -54,7 +54,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 12px 24px;
+  padding: 12px;
   border-bottom: $panel-border;
 
   &__title {
@@ -66,14 +66,26 @@
   }
 
   &__header {
-    font-weight: 600;
-    margin-top: 24px;
+    width: 100%;
+
+    span {
+      font-weight: 600;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+  }
+
+  &__question {
+    width: 100%;
+    line-height: 1.5rem;
+
+    span {
+      font-weight: 600;
+    }
   }
 
   &__image-container {
@@ -100,6 +112,6 @@
   &__answers {
     display: flex;
     flex-direction: column;
-    margin: 12px 0;
+    margin: 12px -12px;
   }
 }

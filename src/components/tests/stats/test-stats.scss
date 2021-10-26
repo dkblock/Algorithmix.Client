@@ -55,8 +55,9 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 12px 24px;
+  padding: 12px;
   border-bottom: $panel-border;
+  gap: 24px;
 
   &__title {
     display: flex;
@@ -71,14 +72,24 @@
     margin-top: 24px;
   }
 
-  &__info {
+  &__info-container {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
 
+  &__question {
+    width: 100%;
+    line-height: 1.5rem;
+
+    span {
+      font-weight: 600;
+    }
+  }
+
   &__image-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     width: 30%;
   }
@@ -88,26 +99,10 @@
     border-radius: 4px;
   }
 
-  &__answer-list-container {
-    display: flex;
-    flex-grow: 1;
-  }
-
-  &__answer-list {
-    width: 50%;
-  }
-
-  &__answers {
-    display: flex;
-    flex-direction: column;
-    margin: 12px 0;
-  }
-
   &__stats {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    margin: 24px 0;
+    gap: 16px;
     width: 50%;
 
     span {

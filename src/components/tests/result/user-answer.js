@@ -16,7 +16,10 @@ const UserAnswer = ({ userAnswer, own }) => {
   return (
     <div className="test-result-user-answer">
       <div className="test-result-user-answer__info">
-        <div>{question.value}</div>
+        <div className="test-result-user-answer__question">
+          <span>Вопрос:</span> {question.value}
+        </div>
+        <hr className="w-100"/>
         <div className="test-result-user-answer__answer-list-container">
           <TestAnswerList
             answers={question.answers}

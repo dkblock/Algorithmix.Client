@@ -39,17 +39,10 @@ const columns = [
       </span>
     ),
   },
-  {
-    id: "questionsCount",
-    label: "Вопросы",
-    headerAlign: "center",
-    type: "number",
-    width: 150,
-    renderCell: (row) => <div className="table-cell--center">{row.questionsCount}</div>,
-  },
+  { id: "questionsCount", label: "Вопросы", align: "center", width: 175 },
   { id: "createdBy", label: "Автор" },
-  { id: "createdDate", label: "Создан", type: "dateTime", renderCell: (row) => row.createdDateInMoment },
-  { id: "updatedDate", label: "Изменён", type: "dateTime", renderCell: (row) => row.updatedDateInMoment },
+  { id: "createdDate", label: "Создан", renderCell: ({ createdDateInMoment }) => createdDateInMoment },
+  { id: "updatedDate", label: "Изменён", renderCell: ({ updatedDateInMoment }) => updatedDateInMoment },
 ];
 
 const prepareTests = (tests) =>

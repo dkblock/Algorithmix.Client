@@ -4,7 +4,7 @@ import TextField from "../../../../_common/text-field";
 
 const { validateAnswerValue } = validator.testAnswer;
 
-const TestAnswerListItem = ({ answer, onAnswerValueChange }) => {
+const TestAnswerListItem = ({ answer, label = "Ответ", onAnswerValueChange, onAnswerValueFocusOut }) => {
   const [answerValue, setAnswerValue] = useState(answer.value);
   const [error, setError] = useState(null);
 
@@ -28,13 +28,14 @@ const TestAnswerListItem = ({ answer, onAnswerValueChange }) => {
   const handleAnswerValueFocusOut = useCallback(() => {
     const validationError = validateAnswerValue(answerValue);
     setError(validationError);
+    onAnswerValueFocusOut(answer.id, answerValue);
   }, [answerValue]);
 
   return (
     <div className="test-answer-list__item">
       <TextField
         className="w-100"
-        label="Ответ"
+        label={label}
         error={Boolean(error)}
         helperText={error}
         value={answerValue}

@@ -2,22 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import Button, { buttonTypes, colors } from "../../../../_common/button";
 import { iconTypes } from "../../../../_common/icon";
 import { SortableList } from "../../../../_common/list";
-import TestAnswerListItem from "./test-answer-list-item";
-
-const prepareAnswers = (answers, onAnswerValueChange, onAnswerDelete) =>
-  answers.map((answer) => ({
-    id: answer.id,
-    checked: answer.isCorrect,
-    content: <TestAnswerListItem answer={answer} onAnswerValueChange={onAnswerValueChange} />,
-    actions: [
-      {
-        id: "delete",
-        label: "Удалить",
-        icon: iconTypes.delete,
-        onClick: () => onAnswerDelete(answer.id),
-      },
-    ],
-  }));
+import { prepareAnswers } from "./prepare-answers";
 
 const MultiTestAnswerList = ({
   answers,
@@ -25,6 +10,7 @@ const MultiTestAnswerList = ({
   onAnswerCreate,
   onAnswerDelete,
   onAnswerValueChange,
+  onAnswerValueFocusOut,
   onIsCorrectAnswerChange,
   onAnswerMove,
 }) => {
@@ -44,11 +30,10 @@ const MultiTestAnswerList = ({
     [answers, correctAnswerIds, onIsCorrectAnswerChange]
   );
 
-  const preparedAnswers = useMemo(() => prepareAnswers(answers, onAnswerValueChange, onAnswerDelete), [
-    answers,
-    onAnswerDelete,
-    onAnswerValueChange,
-  ]);
+  const preparedAnswers = useMemo(
+    () => prepareAnswers(answers, onAnswerValueChange, onAnswerValueFocusOut, onAnswerDelete),
+    [answers, onAnswerDelete, onAnswerValueChange, onAnswerValueFocusOut]
+  );
 
   return (
     <div className="test-answer-list">

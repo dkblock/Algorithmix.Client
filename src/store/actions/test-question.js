@@ -32,7 +32,7 @@ export const fetchTestQuestion = createAsyncThunk("fetchTestQuestion", async ({ 
   return { question: null, answers: [], hasError: true };
 });
 
-export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, count }, thunkAPI) => {
+export const createTestQuestion = createAsyncThunk("createTestQuestion", async ({ testId, count }) => {
   const response = await testQuestionService.createQuestion(testId, {
     value: `Вопрос ${count + 1}`,
     type: testQuestionTypes.singleAnswerQuestion,

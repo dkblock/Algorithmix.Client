@@ -46,6 +46,11 @@ const TestQuestionList = () => {
     [dispatch, test.id]
   );
 
+  const handleQuestionCreate = useCallback(
+    () => dispatch(createTestQuestion({ testId: test.id, count: questions.length })),
+    [dispatch, test.id, questions.length]
+  );
+
   const handleQuestionDelete = useCallback(
     (questionId) => {
       dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId }));
@@ -62,17 +67,6 @@ const TestQuestionList = () => {
       }
     },
     [isSaving, orderedQuestions, dispatch, test.id]
-  );
-
-  const handleQuestionCreate = useCallback(
-    () =>
-      dispatch(
-        createTestQuestion({
-          testId: test.id,
-          count: questions.length,
-        })
-      ),
-    [dispatch, test.id, questions.length]
   );
 
   const preparedQuestions = useMemo(

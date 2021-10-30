@@ -22,6 +22,7 @@ const questionTypeItems = [
 const TestQuestionDesigner = () => {
   const dispatch = useDispatch();
   const { test, question, isQuestionFetching } = useSelector((state) => state.testDesign);
+
   const { id: testId } = test;
   const { id: questionId } = question;
 
@@ -34,25 +35,34 @@ const TestQuestionDesigner = () => {
     setType(question.type);
   }, [question]);
 
-  const handleUpdateQuestion = useDebouncedCallback(() => {
-    const updatedQuestion = { ...question, value, type };
-    const { isValid } = validateQuestion(updatedQuestion);
+  const handleUpdateQuestion = useCallback(
+    (params) => {
+      const updatedQuestion = { ...question, testId, value, type, ...params };
+      const { isValid } = validateQuestion(updatedQuestion);
 
-    if (isValid) {
-      dispatch(updateTestQuestion({ testId, questionId, question: { ...updatedQuestion, testId } }));
-    }
-  }, 1000);
+      if (isValid) {
+        dispatch(updateTestQuestion({ testId, questionId, question: updatedQuestion }));
+      }
+    },
+    [dispatch, testId, questionId, value, type]
+  );
+
+  const handleUpdateQuestionValueDebounced = useDebouncedCallback((value) => {
+    handleUpdateQuestion({ value });
+  }, 500);
 
   const handleQuestionValueChange = useCallback(
     (newValue) => {
       setValue(newValue);
-      handleUpdateQuestion();
+      handleUpdateQuestionValueDebounced(newValue);
     },
-    [handleUpdateQuestion]
+    [handleUpdateQuestionValueDebounced]
   );
+
   const handleQuestionValueFocus = useCallback(() => setValidationErrors({ ...validationErrors, value: null }), [
     validationErrors,
   ]);
+
   const handleQuestionValueFocusOut = useCallback(() => {
     const validationError = validateQuestionValue(value);
     setValidationErrors({ ...validationErrors, value: validationError });
@@ -61,7 +71,7 @@ const TestQuestionDesigner = () => {
   const handleQuestionTypeChange = useCallback(
     (newValue) => {
       setType(newValue);
-      handleUpdateQuestion();
+      handleUpdateQuestion({ type: newValue });
     },
     [handleUpdateQuestion]
   );

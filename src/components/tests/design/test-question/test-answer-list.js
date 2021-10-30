@@ -8,7 +8,7 @@ import {
   updateTestAnswer,
 } from "../../../../store/actions/test-answer";
 import validator from "../../../../utils/validation";
-import testAnswerListTypes from "./test-answer-lists";
+import testAnswerListTypes from "./answer-lists";
 
 const { validateAnswer } = validator.testAnswer;
 
@@ -27,23 +27,33 @@ const TestAnswerList = () => {
     setCorrectAnswerIds(answers.filter((answer) => answer.isCorrect).map((answer) => answer.id));
   }, [answers]);
 
-  const handleAnswerCreate = useCallback(() => {
+  const handleCreateAnswer = useCallback(() => {
     dispatch(createTestAnswer({ testId, questionId, count: answers.length }));
   }, [answers.length, dispatch, questionId, testId]);
 
-  const handleAnswerDelete = useCallback((answerId) => dispatch(deleteTestAnswer({ testId, questionId, answerId })), [
+  const handleDeleteAnswer = useCallback((answerId) => dispatch(deleteTestAnswer({ testId, questionId, answerId })), [
     dispatch,
     questionId,
     testId,
   ]);
 
-  const handleAnswerUpdate = useDebouncedCallback((updatedAnswer) => {
-    const { isValid } = validateAnswer(updatedAnswer);
+  const handleUpdateAnswer = useCallback(
+    (answerId, params) => {
+      const answer = orderedAnswers.find((ans) => ans.id === answerId);
+      const updatedAnswer = { ...answer, questionId, ...params };
 
-    if (isValid) {
-      dispatch(updateTestAnswer({ testId, questionId, answer: { ...updatedAnswer, questionId } }));
-    }
-  }, 1000);
+      const { isValid } = validateAnswer(updatedAnswer);
+
+      if (isValid) {
+        dispatch(updateTestAnswer({ testId, questionId, answer: updatedAnswer }));
+      }
+    },
+    [dispatch, orderedAnswers]
+  );
+
+  const handleUpdateAnswerValueDebounced = useDebouncedCallback(({ answerId, value }) => {
+    handleUpdateAnswer(answerId, { value });
+  }, 500);
 
   const handleAnswerValueChange = useCallback(
     (answerId, newValue) => {
@@ -52,10 +62,18 @@ const TestAnswerList = () => {
         value: answer.id === answerId ? newValue : answer.value,
       }));
 
-      const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
-      handleAnswerUpdate(answer);
+      setOrderedAnswers(newOrderedAnswers);
+      handleUpdateAnswerValueDebounced({ answerId, value: newValue });
     },
-    [handleAnswerUpdate, orderedAnswers]
+    [handleUpdateAnswerValueDebounced, orderedAnswers]
+  );
+
+  const handleAnswerValueFocusOut = useCallback(
+    (answerId, value) => {
+      handleUpdateAnswerValueDebounced.cancel();
+      handleUpdateAnswer(answerId, { value });
+    },
+    [orderedAnswers]
   );
 
   const handleIsCorrectAnswerChange = useCallback(
@@ -64,9 +82,9 @@ const TestAnswerList = () => {
       setCorrectAnswerIds(newCorrectAnswerIds);
 
       const answer = newOrderedAnswers.find((ans) => ans.id === answerId);
-      handleAnswerUpdate(answer);
+      handleUpdateAnswer(answerId, { isCorrect: answer.isCorrect });
     },
-    [handleAnswerUpdate]
+    [handleUpdateAnswer]
   );
 
   const handleAnswerMove = useCallback(
@@ -74,13 +92,7 @@ const TestAnswerList = () => {
       if (!isSaving && oldIndex !== newIndex) {
         const newOrderedAnswers = newAnswers.map(({ id }) => orderedAnswers.find((a) => a.id === id));
         setOrderedAnswers(newOrderedAnswers);
-        dispatch(
-          moveTestAnswer({
-            testId,
-            questionId,
-            indexes: { oldIndex, newIndex },
-          })
-        );
+        dispatch(moveTestAnswer({ testId, questionId, indexes: { oldIndex, newIndex } }));
       }
     },
     [dispatch, isSaving, orderedAnswers, questionId, testId]
@@ -92,9 +104,10 @@ const TestAnswerList = () => {
     <SpecificTestAnswerList
       answers={orderedAnswers}
       correctAnswerIds={correctAnswerIds}
-      onAnswerCreate={handleAnswerCreate}
-      onAnswerDelete={handleAnswerDelete}
+      onAnswerCreate={handleCreateAnswer}
+      onAnswerDelete={handleDeleteAnswer}
       onAnswerValueChange={handleAnswerValueChange}
+      onAnswerValueFocusOut={handleAnswerValueFocusOut}
       onIsCorrectAnswerChange={handleIsCorrectAnswerChange}
       onAnswerMove={handleAnswerMove}
     />

@@ -2,8 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTitle } from "../../hooks";
-import constructor from "../../constants/constructor";
+import algorithmsData from "../../constants/algorithms-data";
 import { getFileSrc } from "../../utils/get-file-src";
+
+const { constructor } = algorithmsData;
 
 const ConstructorAlgorithm = () => {
   const { algorithmId } = useParams();
@@ -16,7 +18,7 @@ const ConstructorAlgorithm = () => {
     <iframe
       style={{ width: "100%", backgroundColor: "#FFFFFF" }}
       frameBorder={0}
-      src={getFileSrc(constructor[algorithmId])}
+      src={getFileSrc(constructor(algorithmId))}
       title="constructor"
     />
   );

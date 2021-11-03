@@ -3,15 +3,12 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTitle } from "../../hooks";
 import Paper from "@mui/material/Paper";
-import algorithmDescriptions from "./descriptions";
+import Iframe from "../_common/iframe";
+import AlgorithmTimeComplexity from "./algorithm-time-complexity";
+import algorithmsData from "../../constants/algorithms-data";
+import { getFileSrc } from "../../utils/get-file-src";
 
-const DescriptionComponent = (props) => {
-  const { algorithm, component: PassedComponent } = props;
-
-  if (!PassedComponent) return null;
-
-  return <PassedComponent algorithm={algorithm} />;
-};
+const { description } = algorithmsData;
 
 const AlgorithmDescription = () => {
   const { id } = useParams();
@@ -22,11 +19,11 @@ const AlgorithmDescription = () => {
 
   if (!algorithm) return null;
 
-  const component = algorithmDescriptions[id];
-
   return (
     <Paper className="algorithm-description">
-      <DescriptionComponent algorithm={algorithm} component={component} />
+      {/*<DescriptionComponent algorithm={algorithm} component={component} />*/}
+      <AlgorithmTimeComplexity complexity={algorithm.timeComplexity} />
+      <Iframe src={getFileSrc(description(algorithm.id))} />
     </Paper>
   );
 };

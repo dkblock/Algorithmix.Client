@@ -20,7 +20,7 @@ const GroupCell = ({ row, onUserUpdate }) => {
     [onUserUpdate, row.id]
   );
 
-  return <Dropdown className="w-100" value={groupId} items={groupItems} onChange={handleGroupIdChange} />;
+  return <Dropdown className="w-100" value={groupId} items={groupItems} label="Группа" onChange={handleGroupIdChange} />;
 };
 
 export default GroupCell;

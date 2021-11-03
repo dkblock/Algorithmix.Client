@@ -12,11 +12,7 @@ const IsAvailableForRegisterCell = ({ row, onGroupUpdate }) => {
     [onGroupUpdate, row]
   );
 
-  return (
-    <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <Switch checked={isAvailableForRegister} onChange={handleIsAvailableForRegisterChange} />
-    </div>
-  );
+  return <Switch checked={isAvailableForRegister} onChange={handleIsAvailableForRegisterChange} />;
 };
 
 export default IsAvailableForRegisterCell;

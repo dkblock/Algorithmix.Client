@@ -22,7 +22,7 @@ const RoleCell = ({ row, onUserUpdate }) => {
   );
 
   return currentUser.id !== row.id ? (
-    <Dropdown className="w-100" value={role} items={roleItems} onChange={handleRoleChange} />
+    <Dropdown className="w-100" value={role} items={roleItems} label="Роль" onChange={handleRoleChange} />
   ) : (
     roleItems.find((item) => item.value === role).label
   );

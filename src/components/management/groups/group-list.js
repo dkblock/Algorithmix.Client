@@ -18,10 +18,11 @@ const getActions = (onGroupDelete) => [
 const getColumns = (onGroupUpdate) => [
   { id: "id", label: "Id" },
   { id: "name", label: "Группа" },
-  { id: "usersCount", label: "Количество пользователей" },
+  { id: "usersCount", label: "Количество пользователей", align: "center" },
   {
     id: "isAvailableForRegister",
     label: "Доступна для регистрации",
+    align: "center",
     renderCell: (row) => <IsAvailableForRegisterCell row={row} onGroupUpdate={onGroupUpdate} />,
   },
 ];

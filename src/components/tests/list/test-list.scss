@@ -32,48 +32,48 @@
 
 .test-list-item {
   display: flex;
-  align-items: center;
   width: 100%;
   padding: 18px;
+  gap: 48px;
   border-bottom: $panel-border;
-  gap: 32px;
 
   &__title {
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     font-size: 20px;
+  }
+
+  &__info-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
 
   &__info {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
+  }
+
+  &__info-main {
+    display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 25%;
 
     span {
       font-weight: 600;
     }
   }
 
-  &__status {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 400;
-    width: 25%;
-  }
-
   &__result {
     display: flex;
-    flex-direction: column;
-    position: relative;
+    justify-content: space-between;
     gap: 24px;
-    width: 25%;
   }
 
-  &__image {
-    width: 25%;
+  &__image-container {
+    width: 20%;
     border: $panel-border;
     border-radius: 4px;
   }

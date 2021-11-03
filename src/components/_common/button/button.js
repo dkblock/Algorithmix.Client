@@ -9,7 +9,7 @@ import "./button.scss";
 
 const theme = createTheme({ palette });
 
-const Button = ({ className, type, color, startIcon, endIcon, onClick, children }) => {
+const Button = ({ className, type, color, startIcon, endIcon, disabled, onClick, children }) => {
   const buttonType = type ?? buttonTypes.contained;
   const buttonColor = color ?? colors.primary;
 
@@ -22,6 +22,7 @@ const Button = ({ className, type, color, startIcon, endIcon, onClick, children 
         onClick={onClick}
         startIcon={startIcon ? <Icon type={startIcon} /> : null}
         endIcon={endIcon ? <Icon type={endIcon} /> : null}
+        disabled={disabled}
       >
         {children}
       </MuiButton>

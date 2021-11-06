@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { fetchAlgorithms } from "../actions/algorithm";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import { createAlgorithm, deleteAlgorithm, fetchAlgorithms } from "../actions/algorithm";
 
 const initialState = {
   algorithms: [],
@@ -22,6 +22,33 @@ const algorithmSlice = createSlice({
     [fetchAlgorithms.rejected]: (state) => {
       onRejectedDefault(state);
       state.algorithms = [];
+    },
+
+    [createAlgorithm.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [createAlgorithm.fulfilled]: (state, { payload: { createdAlgorithm, validationErrors, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+
+      if (!hasError) {
+        state.algorithms = [...state.algorithms, createdAlgorithm];
+      } else {
+        state.validationErrors = validationErrors;
+      }
+    },
+    [createAlgorithm.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [deleteAlgorithm.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [deleteAlgorithm.fulfilled]: (state, { payload: { algorithmId, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      state.algorithms = state.algorithms.filter((algorithm) => algorithm.id !== algorithmId);
+    },
+    [deleteAlgorithm.rejected]: (state) => {
+      onRejectedDefault(state);
     },
   },
 });

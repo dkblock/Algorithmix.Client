@@ -25,6 +25,7 @@ const routes = {
 
   management: {
     main: "/management",
+    algorithms: "/management/algorithms",
     tests: "/management/tests",
     testResults: "/management/user-test-results",
     users: "/management/users",

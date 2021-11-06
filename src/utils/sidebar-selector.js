@@ -2,7 +2,8 @@ import routes from "./routes";
 
 const sidebarSelector = {
   home: (currentRoute) => currentRoute === "/" || currentRoute.includes(routes.home),
-  algorithms: (currentRoute) => currentRoute.includes(routes.algorithms),
+  algorithms: (currentRoute) =>
+    currentRoute.includes(routes.algorithms) && !currentRoute.includes(routes.management.main),
   constructor: (currentRoute) => currentRoute.includes(routes.constructor.main),
   tests: (currentRoute) =>
     currentRoute.includes(routes.tests.main) &&

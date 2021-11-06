@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Paper } from "@mui/material";
 import {
+  navigateToAlgorithmsManagement,
   navigateToGroupsManagement,
   navigateToTestResultsManagement,
   navigateToTestsManagement,
@@ -10,6 +11,7 @@ import {
 import routes from "../../utils/routes";
 import ExecutiveRoute from "../_common/route/executive-route";
 import TabPanel from "../_common/tab-panel";
+import AlgorithmList from "./algorithms/algorithm-list";
 import TestList from "./tests/test-list";
 import UserTestResultList from "./user-test-results/user-test-result-list";
 import UserList from "./users/user-list";
@@ -17,6 +19,7 @@ import GroupList from "./groups/group-list";
 import "./management.scss";
 
 const tabRoutes = [
+  routes.management.algorithms,
   routes.management.tests,
   routes.management.testResults,
   routes.management.users,
@@ -24,6 +27,7 @@ const tabRoutes = [
 ];
 
 const tabs = [
+  { label: "Алгоритмы", onClick: () => navigateToAlgorithmsManagement() },
   { label: "Тесты", onClick: () => navigateToTestsManagement() },
   { label: "Результаты", onClick: () => navigateToTestResultsManagement() },
   { label: "Пользователи", onClick: () => navigateToUsersManagement() },
@@ -38,6 +42,7 @@ const Management = () => {
       <TabPanel tabs={tabs} value={tabRoutes.indexOf(currentRoute)} />
       <div className="management">
         <Paper className="management__content">
+          <ExecutiveRoute path={routes.management.algorithms} render={(props) => <AlgorithmList {...props} />} />
           <ExecutiveRoute path={routes.management.tests} render={(props) => <TestList {...props} />} />
           <ExecutiveRoute path={routes.management.testResults} render={(props) => <UserTestResultList {...props} />} />
           <ExecutiveRoute path={routes.management.users} render={(props) => <UserList {...props} />} />

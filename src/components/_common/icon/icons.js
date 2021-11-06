@@ -1,4 +1,5 @@
 import * as materialIcons from "@mui/icons-material";
+import ConstructorIcon from "./custom/constructor-icon";
 import iconTypes from "../../../constants/icon-types";
 
 const icons = {
@@ -9,7 +10,7 @@ const icons = {
   [iconTypes.arrowRight]: materialIcons.NavigateNext,
   [iconTypes.clear]: materialIcons.Clear,
   [iconTypes.close]: materialIcons.Close,
-  [iconTypes.constructor]: materialIcons.Dashboard,
+  [iconTypes.constructor]: ConstructorIcon,
   [iconTypes.delete]: materialIcons.Delete,
   [iconTypes.done]: materialIcons.Done,
   [iconTypes.draggable]: materialIcons.DragIndicator,

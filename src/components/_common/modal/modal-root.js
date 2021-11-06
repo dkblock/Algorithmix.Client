@@ -1,7 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import CreateAlgorithmModal from "../../management/algorithms/create-algorithm-modal";
 import CreateGroupModal from "../../management/groups/create-group-modal";
 import CreateTestModal from "../../management/tests/create-test-modal";
+import DeleteAlgorithmModal from "../../management/algorithms/delete-algorithm-modal"
 import DeleteGroupModal from "../../management/groups/delete-group-modal";
 import DeleteTestModal from "../../management/tests/delete-test-modal";
 import DeleteUserTestResultModal from "../../management/user-test-results/delete-user-test-result-modal";
@@ -14,8 +16,10 @@ import { ZoomImageModal } from "../zoom-image";
 import modalTypes from "../../../constants/modal-types";
 
 const modals = {
+  [modalTypes.createAlgorithm]: CreateAlgorithmModal,
   [modalTypes.createGroup]: CreateGroupModal,
   [modalTypes.createTest]: CreateTestModal,
+  [modalTypes.deleteAlgorithm]: DeleteAlgorithmModal,
   [modalTypes.deleteGroup]: DeleteGroupModal,
   [modalTypes.deleteTest]: DeleteTestModal,
   [modalTypes.deleteUserTestResult]: DeleteUserTestResultModal,

@@ -1,6 +1,8 @@
 const modalTypes = {
+  createAlgorithm: "createAlgorithm",
   createGroup: "createGroup",
   createTest: "createTest",
+  deleteAlgorithm: "deleteAlgorithm",
   deleteGroup: "deleteGroup",
   deleteTest: "deleteTest",
   deleteUserTestResult: "deleteUserTestResult",

@@ -1,5 +1,5 @@
 import routes from "./routes";
-import history from '../store/utils/history';
+import history from "../store/utils/history";
 
 export const navigateToHome = () => history.push(routes.home);
 export const navigateToLogin = () => history.push(routes.account.login);
@@ -18,6 +18,7 @@ export const navigateToTestStats = (testId) => history.push(routes.tests.stats(t
 export const navigateToTestResult = (testId) => history.push(routes.tests.result(testId));
 export const navigateToUserTestResult = (testId, userId) => history.push(routes.tests.userResult(testId, userId));
 
+export const navigateToAlgorithmsManagement = () => history.push(routes.management.algorithms);
 export const navigateToTestsManagement = () => history.push(routes.management.tests);
 export const navigateToTestResultsManagement = () => history.push(routes.management.testResults);
 export const navigateToUsersManagement = () => history.push(routes.management.users);

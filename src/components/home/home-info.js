@@ -10,7 +10,7 @@ const HomeInfo = () => (
     <div className="home-info home-info--reverse">
       <div className="home-info__text">
         Алгоритмы необходимо знать всем! Представленные на сайте материалы помогут Вам изучить или повторить информацию
-        по различным <Link to={routes.algorithms}>алгоритмам и структурам данных</Link>.
+        по различным <Link to={routes.algorithms.main}>алгоритмам и структурам данных</Link>.
       </div>
       <img className="home-info__image" src={images.home.algorithms} alt="home-algorithms" />
     </div>

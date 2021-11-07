@@ -17,6 +17,7 @@ const TextField = ({
   multiline,
   rows,
   icon,
+  disabled,
   onChange,
   onFocus,
   onFocusOut,
@@ -51,6 +52,7 @@ const TextField = ({
         onMouseDown={(e) => e.stopPropagation()}
         onFocus={onFocus}
         onBlur={onFocusOut}
+        disabled={disabled}
         InputLabelProps={{
           shrink: true,
         }}

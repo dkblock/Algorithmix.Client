@@ -16,7 +16,7 @@ const AppContent = () => (
       <Route path="/" exact component={Home} />
       <Route path={routes.home} component={Home} />
       <Route path={routes.account.main} component={Account}/>
-      <Route path={routes.algorithms} component={Algorithms} />
+      <Route path={routes.algorithms.main} component={Algorithms} />
       <Route path={routes.constructor.main} component={Constructor} />
       <Route path={routes.tests.main} component={Tests} />
       <ExecutiveRoute path={routes.management.main} render={(props) => <Management {...props} />} />

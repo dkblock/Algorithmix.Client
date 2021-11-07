@@ -1,6 +1,6 @@
 import React from "react";
 import AlgorithmTimeComplexity from "../algorithm-time-complexity";
-import { getFileSrc } from "../../../utils/get-file-src";
+import { getFileSrc } from "../../../../utils/get-file-src";
 
 const AvlTreeDescription = (props) => {
     const { algorithm: { timeComplexity } } = props;

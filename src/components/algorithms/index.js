@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-import AlgorithmGrid from "./algorithm-grid";
-import AlgorithmDescription from "./algorithm-description";
-import Loader from "../_common/loader";
+import { useDispatch } from "react-redux";
+import { fetchAlgorithms } from "../../store/actions/algorithm";
 import routes from "../../utils/routes";
-import "./algorithms.scss";
+import AlgorithmGrid from "./grid/algorithm-grid";
+import AlgorithmDescription from "./description/algorithm-description";
+import AlgorithmDesigner from "./design/algorithm-designer";
+import ExecutiveRoute from "../_common/route/executive-route";
 
 const Algorithms = () => {
-  const { isFetching } = useSelector((state) => state.algorithm);
+  const dispatch = useDispatch();
 
-  if (isFetching) return <Loader className="algorithms-page__loader" size="large" />;
+  useEffect(() => {
+    dispatch(fetchAlgorithms());
+  }, [dispatch]);
 
   return (
-    <div className="algorithms-page">
-      <Route path={routes.algorithms} exact render={(props) => <AlgorithmGrid {...props} />} />
-      <Route path={`${routes.algorithms}/:id`} render={(props) => <AlgorithmDescription {...props} />} />
-    </div>
+    <>
+      <Route path={routes.algorithms.main} exact render={(props) => <AlgorithmGrid {...props} />} />
+      <Route
+        path={routes.algorithms.description(":algorithmId")}
+        exact
+        render={(props) => <AlgorithmDescription {...props} />}
+      />
+      <ExecutiveRoute
+        path={routes.algorithms.design(":algorithmId")}
+        render={(props) => <AlgorithmDesigner {...props} />}
+      />
+    </>
   );
 };
 

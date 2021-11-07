@@ -5,11 +5,11 @@ import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
 import CardActionArea from "@mui/material/CardActionArea";
 import Divider from "@mui/material/Divider";
-import { getFileSrc } from "../../utils/get-file-src";
-import { navigateToAlgorithm, navigateToConstructorAlgorithm } from "../../utils/navigator";
-import Button, { colors } from "../_common/button";
-import { iconTypes } from "../_common/icon";
-import Tooltip from "../_common/tooltip";
+import { getFileSrc } from "../../../utils/get-file-src";
+import { navigateToAlgorithmDescription, navigateToConstructorAlgorithm } from "../../../utils/navigator";
+import Button, { colors } from "../../_common/button";
+import { iconTypes } from "../../_common/icon";
+import Tooltip from "../../_common/tooltip";
 
 const ConstructorButton = ({ algorithm }) => {
   const handleClick = () => (algorithm.hasConstructor ? navigateToConstructorAlgorithm(algorithm.id) : null);
@@ -24,7 +24,7 @@ const ConstructorButton = ({ algorithm }) => {
 const AlgorithmCard = ({ algorithm }) => {
   const headerProps = { align: "center", fontFamily: "inherit", fontWeight: 500 };
 
-  const handleInfoButtonClick = () => navigateToAlgorithm(algorithm.id);
+  const handleInfoButtonClick = () => navigateToAlgorithmDescription(algorithm.id);
 
   return (
     <Card className="algorithm-card">

@@ -1,7 +1,7 @@
 import React from "react";
 import AlgorithmTimeComplexity from "../algorithm-time-complexity";
-import { getFileSrc } from "../../../utils/get-file-src";
-import routes from "../../../utils/routes";
+import { getFileSrc } from "../../../../utils/get-file-src";
+import routes from "../../../../utils/routes";
 import { Link } from "react-router-dom";
 
 const BinaryTreeDescription = (props) => {

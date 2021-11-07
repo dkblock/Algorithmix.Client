@@ -10,6 +10,7 @@ const modalTypes = {
   deleteUser: "deleteUser",
   logout: "logout",
   publishTest: "publishTest",
+  uploadAlgorithmImage: "uploadAlgorithmImage",
   uploadTestQuestionImage: "uploadTestQuestionImage",
   zoomImage: "zoomImage",
 };

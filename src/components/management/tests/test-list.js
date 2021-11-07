@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
-import { navigateToTestDesigner, navigateToTestStats } from "../../../utils/navigator";
+import { navigateToTestDesign, navigateToTestStats } from "../../../utils/navigator";
 import { getMomentFromNow } from "../../../utils/moment";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
@@ -66,11 +66,11 @@ const TestList = () => {
 
   useEffect(() => {
     dispatch(fetchTests());
-  }, [dispatch]);
+  }, []);
 
   const handleTestDelete = useCallback((test) => dispatch(showDeleteTestModal({ test })), [dispatch]);
 
-  const handleTestEdit = useCallback((test) => navigateToTestDesigner(test.id), []);
+  const handleTestEdit = useCallback((test) => navigateToTestDesign(test.id), []);
 
   const handleTestCreate = useCallback(() => dispatch(showCreateTestModal()), [dispatch]);
 

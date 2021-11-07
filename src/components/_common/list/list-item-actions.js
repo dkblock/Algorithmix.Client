@@ -40,7 +40,7 @@ const ListItemActions = ({ actions, visible, setVisible }) => {
   ) : (
     <>
       <div
-        className={visible ? "list-item__actions" : "list-item__actions-hidden"}
+        className={visible ? "grid-item__actions" : "grid-item__actions-hidden"}
         onClick={handleMenuOpen}
         onMouseDown={(e) => e.stopPropagation()}
       >

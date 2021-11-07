@@ -1,6 +1,11 @@
 const routes = {
   home: "/home",
-  algorithms: "/algorithms",
+
+  algorithms: {
+    main: "/algorithms",
+    description: (algorithmId) => `/algorithms/${algorithmId}`,
+    design: (algorithmId) => `/algorithms/${algorithmId}/design`,
+  },
 
   constructor: {
     main: "/constructor",

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AlgorithmTimeComplexity from "../algorithm-time-complexity";
-import { getFileSrc } from "../../../utils/get-file-src";
-import routes from "../../../utils/routes";
+import { getFileSrc } from "../../../../utils/get-file-src";
+import routes from "../../../../utils/routes";
 
 const RedBlackTreeDescription = (props) => {
     const { algorithm: { timeComplexity } } = props;

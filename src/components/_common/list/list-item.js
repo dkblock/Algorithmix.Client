@@ -33,7 +33,7 @@ const ListItem = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const classes = useStyles();
-  const className = isSelected ? "list-item list-item--selected" : "list-item";
+  const className = isSelected ? "grid-item grid-item--selected" : "grid-item";
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);

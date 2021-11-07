@@ -29,7 +29,7 @@ const DeleteModal = ({
         <span className="modal-common__title">{title}</span>
         <IconButton type={iconTypes.close} onClick={handleClose} />
       </DialogTitle>
-      <DialogContent className="modal-common__content">
+      <DialogContent className="modal-common__content" dividers>
         <Typography>{deleteText}</Typography>
       </DialogContent>
       <DialogActions>

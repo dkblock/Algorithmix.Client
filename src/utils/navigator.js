@@ -5,14 +5,15 @@ export const navigateToHome = () => history.push(routes.home);
 export const navigateToLogin = () => history.push(routes.account.login);
 export const navigateToRegister = () => history.push(routes.account.register);
 
-export const navigateToAlgorithms = () => history.push(routes.algorithms);
-export const navigateToAlgorithm = (algorithmId) => history.push(`${routes.algorithms}/${algorithmId}`);
+export const navigateToAlgorithms = () => history.push(routes.algorithms.main);
+export const navigateToAlgorithmDescription = (algorithmId) => history.push(routes.algorithms.description(algorithmId));
+export const navigateToAlgorithmDesign = (algorithmId) => history.push(routes.algorithms.design(algorithmId));
 
 export const navigateToConstructor = () => history.push(routes.constructor.main);
 export const navigateToConstructorAlgorithm = (algorithmId) => history.push(routes.constructor.algorithm(algorithmId));
 
 export const navigateToTests = () => history.push(routes.tests.main);
-export const navigateToTestDesigner = (testId) => history.push(routes.tests.design(testId));
+export const navigateToTestDesign = (testId) => history.push(routes.tests.design(testId));
 export const navigateToTestPass = (testId) => history.push(routes.tests.pass(testId));
 export const navigateToTestStats = (testId) => history.push(routes.tests.stats(testId));
 export const navigateToTestResult = (testId) => history.push(routes.tests.result(testId));

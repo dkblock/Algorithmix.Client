@@ -8,6 +8,10 @@ const images = {
     tests: "/public/images/home-tests.svg",
     workInProgress: "/public/images/home-work-in-progress.svg",
   },
+
+  algorithms: {
+    default: "images\\algorithms\\__algorithm-default__.png",
+  },
 };
 
 export default images;

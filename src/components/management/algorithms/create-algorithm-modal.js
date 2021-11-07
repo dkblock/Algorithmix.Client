@@ -11,8 +11,8 @@ const CreateAlgorithmModal = () => {
   const dispatch = useDispatch();
   const { validationErrors: serverValidationErrors } = useSelector((state) => state.algorithm);
 
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
+  const [id, setId] = useState("algorithm-id");
+  const [name, setName] = useState("Новый алгоритм");
   const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {

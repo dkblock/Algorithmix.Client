@@ -52,11 +52,11 @@ const testSlice = createSlice({
     [createTest.pending]: (state) => {
       onSavingDefault(state);
     },
-    [createTest.fulfilled]: (state, { payload: { test, hasError } }) => {
+    [createTest.fulfilled]: (state, { payload: { createdTest, hasError } }) => {
       onFulfilledDefault(state, hasError);
 
       if (!hasError) {
-        state.tests = [test, ...state.tests];
+        state.tests = [createdTest, ...state.tests];
       }
     },
     [createTest.rejected]: (state) => {

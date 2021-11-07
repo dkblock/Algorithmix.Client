@@ -1,0 +1,42 @@
+@import "../../../styles/mixins";
+
+.algorithm-designer-container {
+  padding: 18px;
+  width: 100%;
+}
+
+.algorithm-designer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+
+  &__right {
+    width: 40%;
+  }
+}
+
+.algorithm-info-designer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.algorithm-image-designer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__image {
+    @include image-container();
+  }
+}

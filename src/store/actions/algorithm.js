@@ -79,6 +79,38 @@ export const updateAlgorithm = createAsyncThunk("updateAlgorithm", async ({ algo
   return { hasError: true };
 });
 
+export const uploadAlgorithmDescription = createAsyncThunk(
+  "uploadAlgorithmDescription",
+  async ({ algorithmId, description }, thunkAPI) => {
+    const response = await algorithmService.uploadAlgorithmDescription(algorithmId, description);
+    return await processAlgorithmDataUpload(response, thunkAPI);
+  }
+);
+
+export const clearAlgorithmDescription = createAsyncThunk(
+  "clearAlgorithmDescription",
+  async ({ algorithmId }, thunkAPI) => {
+    const response = await algorithmService.clearAlgorithmDescription(algorithmId);
+    return await processAlgorithmDataClear(response, thunkAPI);
+  }
+);
+
+export const uploadAlgorithmConstructor = createAsyncThunk(
+  "uploadAlgorithmConstructor",
+  async ({ algorithmId, constructor }, thunkAPI) => {
+    const response = await algorithmService.uploadAlgorithmConstructor(algorithmId, constructor);
+    return await processAlgorithmDataUpload(response, thunkAPI);
+  }
+);
+
+export const clearAlgorithmConstructor = createAsyncThunk(
+  "clearAlgorithmConstructor",
+  async ({ algorithmId }, thunkAPI) => {
+    const response = await algorithmService.clearAlgorithmConstructor(algorithmId);
+    return await processAlgorithmDataClear(response, thunkAPI);
+  }
+);
+
 export const uploadAlgorithmImage = createAsyncThunk(
   "uploadAlgorithmImage",
   async ({ algorithmId, image }, thunkAPI) => {
@@ -105,6 +137,13 @@ export const clearAlgorithmImage = createAsyncThunk("clearAlgorithmImage", async
   return { hasError: true };
 });
 
+export const downloadAlgorithmDataTemplate = createAsyncThunk(
+  "downloadAlgorithmDataTemplate",
+  async ({ algorithmId }) => {
+    await algorithmService.downloadAlgorithmDataTemplate(algorithmId);
+  }
+);
+
 export const showCreateAlgorithmModal = createAsyncThunk("showCreateAlgorithmModal", async (_, thunkAPI) => {
   thunkAPI.dispatch(showModal(modalTypes.createAlgorithm));
 });
@@ -116,9 +155,49 @@ export const showDeleteAlgorithmModal = createAsyncThunk(
   }
 );
 
+export const showUploadAlgorithmDataModal = createAsyncThunk(
+  "showUploadAlgorithmDataModal",
+  async ({ algorithmId, algorithmDataType }, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.uploadAlgorithmData, { algorithmId, algorithmDataType }));
+  }
+);
+
+export const showClearAlgorithmDataModal = createAsyncThunk(
+  "showUploadAlgorithmConstructorModal",
+  async ({ algorithmId, algorithmDataType }, thunkAPI) => {
+    thunkAPI.dispatch(showModal(modalTypes.clearAlgorithmData, { algorithmId, algorithmDataType }));
+  }
+);
+
 export const showUploadAlgorithmImageModal = createAsyncThunk(
   "showUploadAlgorithmImageModal",
   async ({ algorithmId }, thunkAPI) => {
     thunkAPI.dispatch(showModal(modalTypes.uploadAlgorithmImage, { algorithmId }));
   }
 );
+
+const processAlgorithmDataUpload = async (response, thunkAPI) => {
+  if (statusCode.ok(response)) {
+    thunkAPI.dispatch(hideModal());
+    return { hasError: false };
+  }
+
+  if (statusCode.badRequest(response)) {
+    const { validationErrors: errors } = await response.json();
+    const validationErrors = {};
+    errors.forEach((error) => (validationErrors[error.field] = error.message));
+
+    return { validationErrors, hasError: true };
+  }
+
+  return { hasError: true };
+};
+
+const processAlgorithmDataClear = async (response, thunkAPI) => {
+  if (statusCode.noContent(response)) {
+    thunkAPI.dispatch(hideModal());
+    return { hasError: false };
+  }
+
+  return { hasError: true };
+};

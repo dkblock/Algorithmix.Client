@@ -1,6 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
-import { clearAlgorithmImage, fetchAlgorithm, updateAlgorithm, uploadAlgorithmImage } from "../actions/algorithm";
+import {
+  clearAlgorithmConstructor,
+  clearAlgorithmDescription,
+  clearAlgorithmImage,
+  fetchAlgorithm,
+  showUploadAlgorithmDataModal,
+  updateAlgorithm,
+  uploadAlgorithmConstructor,
+  uploadAlgorithmDescription,
+  uploadAlgorithmImage,
+} from "../actions/algorithm";
 import images from "../../constants/images";
 
 const initialState = {
@@ -35,11 +45,72 @@ const algorithmDesignSlice = createSlice({
 
       if (!hasError) {
         state.algorithm = updatedAlgorithm;
+        state.validationErrors = {};
       } else {
         state.validationErrors = validationErrors;
       }
     },
     [updateAlgorithm.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [uploadAlgorithmDescription.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [uploadAlgorithmDescription.fulfilled]: (state, { payload: { hasError, validationErrors } }) => {
+      onFulfilledDefault(state);
+
+      if (!hasError) {
+        state.algorithm = { ...state.algorithm, hasDescription: true };
+        state.validationErrors = {};
+      } else {
+        state.validationErrors = validationErrors;
+      }
+    },
+    [uploadAlgorithmDescription.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [clearAlgorithmDescription.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [clearAlgorithmDescription.fulfilled]: (state, { payload: { hasError } }) => {
+      onFulfilledDefault(state);
+      if (hasError) return;
+
+      state.algorithm = { ...state.algorithm, hasDescription: false };
+    },
+    [clearAlgorithmDescription.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [uploadAlgorithmConstructor.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [uploadAlgorithmConstructor.fulfilled]: (state, { payload: { hasError, validationErrors } }) => {
+      onFulfilledDefault(state);
+
+      if (!hasError) {
+        state.algorithm = { ...state.algorithm, hasConstructor: true };
+        state.validationErrors = {};
+      } else {
+        state.validationErrors = validationErrors;
+      }
+    },
+    [uploadAlgorithmConstructor.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [clearAlgorithmConstructor.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [clearAlgorithmConstructor.fulfilled]: (state, { payload: { hasError } }) => {
+      onFulfilledDefault(state);
+      if (hasError) return;
+
+      state.algorithm = { ...state.algorithm, hasConstructor: false };
+    },
+    [clearAlgorithmConstructor.rejected]: (state) => {
       onRejectedDefault(state);
     },
 
@@ -67,6 +138,10 @@ const algorithmDesignSlice = createSlice({
     },
     [clearAlgorithmImage.rejected]: (state) => {
       onRejectedDefault(state);
+    },
+
+    [showUploadAlgorithmDataModal.fulfilled]: (state) => {
+      state.validationErrors = {};
     },
   },
 });

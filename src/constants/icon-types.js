@@ -9,6 +9,7 @@ const iconTypes = {
   constructor: "constructor",
   delete: "delete",
   done: "done",
+  download: "download",
   draggable: "draggable",
   edit: "edit",
   help: "help",

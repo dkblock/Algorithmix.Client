@@ -1,5 +1,4 @@
-import FileDropzone from "./file-dropzone";
-import fileTypes from "../../../constants/file-types";
+import FileDropzone, { fileTypes } from "./file-dropzone";
 
 export { fileTypes };
 export default FileDropzone;

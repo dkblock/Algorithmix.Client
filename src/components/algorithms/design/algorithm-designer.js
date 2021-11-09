@@ -9,6 +9,7 @@ import AlgorithmImageDesigner from "./algorithm-image-designer";
 import AlgorithmTimeComplexityDesigner from "./algorithm-time-complexity-designer";
 import Loader from "../../_common/loader";
 import "./algorithm-designer.scss";
+import AlgorithmDataDesigner from "./algorithm-data-designer";
 
 const AlgorithmDesigner = () => {
   const dispatch = useDispatch();
@@ -32,8 +33,11 @@ const AlgorithmDesigner = () => {
               <AlgorithmInfoDesigner />
               <AlgorithmImageDesigner />
             </div>
-            <div className="algorithm-designer__right">
+            <div className="algorithm-designer__center">
               <AlgorithmTimeComplexityDesigner />
+            </div>
+            <div className="algorithm-designer__right">
+              <AlgorithmDataDesigner />
             </div>
           </>
         )}

@@ -1,6 +1,8 @@
+import algorithmDataTypes from "./algorithm-data-types";
+
 const algorithmsData = {
-  constructor: (algorithmId) => `algorithms/binary-tree/constructor/${algorithmId}.html`,
-  description: (algorithmId) => `algorithms/binary-tree/description/${algorithmId}.html`,
+  [algorithmDataTypes.constructor]: (algorithmId) => `algorithms/${algorithmId}/constructor/${algorithmId}.html`,
+  [algorithmDataTypes.description]: (algorithmId) => `algorithms/${algorithmId}/description/${algorithmId}.html`,
 };
 
 export default algorithmsData;

@@ -1,5 +1,5 @@
 import * as materialIcons from "@mui/icons-material";
-import ConstructorIcon from "./custom/constructor-icon";
+import TestsIcon from "./custom/tests-icon";
 import iconTypes from "../../../constants/icon-types";
 
 const icons = {
@@ -10,9 +10,10 @@ const icons = {
   [iconTypes.arrowRight]: materialIcons.NavigateNext,
   [iconTypes.clear]: materialIcons.Clear,
   [iconTypes.close]: materialIcons.Close,
-  [iconTypes.constructor]: ConstructorIcon,
+  [iconTypes.constructor]: materialIcons.Widgets  ,
   [iconTypes.delete]: materialIcons.Delete,
   [iconTypes.done]: materialIcons.Done,
+  [iconTypes.download]: materialIcons.Download,
   [iconTypes.draggable]: materialIcons.DragIndicator,
   [iconTypes.edit]: materialIcons.Edit,
   [iconTypes.help]: materialIcons.Help,
@@ -27,7 +28,7 @@ const icons = {
   [iconTypes.search]: materialIcons.Search,
   [iconTypes.settings]: materialIcons.Settings,
   [iconTypes.stats]: materialIcons.Equalizer,
-  [iconTypes.tests]: materialIcons.PlaylistAddCheck,
+  [iconTypes.tests]: TestsIcon,
   [iconTypes.upload]: materialIcons.Publish,
   [iconTypes.uploadCloud]: materialIcons.CloudUpload,
 };

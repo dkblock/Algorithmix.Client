@@ -2,16 +2,17 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Icon, iconTypes } from "../icon";
 import { activeStyle, acceptStyle, rejectStyle } from "./styles";
+import fileTypes from "../../../constants/file-types";
 import "./file-dropzone.scss";
+
+const getExtension = (name) => name.split(".").pop();
 
 const validateFiles = (files, maxFiles, acceptedFileExtensions) => {
   if (files.length > maxFiles) {
     return `Максимально допустимое количество файлов: ${maxFiles}`;
   }
 
-  const fileWithUnacceptedExtension = files.find(
-    (file) => !acceptedFileExtensions.includes(file.name.split(".").pop())
-  );
+  const fileWithUnacceptedExtension = files.find((file) => !acceptedFileExtensions.includes(getExtension(file.name)));
 
   if (fileWithUnacceptedExtension) {
     return `Недопустимый формат файла: ${fileWithUnacceptedExtension.name}`;
@@ -82,12 +83,17 @@ const FileDropzone = ({ acceptedFileTypes, maxFiles = 1, onDrop }) => {
       </div>
       {validationError}
       <aside className="thumbs">
-        {files.map((file, index) => (
-          <img key={index} className="thumbs__img" src={file.preview} alt={file.name} />
-        ))}
+        {files.map((file, index) =>
+          fileTypes.image.extensions.includes(getExtension(file.path)) ? (
+            <img key={index} className="thumbs__img" src={file.preview} alt={file.path} />
+          ) : (
+            <div key={index}>{file.path}</div>
+          )
+        )}
       </aside>
     </section>
   );
 };
 
+export { fileTypes };
 export default FileDropzone;

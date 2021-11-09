@@ -1,4 +1,5 @@
 const modalTypes = {
+  clearAlgorithmData: "clearAlgorithmData",
   createAlgorithm: "createAlgorithm",
   createGroup: "createGroup",
   createTest: "createTest",
@@ -10,6 +11,7 @@ const modalTypes = {
   deleteUser: "deleteUser",
   logout: "logout",
   publishTest: "publishTest",
+  uploadAlgorithmData: "uploadAlgorithmData",
   uploadAlgorithmImage: "uploadAlgorithmImage",
   uploadTestQuestionImage: "uploadTestQuestionImage",
   zoomImage: "zoomImage",

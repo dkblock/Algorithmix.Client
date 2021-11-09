@@ -1,6 +1,6 @@
 import api from "../api";
 import baseService from "./base-service";
-import imageService from "./image-service";
+import fileService from "./file-service";
 
 const testQuestionService = {
   fetchQuestions: async (testId) => {
@@ -35,7 +35,7 @@ const testQuestionService = {
 
   uploadQuestionImage: async (testId, questionId, image) => {
     const url = api.testQuestions.uploadTestQuestionImage(testId, questionId);
-    return await imageService.post(url, image);
+    return await fileService.post(url, image);
   },
 
   clearQuestionImage: async (testId, questionId) => {

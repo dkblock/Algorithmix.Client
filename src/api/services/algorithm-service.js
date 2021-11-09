@@ -1,6 +1,6 @@
 import api from "../api";
 import baseService from "./base-service";
-import imageService from "./image-service";
+import fileService from "./file-service";
 
 const algorithmService = {
   fetchAlgorithms: async () => {
@@ -28,14 +28,39 @@ const algorithmService = {
     return await baseService.put(url, algorithm);
   },
 
+  uploadAlgorithmDescription: async (algorithmId, description) => {
+    const url = api.algorithms.uploadAlgorithmDescription(algorithmId);
+    return await fileService.post(url, description);
+  },
+
+  clearAlgorithmDescription: async (algorithmId) => {
+    const url = api.algorithms.clearAlgorithmDescription(algorithmId);
+    return await baseService.delete(url);
+  },
+
+  uploadAlgorithmConstructor: async (algorithmId, constructor) => {
+    const url = api.algorithms.uploadAlgorithmConstructor(algorithmId);
+    return await fileService.post(url, constructor);
+  },
+
+  clearAlgorithmConstructor: async (algorithmId) => {
+    const url = api.algorithms.clearAlgorithmConstructor(algorithmId);
+    return await baseService.delete(url);
+  },
+
   uploadAlgorithmImage: async (algorithmId, image) => {
     const url = api.algorithms.uploadAlgorithmImage(algorithmId);
-    return await imageService.post(url, image);
+    return await fileService.post(url, image);
   },
 
   clearAlgorithmImage: async (algorithmId) => {
     const url = api.algorithms.clearAlgorithmImage(algorithmId);
     return await baseService.delete(url);
+  },
+
+  downloadAlgorithmDataTemplate: async (algorithmId) => {
+    const url = api.algorithms.downloadAlgorithmDataTemplate(algorithmId);
+    await fileService.get(url, `${algorithmId}.zip`);
   },
 };
 

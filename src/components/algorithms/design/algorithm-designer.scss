@@ -18,8 +18,12 @@
     width: 25%;
   }
 
-  &__right {
+  &__center {
     width: 40%;
+  }
+
+  &__right {
+    width: 25%;
   }
 }
 
@@ -38,5 +42,32 @@
 
   &__image {
     @include image-container();
+  }
+}
+
+.algorithm-data-designer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &__upload {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    height: 50%;
+  }
+
+  &__upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__download {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 50%;
   }
 }

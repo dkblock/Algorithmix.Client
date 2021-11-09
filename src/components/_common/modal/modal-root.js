@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import ClearAlgorithmDataModal from "../../algorithms/design/clear-algorithm-data-modal";
 import CreateAlgorithmModal from "../../management/algorithms/create-algorithm-modal";
 import CreateGroupModal from "../../management/groups/create-group-modal";
 import CreateTestModal from "../../management/tests/create-test-modal";
@@ -11,12 +12,14 @@ import DeleteTestQuestionModal from "../../tests/design/delete-test-question-mod
 import DeleteUserModal from "../../management/users/delete-user-modal";
 import LogoutModal from "../../_app/logout-modal";
 import PublishTestModal from "../../tests/design/publish-test-modal";
+import UploadAlgorithmDataModal from "../../algorithms/design/upload-algorithm-data-modal";
 import UploadAlgorithmImageModal from "../../algorithms/design/upload-algorithm-image-modal";
 import UploadTestQuestionImageModal from "../../tests/design/test-question/upload-test-question-image-modal";
 import { ZoomImageModal } from "../zoom-image";
 import modalTypes from "../../../constants/modal-types";
 
 const modals = {
+  [modalTypes.clearAlgorithmData]: ClearAlgorithmDataModal,
   [modalTypes.createAlgorithm]: CreateAlgorithmModal,
   [modalTypes.createGroup]: CreateGroupModal,
   [modalTypes.createTest]: CreateTestModal,
@@ -28,6 +31,7 @@ const modals = {
   [modalTypes.deleteUser]: DeleteUserModal,
   [modalTypes.logout]: LogoutModal,
   [modalTypes.publishTest]: PublishTestModal,
+  [modalTypes.uploadAlgorithmData]: UploadAlgorithmDataModal,
   [modalTypes.uploadAlgorithmImage]: UploadAlgorithmImageModal,
   [modalTypes.uploadTestQuestionImage]: UploadTestQuestionImageModal,
   [modalTypes.zoomImage]: ZoomImageModal,

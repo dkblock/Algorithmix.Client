@@ -3,6 +3,9 @@ const fileTypes = {
     extensions: ["json", "pdf", "zip"],
     value: "application/json, application/pdf, application/zip",
   },
+  archive: {
+    extensions: ["zip"],
+  },
   audio: {
     extensions: ["mp4", "mpeg", "webm"],
     value: "audio/mp4, audio/mpeg, audio/webm",

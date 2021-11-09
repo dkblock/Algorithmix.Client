@@ -23,6 +23,7 @@ const UploadAlgorithmImageModal = () => {
   return (
     <CreateModal title="Загрузка изображения" createButtonText="Загрузить" onCreate={handleAlgorithmImageUpload}>
       <FileDropzone acceptedFileTypes={[fileTypes.image]} onDrop={handleAlgorithmImageDrop} />
+      <div>Рекомендуемый размер изображения: 600x400</div>
     </CreateModal>
   );
 };

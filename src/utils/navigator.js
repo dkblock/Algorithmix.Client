@@ -10,7 +10,7 @@ export const navigateToAlgorithmDescription = (algorithmId) => history.push(rout
 export const navigateToAlgorithmDesign = (algorithmId) => history.push(routes.algorithms.design(algorithmId));
 
 export const navigateToConstructor = () => history.push(routes.constructor.main);
-export const navigateToConstructorAlgorithm = (algorithmId) => history.push(routes.constructor.algorithm(algorithmId));
+export const navigateToAlgorithmConstructor = (algorithmId) => history.push(routes.constructor.algorithm(algorithmId));
 
 export const navigateToTests = () => history.push(routes.tests.main);
 export const navigateToTestDesign = (testId) => history.push(routes.tests.design(testId));

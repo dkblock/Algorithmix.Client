@@ -7,6 +7,7 @@ import {
   fetchAlgorithm,
   showUploadAlgorithmDataModal,
   updateAlgorithm,
+  updateAlgorithmTimeComplexity,
   uploadAlgorithmConstructor,
   uploadAlgorithmDescription,
   uploadAlgorithmImage,
@@ -51,6 +52,19 @@ const algorithmDesignSlice = createSlice({
       }
     },
     [updateAlgorithm.rejected]: (state) => {
+      onRejectedDefault(state);
+    },
+
+    [updateAlgorithmTimeComplexity.pending]: (state) => {
+      onSavingDefault(state);
+    },
+    [updateAlgorithmTimeComplexity.fulfilled]: (state, { payload: { updatedAlgorithmTimeComplexity, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
+      state.algorithm = { ...state.algorithm, timeComplexity: updatedAlgorithmTimeComplexity };
+    },
+    [updateAlgorithmTimeComplexity.rejected]: (state) => {
       onRejectedDefault(state);
     },
 

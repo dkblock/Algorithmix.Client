@@ -6,6 +6,7 @@ import { navigateToAlgorithmDesign } from "../../../utils/navigator";
 import Table from "../../_common/table";
 import Button, { colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
+import HasDataCell from "./has-data-cell";
 
 const getActions = (onDeleteAlgorithm) => [
   { label: "Редактировать", icon: iconTypes.edit, onClick: (algorithm) => navigateToAlgorithmDesign(algorithm.id) },
@@ -15,6 +16,18 @@ const getActions = (onDeleteAlgorithm) => [
 const columns = [
   { id: "name", label: "Название" },
   { id: "id", label: "ID" },
+  {
+    id: "hasDescription",
+    label: "Описание",
+    align: "center",
+    renderCell: ({ hasDescription }) => <HasDataCell hasData={hasDescription} />,
+  },
+  {
+    id: "hasConstructor",
+    label: "Конструктор",
+    align: "center",
+    renderCell: ({ hasConstructor }) => <HasDataCell hasData={hasConstructor} />,
+  },
   { id: "testsCount", label: "Количество тестов", align: "center" },
 ];
 

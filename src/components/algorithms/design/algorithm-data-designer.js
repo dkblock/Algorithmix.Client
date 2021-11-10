@@ -64,53 +64,51 @@ const AlgorithmDataDesigner = () => {
 
   return (
     <div className="algorithm-data-designer">
-      <div className="algorithm-data-designer__upload">
-        <div className="algorithm-data-designer__upload-section">
+      <div className="algorithm-data-designer__section">
+        <Button
+          className="w-100"
+          color={colors.success}
+          startIcon={iconTypes.info}
+          endIcon={iconTypes.upload}
+          onClick={handleUploadAlgorithmDescription}
+        >
+          Загрузить описание
+        </Button>
+        {algorithm.hasDescription && (
           <Button
             className="w-100"
-            color={colors.success}
+            color={colors.danger}
             startIcon={iconTypes.info}
-            endIcon={iconTypes.upload}
-            onClick={handleUploadAlgorithmDescription}
+            endIcon={iconTypes.delete}
+            onClick={handleClearAlgorithmDescription}
           >
-            Загрузить описание
+            Удалить описание
           </Button>
-          {algorithm.hasDescription && (
-            <Button
-              className="w-100"
-              color={colors.danger}
-              startIcon={iconTypes.info}
-              endIcon={iconTypes.delete}
-              onClick={handleClearAlgorithmDescription}
-            >
-              Удалить описание
-            </Button>
-          )}
-        </div>
-        <div className="algorithm-data-designer__upload-section">
+        )}
+      </div>
+      <div className="algorithm-data-designer__section">
+        <Button
+          className="w-100"
+          color={colors.success}
+          startIcon={iconTypes.constructor}
+          endIcon={iconTypes.upload}
+          onClick={handleUploadAlgorithmConstructor}
+        >
+          Загрузить Конструктор
+        </Button>
+        {algorithm.hasConstructor && (
           <Button
             className="w-100"
-            color={colors.success}
+            color={colors.danger}
             startIcon={iconTypes.constructor}
-            endIcon={iconTypes.upload}
-            onClick={handleUploadAlgorithmConstructor}
+            endIcon={iconTypes.delete}
+            onClick={handleClearAlgorithmConstructor}
           >
-            Загрузить Конструктор
+            Удалить Конструктор
           </Button>
-          {algorithm.hasConstructor && (
-            <Button
-              className="w-100"
-              color={colors.danger}
-              startIcon={iconTypes.constructor}
-              endIcon={iconTypes.delete}
-              onClick={handleClearAlgorithmConstructor}
-            >
-              Удалить Конструктор
-            </Button>
-          )}
-        </div>
+        )}
       </div>
-      <div className="algorithm-data-designer__download">
+      <div className="algorithm-data-designer__section">
         <Button
           className="w-100"
           color={colors.primary}

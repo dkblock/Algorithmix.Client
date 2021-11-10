@@ -6,17 +6,16 @@ import CardActions from "@mui/material/CardActions";
 import CardActionArea from "@mui/material/CardActionArea";
 import Divider from "@mui/material/Divider";
 import { getFileSrc } from "../../../utils/get-file-src";
-import { navigateToAlgorithmDescription, navigateToConstructorAlgorithm } from "../../../utils/navigator";
+import { navigateToAlgorithmDescription, navigateToAlgorithmConstructor } from "../../../utils/navigator";
 import Button, { colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
-import Tooltip from "../../_common/tooltip";
 
-const ConstructorButton = ({ algorithm }) => {
-  const handleClick = () => (algorithm.hasConstructor ? navigateToConstructorAlgorithm(algorithm.id) : null);
+const SpecificButton = ({ algorithmId, hasData, color, label, icon, onNavigate }) => {
+  const handleClick = () => (hasData ? onNavigate(algorithmId) : null);
 
   return (
-    <Button startIcon={iconTypes.constructor} onClick={handleClick}>
-      Конструктор
+    <Button color={color} startIcon={icon} onClick={handleClick} disabled={!hasData}>
+      {label}
     </Button>
   );
 };
@@ -24,11 +23,11 @@ const ConstructorButton = ({ algorithm }) => {
 const AlgorithmCard = ({ algorithm }) => {
   const headerProps = { align: "center", fontFamily: "inherit", fontWeight: 500 };
 
-  const handleInfoButtonClick = () => navigateToAlgorithmDescription(algorithm.id);
+  const handleCardClick = () => (algorithm.hasDescription ? navigateToAlgorithmDescription(algorithm.id) : null);
 
   return (
     <Card className="algorithm-card">
-      <CardActionArea className="algorithm-card__body" onClick={handleInfoButtonClick}>
+      <CardActionArea className="algorithm-card__body" onClick={handleCardClick}>
         <CardHeader className="algorithm-card__header" title={algorithm.name} titleTypographyProps={headerProps} />
         <Divider />
         <CardMedia>
@@ -37,16 +36,22 @@ const AlgorithmCard = ({ algorithm }) => {
       </CardActionArea>
       <Divider />
       <CardActions className="algorithm-card__button-container">
-        <Button color={colors.success} startIcon={iconTypes.info} onClick={handleInfoButtonClick}>
-          Информация
-        </Button>
-        {algorithm.hasConstructor ? (
-          <ConstructorButton algorithm={algorithm} />
-        ) : (
-          <Tooltip title="Недоступно" placement="bottom">
-            <ConstructorButton algorithm={algorithm} />
-          </Tooltip>
-        )}
+        <SpecificButton
+          algorithmId={algorithm.id}
+          hasData={algorithm.hasDescription}
+          label="Информация"
+          color={colors.success}
+          icon={iconTypes.info}
+          onNavigate={(algorithmId) => navigateToAlgorithmDescription(algorithmId)}
+        />
+        <SpecificButton
+          algorithmId={algorithm.id}
+          hasData={algorithm.hasConstructor}
+          label="Конструктор"
+          color={colors.primary}
+          icon={iconTypes.constructor}
+          onNavigate={(algorithmId) => navigateToAlgorithmConstructor(algorithmId)}
+        />
       </CardActions>
     </Card>
   );

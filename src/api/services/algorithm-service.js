@@ -28,6 +28,11 @@ const algorithmService = {
     return await baseService.put(url, algorithm);
   },
 
+  updateAlgorithmTimeComplexity: async (algorithmId, timeComplexity) => {
+    const url = api.algorithms.updateAlgorithmTimeComplexity(algorithmId);
+    return await baseService.put(url, timeComplexity);
+  },
+
   uploadAlgorithmDescription: async (algorithmId, description) => {
     const url = api.algorithms.uploadAlgorithmDescription(algorithmId);
     return await fileService.post(url, description);

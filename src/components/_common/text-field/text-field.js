@@ -16,6 +16,7 @@ const TextField = ({
   helperText,
   multiline,
   rows,
+  variant = "outlined",
   icon,
   disabled,
   onChange,
@@ -45,7 +46,7 @@ const TextField = ({
         size="small"
         type={type}
         value={fieldValue}
-        variant="outlined"
+        variant={variant}
         multiline={multiline}
         rows={multiline ? rows : null}
         onChange={handleChange}

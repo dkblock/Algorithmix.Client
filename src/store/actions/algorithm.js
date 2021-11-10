@@ -79,6 +79,20 @@ export const updateAlgorithm = createAsyncThunk("updateAlgorithm", async ({ algo
   return { hasError: true };
 });
 
+export const updateAlgorithmTimeComplexity = createAsyncThunk(
+  "updateAlgorithmTimeComplexity",
+  async ({ algorithmId, timeComplexity }) => {
+    const response = await algorithmService.updateAlgorithmTimeComplexity(algorithmId, timeComplexity);
+
+    if (statusCode.ok(response)) {
+      const updatedAlgorithmTimeComplexity = await response.json();
+      return { updatedAlgorithmTimeComplexity, hasError: false };
+    }
+
+    return { hasError: true };
+  }
+);
+
 export const uploadAlgorithmDescription = createAsyncThunk(
   "uploadAlgorithmDescription",
   async ({ algorithmId, description }, thunkAPI) => {

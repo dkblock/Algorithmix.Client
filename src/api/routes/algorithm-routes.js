@@ -6,6 +6,7 @@ const algorithmRoutes = {
   createAlgorithm: () => getRoute("algorithms"),
   deleteAlgorithm: (algorithmId) => getRoute(`algorithms/${algorithmId}`),
   updateAlgorithm: (algorithmId) => getRoute(`algorithms/${algorithmId}`),
+  updateAlgorithmTimeComplexity: (algorithmId) => getRoute(`algorithms/${algorithmId}/time-complexity`),
 
   uploadAlgorithmDescription: (algorithmId) => getRoute(`algorithms/${algorithmId}/description`),
   clearAlgorithmDescription: (algorithmId) => getRoute(`algorithms/${algorithmId}/description`),

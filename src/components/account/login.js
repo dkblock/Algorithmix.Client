@@ -4,6 +4,7 @@ import { Paper } from "@mui/material";
 import { useCurrentUser, useTitle } from "../../hooks";
 import { login } from "../../store/actions/account";
 import validator from "../../utils/validation";
+import { navigateToForgotPassword } from "../../utils/navigator";
 import routes from "../../utils/routes";
 import images from "../../constants/images";
 import Button, { colors } from "../_common/button";
@@ -60,10 +61,10 @@ const Login = () => {
 
   return (
     <div className="account-sign">
-      <Paper className="account-sign-form account-sign-form--login">
-        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo"/>
+      <Paper className="account-sign-form account-sign-form--small">
+        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo" />
         <TextField
-          className="account-sign-form__control--login"
+          className="account-sign-form__control--small"
           label="Email"
           value={email}
           error={Boolean(validationErrors.email)}
@@ -73,7 +74,7 @@ const Login = () => {
           onFocusOut={handleEmailFocusOut}
         />
         <TextField
-          className="account-sign-form__control--login"
+          className="account-sign-form__control--small"
           value={password}
           label="Пароль"
           type="password"
@@ -83,6 +84,9 @@ const Login = () => {
           onFocus={handlePasswordFocus}
           onFocusOut={handlePasswordFocusOut}
         />
+        <div className="account-sign-form__forgot-password" onClick={() => navigateToForgotPassword()}>
+          Забыли пароль?
+        </div>
         <div className="account-sign-form__submit">
           <Button color={colors.success} onClick={handleSubmit}>
             Войти

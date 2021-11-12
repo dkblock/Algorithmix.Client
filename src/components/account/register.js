@@ -6,11 +6,11 @@ import { fetchGroups } from "../../store/actions/group";
 import { register } from "../../store/actions/account";
 import validator from "../../utils/validation";
 import routes from "../../utils/routes";
+import images from "../../constants/images";
 import Redirect from "../_common/route/redirect";
 import Button, { colors } from "../_common/button";
 import Dropdown from "../_common/dropdown";
 import TextField from "../_common/text-field";
-import images from "../../constants/images";
 
 const {
   validateEmail,
@@ -36,7 +36,7 @@ const Register = () => {
   const groupItems = availableGroups.map((group) => ({ value: group.id, label: group.name }));
 
   const [email, setEmail] = useState("");
-  const [groupId, setGroupId] = useState(availableGroups[0]?.id);
+  const [groupId, setGroupId] = useState(1);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -48,10 +48,6 @@ const Register = () => {
   useEffect(() => {
     dispatch(fetchGroups());
   }, [dispatch]);
-
-  useEffect(() => {
-    setGroupId(availableGroups[0]?.id);
-  }, [availableGroups]);
 
   useEffect(() => {
     setValidationErrors({ ...validationErrors, ...serverValidationErrors });
@@ -66,7 +62,10 @@ const Register = () => {
     setValidationErrors({ ...validationErrors, email: error });
   }, [email, validationErrors]);
 
-  const handleGroupIdChange = useCallback((value) => setGroupId(value), []);
+  const handleGroupIdChange = useCallback((value) => {
+    setGroupId(value);
+    setValidationErrors({ ...validationErrors, groupId: null });
+  }, [validationErrors]);
 
   const handleFirstNameChange = useCallback((value) => setFirstName(value), []);
   const handleFirstNameFocus = useCallback(() => setValidationErrors({ ...validationErrors, firstName: null }), [
@@ -123,11 +122,11 @@ const Register = () => {
 
   return (
     <div className="account-sign">
-      <Paper className="account-sign-form account-sign-form--register">
-        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo"/>
+      <Paper className="account-sign-form account-sign-form--large">
+        <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo" />
         <div className="account-sign-form__row">
           <TextField
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             label="Email"
             value={email}
             error={Boolean(validationErrors.email)}
@@ -137,16 +136,18 @@ const Register = () => {
             onFocusOut={handleEmailFocusOut}
           />
           <Dropdown
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             value={groupId}
             label="Группа"
+            error={Boolean(validationErrors.groupId)}
+            helperText={validationErrors.groupId}
             items={groupItems}
             onChange={handleGroupIdChange}
           />
         </div>
         <div className="account-sign-form__row">
           <TextField
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             value={firstName}
             label="Имя"
             error={Boolean(validationErrors.firstName)}
@@ -156,7 +157,7 @@ const Register = () => {
             onFocusOut={handleFirstNameFocusOut}
           />
           <TextField
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             value={lastName}
             label="Фамилия"
             error={Boolean(validationErrors.lastName)}
@@ -168,7 +169,7 @@ const Register = () => {
         </div>
         <div className="account-sign-form__row">
           <TextField
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             value={password}
             label="Пароль"
             type="password"
@@ -179,7 +180,7 @@ const Register = () => {
             onFocusOut={handlePasswordFocusOut}
           />
           <TextField
-            className="account-sign-form__control--register"
+            className="account-sign-form__control--large"
             value={confirmPassword}
             label="Подтвердите пароль"
             type="password"

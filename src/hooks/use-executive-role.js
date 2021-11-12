@@ -1,4 +1,4 @@
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "./use-current-user";
 import roles from "../constants/roles";
 
 const useExecutiveRole = () => {

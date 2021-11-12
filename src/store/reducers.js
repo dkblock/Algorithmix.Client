@@ -1,6 +1,7 @@
 import { connectRouter } from "connected-react-router";
 import appReducer from "./reducers/app";
 import accountReducer from "./reducers/account";
+import accountSettingsReducer from "./reducers/account-settings";
 import algorithmReducer from "./reducers/algorithm";
 import algorithmDesignReducer from "./reducers/algorithm-design";
 import groupReducer from "./reducers/group";
@@ -16,6 +17,7 @@ const createRootReducer = (history) => ({
   router: connectRouter(history),
   app: appReducer,
   account: accountReducer,
+  accountSettings: accountSettingsReducer,
   algorithm: algorithmReducer,
   algorithmDesign: algorithmDesignReducer,
   group: groupReducer,

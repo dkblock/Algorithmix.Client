@@ -7,6 +7,11 @@ const accountValidator = () => {
     return null;
   };
 
+  const validateGroupId = (groupId) => {
+    if (groupId === 1) return "Выберите группу";
+    return null;
+  };
+
   const validateFirstName = (firstName) => {
     if (isEmptyString(firstName)) return "Введите имя";
     return null;
@@ -52,6 +57,7 @@ const accountValidator = () => {
       const validationErrors = {};
 
       validationErrors.email = validateEmail(credentials.email);
+      validationErrors.groupId = validateGroupId(credentials.groupId);
       validationErrors.firstName = validateFirstName(credentials.firstName);
       validationErrors.lastName = validateLastName(credentials.lastName);
       validationErrors.password = validatePassword(credentials.password);

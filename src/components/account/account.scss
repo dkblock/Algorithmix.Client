@@ -19,12 +19,12 @@
   gap: 24px;
   padding: 20px;
 
-  &--register {
+  &--large {
     width: 50%;
     min-width: 750px;
   }
 
-  &--login {
+  &--small {
     width: 30%;
     min-width: 450px;
   }
@@ -41,11 +41,11 @@
   }
 
   &__control {
-    &--register {
+    &--large {
       width: 50%;
     }
 
-    &--login {
+    &--small {
       width: 100%;
     }
   }
@@ -53,5 +53,15 @@
   &__submit {
     display: flex;
     justify-content: center;
+  }
+
+  &__forgot-password {
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: auto;
+    margin-top: -18px;
+    user-select: none;
+    cursor: pointer;
+    color: #007BFF;
   }
 }

@@ -42,6 +42,16 @@ export const logout = createAsyncThunk("logout", (params, thunkAPI) => {
   navigateToHome();
 });
 
+export const resetPasswordRequest = createAsyncThunk("resetPasswordRequest", async ({ credentials }) => {
+  const response = await accountService.resetPasswordRequest(credentials);
+  return await getResetPasswordResult(response);
+});
+
+export const resetPassword = createAsyncThunk("resetPassword", async ({ credentials }) => {
+  const response = await accountService.resetPassword(credentials);
+  return await getResetPasswordResult(response);
+});
+
 export const showZoomImageModal = createAsyncThunk("showZoomImageModal", ({ src }, thunkApi) => {
   thunkApi.dispatch(showModal(modalTypes.zoomImage, { src }));
 });
@@ -65,4 +75,20 @@ const getAuthenticationResult = async (response) => {
 
     return { currentUser: {}, isAuthenticated: false, hasError: true, validationErrors };
   }
+};
+
+const getResetPasswordResult = async (response) => {
+  if (statusCode.ok(response)) {
+    return { validationErrors: {}, hasError: false };
+  }
+
+  if (statusCode.badRequest(response)) {
+    const { validationErrors: errors } = await response.json();
+    const validationErrors = {};
+    errors.forEach((error) => (validationErrors[error.field] = error.message));
+
+    return { validationErrors, hasError: true };
+  }
+
+  return { hasError: true };
 };

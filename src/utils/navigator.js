@@ -2,8 +2,10 @@ import routes from "./routes";
 import history from "../store/utils/history";
 
 export const navigateToHome = () => history.push(routes.home);
+
 export const navigateToLogin = () => history.push(routes.account.login);
 export const navigateToRegister = () => history.push(routes.account.register);
+export const navigateToForgotPassword = () => history.push(routes.account.forgotPassword);
 
 export const navigateToAlgorithms = () => history.push(routes.algorithms.main);
 export const navigateToAlgorithmDescription = (algorithmId) => history.push(routes.algorithms.description(algorithmId));

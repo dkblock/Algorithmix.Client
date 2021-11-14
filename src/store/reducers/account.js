@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
-import { authenticate, login, logout, register } from "../actions/account";
+import { authenticate, login, logout, register, updateUserInformation } from "../actions/account";
 import { getAccessToken } from "../../utils/local-storage-manager";
 
 const initialState = {
@@ -50,6 +50,13 @@ const accountSlice = createSlice({
       state.currentUser = {};
       state.isAuthenticated = false;
       state.validationErrors = {};
+    },
+
+    [updateUserInformation.fulfilled]: (state, { payload: { currentUser, hasError } }) => {
+      onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
+      state.currentUser = currentUser;
     },
   },
 });

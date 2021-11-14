@@ -77,6 +77,16 @@ const accountValidator = () => {
 
       return { isValid: isValid(validationErrors), validationErrors };
     },
+
+    validateOnUpdateUserInformation: ({ firstName, lastName, email }) => {
+      const validationErrors = {};
+
+      validationErrors.email = validateEmail(email);
+      validationErrors.firstName = validateFirstName(firstName);
+      validationErrors.lastName = validateLastName(lastName);
+
+      return { isValid: isValid(validationErrors), validationErrors };
+    },
   };
 };
 

@@ -11,6 +11,7 @@ import Redirect from "../_common/route/redirect";
 import Button, { colors } from "../_common/button";
 import Dropdown from "../_common/dropdown";
 import TextField from "../_common/text-field";
+import Welcome from "./welcome";
 
 const {
   validateEmail,
@@ -24,7 +25,7 @@ const {
 const Register = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useCurrentUser();
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.account);
+  const { isFetching, hasError, validationErrors: serverValidationErrors } = useSelector((state) => state.account);
   const { groups } = useSelector((state) => state.group);
 
   const availableGroups = useMemo(
@@ -42,11 +43,13 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationErrors, setValidationErrors] = useState({});
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useTitle("Регистрация", "Algorithmix");
 
   useEffect(() => {
     dispatch(fetchGroups());
+    setIsRegistered(false);
   }, [dispatch]);
 
   useEffect(() => {
@@ -62,10 +65,13 @@ const Register = () => {
     setValidationErrors({ ...validationErrors, email: error });
   }, [email, validationErrors]);
 
-  const handleGroupIdChange = useCallback((value) => {
-    setGroupId(value);
-    setValidationErrors({ ...validationErrors, groupId: null });
-  }, [validationErrors]);
+  const handleGroupIdChange = useCallback(
+    (value) => {
+      setGroupId(value);
+      setValidationErrors({ ...validationErrors, groupId: null });
+    },
+    [validationErrors]
+  );
 
   const handleFirstNameChange = useCallback((value) => setFirstName(value), []);
   const handleFirstNameFocus = useCallback(() => setValidationErrors({ ...validationErrors, firstName: null }), [
@@ -113,89 +119,96 @@ const Register = () => {
     if (isValid) {
       setValidationErrors({});
       dispatch(register({ credentials }));
+      setIsRegistered(true);
     } else {
       setValidationErrors(nextValidationErrors);
     }
   };
 
-  if (isAuthenticated) return <Redirect to={routes.account.settings} />;
+  if (isAuthenticated && !isRegistered) return <Redirect to={routes.account.settings} />;
 
   return (
     <div className="account-sign">
       <Paper className="account-sign-form account-sign-form--large">
         <img className="account-sign-form__logo" src={images.logo} alt="algorithmix-logo" />
-        <div className="account-sign-form__row">
-          <TextField
-            className="account-sign-form__control--large"
-            label="Email"
-            value={email}
-            error={Boolean(validationErrors.email)}
-            helperText={validationErrors.email}
-            onChange={handleEmailChange}
-            onFocus={handleEmailFocus}
-            onFocusOut={handleEmailFocusOut}
-          />
-          <Dropdown
-            className="account-sign-form__control--large"
-            value={groupId}
-            label="Группа"
-            error={Boolean(validationErrors.groupId)}
-            helperText={validationErrors.groupId}
-            items={groupItems}
-            onChange={handleGroupIdChange}
-          />
-        </div>
-        <div className="account-sign-form__row">
-          <TextField
-            className="account-sign-form__control--large"
-            value={firstName}
-            label="Имя"
-            error={Boolean(validationErrors.firstName)}
-            helperText={validationErrors.firstName}
-            onChange={handleFirstNameChange}
-            onFocus={handleFirstNameFocus}
-            onFocusOut={handleFirstNameFocusOut}
-          />
-          <TextField
-            className="account-sign-form__control--large"
-            value={lastName}
-            label="Фамилия"
-            error={Boolean(validationErrors.lastName)}
-            helperText={validationErrors.lastName}
-            onChange={handleLastNameChange}
-            onFocus={handleLastNameFocus}
-            onFocusOut={handleLastNameFocusOut}
-          />
-        </div>
-        <div className="account-sign-form__row">
-          <TextField
-            className="account-sign-form__control--large"
-            value={password}
-            label="Пароль"
-            type="password"
-            error={Boolean(validationErrors.password)}
-            helperText={validationErrors.password}
-            onChange={handlePasswordChange}
-            onFocus={handlePasswordFocus}
-            onFocusOut={handlePasswordFocusOut}
-          />
-          <TextField
-            className="account-sign-form__control--large"
-            value={confirmPassword}
-            label="Подтвердите пароль"
-            type="password"
-            error={Boolean(validationErrors.confirmPassword)}
-            helperText={validationErrors.confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            onFocus={handleConfirmPasswordFocus}
-            onFocusOut={handleConfirmPasswordFocusOut}
-          />
-        </div>
-        <div className="account-sign-form__submit">
-          <Button color={colors.success} onClick={handleSubmit}>
-            Регистрация
-          </Button>
-        </div>
+        {isRegistered && !hasError && !isFetching ? (
+          <Welcome fullName={`${firstName} ${lastName}`} email={email} />
+        ) : (
+          <>
+            <div className="account-sign-form__row">
+              <TextField
+                className="account-sign-form__control--large"
+                label="Email"
+                value={email}
+                error={Boolean(validationErrors.email)}
+                helperText={validationErrors.email}
+                onChange={handleEmailChange}
+                onFocus={handleEmailFocus}
+                onFocusOut={handleEmailFocusOut}
+              />
+              <Dropdown
+                className="account-sign-form__control--large"
+                value={groupId}
+                label="Группа"
+                error={Boolean(validationErrors.groupId)}
+                helperText={validationErrors.groupId}
+                items={groupItems}
+                onChange={handleGroupIdChange}
+              />
+            </div>
+            <div className="account-sign-form__row">
+              <TextField
+                className="account-sign-form__control--large"
+                value={firstName}
+                label="Имя"
+                error={Boolean(validationErrors.firstName)}
+                helperText={validationErrors.firstName}
+                onChange={handleFirstNameChange}
+                onFocus={handleFirstNameFocus}
+                onFocusOut={handleFirstNameFocusOut}
+              />
+              <TextField
+                className="account-sign-form__control--large"
+                value={lastName}
+                label="Фамилия"
+                error={Boolean(validationErrors.lastName)}
+                helperText={validationErrors.lastName}
+                onChange={handleLastNameChange}
+                onFocus={handleLastNameFocus}
+                onFocusOut={handleLastNameFocusOut}
+              />
+            </div>
+            <div className="account-sign-form__row">
+              <TextField
+                className="account-sign-form__control--large"
+                value={password}
+                label="Пароль"
+                type="password"
+                error={Boolean(validationErrors.password)}
+                helperText={validationErrors.password}
+                onChange={handlePasswordChange}
+                onFocus={handlePasswordFocus}
+                onFocusOut={handlePasswordFocusOut}
+              />
+              <TextField
+                className="account-sign-form__control--large"
+                value={confirmPassword}
+                label="Подтвердите пароль"
+                type="password"
+                error={Boolean(validationErrors.confirmPassword)}
+                helperText={validationErrors.confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                onFocus={handleConfirmPasswordFocus}
+                onFocusOut={handleConfirmPasswordFocusOut}
+              />
+            </div>
+            <div className="account-sign-form__submit">
+              <Button color={colors.success} onClick={handleSubmit}>
+                Регистрация
+              </Button>
+            </div>
+          </>
+        )}
       </Paper>
     </div>
   );

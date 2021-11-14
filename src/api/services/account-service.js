@@ -17,6 +17,26 @@ const accountService = {
     return await baseService.post(url, credentials);
   },
 
+  updateUserInformation: async (userInformation) => {
+    const url = api.account.updateUserInformation();
+    return await baseService.put(url, userInformation);
+  },
+
+  confirmEmailRequest: async () => {
+    const url = api.account.confirmEmail();
+    return await baseService.get(url);
+  },
+
+  confirmEmail: async (credentials) => {
+    const url = api.account.confirmEmail();
+    return await baseService.post(url, credentials);
+  },
+
+  changePassword: async (credentials) => {
+    const url = api.account.changePassword();
+    return await baseService.put(url, credentials);
+  },
+
   resetPasswordRequest: async (credentials) => {
     const url = api.account.resetPassword();
     return await baseService.post(url, credentials);

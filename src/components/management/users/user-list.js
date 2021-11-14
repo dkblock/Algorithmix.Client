@@ -33,6 +33,8 @@ const prepareUsers = (users) =>
   users.map((user) => ({
     id: user.id,
     fullName: `${user.firstName} ${user.lastName}`,
+    firstName: user.firstName,
+    lastname: user.lastName,
     email: user.email,
     groupId: user.group.id,
     role: user.role,

@@ -15,7 +15,7 @@ const GroupCell = ({ row, onUserUpdate }) => {
   const handleGroupIdChange = useCallback(
     (value) => {
       setGroupId(value);
-      onUserUpdate(row.id, { groupId: value });
+      onUserUpdate(row.id, { ...row, groupId: value });
     },
     [onUserUpdate, row.id]
   );

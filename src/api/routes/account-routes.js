@@ -5,6 +5,9 @@ const accountRoutes = {
   login: () => getRoute("account/login"),
   register: () => getRoute("account/register"),
 
+  updateUserInformation: () => getRoute("account"),
+  confirmEmail: () => getRoute("account/confirm-email"),
+  changePassword: () => getRoute("account/change-password"),
   resetPassword: () => getRoute("account/reset-password"),
 };
 

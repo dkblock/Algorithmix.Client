@@ -16,6 +16,7 @@ const routes = {
     main: "/account",
     login: "/account/login",
     register: "/account/register",
+    confirmEmail: "/account/confirm-email",
     forgotPassword: "/account/forgot-password",
     resetPassword: "/account/reset-password",
     settings: "/account/settings",

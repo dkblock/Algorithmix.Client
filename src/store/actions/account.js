@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import accountService from "../../api/services/account-service";
 import statusCode from "../../utils/status-code-reader";
-import { navigateToHome } from "../../utils/navigator";
+import { navigateToAccountSettings, navigateToHome } from "../../utils/navigator";
 import { clearAccessToken, getAccessToken, setAccessToken } from "../../utils/local-storage-manager";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
@@ -27,12 +27,7 @@ export const login = createAsyncThunk("login", async ({ credentials }) => {
 
 export const register = createAsyncThunk("register", async ({ credentials }) => {
   const response = await accountService.register(credentials);
-  const registerResult = await getAuthenticationResult(response);
-  const { hasError } = registerResult;
-
-  if (!hasError) navigateToHome();
-
-  return registerResult;
+  return await getAuthenticationResult(response);
 });
 
 export const logout = createAsyncThunk("logout", (params, thunkAPI) => {
@@ -40,6 +35,45 @@ export const logout = createAsyncThunk("logout", (params, thunkAPI) => {
 
   clearAccessToken();
   navigateToHome();
+});
+
+export const updateUserInformation = createAsyncThunk("updateUserInformation", async ({ userInformation }) => {
+  const response = await accountService.updateUserInformation(userInformation);
+  return await getAuthenticationResult(response);
+});
+
+export const confirmEmailRequest = createAsyncThunk("confirmEmailRequest", async () => {
+  await accountService.confirmEmailRequest();
+});
+
+export const confirmEmail = createAsyncThunk("confirmEmail", async ({credentials}) => {
+  const response = await accountService.confirmEmail(credentials);
+
+  if (statusCode.ok(response)) {
+    navigateToAccountSettings();
+    return { hasError: false };
+  }
+
+  return { hasError: true };
+});
+
+export const changePassword = createAsyncThunk("changePassword", async ({ credentials }, thunkAPI) => {
+  const response = await accountService.changePassword(credentials);
+
+  if (statusCode.ok(response)) {
+    thunkAPI.dispatch(hideModal());
+    return { validationErrors: {}, hasError: false };
+  }
+
+  if (statusCode.badRequest(response)) {
+    const { validationErrors: errors } = await response.json();
+    const validationErrors = {};
+    errors.forEach((error) => (validationErrors[error.field] = error.message));
+
+    return { validationErrors, hasError: true };
+  }
+
+  return { hasError: true };
 });
 
 export const resetPasswordRequest = createAsyncThunk("resetPasswordRequest", async ({ credentials }) => {
@@ -56,8 +90,16 @@ export const showZoomImageModal = createAsyncThunk("showZoomImageModal", ({ src 
   thunkApi.dispatch(showModal(modalTypes.zoomImage, { src }));
 });
 
-export const showLogoutModal = createAsyncThunk("showLogoutModal", (params, thunkAPI) => {
+export const showLogoutModal = createAsyncThunk("showLogoutModal", (_, thunkAPI) => {
   thunkAPI.dispatch(showModal(modalTypes.logout));
+});
+
+export const showConfirmEmailModal = createAsyncThunk("showConfirmEmailModal", ({ email }, thunkAPI) => {
+  thunkAPI.dispatch(showModal(modalTypes.confirmEmail, { email }));
+});
+
+export const showChangePasswordModal = createAsyncThunk("showChangePasswordModal", async (_, thunkAPI) => {
+  thunkAPI.dispatch(showModal(modalTypes.changePassword));
 });
 
 const getAuthenticationResult = async (response) => {

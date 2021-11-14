@@ -16,7 +16,7 @@ const RoleCell = ({ row, onUserUpdate }) => {
   const handleRoleChange = useCallback(
     (value) => {
       setRole(value);
-      onUserUpdate(row.id, { role: value });
+      onUserUpdate(row.id, { ...row, role: value });
     },
     [onUserUpdate, row.id]
   );

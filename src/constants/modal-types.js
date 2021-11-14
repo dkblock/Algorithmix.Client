@@ -1,5 +1,7 @@
 const modalTypes = {
+  changePassword: "changePassword",
   clearAlgorithmData: "clearAlgorithmData",
+  confirmEmail: "confirmEmail",
   createAlgorithm: "createAlgorithm",
   createGroup: "createGroup",
   createTest: "createTest",

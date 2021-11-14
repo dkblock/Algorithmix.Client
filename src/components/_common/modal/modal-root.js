@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import ChangePasswordModal from "../../account/change-password-modal";
 import ClearAlgorithmDataModal from "../../algorithms/design/clear-algorithm-data-modal";
+import ConfirmEmailModal from "../../account/confirm-email-modal";
 import CreateAlgorithmModal from "../../management/algorithms/create-algorithm-modal";
 import CreateGroupModal from "../../management/groups/create-group-modal";
 import CreateTestModal from "../../management/tests/create-test-modal";
@@ -19,7 +21,9 @@ import { ZoomImageModal } from "../zoom-image";
 import modalTypes from "../../../constants/modal-types";
 
 const modals = {
+  [modalTypes.changePassword]: ChangePasswordModal,
   [modalTypes.clearAlgorithmData]: ClearAlgorithmDataModal,
+  [modalTypes.confirmEmail]: ConfirmEmailModal,
   [modalTypes.createAlgorithm]: CreateAlgorithmModal,
   [modalTypes.createGroup]: CreateGroupModal,
   [modalTypes.createTest]: CreateTestModal,

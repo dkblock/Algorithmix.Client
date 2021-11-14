@@ -6,7 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 
 import { useCurrentUser } from "../../hooks";
 import { showLogoutModal } from "../../store/actions/account";
-import { navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
+import { navigateToAccountSettings, navigateToHome, navigateToLogin, navigateToRegister } from "../../utils/navigator";
 import images from "../../constants/images";
 import Button, { colors } from "../_common/button";
 import Avatar from "../_common/avatar";
@@ -23,6 +23,10 @@ const AppHeader = () => {
   const handleLogoClick = () => navigateToHome();
   const handleLoginClick = () => navigateToLogin();
   const handleRegisterClick = () => navigateToRegister();
+  const handleAccountSettingsClick = () => {
+    navigateToAccountSettings();
+    handleMenuClose();
+  };
   const handleLogoutClick = () => {
     dispatch(showLogoutModal());
     handleMenuClose();
@@ -66,7 +70,7 @@ const AppHeader = () => {
                   {currentUser.firstName} {currentUser.lastName}
                 </MenuItem>
                 <div className="app-header__menu-divider" />
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={handleAccountSettingsClick}>
                   <ListItemIcon>
                     <Icon type={iconTypes.settings} />
                   </ListItemIcon>

@@ -11,10 +11,10 @@ import {
 import sidebarSelector from "../../utils/sidebar-selector";
 import { IconButton, iconTypes } from "../_common/icon";
 import Tooltip from "../_common/tooltip";
-import Loader from "../_common/loader";
+import AppSidebarSaver from "./app-sidebar-saver";
 
 const AppSidebar = () => {
-  const currentRoute = useSelector((state) => state.router.location.pathname);
+  const { pathname: currentRoute } = useSelector((state) => state.router.location);
   const isExecutive = useExecutiveRole();
 
   return (
@@ -51,7 +51,7 @@ const AppSidebar = () => {
           </Tooltip>
         )}
       </div>
-      <Loader className="m-auto" size="small"/>
+      <AppSidebarSaver />
     </div>
   );
 };

@@ -13,6 +13,7 @@ import DeleteUserTestResultModal from "../../management/user-test-results/delete
 import DeleteTestQuestionModal from "../../tests/design/delete-test-question-modal";
 import DeleteUserModal from "../../management/users/delete-user-modal";
 import LogoutModal from "../../_app/logout-modal";
+import PasswordChangedModal from "../../account/password-changed-modal";
 import PublishTestModal from "../../tests/design/publish-test-modal";
 import UploadAlgorithmDataModal from "../../algorithms/design/upload-algorithm-data-modal";
 import UploadAlgorithmImageModal from "../../algorithms/design/upload-algorithm-image-modal";
@@ -34,6 +35,7 @@ const modals = {
   [modalTypes.deleteTestQuestion]: DeleteTestQuestionModal,
   [modalTypes.deleteUser]: DeleteUserModal,
   [modalTypes.logout]: LogoutModal,
+  [modalTypes.passwordChanged]: PasswordChangedModal,
   [modalTypes.publishTest]: PublishTestModal,
   [modalTypes.uploadAlgorithmData]: UploadAlgorithmDataModal,
   [modalTypes.uploadAlgorithmImage]: UploadAlgorithmImageModal,

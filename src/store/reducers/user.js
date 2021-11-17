@@ -25,7 +25,7 @@ const userSlice = createSlice({
     },
 
     [deleteUser.pending]: (state) => {
-      onPendingDefault(state);
+      onSavingDefault(state);
     },
     [deleteUser.fulfilled]: (state, { payload: { userId, hasError } }) => {
       onFulfilledDefault(state, hasError);

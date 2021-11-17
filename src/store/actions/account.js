@@ -46,11 +46,13 @@ export const confirmEmailRequest = createAsyncThunk("confirmEmailRequest", async
   await accountService.confirmEmailRequest();
 });
 
-export const confirmEmail = createAsyncThunk("confirmEmail", async ({credentials}) => {
+export const confirmEmail = createAsyncThunk("confirmEmail", async ({ credentials }) => {
   const response = await accountService.confirmEmail(credentials);
 
   if (statusCode.ok(response)) {
     navigateToAccountSettings();
+    window.location.reload();
+
     return { hasError: false };
   }
 
@@ -62,6 +64,8 @@ export const changePassword = createAsyncThunk("changePassword", async ({ creden
 
   if (statusCode.ok(response)) {
     thunkAPI.dispatch(hideModal());
+    thunkAPI.dispatch(showModal(modalTypes.passwordChanged));
+
     return { validationErrors: {}, hasError: false };
   }
 

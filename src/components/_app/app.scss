@@ -92,6 +92,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border-top: $panel-border;
   border-right: $panel-border;
 
@@ -101,5 +103,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  &__saver {
+    margin-bottom: 24px;
+    cursor: pointer;
   }
 }

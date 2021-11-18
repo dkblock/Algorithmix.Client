@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "../checkbox";
+import { MenuProps } from "./dropdown-props";
 import palette from "../../../utils/palette";
 
 const theme = createTheme({ palette });
@@ -52,6 +53,7 @@ const MultiDropdown = ({ className, items, value, label, error, helperText, onCh
           onChange={handleChange}
           onClose={onClose ? handleClose : null}
           renderValue={(selected) => getRenderedValue(selected, items)}
+          MenuProps={MenuProps}
         >
           {items.map((item) => (
             <MenuItem key={`dropdown-item-${item.value}`} value={item.value}>

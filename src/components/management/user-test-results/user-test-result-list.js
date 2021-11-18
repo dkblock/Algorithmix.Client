@@ -9,7 +9,6 @@ import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import TextField from "../../_common/text-field";
 import { Dropdown } from "../../_common/dropdown";
-import CompletionResult from "../../_common/completion-result";
 
 const getActions = (onTestResultDelete) => [
   {
@@ -28,12 +27,7 @@ const columns = [
   { id: "fullName", label: "Имя", width: 300 },
   { id: "groupName", label: "Группа", width: 200 },
   { id: "testName", label: "Тест", width: 350 },
-  {
-    id: "result",
-    label: "Результат",
-    align: "center",
-    renderCell: ({ result }) => <CompletionResult value={result} size="extra-small" />,
-  },
+  { id: "result", label: "Результат" },
   { id: "passingTime", label: "Пройден" },
 ];
 
@@ -45,7 +39,7 @@ const prepareTestResults = (testResults) =>
     fullName: `${result.user.lastName} ${result.user.firstName}`,
     groupName: result.user.group.name,
     testName: result.test.name,
-    result: result.result,
+    result: `${result.result}%`,
     passingTime: stringifyDateTime(new Date(result.passingTime)),
   }));
 
@@ -130,7 +124,8 @@ const UserTestResultList = () => {
           <TextField
             className="management-user-tests-results__toolbar-item"
             value={searchText}
-            label="Поиск"
+            variant="standard"
+            icon={iconTypes.search}
             onChange={handleSearchTextChange}
             onFocus={() => {}}
             onFocusOut={() => {}}

@@ -1,83 +1,66 @@
 import React from "react";
 
 const AlgorithmTimeComplexity = ({ complexity }) => {
-    const hasSortingComplexity = () => (
-        complexity.sortingAverageTime || complexity.sortingWorstTime || complexity.sortingBestTime
-    );
-    const hasSearchingComplexity = () => (complexity.searchingAverageTime || complexity.searchingWorstTime);
-    const hasInsertionComplexity = () => (complexity.insertionAverageTime || complexity.insertionWorstTime);
-    const hasDeletionComplexity = () => (complexity.deletionAverageTime || complexity.deletionWorstTime);
-    const hasOperationsComplexity = () => (
-        hasSearchingComplexity() || hasInsertionComplexity() || hasDeletionComplexity()
-    );
-
-    return (
-        <>
-            <h6 className="text-center">Временная сложность</h6>
-            <table className="table table-bordered text-center description-table">
-                {hasSortingComplexity() && <SortingComplexity complexity={complexity}/>}
-
-                {hasOperationsComplexity() && (
-                    <>
-                        <thead>
-                        <tr>
-                            <th>Операция</th>
-                            <th>В среднем</th>
-                            <th>В худшем</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {hasSearchingComplexity() && <SearchingComplexity complexity={complexity}/>}
-                        {hasInsertionComplexity() && <InsertionComplexity complexity={complexity}/>}
-                        {hasDeletionComplexity() && <DeletionComplexity complexity={complexity}/>}
-                        </tbody>
-                    </>
-                )}
-            </table>
-        </>
-    );
+  const getValue = (value) => (value === null || value === "" ? "-" : value);
+  return (
+    <table className="algorithm-time-complexity-table">
+      <thead>
+        <tr>
+          <th colSpan={4}>Асимптотическая сложность операций (по времени)</th>
+        </tr>
+        <tr>
+          <th>Операция</th>
+          <th>В худшем</th>
+          <th>В среднем</th>
+          <th>В лучшем</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Поиск</td>
+          <td>{getValue(complexity.searchingWorstTime)}</td>
+          <td>{getValue(complexity.searchingAverageTime)}</td>
+          <td>{getValue(complexity.searchingBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Вставка</td>
+          <td>{getValue(complexity.insertionWorstTime)}</td>
+          <td>{getValue(complexity.insertionAverageTime)}</td>
+          <td>{getValue(complexity.insertionBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Удаление</td>
+          <td>{getValue(complexity.deletionWorstTime)}</td>
+          <td>{getValue(complexity.deletionAverageTime)}</td>
+          <td>{getValue(complexity.deletionBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Индексация</td>
+          <td>{getValue(complexity.indexingWorstTime)}</td>
+          <td>{getValue(complexity.indexingAverageTime)}</td>
+          <td>{getValue(complexity.indexingBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Поиск максимума</td>
+          <td>{getValue(complexity.findMaxElementWorstTime)}</td>
+          <td>{getValue(complexity.findMaxElementAverageTime)}</td>
+          <td>{getValue(complexity.findMaxElementBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Извлечение максимума</td>
+          <td>{getValue(complexity.getMaxElementWorstTime)}</td>
+          <td>{getValue(complexity.getMaxElementAverageTime)}</td>
+          <td>{getValue(complexity.getMaxElementBestTime)}</td>
+        </tr>
+        <tr>
+          <td>Сортировка</td>
+          <td>{getValue(complexity.sortingWorstTime)}</td>
+          <td>{getValue(complexity.sortingAverageTime)}</td>
+          <td>{getValue(complexity.sortingBestTime)}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
 };
-
-const SortingComplexity = ({ complexity }) => (
-    <tbody>
-    <tr>
-        <td><b>В худшем</b></td>
-        <td>{complexity.sortingWorstTime}</td>
-    </tr>
-    <tr>
-        <td><b>В среднем</b></td>
-        <td>{complexity.sortingAverageTime}</td>
-    </tr>
-    <tr>
-        <td><b>В лучшем</b></td>
-        <td>{complexity.sortingBestTime}</td>
-    </tr>
-    </tbody>
-);
-
-const SearchingComplexity = ({ complexity }) => (
-    <tr>
-        <td>Поиск</td>
-        <td>{complexity.searchingAverageTime}</td>
-        <td>{complexity.searchingWorstTime}</td>
-    </tr>
-);
-
-const InsertionComplexity = ({ complexity }) => (
-    <tr>
-        <td>Вставка</td>
-        <td>{complexity.insertionAverageTime}</td>
-        <td>{complexity.insertionWorstTime}</td>
-    </tr>
-);
-
-const DeletionComplexity = ({ complexity }) => (
-    <tr>
-        <td>Удаление</td>
-        <td>{complexity.deletionAverageTime}</td>
-        <td>{complexity.deletionWorstTime}</td>
-    </tr>
-);
 
 export default AlgorithmTimeComplexity;

@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import algorithmsData from "../../../constants/algorithms-data";
 import { getFileSrc } from "../../../utils/get-file-src";
 import Iframe from "../../_common/iframe";
-import AlgorithmTimeComplexity from "./algorithm-time-complexity";
+import AlgorithmDescriptionHeader from "./algorithm-description-header";
 import "./algorithm-description.scss";
 
 const { description } = algorithmsData;
@@ -23,8 +23,7 @@ const AlgorithmDescription = () => {
   return (
     <div className="algorithm-description-container">
       <Paper className="algorithm-description">
-        {/*<DescriptionComponent algorithm={algorithm} component={component} />*/}
-        <AlgorithmTimeComplexity complexity={algorithm.timeComplexity} />
+        <AlgorithmDescriptionHeader algorithm={algorithm} />
         <Iframe src={getFileSrc(description(algorithm.id))} />
       </Paper>
     </div>

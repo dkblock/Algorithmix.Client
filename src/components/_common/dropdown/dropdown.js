@@ -5,6 +5,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { MenuProps } from "./dropdown-props";
 import palette from "../../../utils/palette";
 
 const theme = createTheme({ palette });
@@ -27,7 +28,14 @@ const Dropdown = ({ className, items, label, error, helperText, value, onChange 
     <ThemeProvider theme={theme}>
       <FormControl className={className} variant="outlined" error={error}>
         <InputLabel>{label}</InputLabel>
-        <Select label={label} value={dropdownValue} variant="outlined" size="small" onChange={handleChange}>
+        <Select
+          label={label}
+          value={dropdownValue}
+          variant="outlined"
+          size="small"
+          onChange={handleChange}
+          MenuProps={MenuProps}
+        >
           {items.map((item) => (
             <MenuItem key={`dropdown-item-${item.value}`} value={item.value}>
               {item.label}

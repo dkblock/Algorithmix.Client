@@ -6,27 +6,33 @@ import testService from "../../api/services/test-service";
 import statusCode from "../../utils/status-code-reader";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchPublishedTests = createAsyncThunk("fetchPublishedTests", async ({ searchText }) => {
-  const response = await testService.fetchPublishedTests(searchText);
+export const fetchPublishedTests = createAsyncThunk(
+  "fetchPublishedTests",
+  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await testService.fetchPublishedTests(searchText, pageIndex, pageSize, sortBy, sortDirection);
 
-  if (statusCode.ok(response)) {
-    const tests = await response.json();
-    return { tests, hasError: false };
+    if (statusCode.ok(response)) {
+      const { page: tests, totalCount } = await response.json();
+      return { tests, totalCount, hasError: false };
+    }
+
+    return { tests: [], totalCount: 0, hasError: true };
   }
+);
 
-  return { tests: [], hasError: true };
-});
+export const fetchTests = createAsyncThunk(
+  "fetchTests",
+  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await testService.fetchTests(searchText, pageIndex, pageSize, sortBy, sortDirection);
 
-export const fetchTests = createAsyncThunk("fetchTests", async () => {
-  const response = await testService.fetchTests();
+    if (statusCode.ok(response)) {
+      const { page: tests, totalCount } = await response.json();
+      return { tests, totalCount, hasError: false };
+    }
 
-  if (statusCode.ok(response)) {
-    const tests = await response.json();
-    return { tests, hasError: false };
+    return { tests: [], totalCount: 0, hasError: true };
   }
-
-  return { tests: [], hasError: true };
-});
+);
 
 export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }, thunkAPI) => {
   const response = await testService.fetchTest(testId);

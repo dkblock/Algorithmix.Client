@@ -2,10 +2,12 @@ import api from "../api";
 import baseService from "./base-service";
 
 const userTestResultService = {
-  fetchTestResults: async (searchText, groupId, sortBy, sortDirection) => {
+  fetchTestResults: async (searchText, groupId, pageIndex, pageSize, sortBy, sortDirection) => {
     const params = {
       searchText,
       groupId,
+      pageIndex,
+      pageSize,
       sortBy,
       desc: sortDirection === "desc",
     };

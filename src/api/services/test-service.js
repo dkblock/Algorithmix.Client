@@ -2,13 +2,29 @@ import api from "../api";
 import baseService from "./base-service";
 
 const testService = {
-  fetchPublishedTests: async (searchText) => {
-    const url = api.tests.fetchPublishedTests(searchText);
+  fetchPublishedTests: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+    const params = {
+      searchText,
+      pageIndex,
+      pageSize,
+      sortBy,
+      desc: sortDirection === "desc",
+    };
+
+    const url = api.tests.fetchPublishedTests(params);
     return await baseService.get(url);
   },
 
-  fetchTests: async () => {
-    const url = api.tests.fetchTests();
+  fetchTests: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+    const params = {
+      searchText,
+      pageIndex,
+      pageSize,
+      sortBy,
+      desc: sortDirection === "desc",
+    };
+
+    const url = api.tests.fetchTests(params);
     return await baseService.get(url);
   },
 

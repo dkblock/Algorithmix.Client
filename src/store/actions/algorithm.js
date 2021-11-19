@@ -5,16 +5,19 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchAlgorithms = createAsyncThunk("fetchAlgorithms", async () => {
-  const response = await algorithmService.fetchAlgorithms();
+export const fetchAlgorithms = createAsyncThunk(
+  "fetchAlgorithms",
+  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await algorithmService.fetchAlgorithms(searchText, pageIndex, pageSize, sortBy, sortDirection);
 
-  if (statusCode.ok(response)) {
-    const algorithms = await response.json();
-    return { algorithms, hasError: false };
+    if (statusCode.ok(response)) {
+      const { page: algorithms, totalCount } = await response.json();
+      return { algorithms, totalCount, hasError: false };
+    }
+
+    return { algorithms: [], totalCount: 0, hasError: true };
   }
-
-  return { algorithms: [], hasError: true };
-});
+);
 
 export const fetchAlgorithm = createAsyncThunk("fetchAlgorithm", async ({ algorithmId }) => {
   const response = await algorithmService.fetchAlgorithm(algorithmId);

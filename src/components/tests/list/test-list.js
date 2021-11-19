@@ -20,9 +20,9 @@ const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
     label: "Статус",
     width: 200,
     renderCell: (row) =>
-      row.userResult ? <span style={{ color: palette.success.main }}>Выполнен</span> : "Не выполнен",
+      row.userResult ? <span style={{ color: palette.success.main, fontWeight: 600 }}>Выполнен</span> : "Не выполнен",
   },
-  { id: "questionsCount", label: "Вопросы", align: "center" },
+  { id: "questionsCount", label: "Вопросы", align: "center", sortable: false },
   { id: "createdDate", label: "Создан" },
   {
     id: "actions",
@@ -68,25 +68,48 @@ const prepareTests = (tests) =>
 
 const TestList = () => {
   const dispatch = useDispatch();
-  const { publishedTests: tests, isFetching } = useSelector((state) => state.test);
+  const { tests, totalCount, isFetching, searchText: search, pageIndex, pageSize, sortBy, sortDirection } = useSelector(
+    (state) => state.publishedTest
+  );
 
   const { isAuthenticated } = useCurrentUser();
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(search);
 
   useTitle("Тесты", "Тесты");
 
   useEffect(() => {
-    dispatch(fetchPublishedTests({ searchText }));
+    dispatch(fetchPublishedTests({ searchText, pageIndex, pageSize, sortBy, sortDirection }));
   }, [dispatch]);
 
-  const handleSearch = useDebouncedCallback((searchText) => {
-    dispatch(fetchPublishedTests({ searchText }));
+  const handleSearch = useCallback(
+    (params) => {
+      dispatch(fetchPublishedTests({ searchText, pageIndex, pageSize, sortBy, sortDirection, ...params }));
+    },
+    [searchText, pageIndex, pageSize, sortBy, sortDirection]
+  );
+
+  const handleSearchDebounced = useDebouncedCallback(({ searchText }) => {
+    handleSearch({ searchText });
   }, 500);
 
   const handleSearchTextChange = useCallback((value) => {
     setSearchText(value);
-    handleSearch(value);
+    handleSearchDebounced({ searchText: value });
   }, []);
+
+  const handleSort = useCallback(
+    ({ sortBy: orderBy, sortDirection: sortOrder }) => {
+      handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
+    },
+    [searchText]
+  );
+
+  const handlePageChange = useCallback(
+    (newPageIndex) => {
+      handleSearch({ pageIndex: newPageIndex });
+    },
+    [searchText]
+  );
 
   const handleTestStart = (id) => navigateToTestPass(id);
   const handleTestResult = (id) => navigateToTestResult(id);
@@ -100,10 +123,17 @@ const TestList = () => {
         <Table
           columns={columns}
           data={preparedTests}
-          onRowExpand={(row) => <TestListItem test={row} />}
           isFetching={isFetching}
+          totalCount={totalCount}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+          onPageChange={handlePageChange}
+          onRowExpand={(row) => <TestListItem test={row} />}
           toolbar={
-            <Table.Toolbar title="Тесты" count={preparedTests.length}>
+            <Table.Toolbar title="Тесты" count={totalCount}>
               <TextField
                 value={searchText}
                 variant="standard"

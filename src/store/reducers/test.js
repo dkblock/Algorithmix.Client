@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
-import {
-  createTest,
-  deleteTest,
-  fetchPublishedTests,
-  fetchTests,
-  selectTest
-} from "../actions/test";
+import { createTest, deleteTest, fetchTests, selectTest } from "../actions/test";
 
 const initialState = {
-  publishedTests: [],
   tests: [],
   selectedTestId: null,
+
+  totalCount: 0,
+  searchText: "",
+  pageIndex: 1,
+  pageSize: 20,
+  sortBy: "updatedDate",
+  sortDirection: "desc",
 
   isFetching: false,
   isSaving: false,
@@ -22,31 +22,26 @@ const testSlice = createSlice({
   name: "testSlice",
   initialState: initialState,
   extraReducers: {
-    [fetchPublishedTests.pending]: (state) => {
+    [fetchTests.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
-      state.publishedTests = [];
-    },
-    [fetchPublishedTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
-      onFulfilledDefault(state, hasError);
-      state.publishedTests = tests;
-      state.selectedTestId = state.selectedTestId ?? tests[0]?.id;
-    },
-    [fetchPublishedTests.rejected]: (state) => {
-      onRejectedDefault(state);
-      state.publishedTests = [];
-      state.selectedTestId = null;
-    },
 
-    [fetchTests.pending]: (state) => {
-      onPendingDefault(state);
+      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      state.searchText = searchText;
+      state.pageIndex = pageIndex;
+      state.sortBy = sortBy;
+      state.sortDirection = sortDirection;
     },
-    [fetchTests.fulfilled]: (state, { payload: { tests, hasError } }) => {
+    [fetchTests.fulfilled]: (state, { payload: { tests, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
+
       state.tests = tests;
+      state.totalCount = totalCount;
     },
     [fetchTests.rejected]: (state) => {
       onRejectedDefault(state);
+
       state.tests = [];
+      state.totalCount = 0;
     },
 
     [createTest.pending]: (state) => {
@@ -80,7 +75,7 @@ const testSlice = createSlice({
 
     [selectTest]: (state, { payload: { testId } }) => {
       state.selectedTestId = testId;
-    }
+    },
   },
 });
 

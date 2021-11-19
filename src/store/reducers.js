@@ -6,6 +6,7 @@ import algorithmReducer from "./reducers/algorithm";
 import algorithmDesignReducer from "./reducers/algorithm-design";
 import groupReducer from "./reducers/group";
 import modalReducer from "./reducers/modal";
+import publishedTestReducer from "./reducers/published-test";
 import testReducer from "./reducers/test";
 import testDesignReducer from "./reducers/test-design";
 import testPassReducer from "./reducers/test-pass";
@@ -22,6 +23,7 @@ const createRootReducer = (history) => ({
   algorithmDesign: algorithmDesignReducer,
   group: groupReducer,
   modal: modalReducer,
+  publishedTest: publishedTestReducer,
   test: testReducer,
   testDesign: testDesignReducer,
   testPass: testPassReducer,

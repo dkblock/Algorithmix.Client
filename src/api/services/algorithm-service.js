@@ -3,8 +3,16 @@ import baseService from "./base-service";
 import fileService from "./file-service";
 
 const algorithmService = {
-  fetchAlgorithms: async () => {
-    const url = api.algorithms.fetchAlgorithms();
+  fetchAlgorithms: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+    const params = {
+      searchText,
+      pageIndex,
+      pageSize,
+      sortBy,
+      desc: sortDirection === "desc",
+    };
+
+    const url = api.algorithms.fetchAlgorithms(params);
     return await baseService.get(url);
   },
 

@@ -13,8 +13,11 @@ const Table = ({
   data,
   toolbar,
   actions,
+  totalCount,
   isFetching,
   emptyText,
+  pageIndex,
+  pageSize,
   sortBy,
   sortDirection,
   onSort,
@@ -23,7 +26,7 @@ const Table = ({
 }) => {
   const [orderBy, setOrderBy] = useState(sortBy);
   const [order, setOrder] = useState(sortDirection);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(pageIndex - 1);
 
   const handleSort = (columnId) => {
     const newOrder = orderBy === columnId && order === "asc" ? "desc" : "asc";
@@ -35,6 +38,7 @@ const Table = ({
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
+    onPageChange(newPage + 1);
   };
 
   const preparedColumns = prepareColumns(columns, actions, onSort);
@@ -63,11 +67,12 @@ const Table = ({
       </div>
       {!!onPageChange && (
         <TablePagination
-          rowsPerPageOptions={[-1]}
           component="div"
-          count={data.length}
-          rowsPerPage={20}
+          rowsPerPageOptions={[-1]}
           page={page}
+          rowsPerPage={pageSize}
+          count={totalCount}
+          labelDisplayedRows={({ from, to, count }) => `${from}-${to} из ${count}`}
           onPageChange={handleChangePage}
         />
       )}

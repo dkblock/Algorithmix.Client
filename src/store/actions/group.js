@@ -4,16 +4,19 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchGroups = createAsyncThunk("fetchGroups", async () => {
-  const response = await groupService.fetchGroups();
+export const fetchGroups = createAsyncThunk(
+  "fetchGroups",
+  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await groupService.fetchGroups(searchText, pageIndex, pageSize, sortBy, sortDirection);
 
-  if (statusCode.ok(response)) {
-    const groups = await response.json();
-    return { groups, hasError: false };
+    if (statusCode.ok(response)) {
+      const { page: groups, totalCount } = await response.json();
+      return { groups, totalCount, hasError: false };
+    }
+
+    return { groups: [], totalCount: 0, hasError: true };
   }
-
-  return { groups: [], hasError: true };
-});
+);
 
 export const createGroup = createAsyncThunk("createGroup", async ({ group }, thunkAPI) => {
   const response = await groupService.createGroup(group);

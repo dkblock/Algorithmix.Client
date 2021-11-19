@@ -6,15 +6,22 @@ import modalTypes from "../../constants/modal-types";
 
 export const fetchUserTestResults = createAsyncThunk(
   "fetchUserTestResults",
-  async ({ searchText, groupId, sortBy, sortDirection }) => {
-    const response = await userTestResultService.fetchTestResults(searchText, groupId, sortBy, sortDirection);
+  async ({ searchText, groupId, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await userTestResultService.fetchTestResults(
+      searchText,
+      groupId,
+      pageIndex,
+      pageSize,
+      sortBy,
+      sortDirection
+    );
 
     if (statusCode.ok(response)) {
-      const testResults = await response.json();
-      return { testResults, hasError: false };
+      const { page: testResults, totalCount } = await response.json();
+      return { testResults, totalCount, hasError: false };
     }
 
-    return { testResults: [], hasError: true };
+    return { testResults: [], totalCount: 0, hasError: true };
   }
 );
 

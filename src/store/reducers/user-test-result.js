@@ -6,6 +6,13 @@ const initialState = {
   testResults: [],
   testResult: null,
 
+  totalCount: 0,
+  searchText: "",
+  pageIndex: 1,
+  pageSize: 20,
+  sortBy: "passingTime",
+  sortDirection: "desc",
+
   isFetching: false,
   isSaving: false,
   hasError: false,
@@ -15,15 +22,26 @@ const userTestResultSlice = createSlice({
   name: "userTestResultSlice",
   initialState: initialState,
   extraReducers: {
-    [fetchUserTestResults.pending]: (state) => {
+    [fetchUserTestResults.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
+
+      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      state.searchText = searchText;
+      state.pageIndex = pageIndex;
+      state.sortBy = sortBy;
+      state.sortDirection = sortDirection;
     },
-    [fetchUserTestResults.fulfilled]: (state, { payload: { testResults, hasError } }) => {
+    [fetchUserTestResults.fulfilled]: (state, { payload: { testResults, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
+
       state.testResults = testResults;
+      state.totalCount = totalCount;
     },
     [fetchUserTestResults.rejected]: (state) => {
       onRejectedDefault(state);
+
+      state.testResults = [];
+      state.totalCount = 0;
     },
 
     [fetchUserTestResult.pending]: (state) => {

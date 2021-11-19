@@ -1,7 +1,7 @@
 import { getRoute } from "../../utils/get-route";
 
 const algorithmRoutes = {
-  fetchAlgorithms: () => getRoute("algorithms"),
+  fetchAlgorithms: (params) => getRoute("algorithms", params),
   fetchAlgorithm: (algorithmId) => getRoute(`algorithms/${algorithmId}`),
   createAlgorithm: () => getRoute("algorithms"),
   deleteAlgorithm: (algorithmId) => getRoute(`algorithms/${algorithmId}`),

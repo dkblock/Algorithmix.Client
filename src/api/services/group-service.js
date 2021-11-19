@@ -2,8 +2,16 @@ import api from "../api";
 import baseService from "./base-service";
 
 const groupService = {
-  fetchGroups: async () => {
-    const url = api.groups.fetchRoutes();
+  fetchGroups: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+    const params = {
+      searchText,
+      pageIndex,
+      pageSize,
+      sortBy,
+      desc: sortDirection === "desc",
+    };
+
+    const url = api.groups.fetchGroups(params);
     return await baseService.get(url);
   },
 

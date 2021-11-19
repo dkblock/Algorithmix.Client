@@ -4,16 +4,27 @@ import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
 
-export const fetchUsers = createAsyncThunk("fetchUsers", async () => {
-  const response = await userService.fetchUsers();
+export const fetchUsers = createAsyncThunk(
+  "fetchUsers",
+  async ({ searchText, groupId, role, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await userService.fetchUsers(
+      searchText,
+      groupId,
+      role,
+      pageIndex,
+      pageSize,
+      sortBy,
+      sortDirection
+    );
 
-  if (statusCode.ok(response)) {
-    const users = await response.json();
-    return { users, hasError: false };
+    if (statusCode.ok(response)) {
+      const { page: users, totalCount } = await response.json();
+      return { users, totalCount, hasError: false };
+    }
+
+    return { users: [], totalCount: 0, hasError: true };
   }
-
-  return { users: [], hasError: true };
-});
+);
 
 export const deleteUser = createAsyncThunk("deleteUser", async ({ userId }, thunkAPI) => {
   const response = await userService.deleteUser(userId);

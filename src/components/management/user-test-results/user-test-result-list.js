@@ -45,37 +45,44 @@ const prepareTestResults = (testResults) =>
 
 const UserTestResultList = () => {
   const dispatch = useDispatch();
-  const { testResults, isFetching } = useSelector((state) => state.userTestResult);
   const { groups } = useSelector((state) => state.group);
+  const {
+    testResults,
+    totalCount,
+    isFetching,
+    searchText: search,
+    pageIndex,
+    pageSize,
+    sortBy,
+    sortDirection,
+  } = useSelector((state) => state.userTestResult);
 
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(search);
   const [groupId, setGroupId] = useState(-1);
-  const [sortBy, setSortBy] = useState("passingTime");
-  const [sortDirection, setSortDirection] = useState("desc");
 
   useTitle("Результаты", "Результаты");
 
   useEffect(() => {
-    dispatch(fetchUserTestResults({ searchText, groupId, sortBy, sortDirection }));
+    dispatch(fetchUserTestResults({ searchText, groupId, pageIndex, pageSize, sortBy, sortDirection }));
   }, [dispatch]);
 
   const handleSearch = useCallback(
     (params) => {
-      dispatch(fetchUserTestResults({ searchText, groupId, sortBy, sortDirection, ...params }));
+      dispatch(fetchUserTestResults({ searchText, groupId, pageIndex, pageSize, sortBy, sortDirection, ...params }));
     },
-    [dispatch, searchText, groupId, sortBy, sortDirection]
+    [dispatch, searchText, groupId, pageIndex, pageSize, sortBy, sortDirection]
   );
 
-  const handleSearchDebounced = useDebouncedCallback((value) => {
-    handleSearch({ searchText: value });
+  const handleSearchDebounced = useDebouncedCallback(({ searchText }) => {
+    handleSearch({ searchText });
   }, 500);
 
   const handleSearchTextChange = useCallback(
     (value) => {
       setSearchText(value);
-      handleSearchDebounced(value);
+      handleSearchDebounced({ searchText: value });
     },
-    [handleSearchDebounced, setSearchText]
+    [groupId]
   );
 
   const handleGroupIdChange = useCallback(
@@ -83,16 +90,21 @@ const UserTestResultList = () => {
       setGroupId(value);
       handleSearch({ groupId: value });
     },
-    [setGroupId, handleSearch]
+    [searchText]
   );
 
   const handleSort = useCallback(
     ({ sortBy: orderBy, sortDirection: sortOrder }) => {
-      setSortBy(orderBy);
-      setSortDirection(sortOrder);
       handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
     },
-    [setSortBy, setSortDirection, handleSearch]
+    [groupId, searchText]
+  );
+
+  const handlePageChange = useCallback(
+    (newPageIndex) => {
+      handleSearch({ pageIndex: newPageIndex });
+    },
+    [groupId, searchText]
   );
 
   const handleTestResultDelete = useCallback((testResult) => dispatch(showDeleteUserTestResultModal({ testResult })), [
@@ -109,20 +121,24 @@ const UserTestResultList = () => {
       data={preparedTestResults}
       actions={actions}
       isFetching={isFetching}
+      totalCount={totalCount}
+      pageIndex={pageIndex}
+      pageSize={pageSize}
       sortBy={sortBy}
       sortDirection={sortDirection}
       onSort={handleSort}
+      onPageChange={handlePageChange}
       toolbar={
-        <Table.Toolbar title="Результаты" count={testResults.length}>
+        <Table.Toolbar title="Результаты" count={totalCount}>
           <Dropdown
-            className="management-user-tests-results__toolbar-item"
+            className="management-table__toolbar-item"
             label="Группа"
             items={groupItems}
             value={groupId}
             onChange={handleGroupIdChange}
           />
           <TextField
-            className="management-user-tests-results__toolbar-item"
+            className="management-table__toolbar-item"
             value={searchText}
             variant="standard"
             icon={iconTypes.search}

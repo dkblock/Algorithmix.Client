@@ -4,6 +4,13 @@ import { deleteUser, fetchUsers, updateUser } from "../actions/user";
 
 const initialState = {
   users: [],
+  totalCount: 0,
+  searchText: "",
+  pageIndex: 1,
+  pageSize: 20,
+  sortBy: "groupId",
+  sortDirection: "asc",
+
   isFetching: false,
   isSaving: false,
   hasError: false,
@@ -13,15 +20,26 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState: initialState,
   extraReducers: {
-    [fetchUsers.pending]: (state) => {
+    [fetchUsers.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
+
+      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      state.searchText = searchText;
+      state.pageIndex = pageIndex;
+      state.sortBy = sortBy;
+      state.sortDirection = sortDirection;
     },
-    [fetchUsers.fulfilled]: (state, { payload: { users, hasError } }) => {
+    [fetchUsers.fulfilled]: (state, { payload: { users, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
+
       state.users = users;
+      state.totalCount = totalCount;
     },
     [fetchUsers.rejected]: (state) => {
       onRejectedDefault(state);
+
+      state.users = [];
+      state.totalCount = 0;
     },
 
     [deleteUser.pending]: (state) => {

@@ -1,10 +1,11 @@
 import { getRoute } from "../../utils/get-route";
 
 const testRoutes = {
-  fetchPublishedTests: (searchText) => getRoute("tests/published", { searchText }),
-  fetchTests: () => getRoute("tests"),
+  fetchPublishedTests: (params) => getRoute("tests/published", params),
+  fetchTests: (params) => getRoute("tests", params),
   fetchTest: (testId) => getRoute(`tests/${testId}`),
   fetchTestStats: (testId) => getRoute(`tests/${testId}/stats`),
+
   createTest: () => getRoute("tests"),
   deleteTest: (testId) => getRoute(`tests/${testId}`),
   updateTest: (testId) => getRoute(`tests/${testId}`),

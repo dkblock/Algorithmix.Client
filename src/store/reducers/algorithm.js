@@ -4,6 +4,13 @@ import { createAlgorithm, deleteAlgorithm, fetchAlgorithms } from "../actions/al
 
 const initialState = {
   algorithms: [],
+  totalCount: 0,
+  searchText: "",
+  pageIndex: 1,
+  pageSize: 100,
+  sortBy: "none",
+  sortDirection: "asc",
+
   isFetching: false,
   hasError: false,
 };
@@ -12,16 +19,26 @@ const algorithmSlice = createSlice({
   name: "algorithmSlice",
   initialState: initialState,
   extraReducers: {
-    [fetchAlgorithms.pending]: (state) => {
+    [fetchAlgorithms.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
+
+      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      state.searchText = searchText;
+      state.pageIndex = pageIndex;
+      state.sortBy = sortBy;
+      state.sortDirection = sortDirection;
     },
-    [fetchAlgorithms.fulfilled]: (state, { payload: { algorithms, hasError } }) => {
+    [fetchAlgorithms.fulfilled]: (state, { payload: { algorithms, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
+
       state.algorithms = algorithms;
+      state.totalCount = totalCount;
     },
     [fetchAlgorithms.rejected]: (state) => {
       onRejectedDefault(state);
+
       state.algorithms = [];
+      state.totalCount = 0;
     },
 
     [createAlgorithm.pending]: (state) => {

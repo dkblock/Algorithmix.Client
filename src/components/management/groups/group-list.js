@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebouncedCallback } from "use-debounce";
 import { useTitle } from "../../../hooks";
 import { fetchGroups, showCreateGroupModal, showDeleteGroupModal, updateGroup } from "../../../store/actions/group";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import Button, { colors } from "../../_common/button";
+import TextField from "../../_common/text-field";
 import IsAvailableForRegisterCell from "./is-available-for-register-cell";
 
 const getActions = (onGroupDelete) => [
@@ -13,7 +15,7 @@ const getActions = (onGroupDelete) => [
 
 const getColumns = (onGroupUpdate) => [
   { id: "id", label: "ID" },
-  { id: "name", label: "Группа" },
+  { id: "name", label: "Название" },
   { id: "usersCount", label: "Количество пользователей", align: "center" },
   {
     id: "isAvailableForRegister",
@@ -25,13 +27,54 @@ const getColumns = (onGroupUpdate) => [
 
 const GroupList = () => {
   const dispatch = useDispatch();
-  const { groups, isFetching } = useSelector((state) => state.group);
+  const {
+    groups,
+    totalCount,
+    isFetching,
+    searchText: search,
+    pageIndex,
+    pageSize,
+    sortBy,
+    sortDirection,
+  } = useSelector((state) => state.group);
+
+  const [searchText, setSearchText] = useState(search);
 
   useTitle("Группы", "Группы");
 
   useEffect(() => {
-    dispatch(fetchGroups());
+    dispatch(fetchGroups({ searchText, pageIndex, pageSize, sortBy, sortDirection }));
   }, [dispatch]);
+
+  const handleSearch = useCallback(
+    (params) => {
+      dispatch(fetchGroups({ searchText, pageIndex, pageSize, sortBy, sortDirection, ...params }));
+    },
+    [searchText, pageIndex, pageSize, sortBy, sortDirection]
+  );
+
+  const handleSearchDebounced = useDebouncedCallback(({ searchText }) => {
+    handleSearch({ searchText });
+  }, 500);
+
+  const handleSearchTextChange = useCallback((value) => {
+    setSearchText(value);
+    handleSearchDebounced({ searchText: value });
+  }, []);
+
+  const handleSort = useCallback(
+    ({ sortBy: orderBy, sortDirection: sortOrder }) => {
+      handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
+    },
+    [searchText]
+  );
+
+  const handlePageChange = useCallback(
+    (newPageIndex) => {
+      handleSearch({ pageIndex: newPageIndex });
+    },
+    [searchText]
+  );
 
   const handleCreateGroup = useCallback(() => dispatch(showCreateGroupModal()), [dispatch]);
   const handleDeleteGroup = useCallback((group) => dispatch(showDeleteGroupModal({ group })), [dispatch]);
@@ -42,17 +85,33 @@ const GroupList = () => {
 
   return (
     <Table
-      toolbar={
-        <Table.Toolbar title="Группы" count={groups.length}>
-          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateGroup}>
-            Новая группа
-          </Button>
-        </Table.Toolbar>
-      }
       columns={columns}
       data={groups}
       actions={actions}
       isFetching={isFetching}
+      totalCount={totalCount}
+      pageIndex={pageIndex}
+      pageSize={pageSize}
+      sortBy={sortBy}
+      sortDirection={sortDirection}
+      onSort={handleSort}
+      onPageChange={handlePageChange}
+      toolbar={
+        <Table.Toolbar title="Группы" count={totalCount}>
+          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateGroup}>
+            Новая группа
+          </Button>
+          <TextField
+            className="management-table__toolbar-item"
+            value={searchText}
+            variant="standard"
+            icon={iconTypes.search}
+            onChange={handleSearchTextChange}
+            onFocus={() => {}}
+            onFocusOut={() => {}}
+          />
+        </Table.Toolbar>
+      }
     />
   );
 };

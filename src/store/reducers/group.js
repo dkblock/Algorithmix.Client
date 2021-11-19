@@ -4,6 +4,13 @@ import { createGroup, deleteGroup, fetchGroups, updateGroup } from "../actions/g
 
 const initialState = {
   groups: [],
+  totalCount: 0,
+  searchText: "",
+  pageIndex: 1,
+  pageSize: 100,
+  sortBy: "id",
+  sortDirection: "asc",
+
   isFetching: false,
   isSaving: false,
   hasError: false,
@@ -13,16 +20,26 @@ const groupSlice = createSlice({
   name: "groupSlice",
   initialState: initialState,
   extraReducers: {
-    [fetchGroups.pending]: (state) => {
+    [fetchGroups.pending]: (state, { meta: { arg } }) => {
       onPendingDefault(state);
-      state.groups = [];
+
+      const { searchText, pageIndex, sortBy, sortDirection } = arg;
+      state.searchText = searchText;
+      state.pageIndex = pageIndex;
+      state.sortBy = sortBy;
+      state.sortDirection = sortDirection;
     },
-    [fetchGroups.fulfilled]: (state, { payload: { groups, hasError } }) => {
+    [fetchGroups.fulfilled]: (state, { payload: { groups, totalCount, hasError } }) => {
       onFulfilledDefault(state, hasError);
+
       state.groups = groups;
+      state.totalCount = totalCount;
     },
     [fetchGroups.rejected]: (state) => {
       onRejectedDefault(state);
+
+      state.groups = [];
+      state.totalCount = 0;
     },
 
     [createGroup.pending]: (state) => {

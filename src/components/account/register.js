@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Paper } from "@mui/material";
 import { useCurrentUser, useTitle } from "../../hooks";
-import { fetchGroups } from "../../store/actions/group";
 import { register } from "../../store/actions/account";
 import validator from "../../utils/validation";
 import routes from "../../utils/routes";
@@ -48,7 +47,6 @@ const Register = () => {
   useTitle("Регистрация", "Algorithmix");
 
   useEffect(() => {
-    dispatch(fetchGroups());
     setIsRegistered(false);
   }, [dispatch]);
 

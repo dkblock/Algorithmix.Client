@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
-import { useTitle } from "../../../hooks";
+import { useAdminRole, useTitle } from "../../../hooks";
 import { fetchGroups, showCreateGroupModal, showDeleteGroupModal, updateGroup } from "../../../store/actions/group";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
@@ -38,6 +38,7 @@ const GroupList = () => {
     sortDirection,
   } = useSelector((state) => state.group);
 
+  const isAdmin = useAdminRole();
   const [searchText, setSearchText] = useState(search);
 
   useTitle("Группы", "Группы");
@@ -80,7 +81,7 @@ const GroupList = () => {
   const handleDeleteGroup = useCallback((group) => dispatch(showDeleteGroupModal({ group })), [dispatch]);
   const handleUpdateGroup = useCallback((group) => dispatch(updateGroup({ groupId: group.id, group })), [dispatch]);
 
-  const actions = useMemo(() => getActions(handleDeleteGroup), [handleDeleteGroup]);
+  const actions = useMemo(() => (isAdmin ? getActions(handleDeleteGroup) : null), [isAdmin, handleDeleteGroup]);
   const columns = useMemo(() => getColumns(handleUpdateGroup), [handleUpdateGroup]);
 
   return (

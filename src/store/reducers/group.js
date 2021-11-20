@@ -1,19 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
 import { createGroup, deleteGroup, fetchGroups, updateGroup } from "../actions/group";
+import { groupFetchParams } from "./default-states";
 
 const initialState = {
   groups: [],
   totalCount: 0,
-  searchText: "",
-  pageIndex: 1,
-  pageSize: 100,
-  sortBy: "id",
-  sortDirection: "asc",
+  ...groupFetchParams,
 
   isFetching: false,
   isSaving: false,
-  hasError: false,
+  hasError: false
 };
 
 const groupSlice = createSlice({
@@ -81,8 +78,8 @@ const groupSlice = createSlice({
     },
     [updateGroup.rejected]: (state) => {
       onRejectedDefault(state);
-    },
-  },
+    }
+  }
 });
 
 export default groupSlice.reducer;

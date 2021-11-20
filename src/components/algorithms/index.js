@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { fetchAlgorithms } from "../../store/actions/algorithm";
+import { fetchAllAlgorithms } from "../../store/actions/algorithm";
 import routes from "../../utils/routes";
 import AlgorithmGrid from "./grid/algorithm-grid";
 import AlgorithmDescription from "./description/algorithm-description";
@@ -12,7 +12,7 @@ const Algorithms = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAlgorithms());
+    dispatch(fetchAllAlgorithms());
   }, [dispatch]);
 
   return (

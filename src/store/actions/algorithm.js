@@ -4,6 +4,11 @@ import { navigateToAlgorithmDesign } from "../../utils/navigator";
 import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
+import { algorithmFetchParams } from "../reducers/default-states";
+
+export const fetchAllAlgorithms = createAsyncThunk("fetchAllAlgorithms", async (_, thunkAPI) => {
+  await thunkAPI.dispatch(fetchAlgorithms(algorithmFetchParams));
+});
 
 export const fetchAlgorithms = createAsyncThunk(
   "fetchAlgorithms",

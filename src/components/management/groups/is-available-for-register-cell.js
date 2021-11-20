@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from "react";
+import { useAdminRole } from "../../../hooks";
+import colors from "../../../constants/colors";
+import { Icon, iconTypes } from "../../_common/icon";
 import Switch from "../../_common/switch";
 
 const IsAvailableForRegisterCell = ({ row, onGroupUpdate }) => {
+  const isAdmin = useAdminRole();
   const [isAvailableForRegister, setIsAvailableForRegister] = useState(row.isAvailableForRegister);
 
   const handleIsAvailableForRegisterChange = useCallback(
@@ -12,7 +16,14 @@ const IsAvailableForRegisterCell = ({ row, onGroupUpdate }) => {
     [onGroupUpdate, row]
   );
 
-  return <Switch checked={isAvailableForRegister} onChange={handleIsAvailableForRegisterChange} />;
+  return isAdmin ? (
+    <Switch checked={isAvailableForRegister} onChange={handleIsAvailableForRegisterChange} />
+  ) : (
+    <Icon
+      type={isAvailableForRegister ? iconTypes.done : iconTypes.clear}
+      color={isAvailableForRegister ? colors.success : colors.danger}
+    />
+  );
 };
 
 export default IsAvailableForRegisterCell;

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useCurrentUser } from "../../../../hooks";
+import { useAdminRole, useCurrentUser } from "../../../../hooks";
 import roles from "../../../../constants/roles";
 import Dropdown from "../../../_common/dropdown";
 
@@ -11,6 +11,7 @@ const roleItems = [
 
 const RoleCell = ({ row, onUserUpdate }) => {
   const { currentUser } = useCurrentUser();
+  const isAdmin = useAdminRole();
   const [role, setRole] = useState(row.role);
 
   const handleRoleChange = useCallback(
@@ -21,7 +22,7 @@ const RoleCell = ({ row, onUserUpdate }) => {
     [onUserUpdate, row.id]
   );
 
-  return currentUser.id !== row.id ? (
+  return isAdmin && currentUser.id !== row.id ? (
     <Dropdown className="w-100" value={role} items={roleItems} label="Роль" onChange={handleRoleChange} />
   ) : (
     roleItems.find((item) => item.value === role).label

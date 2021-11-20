@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
-import { useTitle } from "../../../hooks";
+import { useAdminRole, useTitle } from "../../../hooks";
 import { fetchAlgorithms, showCreateAlgorithmModal, showDeleteAlgorithmModal } from "../../../store/actions/algorithm";
 import { navigateToAlgorithmDesign } from "../../../utils/navigator";
 import Table from "../../_common/table";
@@ -11,7 +11,11 @@ import HasDataCell from "./has-data-cell";
 import TextField from "../../_common/text-field";
 
 const getActions = (onDeleteAlgorithm) => [
-  { label: "Редактировать", icon: iconTypes.edit, onClick: (algorithm) => navigateToAlgorithmDesign(algorithm.id) },
+  {
+    label: "Редактировать",
+    icon: iconTypes.edit,
+    onClick: (algorithm) => navigateToAlgorithmDesign(algorithm.id),
+  },
   { label: "Удалить", icon: iconTypes.delete, onClick: (algorithm) => onDeleteAlgorithm(algorithm) },
 ];
 
@@ -52,6 +56,7 @@ const AlgorithmList = () => {
     sortDirection,
   } = useSelector((state) => state.algorithm);
 
+  const isAdmin = useAdminRole();
   const [searchText, setSearchText] = useState(search);
 
   useTitle("Алгоритмы", "Алгоритмы");
@@ -95,7 +100,10 @@ const AlgorithmList = () => {
     dispatch,
   ]);
 
-  const actions = useMemo(() => getActions(handleDeleteAlgorithm), []);
+  const actions = useMemo(() => (isAdmin ? getActions(isAdmin, handleDeleteAlgorithm) : null), [
+    isAdmin,
+    handleDeleteAlgorithm,
+  ]);
   const preparedAlgorithms = useMemo(() => prepareAlgorithms(algorithms), [algorithms]);
 
   return (
@@ -113,9 +121,11 @@ const AlgorithmList = () => {
       onPageChange={handlePageChange}
       toolbar={
         <Table.Toolbar title="Алгоритмы" count={totalCount}>
-          <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateAlgorithm}>
-            Новый алгоритм
-          </Button>
+          {isAdmin && (
+            <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleCreateAlgorithm}>
+              Новый алгоритм
+            </Button>
+          )}
           <TextField
             className="management-table__toolbar-item"
             value={searchText}

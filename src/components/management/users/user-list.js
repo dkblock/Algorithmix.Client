@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
-import { useTitle } from "../../../hooks";
+import { useAdminRole, useTitle } from "../../../hooks";
 import { fetchUsers, showDeleteUserModal, updateUser } from "../../../store/actions/user";
-import { fetchGroups } from "../../../store/actions/group";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import TextField from "../../_common/text-field";
@@ -56,6 +55,7 @@ const UserList = () => {
     sortBy,
     sortDirection,
   } = useSelector((state) => state.user);
+  const isAdmin = useAdminRole();
 
   const [searchText, setSearchText] = useState(search);
   const [groupId, setGroupId] = useState(-1);
@@ -65,7 +65,6 @@ const UserList = () => {
 
   useEffect(() => {
     dispatch(fetchUsers({ searchText, groupId, role, pageIndex, pageSize, sortBy, sortDirection }));
-    dispatch(fetchGroups({}));
   }, [dispatch]);
 
   const handleSearch = useCallback(
@@ -122,7 +121,7 @@ const UserList = () => {
     dispatch,
   ]);
 
-  const actions = useMemo(() => getActions(handleUserDelete), [handleUserDelete]);
+  const actions = useMemo(() => (isAdmin ? getActions(handleUserDelete) : null), [isAdmin, handleUserDelete]);
   const columns = useMemo(() => getColumns(handleUserUpdate), [handleUserUpdate]);
   const preparedUsers = useMemo(() => prepareUsers(users), [users]);
   const groupItems = [{ value: -1, label: "Все" }, ...groups.map((group) => ({ value: group.id, label: group.name }))];

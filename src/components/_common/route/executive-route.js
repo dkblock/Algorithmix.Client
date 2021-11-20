@@ -13,7 +13,7 @@ const ExecutiveRoute = ({ render, path, exact }) => {
     <Route
       path={path}
       exact={exact}
-      render={(props) => (isExecutive ? render(props) : <Redirect to={routes.login} />)}
+      render={(props) => (isExecutive ? render(props) : <Redirect to={routes.account.login} />)}
     />
   );
 };

@@ -3,6 +3,11 @@ import groupService from "../../api/services/group-service";
 import statusCode from "../../utils/status-code-reader";
 import { hideModal, showModal } from "./modal";
 import modalTypes from "../../constants/modal-types";
+import { groupFetchParams } from "../reducers/default-states";
+
+export const fetchAllGroups = createAsyncThunk("fetchAllGroups", async (_, thunkAPI) => {
+  await thunkAPI.dispatch(fetchGroups(groupFetchParams));
+});
 
 export const fetchGroups = createAsyncThunk(
   "fetchGroups",

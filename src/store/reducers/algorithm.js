@@ -1,15 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
 import { createAlgorithm, deleteAlgorithm, fetchAlgorithms } from "../actions/algorithm";
+import { algorithmFetchParams } from "./default-states";
 
 const initialState = {
   algorithms: [],
   totalCount: 0,
-  searchText: "",
-  pageIndex: 1,
-  pageSize: 100,
-  sortBy: "none",
-  sortDirection: "asc",
+  ...algorithmFetchParams,
 
   isFetching: false,
   hasError: false,

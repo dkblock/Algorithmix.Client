@@ -16,7 +16,7 @@ const HomeInfo = () => (
     </div>
     <div className="home-info">
       <div className="home-info__text">
-        Остались вопросы, связанные с алгоритмами? <Link to={routes.constructor}>Конструктор</Link> поможет Вам
+        Остались вопросы, связанные с алгоритмами? <Link to={routes.constructor.main}>Конструктор</Link> поможет Вам
         визуализировать их работу, а также более подробно разобраться с каждым из них.
       </div>
       <img className="home-info__image" src={images.home.constructor} alt="home-constructor" />

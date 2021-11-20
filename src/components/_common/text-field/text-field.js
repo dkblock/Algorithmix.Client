@@ -49,6 +49,7 @@ const TextField = ({
         variant={variant}
         multiline={multiline}
         rows={multiline ? rows : null}
+        hiddenLabel
         onChange={handleChange}
         onMouseDown={(e) => e.stopPropagation()}
         onFocus={onFocus}

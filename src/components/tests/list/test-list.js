@@ -136,7 +136,7 @@ const TestList = () => {
             <Table.Toolbar title="Тесты" count={totalCount}>
               <TextField
                 value={searchText}
-                variant="standard"
+                variant="filled"
                 icon={iconTypes.search}
                 onChange={handleSearchTextChange}
                 onFocus={() => {}}

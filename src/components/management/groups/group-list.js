@@ -105,7 +105,7 @@ const GroupList = () => {
           <TextField
             className="management-table__toolbar-item"
             value={searchText}
-            variant="standard"
+            variant="filled"
             icon={iconTypes.search}
             onChange={handleSearchTextChange}
             onFocus={() => {}}

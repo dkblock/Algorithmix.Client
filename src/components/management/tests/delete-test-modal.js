@@ -12,7 +12,7 @@ const DeleteTestModal = () => {
   return (
     <DeleteModal
       title={test.name}
-      deleteText="Вы действительно хотите удалить данный вопрос? Все связанные данные также будут удалены!"
+      deleteText="Вы действительно хотите удалить данный тест? Все связанные данные также будут удалены!"
       onDelete={handleTestDelete}
     />
   );

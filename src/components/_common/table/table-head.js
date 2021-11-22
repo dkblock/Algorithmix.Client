@@ -11,6 +11,7 @@ const EnhancedTableHead = ({ columns, order, orderBy, expandable, onSort }) => (
       {columns.map((column) => (
         <TableCell
           key={column.id}
+          style={{ paddingLeft: column.sortable && column.align === "center" ? "34px" : "16px" }}
           className="table-cell"
           align={column.align ?? "left"}
           sortDirection={orderBy === column.id ? order : false}

@@ -5,10 +5,12 @@ import { useTitle } from "../../../hooks";
 import { fetchUserTestResults, showDeleteUserTestResultModal } from "../../../store/actions/user-test-result";
 import { navigateToUserTestResult } from "../../../utils/navigator";
 import { stringifyDateTime } from "../../../utils/moment";
+import colors from "../../../constants/colors";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import TextField from "../../_common/text-field";
 import { Dropdown } from "../../_common/dropdown";
+import CompletionResult from "../../_common/completion-result";
 
 const getActions = (onTestResultDelete) => [
   {
@@ -27,7 +29,12 @@ const columns = [
   { id: "fullName", label: "Имя", width: 300 },
   { id: "groupName", label: "Группа", width: 200 },
   { id: "testName", label: "Тест", width: 350 },
-  { id: "result", label: "Результат" },
+  {
+    id: "result",
+    label: "Результат",
+    align: "center",
+    renderCell: (row) => <CompletionResult value={row.result} size="extra-small" color={colors.primary} />,
+  },
   { id: "passingTime", label: "Пройден" },
 ];
 
@@ -39,7 +46,7 @@ const prepareTestResults = (testResults) =>
     fullName: `${result.user.lastName} ${result.user.firstName}`,
     groupName: result.user.group.name,
     testName: result.test.name,
-    result: `${result.result}%`,
+    result: result.result,
     passingTime: stringifyDateTime(new Date(result.passingTime)),
   }));
 

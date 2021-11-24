@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDebouncedCallback } from "use-debounce";
+import { useDebouncedUpdate } from "../../../hooks";
 import { showPublishTestModal, updateTest } from "../../../store/actions/test";
 import validator from "../../../utils/validation";
 import TextField from "../../_common/text-field";
@@ -20,41 +20,63 @@ const TestSettings = () => {
   const [algorithmIds, setAlgorithmIds] = useState(test.algorithms.map((a) => a.id));
   const [validationErrors, setValidationErrors] = useState({});
 
-  const handleUpdateTest = useDebouncedCallback(() => {
-    const updatedTest = { name, algorithmIds };
-    const { isValid } = validateTest(updatedTest);
+  const hasValidationErrors = () =>
+    Object.keys(validationErrors)
+      .map((key) => validationErrors[key])
+      .some((error) => error != null);
 
-    if (isValid) {
-      dispatch(updateTest({ testId: test.id, test: updatedTest }));
-    }
-  }, 1000);
+  const clearValidationErrors = (field) => {
+    if (validationErrors[field]) setValidationErrors({ ...validationErrors, [field]: null });
+  };
+
+  const handleUpdateTest = useCallback(
+    (params) => {
+      const updatedTest = { name, algorithmIds, ...params };
+      const { isValid } = validateTest(updatedTest);
+
+      if (isValid) {
+        dispatch(updateTest({ testId: test.id, test: updatedTest }));
+      }
+    },
+    [name, algorithmIds]
+  );
+
+  const handleDebouncedUpdate = useDebouncedUpdate(handleUpdateTest, 500);
 
   const handleNameChange = useCallback(
     (value) => {
       setName(value);
-      handleUpdateTest();
+      handleDebouncedUpdate.exec({ name: value });
+      clearValidationErrors("name");
     },
-    [handleUpdateTest]
+    [validationErrors]
   );
-  const handleNameFocus = useCallback(() => setValidationErrors({ ...validationErrors, name: null }), [
-    validationErrors,
-  ]);
   const handleNameFocusOut = useCallback(() => {
     const validationError = validateName(name);
-    setValidationErrors({ ...validationErrors, name: validationError });
-  }, [name, validationErrors]);
+
+    if (!validationError) {
+      handleDebouncedUpdate.execNow({ name });
+    } else {
+      setValidationErrors({ ...validationErrors, name: validationError });
+    }
+  }, [name]);
 
   const handleAlgorithmIdsChange = useCallback(
     (value) => {
       setAlgorithmIds(value);
-      setValidationErrors({ ...validationErrors, algorithmIds: null });
-      handleUpdateTest();
+      handleDebouncedUpdate.exec({ algorithmIds });
+      clearValidationErrors("algorithmIds");
     },
-    [handleUpdateTest, validationErrors]
+    [validationErrors]
   );
   const handleAlgorithmIdsClose = useCallback(() => {
     const validationError = validateAlgorithmIds(algorithmIds);
-    setValidationErrors({ ...validationErrors, algorithmIds: validationError });
+
+    if (!validationError) {
+      handleDebouncedUpdate.execNow({ algorithmIds });
+    } else {
+      setValidationErrors({ ...validationErrors, algorithmIds: validationError });
+    }
   }, [algorithmIds]);
 
   const handlePublishTest = useCallback(() => {
@@ -62,11 +84,11 @@ const TestSettings = () => {
     const { isValid, validationErrors: nextValidationErrors } = validateTest(testToPublish);
 
     if (isValid) {
-      dispatch(showPublishTestModal({ test: testToPublish }));
+      dispatch(showPublishTestModal({ test: { ...testToPublish, hasPasses: test.averageResult > 0 } }));
     } else {
       setValidationErrors(nextValidationErrors);
     }
-  }, [name, algorithmIds]);
+  }, [name, algorithmIds, test.averageResult]);
 
   return (
     <div className="test-settings">
@@ -78,7 +100,6 @@ const TestSettings = () => {
           helperText={validationErrors.name}
           value={name}
           onChange={handleNameChange}
-          onFocus={handleNameFocus}
           onFocusOut={handleNameFocusOut}
         />
         <MultiDropdown
@@ -93,13 +114,13 @@ const TestSettings = () => {
         />
         <div>
           Статус:
-          <span style={{ color: test.isPublished ? palette.success.dark : palette.warning.dark }}>
+          <span style={{ color: test.isPublished ? palette.success.main : palette.warning.main }}>
             {test.isPublished && " Опубликован"}
             {!test.isPublished && " Имеются неопубликованные изменения"}
           </span>
         </div>
       </div>
-      <Button color={colors.success} onClick={handlePublishTest}>
+      <Button color={colors.success} disabled={hasValidationErrors() || test.isPublished} onClick={handlePublishTest}>
         Опубликовать тест
       </Button>
     </div>

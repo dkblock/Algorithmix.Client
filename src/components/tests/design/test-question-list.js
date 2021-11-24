@@ -78,7 +78,12 @@ const TestQuestionList = () => {
     <div className="test-question-list">
       <div className="test-question-list__header">
         Вопросы
-        <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleQuestionCreate}>
+        <Button
+          color={colors.success}
+          startIcon={iconTypes.plus}
+          disabled={isSaving}
+          onClick={handleQuestionCreate}
+        >
           Новый вопрос
         </Button>
       </div>

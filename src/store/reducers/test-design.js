@@ -24,6 +24,10 @@ const testDesignSlice = createSlice({
   extraReducers: {
     [fetchTest.pending]: (state) => {
       onPendingDefault(state);
+
+      state.test = null;
+      state.question = null;
+      state.question = [];
     },
     [fetchTest.fulfilled]: (state, { payload: { test, question, questions, answers, hasError } }) => {
       onFulfilledDefault(state, hasError);
@@ -51,7 +55,6 @@ const testDesignSlice = createSlice({
 
     [publishTest.pending]: (state) => {
       state.isPublishing = true;
-      state.publishErrors = [];
     },
     [publishTest.fulfilled]: (state, { payload: { publishErrors, isPublished, hasError } }) => {
       onFulfilledDefault(state, hasError);

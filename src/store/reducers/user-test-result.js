@@ -60,7 +60,10 @@ const userTestResultSlice = createSlice({
     },
     [deleteUserTestResult.fulfilled]: (state, { payload: { testId, userId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
       state.testResults = state.testResults.filter((result) => result.test.id !== testId || result.user.id !== userId);
+      state.totalCount--;
     },
     [deleteUserTestResult.rejected]: (state) => {
       onRejectedDefault(state);

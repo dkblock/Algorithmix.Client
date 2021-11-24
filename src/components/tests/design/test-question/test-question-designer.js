@@ -33,7 +33,7 @@ const TestQuestionDesigner = () => {
   useEffect(() => {
     setValue(question.value);
     setType(question.type);
-  }, [question]);
+  }, [questionId]);
 
   const handleUpdateQuestion = useCallback(
     (params) => {

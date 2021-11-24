@@ -46,6 +46,7 @@ const algorithmSlice = createSlice({
 
       if (!hasError) {
         state.algorithms = [...state.algorithms, createdAlgorithm];
+        state.totalCount++;
       } else {
         state.validationErrors = validationErrors;
       }
@@ -59,7 +60,10 @@ const algorithmSlice = createSlice({
     },
     [deleteAlgorithm.fulfilled]: (state, { payload: { algorithmId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
       state.algorithms = state.algorithms.filter((algorithm) => algorithm.id !== algorithmId);
+      state.totalCount--;
     },
     [deleteAlgorithm.rejected]: (state) => {
       onRejectedDefault(state);

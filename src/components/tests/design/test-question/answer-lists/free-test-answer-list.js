@@ -5,7 +5,7 @@ import TestAnswerListItem from "./test-answer-list-item";
 
 const prepareAnswer = (answers) => (answers.length === 0 ? null : answers[0]);
 
-const FreeTestAnswerList = ({ answers, onAnswerCreate, onAnswerValueChange, onAnswerValueFocusOut }) => {
+const FreeTestAnswerList = ({ answers, isSaving, onAnswerCreate, onAnswerValueChange, onAnswerValueFocusOut }) => {
   const preparedAnswer = useMemo(() => prepareAnswer(answers, onAnswerValueChange), [answers, onAnswerValueChange]);
 
   return (
@@ -13,7 +13,13 @@ const FreeTestAnswerList = ({ answers, onAnswerCreate, onAnswerValueChange, onAn
       <div className="test-answer-list__header">
         <span>Ответы</span>
         {!preparedAnswer && (
-          <Button color={colors.success} type={buttonTypes.text} startIcon={iconTypes.plus} onClick={onAnswerCreate}>
+          <Button
+            color={colors.success}
+            type={buttonTypes.text}
+            startIcon={iconTypes.plus}
+            disabled={isSaving}
+            onClick={onAnswerCreate}
+          >
             Новый ответ
           </Button>
         )}

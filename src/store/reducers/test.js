@@ -49,10 +49,10 @@ const testSlice = createSlice({
     },
     [createTest.fulfilled]: (state, { payload: { createdTest, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
 
-      if (!hasError) {
-        state.tests = [createdTest, ...state.tests];
-      }
+      state.tests = [createdTest, ...state.tests];
+      state.totalCount++;
     },
     [createTest.rejected]: (state) => {
       onRejectedDefault(state);
@@ -63,7 +63,10 @@ const testSlice = createSlice({
     },
     [deleteTest.fulfilled]: (state, { payload: { testId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
       state.tests = state.tests.filter((test) => test.id !== testId);
+      state.totalCount--;
 
       if (state.selectedTestId === testId) {
         state.selectedTestId = state.tests[0]?.id;

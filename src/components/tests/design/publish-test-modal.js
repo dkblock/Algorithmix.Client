@@ -2,18 +2,20 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { publishTest } from "../../../store/actions/test";
 import { CreateModal, modalSizes } from "../../_common/modal";
-import palette from "../../../utils/palette";
 import Checkbox from "../../_common/checkbox";
+import palette from "../../../utils/palette";
 
 const PublishTestModal = () => {
   const dispatch = useDispatch();
   const { test } = useSelector((state) => state.modal.modalProps);
-  const { publishErrors } = useSelector((state) => state.testDesign);
+  const { publishErrors, isPublishing } = useSelector((state) => state.testDesign);
 
   const [clearTestResults, setClearTestResults] = useState(false);
 
   const handlePublish = useCallback(() => {
-    dispatch(publishTest({ testId: test.id, clearTestResults }));
+    if (!isPublishing) {
+      dispatch(publishTest({ testId: test.id, clearTestResults }));
+    }
   }, [dispatch, test.id, clearTestResults]);
 
   const handleDeleteTestResults = useCallback(() => setClearTestResults((prevState) => !prevState), [
@@ -23,11 +25,14 @@ const PublishTestModal = () => {
   return (
     <CreateModal
       title={test.name}
-      size={modalSizes.small}
+      size={modalSizes.medium}
       createButtonText="Опубликовать"
+      isLoading={isPublishing}
       onCreate={handlePublish}
       actions={
-        <Checkbox label="Удалить результаты теста" value={clearTestResults} onChange={handleDeleteTestResults} />
+        test.hasPasses ? (
+          <Checkbox label="Удалить результаты теста" value={clearTestResults} onChange={handleDeleteTestResults} />
+        ) : null
       }
     >
       {publishErrors.length > 0 ? (

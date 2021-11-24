@@ -5,7 +5,7 @@ import TextField from "../../_common/text-field";
 import { updateAlgorithm } from "../../../store/actions/algorithm";
 import { useDebouncedCallback } from "use-debounce";
 
-const { validateName, validateAlgorithm } = validator.algorithm;
+const { validateAlgorithm } = validator.algorithm;
 
 const AlgorithmInfoDesigner = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const AlgorithmInfoDesigner = () => {
     setId(algorithm.id);
     setName(algorithm.name);
     setValidationErrors({});
-  }, [algorithm.id, algorithm.name]);
+  }, [algorithm.id]);
 
   useEffect(() => {
     setValidationErrors({ ...validationErrors, ...serverValidationErrors });
@@ -51,10 +51,6 @@ const AlgorithmInfoDesigner = () => {
   const handleNameFocus = useCallback(() => setValidationErrors({ ...validationErrors, name: null }), [
     validationErrors,
   ]);
-  const handleNameFocusOut = useCallback(() => {
-    const validationError = validateName(name);
-    setValidationErrors({ ...validationErrors, name: validationError });
-  }, [name, validationErrors]);
 
   return (
     <div className="algorithm-info-designer">
@@ -72,7 +68,6 @@ const AlgorithmInfoDesigner = () => {
         value={name}
         onChange={handleNameChange}
         onFocus={handleNameFocus}
-        onFocusOut={handleNameFocusOut}
       />
     </div>
   );

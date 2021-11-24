@@ -47,7 +47,10 @@ const userSlice = createSlice({
     },
     [deleteUser.fulfilled]: (state, { payload: { userId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
       state.users = state.users.filter((user) => user.id !== userId);
+      state.totalCount--;
     },
     [deleteUser.rejected]: (state) => {
       onRejectedDefault(state);

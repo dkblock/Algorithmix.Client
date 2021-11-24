@@ -25,7 +25,7 @@ const TestAnswerList = () => {
   useEffect(() => {
     setOrderedAnswers(answers);
     setCorrectAnswerIds(answers.filter((answer) => answer.isCorrect).map((answer) => answer.id));
-  }, [answers]);
+  }, [questionId, answers.length]);
 
   const handleCreateAnswer = useCallback(() => {
     dispatch(createTestAnswer({ testId, questionId, count: answers.length }));
@@ -104,6 +104,7 @@ const TestAnswerList = () => {
     <SpecificTestAnswerList
       answers={orderedAnswers}
       correctAnswerIds={correctAnswerIds}
+      isSaving={isSaving}
       onAnswerCreate={handleCreateAnswer}
       onAnswerDelete={handleDeleteAnswer}
       onAnswerValueChange={handleAnswerValueChange}

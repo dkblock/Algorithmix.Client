@@ -18,11 +18,9 @@ const getTabs = (onQuestionListSelect, onTestSettingsSelect) => [
 const TestDesigner = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { tests, isFetching } = useSelector((state) => state.test);
   const { test, question } = useSelector((state) => state.testDesign);
 
   const [currentTab, setCurrentTab] = useState(0);
-  const isTestExist = isFetching || tests.some((test) => test.id === parseInt(testId));
 
   useTitle(test?.name, test?.name);
 
@@ -38,7 +36,6 @@ const TestDesigner = () => {
     handleTestSettingsSelect,
   ]);
 
-  if (!isTestExist) return <Redirect to={routes.management.tests} />;
   if (!test) return null;
 
   return (

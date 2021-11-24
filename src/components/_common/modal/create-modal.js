@@ -11,7 +11,15 @@ import { hideModal } from "../../../store/actions/modal";
 import modalSizes from "../../../constants/modal-sizes";
 import "./modal.scss";
 
-const CreateModal = ({ children, createButtonText = "Создать", size = modalSizes.small, title, actions, onCreate }) => {
+const CreateModal = ({
+  children,
+  createButtonText = "Создать",
+  size = modalSizes.small,
+  title,
+  isLoading,
+  actions,
+  onCreate,
+}) => {
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideModal());
 
@@ -31,7 +39,7 @@ const CreateModal = ({ children, createButtonText = "Создать", size = mod
             <Button type={buttonTypes.text} onClick={handleClose}>
               Отмена
             </Button>
-            <Button color={colors.success} onClick={onCreate}>
+            <Button color={colors.success} isLoading={isLoading} onClick={onCreate}>
               {createButtonText}
             </Button>
           </div>

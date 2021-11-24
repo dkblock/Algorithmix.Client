@@ -107,7 +107,7 @@ const testQuestionDesignReducer = {
   },
 
   [clearTestQuestionImage.pending]: (state) => {
-    onPendingDefault(state);
+    onSavingDefault(state);
   },
   [clearTestQuestionImage.fulfilled]: (state, { payload: { questionId, hasError } }) => {
     onFulfilledDefault(state);

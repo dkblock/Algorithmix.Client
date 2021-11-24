@@ -6,6 +6,7 @@ import { prepareAnswers } from "./prepare-answers";
 
 const SingleTestAnswerList = ({
   answers,
+  isSaving,
   onAnswerCreate,
   onAnswerDelete,
   onAnswerValueChange,
@@ -32,7 +33,13 @@ const SingleTestAnswerList = ({
     <div className="test-answer-list">
       <div className="test-answer-list__header">
         Ответы
-        <Button color={colors.success} type={buttonTypes.text} startIcon={iconTypes.plus} onClick={onAnswerCreate}>
+        <Button
+          color={colors.success}
+          type={buttonTypes.text}
+          startIcon={iconTypes.plus}
+          disabled={isSaving}
+          onClick={onAnswerCreate}
+        >
           Новый ответ
         </Button>
       </div>

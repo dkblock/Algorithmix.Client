@@ -7,6 +7,7 @@ import { prepareAnswers } from "./prepare-answers";
 const MultiTestAnswerList = ({
   answers,
   correctAnswerIds,
+  isSaving,
   onAnswerCreate,
   onAnswerDelete,
   onAnswerValueChange,
@@ -39,7 +40,13 @@ const MultiTestAnswerList = ({
     <div className="test-answer-list">
       <div className="test-answer-list__header">
         Ответы
-        <Button color={colors.success} type={buttonTypes.text} startIcon={iconTypes.plus} onClick={onAnswerCreate}>
+        <Button
+          color={colors.success}
+          type={buttonTypes.text}
+          startIcon={iconTypes.plus}
+          disabled={isSaving}
+          onClick={onAnswerCreate}
+        >
           Новый ответ
         </Button>
       </div>

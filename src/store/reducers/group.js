@@ -47,6 +47,7 @@ const groupSlice = createSlice({
 
       if (!hasError) {
         state.groups = [...state.groups, createdGroup];
+        state.totalCount++;
       } else {
         state.validationErrors = validationErrors;
       }
@@ -60,7 +61,10 @@ const groupSlice = createSlice({
     },
     [deleteGroup.fulfilled]: (state, { payload: { groupId, hasError } }) => {
       onFulfilledDefault(state, hasError);
+      if (hasError) return;
+
       state.groups = state.groups.filter((group) => group.id !== groupId);
+      state.totalCount--;
     },
     [deleteGroup.rejected]: (state) => {
       onRejectedDefault(state);

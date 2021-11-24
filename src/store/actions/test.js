@@ -40,7 +40,7 @@ export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }, thunkA
   if (statusCode.ok(response)) {
     const test = await response.json();
     const {
-      payload: { questions, hasError },
+      payload: { questions, hasError }
     } = await thunkAPI.dispatch(fetchTestQuestions({ testId: test.id }));
 
     if (questions.length > 0) {

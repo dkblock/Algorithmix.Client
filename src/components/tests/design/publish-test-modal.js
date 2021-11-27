@@ -27,7 +27,7 @@ const PublishTestModal = () => {
       title={test.name}
       size={modalSizes.medium}
       createButtonText="Опубликовать"
-      isLoading={isPublishing}
+      isCreating={isPublishing}
       onCreate={handlePublish}
       actions={
         test.hasPasses ? (

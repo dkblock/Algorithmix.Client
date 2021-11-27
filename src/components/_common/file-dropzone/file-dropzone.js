@@ -5,7 +5,7 @@ import { activeStyle, acceptStyle, rejectStyle } from "./styles";
 import fileTypes from "../../../constants/file-types";
 import "./file-dropzone.scss";
 
-const getExtension = (name) => name.split(".").pop();
+const getExtension = (name) => name.split(".").pop().toLowerCase();
 
 const validateFiles = (files, maxFiles, acceptedFileExtensions) => {
   if (files.length > maxFiles) {

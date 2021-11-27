@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import testAnswerService from "../../api/services/test-answer-service";
 import statusCode from "../../utils/status-code-reader";
 
@@ -49,7 +49,11 @@ export const updateTestAnswer = createAsyncThunk("updateTestAnswer", async ({ te
   return { hasError: true };
 });
 
-export const moveTestAnswer = createAsyncThunk("moveTestAnswer", async ({testId, questionId, indexes}) => {
+export const updateCorrectTestAnswer = createAction("updateCorrectTestAnswer", ({ answerId }) => ({
+  payload: { answerId },
+}));
+
+export const moveTestAnswer = createAsyncThunk("moveTestAnswer", async ({ testId, questionId, indexes }) => {
   const response = await testAnswerService.moveAnswer(testId, questionId, indexes);
 
   if (statusCode.ok(response)) {

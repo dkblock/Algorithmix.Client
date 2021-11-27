@@ -11,7 +11,6 @@ import {
 import sidebarSelector from "../../utils/sidebar-selector";
 import { IconButton, iconTypes } from "../_common/icon";
 import Tooltip from "../_common/tooltip";
-import AppSidebarSaver from "./app-sidebar-saver";
 
 const AppSidebar = () => {
   const { pathname: currentRoute } = useSelector((state) => state.router.location);
@@ -51,7 +50,6 @@ const AppSidebar = () => {
           </Tooltip>
         )}
       </div>
-      <AppSidebarSaver />
     </div>
   );
 };

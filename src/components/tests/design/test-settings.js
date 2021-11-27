@@ -10,10 +10,35 @@ import palette from "../../../utils/palette";
 
 const { validateName, validateAlgorithmIds, validateTest } = validator.test;
 
+const useIsSaving = () => {
+  const {
+    isTestUpdating,
+    isQuestionCreating,
+    isQuestionDeleting,
+    isQuestionUpdating,
+    isQuestionImageUpdating,
+    isAnswerCreating,
+    isAnswerDeleting,
+    isAnswerUpdating,
+  } = useSelector((state) => state.testDesign);
+
+  return (
+    isTestUpdating ||
+    isQuestionCreating ||
+    isQuestionDeleting ||
+    isQuestionUpdating ||
+    isQuestionImageUpdating ||
+    isAnswerCreating ||
+    isAnswerDeleting ||
+    isAnswerUpdating
+  );
+};
+
 const TestSettings = () => {
   const dispatch = useDispatch();
   const { test } = useSelector((state) => state.testDesign);
   const { algorithms } = useSelector((state) => state.algorithm);
+  const isSaving = useIsSaving();
   const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, label: algorithm.name }));
 
   const [name, setName] = useState(test.name);
@@ -41,12 +66,12 @@ const TestSettings = () => {
     [name, algorithmIds]
   );
 
-  const handleDebouncedUpdate = useDebouncedUpdate(handleUpdateTest, 500);
+  const handleUpdateDebounced = useDebouncedUpdate(handleUpdateTest, 500);
 
   const handleNameChange = useCallback(
     (value) => {
       setName(value);
-      handleDebouncedUpdate.exec({ name: value });
+      handleUpdateDebounced.exec({ name: value });
       clearValidationErrors("name");
     },
     [validationErrors]
@@ -55,7 +80,7 @@ const TestSettings = () => {
     const validationError = validateName(name);
 
     if (!validationError) {
-      handleDebouncedUpdate.execNow({ name });
+      handleUpdateDebounced.execNow({ name });
     } else {
       setValidationErrors({ ...validationErrors, name: validationError });
     }
@@ -64,7 +89,7 @@ const TestSettings = () => {
   const handleAlgorithmIdsChange = useCallback(
     (value) => {
       setAlgorithmIds(value);
-      handleDebouncedUpdate.exec({ algorithmIds });
+      handleUpdateDebounced.exec({ algorithmIds });
       clearValidationErrors("algorithmIds");
     },
     [validationErrors]
@@ -73,7 +98,7 @@ const TestSettings = () => {
     const validationError = validateAlgorithmIds(algorithmIds);
 
     if (!validationError) {
-      handleDebouncedUpdate.execNow({ algorithmIds });
+      handleUpdateDebounced.execNow({ algorithmIds });
     } else {
       setValidationErrors({ ...validationErrors, algorithmIds: validationError });
     }
@@ -120,7 +145,11 @@ const TestSettings = () => {
           </span>
         </div>
       </div>
-      <Button color={colors.success} disabled={hasValidationErrors() || test.isPublished} onClick={handlePublishTest}>
+      <Button
+        color={colors.success}
+        disabled={hasValidationErrors() || test.isPublished || isSaving}
+        onClick={handlePublishTest}
+      >
         Опубликовать тест
       </Button>
     </div>

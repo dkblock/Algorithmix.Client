@@ -17,7 +17,7 @@ import PasswordChangedModal from "../../account/password-changed-modal";
 import PublishTestModal from "../../tests/design/publish-test-modal";
 import UploadAlgorithmDataModal from "../../algorithms/design/upload-algorithm-data-modal";
 import UploadAlgorithmImageModal from "../../algorithms/design/upload-algorithm-image-modal";
-import UploadTestQuestionImageModal from "../../tests/design/test-question/upload-test-question-image-modal";
+import UploadTestQuestionImageModal from "../../tests/design/test-question-designer/upload-test-question-image-modal";
 import { ZoomImageModal } from "../zoom-image";
 import modalTypes from "../../../constants/modal-types";
 

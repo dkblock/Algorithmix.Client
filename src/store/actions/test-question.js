@@ -52,6 +52,17 @@ export const deleteTestQuestion = createAsyncThunk("deleteTestQuestion", async (
 
   if (statusCode.noContent(response)) {
     thunkAPI.dispatch(hideModal());
+    const { question: selectedQuestion } = thunkAPI.getState().testDesign;
+
+    if (selectedQuestion.id === questionId) {
+      const { test, questions } = thunkAPI.getState().testDesign;
+      const newSelectedQuestion = questions.find((question) => question.id !== questionId);
+
+      if (newSelectedQuestion) {
+        thunkAPI.dispatch(fetchTestQuestion({ testId: test.id, questionId: newSelectedQuestion.id }));
+      }
+    }
+
     return { questionId, hasError: false };
   }
 

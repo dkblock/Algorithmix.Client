@@ -16,7 +16,7 @@ const CreateModal = ({
   createButtonText = "Создать",
   size = modalSizes.small,
   title,
-  isLoading,
+  isCreating,
   actions,
   onCreate,
 }) => {
@@ -39,7 +39,7 @@ const CreateModal = ({
             <Button type={buttonTypes.text} onClick={handleClose}>
               Отмена
             </Button>
-            <Button color={colors.success} isLoading={isLoading} onClick={onCreate}>
+            <Button color={colors.success} isLoading={isCreating} onClick={onCreate}>
               {createButtonText}
             </Button>
           </div>

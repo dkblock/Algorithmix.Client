@@ -1,4 +1,4 @@
-import { onPendingDefault, onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import { onPendingDefault, onFulfilledDefault, onRejectedDefault } from "./defaults";
 import {
   createTestQuestion,
   deleteTestQuestion,
@@ -23,10 +23,10 @@ const testQuestionDesignReducer = {
   },
 
   [createTestQuestion.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionCreating");
   },
   [createTestQuestion.fulfilled]: (state, { payload: { createdQuestion, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isQuestionCreating");
     if (hasError) return;
 
     const previousQuestion = state.questions.find((question) => question.id === createdQuestion.previousQuestionId);
@@ -41,14 +41,14 @@ const testQuestionDesignReducer = {
     state.test.isPublished = false;
   },
   [createTestQuestion.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionCreating");
   },
 
   [deleteTestQuestion.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionDeleting");
   },
   [deleteTestQuestion.fulfilled]: (state, { payload: { questionId, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isQuestionDeleting");
     if (hasError) return;
 
     const deletedQuestion = state.questions.find((question) => question.id === questionId);
@@ -63,20 +63,24 @@ const testQuestionDesignReducer = {
       nextQuestion.previousQuestionId = deletedQuestion.previousQuestionId;
     }
 
+    if (state.questions.length === 1) {
+      state.question = null;
+      state.questions = [];
+      state.answers = [];
+    }
+
     state.questions = state.questions.filter((question) => question.id !== questionId);
-    state.question = state.questions[0];
-    state.answers = state.question?.answers ?? [];
     state.test.isPublished = false;
   },
   [deleteTestQuestion.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionDeleting");
   },
 
   [updateTestQuestion.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionUpdating");
   },
   [updateTestQuestion.fulfilled]: (state, { payload: { updatedQuestion, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isQuestionUpdating");
     if (hasError) return;
 
     state.question = updatedQuestion;
@@ -86,14 +90,14 @@ const testQuestionDesignReducer = {
     state.test.isPublished = false;
   },
   [updateTestQuestion.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionUpdating");
   },
 
   [uploadTestQuestionImage.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionImageUpdating");
   },
   [uploadTestQuestionImage.fulfilled]: (state, { payload: { updatedQuestion, hasError } }) => {
-    onFulfilledDefault(state);
+    onFulfilledDefault(state, hasError, "isQuestionImageUpdating");
     if (hasError) return;
 
     state.question = updatedQuestion;
@@ -103,14 +107,14 @@ const testQuestionDesignReducer = {
     state.test.isPublished = false;
   },
   [uploadTestQuestionImage.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionImageUpdating");
   },
 
   [clearTestQuestionImage.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionImageUpdating");
   },
   [clearTestQuestionImage.fulfilled]: (state, { payload: { questionId, hasError } }) => {
-    onFulfilledDefault(state);
+    onFulfilledDefault(state, hasError, "isQuestionImageUpdating");
     if (hasError) return;
 
     const updatedQuestion = { ...state.question, image: null };
@@ -120,14 +124,14 @@ const testQuestionDesignReducer = {
     state.test.isPublished = false;
   },
   [clearTestQuestionImage.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionImageUpdating");
   },
 
   [moveTestQuestion.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isQuestionMoving");
   },
   [moveTestQuestion.fulfilled]: (state, { payload: { questions, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isQuestionMoving");
     if (hasError) return;
 
     state.questions = questions;
@@ -135,7 +139,7 @@ const testQuestionDesignReducer = {
     state.test.isPublished = false;
   },
   [moveTestQuestion.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isQuestionMoving");
   },
 };
 

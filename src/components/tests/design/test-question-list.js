@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createTestQuestion,
@@ -6,9 +6,9 @@ import {
   moveTestQuestion,
   fetchTestQuestion,
 } from "../../../store/actions/test-question";
-import Button, { colors } from "../../_common/button";
+import { Button, colors } from "../../_common/button";
 import { iconTypes } from "../../_common/icon";
-import Loader from "../../_common/loader";
+import { Loader } from "../../_common/loader";
 import { SortableList } from "../../_common/list";
 
 const prepareQuestions = (questions, selectedQuestionId, onQuestionClick, onQuestionDelete) =>
@@ -29,7 +29,7 @@ const prepareQuestions = (questions, selectedQuestionId, onQuestionClick, onQues
 
 const TestQuestionList = () => {
   const dispatch = useDispatch();
-  const { test, question: selectedQuestion, questions, isSaving, isFetching } = useSelector(
+  const { test, question: selectedQuestion, questions, isFetching, isQuestionMoving, isQuestionCreating } = useSelector(
     (state) => state.testDesign
   );
 
@@ -39,35 +39,16 @@ const TestQuestionList = () => {
     setOrderedQuestions(questions);
   }, [questions]);
 
-  const handleQuestionClick = useCallback(
-    (questionId) => {
-      dispatch(fetchTestQuestion({ testId: test.id, questionId }));
-    },
-    [dispatch, test.id]
-  );
-
-  const handleQuestionCreate = useCallback(
-    () => dispatch(createTestQuestion({ testId: test.id, count: questions.length })),
-    [dispatch, test.id, questions.length]
-  );
-
-  const handleQuestionDelete = useCallback(
-    (questionId) => {
-      dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId }));
-    },
-    [dispatch, test.id]
-  );
-
-  const handleQuestionMove = useCallback(
-    (newQuestions, oldIndex, newIndex) => {
-      if (!isSaving && oldIndex !== newIndex) {
-        const newOrderedQuestions = newQuestions.map(({ id }) => orderedQuestions.find((q) => q.id === id));
-        setOrderedQuestions(newOrderedQuestions);
-        dispatch(moveTestQuestion({ testId: test.id, indexes: { oldIndex, newIndex } }));
-      }
-    },
-    [isSaving, orderedQuestions, dispatch, test.id]
-  );
+  const handleQuestionClick = (questionId) => dispatch(fetchTestQuestion({ testId: test.id, questionId }));
+  const handleQuestionCreate = () => dispatch(createTestQuestion({ testId: test.id, count: questions.length }));
+  const handleQuestionDelete = (questionId) => dispatch(showDeleteTestQuestionModal({ testId: test.id, questionId }));
+  const handleQuestionMove = (newQuestions, oldIndex, newIndex) => {
+    if (!isQuestionMoving && oldIndex !== newIndex) {
+      const newOrderedQuestions = newQuestions.map(({ id }) => orderedQuestions.find((q) => q.id === id));
+      setOrderedQuestions(newOrderedQuestions);
+      dispatch(moveTestQuestion({ testId: test.id, indexes: { oldIndex, newIndex } }));
+    }
+  };
 
   const preparedQuestions = useMemo(
     () => prepareQuestions(orderedQuestions, selectedQuestion?.id, handleQuestionClick, handleQuestionDelete),
@@ -81,7 +62,8 @@ const TestQuestionList = () => {
         <Button
           color={colors.success}
           startIcon={iconTypes.plus}
-          disabled={isSaving}
+          isLoading={isQuestionCreating}
+          loadingPosition="start"
           onClick={handleQuestionCreate}
         >
           Новый вопрос
@@ -91,7 +73,11 @@ const TestQuestionList = () => {
         {isFetching ? (
           <Loader className="test-list__loader" />
         ) : preparedQuestions.length > 0 ? (
-          <SortableList items={preparedQuestions} onSwap={handleQuestionMove} />
+          <SortableList
+            items={preparedQuestions}
+            disabled={isQuestionMoving || isQuestionCreating}
+            onSwap={handleQuestionMove}
+          />
         ) : (
           <div className="test-list__loader">Нет вопросов</div>
         )}

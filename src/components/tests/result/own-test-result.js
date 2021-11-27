@@ -23,7 +23,7 @@ const OwnTestResult = () => {
     }
   }, [dispatch, isHandlingResult, testId]);
 
-  if (isFetching || isHandlingResult) return <Loader />;
+  if (isFetching || isHandlingResult) return <Loader className="m-auto" size="large" />;
   if (!testResult && !isFetching) return null;
 
   return (

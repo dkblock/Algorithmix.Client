@@ -1,15 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useDebouncedCallback } from "use-debounce";
 import { Paper } from "@mui/material";
+import { useDebouncedUpdate } from "../../../../hooks";
 import { updateTestQuestion } from "../../../../store/actions/test-question";
 import testQuestionTypes from "../../../../constants/test-question-types";
 import validator from "../../../../utils/validation";
 import TextField from "../../../_common/text-field";
 import Dropdown from "../../../_common/dropdown";
-import TestQuestionImage from "./test-question-image";
-import TestAnswerList from "./test-answer-list";
 import Loader from "../../../_common/loader";
+import TestQuestionImageDesigner from "./test-question-image-designer";
+import TestAnswerList from "./test-answer-list";
 
 const { validateQuestionValue, validateQuestion } = validator.testQuestion;
 
@@ -35,46 +35,36 @@ const TestQuestionDesigner = () => {
     setType(question.type);
   }, [questionId]);
 
-  const handleUpdateQuestion = useCallback(
-    (params) => {
-      const updatedQuestion = { ...question, testId, value, type, ...params };
-      const { isValid } = validateQuestion(updatedQuestion);
+  const handleUpdateQuestion = (params) => {
+    const updatedQuestion = { ...question, testId, value, type, ...params };
+    const { isValid } = validateQuestion(updatedQuestion);
 
-      if (isValid) {
-        dispatch(updateTestQuestion({ testId, questionId, question: updatedQuestion }));
-      }
-    },
-    [dispatch, testId, questionId, value, type]
-  );
+    if (isValid) {
+      dispatch(updateTestQuestion({ testId, questionId, question: updatedQuestion }));
+    }
+  };
 
-  const handleUpdateQuestionValueDebounced = useDebouncedCallback((value) => {
-    handleUpdateQuestion({ value });
-  }, 500);
+  const handleUpdateDebounced = useDebouncedUpdate(handleUpdateQuestion);
 
-  const handleQuestionValueChange = useCallback(
-    (newValue) => {
-      setValue(newValue);
-      handleUpdateQuestionValueDebounced(newValue);
-    },
-    [handleUpdateQuestionValueDebounced]
-  );
-
-  const handleQuestionValueFocus = useCallback(() => setValidationErrors({ ...validationErrors, value: null }), [
-    validationErrors,
-  ]);
-
-  const handleQuestionValueFocusOut = useCallback(() => {
+  const handleQuestionValueChange = (newValue) => {
+    setValue(newValue);
+    handleUpdateDebounced.exec({ value: newValue });
+    setValidationErrors({ ...validationErrors, value: null });
+  };
+  const handleQuestionValueFocusOut = () => {
     const validationError = validateQuestionValue(value);
-    setValidationErrors({ ...validationErrors, value: validationError });
-  }, [value, validationErrors]);
 
-  const handleQuestionTypeChange = useCallback(
-    (newValue) => {
-      setType(newValue);
-      handleUpdateQuestion({ type: newValue });
-    },
-    [handleUpdateQuestion]
-  );
+    if (!validationError) {
+      handleUpdateDebounced.execNow({ value });
+    } else {
+      setValidationErrors({ ...validationErrors, value: validationError });
+    }
+  };
+
+  const handleQuestionTypeChange = (newValue) => {
+    setType(newValue);
+    handleUpdateQuestion({ type: newValue });
+  };
 
   return (
     <Paper className="test-question-info">
@@ -92,7 +82,6 @@ const TestQuestionDesigner = () => {
                 multiline
                 rows={5}
                 onChange={handleQuestionValueChange}
-                onFocus={handleQuestionValueFocus}
                 onFocusOut={handleQuestionValueFocusOut}
               />
               <Dropdown
@@ -102,7 +91,7 @@ const TestQuestionDesigner = () => {
                 onChange={handleQuestionTypeChange}
               />
             </section>
-            <TestQuestionImage question={question} />
+            <TestQuestionImageDesigner question={question} />
           </div>
           <TestAnswerList />
         </>

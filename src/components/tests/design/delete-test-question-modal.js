@@ -6,6 +6,7 @@ import { deleteTestQuestion } from "../../../store/actions/test-question";
 const DeleteTestQuestionModal = () => {
   const dispatch = useDispatch();
   const { testId, questionId } = useSelector((state) => state.modal.modalProps);
+  const { isQuestionDeleting } = useSelector((state) => state.testDesign);
 
   const handleQuestionDelete = () => dispatch(deleteTestQuestion({ testId: testId, questionId: questionId }));
 
@@ -13,6 +14,7 @@ const DeleteTestQuestionModal = () => {
     <DeleteModal
       title="Удаление вопроса"
       deleteText="Вы действительно хотите удалить данный вопрос? Все связанные данные также будут удалены!"
+      isDeleting={isQuestionDeleting}
       onDelete={handleQuestionDelete}
     />
   );

@@ -17,6 +17,7 @@ const DeleteModal = ({
   deleteButtonText = "Удалить",
   size = modalSizes.small,
   title,
+  isDeleting,
   actions,
   onDelete,
 }) => {
@@ -39,7 +40,7 @@ const DeleteModal = ({
             <Button type={buttonTypes.text} onClick={handleClose}>
               Отмена
             </Button>
-            <Button color={colors.danger} onClick={onDelete}>
+            <Button color={colors.danger} isLoading={isDeleting} onClick={onDelete}>
               {deleteButtonText}
             </Button>
           </div>

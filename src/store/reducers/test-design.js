@@ -11,7 +11,20 @@ const initialState = {
   answers: [],
   publishErrors: [],
 
+  isTestUpdating: false,
+
   isQuestionFetching: false,
+  isQuestionCreating: false,
+  isQuestionDeleting: false,
+  isQuestionUpdating: false,
+  isQuestionImageUpdating: false,
+  isQuestionMoving: false,
+
+  isAnswerCreating: false,
+  isAnswerDeleting: false,
+  isAnswerUpdating: false,
+  isAnswerMoving: false,
+
   isPublishing: false,
   isFetching: false,
   isSaving: false,
@@ -41,16 +54,16 @@ const testDesignSlice = createSlice({
     },
 
     [updateTest.pending]: (state) => {
-      onSavingDefault(state);
+      onPendingDefault(state, "isTestUpdating");
     },
     [updateTest.fulfilled]: (state, { payload: { updatedTest, hasError } }) => {
-      onFulfilledDefault(state, hasError);
+      onFulfilledDefault(state, hasError, "isTestUpdating");
       if (hasError) return;
 
       state.test = updatedTest;
     },
     [updateTest.rejected]: (state) => {
-      onRejectedDefault(state);
+      onRejectedDefault(state, "isTestUpdating");
     },
 
     [publishTest.pending]: (state) => {

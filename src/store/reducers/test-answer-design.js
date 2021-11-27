@@ -1,34 +1,42 @@
-import { onFulfilledDefault, onRejectedDefault, onSavingDefault } from "./defaults";
-import { createTestAnswer, deleteTestAnswer, updateTestAnswer, moveTestAnswer } from "../actions/test-answer";
+import { onFulfilledDefault, onPendingDefault, onRejectedDefault, onSavingDefault } from "./defaults";
+import {
+  createTestAnswer,
+  deleteTestAnswer,
+  updateTestAnswer,
+  moveTestAnswer,
+  updateCorrectTestAnswer,
+} from "../actions/test-answer";
 import testQuestionTypes from "../../constants/test-question-types";
 import { updateTestQuestionType } from "../actions/test-question";
 
 const testAnswerDesignReducer = {
   [createTestAnswer.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isAnswerCreating");
   },
   [createTestAnswer.fulfilled]: (state, { payload: { createdAnswer, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isAnswerCreating");
     if (hasError) return;
 
+    const question = state.questions.find((question) => question.id === createdAnswer.question.id);
     const previousAnswer = state.answers.find((answer) => answer.id === createdAnswer.previousAnswerId);
 
     if (previousAnswer) {
       previousAnswer.nextAnswerId = createdAnswer.id;
     }
 
-    state.answers = [...state.answers, createdAnswer];
     state.test.isPublished = false;
+    state.answers = [...state.answers, createdAnswer];
+    question.answers = state.answers;
   },
   [createTestAnswer.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isAnswerCreating");
   },
 
   [deleteTestAnswer.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isAnswerDeleting");
   },
   [deleteTestAnswer.fulfilled]: (state, { payload: { answerId, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isAnswerDeleting");
     if (hasError) return;
 
     const deletedAnswer = state.answers.find((answer) => answer.id === answerId);
@@ -43,39 +51,52 @@ const testAnswerDesignReducer = {
       nextAnswer.previousAnswerId = deletedAnswer.previousAnswerId;
     }
 
+    if (
+      state.question.type === testQuestionTypes.singleAnswerQuestion &&
+      deletedAnswer.isCorrect &&
+      state.answers.length > 1
+    ) {
+      const newCorrectAnswer = state.answers.find((answer) => answer.id !== deletedAnswer.id);
+      newCorrectAnswer.isCorrect = true;
+    }
+
     state.answers = state.answers.filter((answer) => answer.id !== answerId);
     state.test.isPublished = false;
   },
   [deleteTestAnswer.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isAnswerDeleting");
   },
 
   [updateTestAnswer.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isAnswerUpdating");
   },
   [updateTestAnswer.fulfilled]: (state, { payload: { updatedAnswer, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isAnswerUpdating");
     if (hasError) return;
 
-    updateCorrectAnswers(updatedAnswer, state);
     state.test.isPublished = false;
+    state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
   },
   [updateTestAnswer.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isAnswerUpdating");
+  },
+
+  [updateCorrectTestAnswer]: (state, { payload: { answerId } }) => {
+    updateCorrectAnswers(answerId, state);
   },
 
   [moveTestAnswer.pending]: (state) => {
-    onSavingDefault(state);
+    onPendingDefault(state, "isAnswerMoving");
   },
   [moveTestAnswer.fulfilled]: (state, { payload: { answers, hasError } }) => {
-    onFulfilledDefault(state, hasError);
+    onFulfilledDefault(state, hasError, "isAnswerMoving");
     if (hasError) return;
 
     state.answers = answers;
     state.test.isPublished = false;
   },
   [moveTestAnswer.rejected]: (state) => {
-    onRejectedDefault(state);
+    onRejectedDefault(state, "isAnswerMoving");
   },
 
   [updateTestQuestionType]: (state, { payload: { questionType } }) => {
@@ -96,20 +117,18 @@ const testAnswerDesignReducer = {
   },
 };
 
-const updateCorrectAnswers = (updatedAnswer, state) => {
-  switch (updatedAnswer.question.type) {
+const updateCorrectAnswers = (answerId, state) => {
+  switch (state.question.type) {
     case testQuestionTypes.freeAnswerQuestion:
-      state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
+      state.answers = state.answers.map((answer) => (answer.id === answerId ? { ...answer, isCorrect: true } : answer));
       break;
     case testQuestionTypes.singleAnswerQuestion:
-      state.answers = state.answers.map((answer) => {
-        if (answer.id === updatedAnswer.id) return updatedAnswer;
-        if (updatedAnswer.isCorrect) return { ...answer, isCorrect: false };
-        return answer;
-      });
+      state.answers = state.answers.map((answer) =>
+        answer.id === answerId ? { ...answer, isCorrect: true } : { ...answer, isCorrect: false }
+      );
       break;
     case testQuestionTypes.multiAnswerQuestion:
-      state.answers = state.answers.map((answer) => (answer.id === updatedAnswer.id ? updatedAnswer : answer));
+      state.answers = state.answers.map((answer) => (answer.id === answerId ? { ...answer, isCorrect: true } : answer));
       break;
     default:
       break;

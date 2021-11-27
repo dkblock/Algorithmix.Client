@@ -3,8 +3,6 @@ import { makeStyles } from "@mui/styles";
 import MuiListItem from "@mui/material/ListItem";
 import MuiListItemText from "@mui/material/ListItemText";
 import MuiListItemIcon from "@mui/material/ListItemIcon";
-import Checkbox from "../checkbox";
-import Radio from "../radio";
 import ListItemActions from "./list-item-actions";
 import "./list.scss";
 
@@ -17,20 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ListItem = ({
-  id,
-  children,
-  primaryText,
-  secondaryText,
-  isSelected,
-  button = true,
-  actions,
-  onClick,
-  onCheck,
-  checked,
-  checkControlType,
-  Draggable,
-}) => {
+const ListItem = ({ children, primaryText, secondaryText, isSelected, button = true, actions, onClick, Draggable }) => {
   const [isHovered, setIsHovered] = useState(false);
   const classes = useStyles();
   const className = isSelected ? "grid-item grid-item--selected" : "grid-item";
@@ -42,10 +27,6 @@ const ListItem = ({
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
   }, []);
-
-  const handleCheck = useCallback((newValue) => {
-    onCheck(id, newValue);
-  }, [id, onCheck]);
 
   return (
     <MuiListItem
@@ -59,16 +40,6 @@ const ListItem = ({
       {Draggable && (
         <MuiListItemIcon onMouseDown={(e) => e.stopPropagation()} className="list-item__draggable">
           <Draggable />
-        </MuiListItemIcon>
-      )}
-
-      {onCheck && (
-        <MuiListItemIcon>
-          {checkControlType === "radio" ? (
-            <Radio value={checked} label="" onChange={handleCheck} />
-          ) : (
-            <Checkbox value={checked} label="" onChange={handleCheck} />
-          )}
         </MuiListItemIcon>
       )}
 

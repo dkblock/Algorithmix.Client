@@ -22,7 +22,7 @@ const Radio = ({ className, color = colors.primary, value, label, onChange, disa
   return (
     <ThemeProvider theme={theme}>
       <FormControlLabel
-        label={label}
+        label={label ?? ""}
         control={
           <MuiRadio
             className={className}

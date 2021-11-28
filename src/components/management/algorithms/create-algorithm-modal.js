@@ -9,7 +9,7 @@ const { validateId, validateName, validateAlgorithm } = validator.algorithm;
 
 const CreateAlgorithmModal = () => {
   const dispatch = useDispatch();
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.algorithm);
+  const { isSaving, validationErrors: serverValidationErrors } = useSelector((state) => state.algorithm);
 
   const [id, setId] = useState("algorithm-id");
   const [name, setName] = useState("Новый алгоритм");
@@ -47,7 +47,12 @@ const CreateAlgorithmModal = () => {
   }, [dispatch, id, name]);
 
   return (
-    <CreateModal title="Создание нового алгоритма" size={modalSizes.small} onCreate={handleCreateAlgorithm}>
+    <CreateModal
+      title="Создание нового алгоритма"
+      size={modalSizes.small}
+      isCreating={isSaving}
+      onCreate={handleCreateAlgorithm}
+    >
       <div className="form">
         <TextField
           className="form__control"

@@ -100,7 +100,7 @@ const AlgorithmList = () => {
     dispatch,
   ]);
 
-  const actions = useMemo(() => (isAdmin ? getActions(isAdmin, handleDeleteAlgorithm) : null), [
+  const actions = useMemo(() => (isAdmin ? getActions(handleDeleteAlgorithm) : null), [
     isAdmin,
     handleDeleteAlgorithm,
   ]);

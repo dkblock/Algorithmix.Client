@@ -2,7 +2,7 @@ import React from "react";
 import { getFileSrc } from "../../../utils/get-file-src";
 import testQuestionTypes from "../../../constants/test-question-types";
 import ZoomImage from "../../_common/zoom-image";
-import TestAnswerList from "./test-answer-list";
+import TestResultAnswerList from "./test-result-answer-list";
 
 const getCorrectAnswers = (answers, questionType) => {
   if (questionType === testQuestionTypes.freeAnswerQuestion) return [answers[0].value];
@@ -21,14 +21,14 @@ const UserAnswer = ({ userAnswer, own }) => {
         </div>
         <hr className="w-100"/>
         <div className="test-result-user-answer__answer-list-container">
-          <TestAnswerList
+          <TestResultAnswerList
             answers={question.answers}
             userAnswers={userAnswer.answers}
             questionType={question.type}
             label={own ? "Ваш ответ" : "Ответ"}
           />
           {!own && (
-            <TestAnswerList
+            <TestResultAnswerList
               answers={question.answers}
               userAnswers={correctAnswers}
               questionType={question.type}

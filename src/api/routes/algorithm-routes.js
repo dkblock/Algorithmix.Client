@@ -10,9 +10,11 @@ const algorithmRoutes = {
 
   uploadAlgorithmDescription: (algorithmId) => getRoute(`algorithms/${algorithmId}/description`),
   clearAlgorithmDescription: (algorithmId) => getRoute(`algorithms/${algorithmId}/description`),
+  downloadAlgorithmDescription: (algorithmId) => getRoute(`algorithms/${algorithmId}/description`),
 
   uploadAlgorithmConstructor: (algorithmId) => getRoute(`algorithms/${algorithmId}/constructor`),
   clearAlgorithmConstructor: (algorithmId) => getRoute(`algorithms/${algorithmId}/constructor`),
+  downloadAlgorithmConstructor: (algorithmId) => getRoute(`algorithms/${algorithmId}/constructor`),
 
   uploadAlgorithmImage: (algorithmId) => getRoute(`algorithms/${algorithmId}/image`),
   clearAlgorithmImage: (algorithmId) => getRoute(`algorithms/${algorithmId}/image`),

@@ -1,13 +1,10 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Radio from "../../../_common/radio";
 
-const SingleTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
-  const handleUserAnswerChange = useCallback(
-    (newUserAnswer) => {
-      setUserAnswers([newUserAnswer]);
-    },
-    [setUserAnswers]
-  );
+const SingleTestPassAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
+  const handleUserAnswerChange = (newUserAnswer) => {
+    setUserAnswers([newUserAnswer]);
+  };
 
   return (
     <div className="test-pass-answer-list">
@@ -26,4 +23,4 @@ const SingleTestAnswerList = ({ answers, userAnswers, setUserAnswers }) => {
   );
 };
 
-export default SingleTestAnswerList;
+export default SingleTestPassAnswerList;

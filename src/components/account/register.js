@@ -201,7 +201,7 @@ const Register = () => {
               />
             </div>
             <div className="account-sign-form__submit">
-              <Button color={colors.success} onClick={handleSubmit}>
+              <Button color={colors.success} isLoading={isFetching} onClick={handleSubmit}>
                 Регистрация
               </Button>
             </div>

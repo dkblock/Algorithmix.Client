@@ -8,6 +8,7 @@ import { useCurrentUser } from "../../../hooks";
 const DeleteUserModal = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.modal.modalProps);
+  const { isSaving } = useSelector((state) => state.user);
   const { currentUser } = useCurrentUser();
   const isDeleteAvailable = user.id !== currentUser.id;
 
@@ -18,6 +19,7 @@ const DeleteUserModal = () => {
     <DeleteModal
       title={user.fullName}
       deleteText="Вы действительно хотите удалить данного пользователя? Все связанные данные также будут удалены!"
+      isDeleting={isSaving}
       onDelete={handleUserDelete}
     />
   ) : (

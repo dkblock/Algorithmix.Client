@@ -1,20 +1,20 @@
-.test-pass-container {
+.test-pass {
   width: 100%;
   padding: 18px;
   min-height: calc(100vh - 148px);
 }
 
-.test-pass {
+.test-pass-question {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 36px 48px;
+  padding: 24px;
   height: 100%;
 
-  &__loader {
-    margin: auto;
+  &__progress {
+    margin: -24px -24px 36px;
   }
 
   &__main {

@@ -7,7 +7,9 @@ const initialState = {
   currentQuestion: null,
   testResult: null,
   userAnswers: {},
+  questionOrder: 0,
 
+  isStarted: false,
   isFetching: false,
   isHandlingResult: false,
   hasError: false,
@@ -23,12 +25,16 @@ const testPassSlice = createSlice({
       state.currentTest = null;
       state.testResult = null;
       state.userAnswers = {};
+      state.questionOrder = 1;
+      state.isStarted = false;
     },
-    [startTestPass.fulfilled]: (state, { payload: { question, hasError } }) => {
+    [startTestPass.fulfilled]: (state, { payload: { test, question, hasError } }) => {
       onFulfilledDefault(state);
 
       if (!hasError) {
+        state.currentTest = test;
         state.currentQuestion = question;
+        state.isStarted = true;
       }
     },
     [startTestPass.rejected]: (state) => {
@@ -36,9 +42,7 @@ const testPassSlice = createSlice({
     },
 
     [fetchNextTestQuestion.pending]: (state) => {
-      onPendingDefault(state);
-      state.isHandlingResult = true;
-      state.currentQuestion = null;
+      onPendingDefault(state, "isHandlingResult");
     },
     [fetchNextTestQuestion.fulfilled]: (state, { payload: { userAnswer, question, hasError } }) => {
       onFulfilledDefault(state, hasError);
@@ -47,6 +51,7 @@ const testPassSlice = createSlice({
       if (!hasError && question) {
         state.currentQuestion = question;
         state.userAnswers = { ...state.userAnswers, [question.previousQuestionId]: userAnswer.answers };
+        state.questionOrder++;
       }
     },
     [fetchNextTestQuestion.rejected]: (state) => {
@@ -61,6 +66,7 @@ const testPassSlice = createSlice({
 
       if (!hasError) {
         state.currentQuestion = question;
+        state.questionOrder--;
       }
     },
     [fetchPreviousTestQuestion.rejected]: (state) => {
@@ -77,6 +83,7 @@ const testPassSlice = createSlice({
       state.currentQuestion = null;
       state.currentTest = null;
       state.userAnswers = {};
+      state.isStarted = false;
     },
     [fetchTestResult.rejected]: (state) => {
       onRejectedDefault(state);

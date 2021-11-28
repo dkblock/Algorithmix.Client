@@ -23,6 +23,9 @@
   }
 
   &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 25%;
   }
 }
@@ -98,5 +101,21 @@
     tr:last-child td:last-child {
       border-bottom-right-radius: 4px;
     }
+  }
+}
+
+.algorithm-design-status {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 }

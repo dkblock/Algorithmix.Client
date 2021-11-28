@@ -2,7 +2,7 @@ import React from "react";
 import Checkbox from "../../../_common/checkbox";
 import colors from "../../../../constants/colors";
 
-const MultiTestAnswerList = ({ answers, userAnswers, label }) => (
+const MultiTestResultAnswerList = ({ answers, userAnswers, label }) => (
   <div className="test-result-user-answer__answer-list">
     <div className="test-result-user-answer__header">
       <span>{label}:</span>
@@ -15,4 +15,4 @@ const MultiTestAnswerList = ({ answers, userAnswers, label }) => (
   </div>
 );
 
-export default MultiTestAnswerList;
+export default MultiTestResultAnswerList;

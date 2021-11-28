@@ -15,6 +15,7 @@ const iconTypes = {
   help: "help",
   home: "home",
   info: "info",
+  launch: "launch",
   logout: "logout",
   manage: "manage",
   more: "more",

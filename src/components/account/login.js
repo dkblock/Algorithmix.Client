@@ -20,7 +20,7 @@ const {
 const Login = () => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useCurrentUser();
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.account);
+  const { isFetching, validationErrors: serverValidationErrors } = useSelector((state) => state.account);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,7 +88,7 @@ const Login = () => {
           Забыли пароль?
         </div>
         <div className="account-sign-form__submit">
-          <Button color={colors.success} onClick={handleSubmit}>
+          <Button color={colors.success} isLoading={isFetching} onClick={handleSubmit}>
             Войти
           </Button>
         </div>

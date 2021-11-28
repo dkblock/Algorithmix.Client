@@ -5,9 +5,11 @@ import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesign, navigateToTestStats } from "../../../utils/navigator";
 import { getMomentFromNow } from "../../../utils/moment";
+import colors from "../../../constants/colors";
 import Table from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
-import Button, { colors } from "../../_common/button";
+import Button from "../../_common/button";
+import CompletionResult from "../../_common/completion-result";
 import TextField from "../../_common/text-field";
 import palette from "../../../utils/palette";
 
@@ -41,7 +43,13 @@ const columns = [
       </span>
     ),
   },
-  { id: "questionsCount", label: "Вопросы", align: "center", width: 175, sortable: false },
+  { id: "questionsCount", label: "Вопросы", align: "center", width: 75, sortable: false },
+  {
+    id: "averageResult",
+    label: "Средний результат",
+    align: "center",
+    renderCell: (row) => <CompletionResult value={row.averageResult} size="extra-small" color={colors.primary} />,
+  },
   { id: "createdBy", label: "Автор" },
   { id: "createdDate", label: "Создан", renderCell: ({ createdDateInMoment }) => createdDateInMoment },
   { id: "updatedDate", label: "Изменён", renderCell: ({ updatedDateInMoment }) => updatedDateInMoment },
@@ -53,6 +61,7 @@ const prepareTests = (tests) =>
     name: test.name,
     status: test.isPublished,
     questionsCount: test.questions.length,
+    averageResult: test.averageResult,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
     createdDate: new Date(test.createdDate),
     updatedDate: new Date(test.updatedDate),
@@ -90,13 +99,19 @@ const TestList = () => {
     handleSearchDebounced({ searchText: value });
   }, []);
 
-  const handleSort = useCallback(({ sortBy: orderBy, sortDirection: sortOrder }) => {
-    handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
-  }, [searchText]);
+  const handleSort = useCallback(
+    ({ sortBy: orderBy, sortDirection: sortOrder }) => {
+      handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
+    },
+    [searchText]
+  );
 
-  const handlePageChange = useCallback((newPageIndex) => {
-    handleSearch({ pageIndex: newPageIndex });
-  }, [searchText]);
+  const handlePageChange = useCallback(
+    (newPageIndex) => {
+      handleSearch({ pageIndex: newPageIndex });
+    },
+    [searchText]
+  );
 
   const handleTestDelete = useCallback((test) => dispatch(showDeleteTestModal({ test })), [dispatch]);
   const handleTestEdit = useCallback((test) => navigateToTestDesign(test.id), []);

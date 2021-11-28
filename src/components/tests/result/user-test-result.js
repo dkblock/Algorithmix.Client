@@ -7,12 +7,13 @@ import { useTitle } from "../../../hooks";
 import { fetchUserTestResult } from "../../../store/actions/user-test-result";
 import UserTestResultInfo from "./user-test-result-info";
 import UserAnswersList from "./user-answers-list";
+import Loader from "../../_common/loader";
 import "./test-result.scss";
 
 const UserTestResult = () => {
   const dispatch = useDispatch();
   const { testId, userId } = useParams();
-  const { testResult } = useSelector((state) => state.userTestResult);
+  const { testResult, isFetching } = useSelector((state) => state.userTestResult);
 
   useTitle("Тесты", "Тесты");
 
@@ -20,6 +21,7 @@ const UserTestResult = () => {
     dispatch(fetchUserTestResult({ testId, userId }));
   }, [dispatch, testId, userId]);
 
+  if (isFetching) return <Loader className="m-auto" size="large" />;
   if (!testResult) return null;
 
   return (

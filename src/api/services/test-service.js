@@ -15,6 +15,11 @@ const testService = {
     return await baseService.get(url);
   },
 
+  fetchPublishedTest: async (testId) => {
+    const url = api.tests.fetchPublishedTest(testId);
+    return await baseService.get(url);
+  },
+
   fetchTests: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
     const params = {
       searchText,

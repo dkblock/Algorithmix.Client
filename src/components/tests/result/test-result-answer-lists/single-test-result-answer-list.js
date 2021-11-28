@@ -1,7 +1,7 @@
 import React from "react";
 import Radio from "../../../_common/radio";
 
-const SingleTestAnswerList = ({ answers, userAnswers, label }) => (
+const SingleTestResultAnswerList = ({ answers, userAnswers, label }) => (
   <div className="test-result-user-answer__answer-list">
     <div className="test-result-user-answer__header">
       <span>{label}:</span>
@@ -14,4 +14,4 @@ const SingleTestAnswerList = ({ answers, userAnswers, label }) => (
   </div>
 );
 
-export default SingleTestAnswerList;
+export default SingleTestResultAnswerList;

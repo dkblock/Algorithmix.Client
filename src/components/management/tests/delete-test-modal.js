@@ -6,6 +6,7 @@ import { DeleteModal } from "../../_common/modal";
 const DeleteTestModal = () => {
   const dispatch = useDispatch();
   const { test } = useSelector((state) => state.modal.modalProps);
+  const { isSaving } = useSelector((state) => state.test);
 
   const handleTestDelete = () => dispatch(deleteTest({ testId: test.id }));
 
@@ -13,6 +14,7 @@ const DeleteTestModal = () => {
     <DeleteModal
       title={test.name}
       deleteText="Вы действительно хотите удалить данный тест? Все связанные данные также будут удалены!"
+      isDeleting={isSaving}
       onDelete={handleTestDelete}
     />
   );

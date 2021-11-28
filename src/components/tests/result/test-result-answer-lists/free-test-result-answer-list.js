@@ -1,6 +1,6 @@
 import React from "react";
 
-const FreeTestAnswerList = ({ userAnswers, label }) => (
+const FreeTestResultAnswerList = ({ userAnswers, label }) => (
   <div className="test-result-user-answer__answer-list">
     <div className="test-result-user-answer__header">
       <span>{label}:</span> {userAnswers[0]}
@@ -8,4 +8,4 @@ const FreeTestAnswerList = ({ userAnswers, label }) => (
   </div>
 );
 
-export default FreeTestAnswerList;
+export default FreeTestResultAnswerList;

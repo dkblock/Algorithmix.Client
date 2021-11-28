@@ -19,6 +19,7 @@ const columns = [
 const prepareUserAnswers = (userAnswers) =>
   userAnswers.map((userAnswer, i) => ({
     ...userAnswer,
+    id: userAnswer.question.id,
     questionNumber: i + 1,
   }));
 

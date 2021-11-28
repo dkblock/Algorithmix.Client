@@ -7,6 +7,7 @@ import { DeleteModal, InfoModal } from "../../_common/modal";
 const DeleteGroupModal = () => {
   const dispatch = useDispatch();
   const { group } = useSelector((state) => state.modal.modalProps);
+  const { isSaving } = useSelector((state) => state.group);
 
   const requiredGroups = ["Не назначена", "Администраторы", "Модераторы"];
   const isRequired = requiredGroups.includes(group.name);
@@ -20,6 +21,7 @@ const DeleteGroupModal = () => {
     <DeleteModal
       title={group.name}
       deleteText="Вы действительно хотите удалить данную группу? Все пользователи, состоящие в ней, будут переведены в группу 'Не назначена'"
+      isDeleting={isSaving}
       onDelete={handleGroupDelete}
     />
   );

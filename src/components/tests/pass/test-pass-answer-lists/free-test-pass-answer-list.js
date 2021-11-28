@@ -1,31 +1,31 @@
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import validator from "../../../../utils/validation";
 import TextField from "../../../_common/text-field";
 
 const { validateAnswerValue } = validator.testAnswer;
 
-const FreeTestAnswerList = ({ userAnswers, setUserAnswers }) => {
-  const [answerValue, setAnswerValue] = useState(userAnswers[0] ?? "");
+const FreeTestPassAnswerList = ({ userAnswers, setUserAnswers }) => {
+  const [answerValue, setAnswerValue] = useState("");
   const [error, setError] = useState(null);
 
-  const handleUserAnswerChange = useCallback(
-    (newUserAnswer) => {
-      setAnswerValue(newUserAnswer);
+  useEffect(() => {
+    if (userAnswers[0]) setAnswerValue(userAnswers[0]);
+    else setAnswerValue("");
+  }, [userAnswers]);
 
-      if (newUserAnswer) setUserAnswers([newUserAnswer]);
-      else setUserAnswers([]);
-    },
-    [setUserAnswers]
-  );
+  const handleUserAnswerChange = (newUserAnswer) => {
+    setAnswerValue(newUserAnswer);
 
-  const handleAnswerValueFocus = useCallback(() => {
-    setError(null);
-  }, []);
+    if (newUserAnswer) setUserAnswers([newUserAnswer]);
+    else setUserAnswers([]);
+  };
 
-  const handleAnswerValueFocusOut = useCallback(() => {
+  const handleAnswerValueFocus = () => setError(null);
+
+  const handleAnswerValueFocusOut = () => {
     const validationError = validateAnswerValue(answerValue);
     setError(validationError);
-  }, [answerValue]);
+  };
 
   return (
     <div className="test-pass-answer-list">
@@ -36,6 +36,7 @@ const FreeTestAnswerList = ({ userAnswers, setUserAnswers }) => {
           error={Boolean(error)}
           helperText={error}
           value={answerValue}
+          label="Ответ"
           multiline
           rows={4}
           onChange={handleUserAnswerChange}
@@ -47,4 +48,4 @@ const FreeTestAnswerList = ({ userAnswers, setUserAnswers }) => {
   );
 };
 
-export default FreeTestAnswerList;
+export default FreeTestPassAnswerList;

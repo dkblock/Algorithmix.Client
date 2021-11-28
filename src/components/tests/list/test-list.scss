@@ -32,6 +32,7 @@
 
 .test-list-item {
   display: flex;
+  align-items: center;
   width: 100%;
   padding: 18px;
   gap: 48px;
@@ -51,13 +52,6 @@
 
   &__info {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    gap: 24px;
-  }
-
-  &__info-main {
-    display: flex;
     flex-direction: column;
     gap: 6px;
 
@@ -66,15 +60,28 @@
     }
   }
 
+  &__info-main {
+
+  }
+
   &__result {
     display: flex;
     justify-content: space-between;
-    gap: 24px;
+    min-width: 325px;
   }
 
   &__image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 20%;
+    min-width: 300px;
     border: $panel-border;
+    border-radius: 4px;
+  }
+
+  &__image {
+    width: 100%;
     border-radius: 4px;
   }
 }

@@ -10,7 +10,7 @@ const { validateName, validateGroup } = validator.group;
 
 const CreateGroupModal = () => {
   const dispatch = useDispatch();
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.group);
+  const { isSaving, validationErrors: serverValidationErrors } = useSelector((state) => state.group);
 
   const [name, setName] = useState("");
   const [isAvailableForRegister, setIsAvailableForRegister] = useState(false);
@@ -43,7 +43,12 @@ const CreateGroupModal = () => {
   }, [dispatch, isAvailableForRegister, name]);
 
   return (
-    <CreateModal title="Создание новой группы" size={modalSizes.small} onCreate={handleCreateGroup}>
+    <CreateModal
+      title="Создание новой группы"
+      size={modalSizes.small}
+      isCreating={isSaving}
+      onCreate={handleCreateGroup}
+    >
       <div className="form">
         <TextField
           className="form__control"

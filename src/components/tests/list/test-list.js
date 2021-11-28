@@ -9,21 +9,25 @@ import TestListItem from "./test-list-item";
 import Table from "../../_common/table";
 import TextField from "../../_common/text-field";
 import Button, { colors } from "../../_common/button";
-import { iconTypes } from "../../_common/icon";
-import palette from "../../../utils/palette";
+import { Icon, iconTypes } from "../../_common/icon";
 import "./test-list.scss";
 
 const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
   { id: "name", label: "Название", width: 450 },
   {
     id: "status",
-    label: "Статус",
+    label: "Выполнен",
     width: 200,
-    renderCell: (row) =>
-      row.userResult ? <span style={{ color: palette.success.main, fontWeight: 600 }}>Выполнен</span> : "Не выполнен",
+    align: "center",
+    renderCell: (row) => (
+      <Icon
+        type={row.userResult ? iconTypes.done : iconTypes.clear}
+        color={row.userResult ? colors.success : colors.danger}
+      />
+    ),
   },
   { id: "questionsCount", label: "Вопросы", align: "center", sortable: false },
-  { id: "createdDate", label: "Создан" },
+  { id: "createdDate", label: "Дата создания", align: "center" },
   {
     id: "actions",
     label: "",

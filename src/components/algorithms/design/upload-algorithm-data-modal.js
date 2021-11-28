@@ -9,7 +9,7 @@ import palette from "../../../utils/palette";
 const UploadAlgorithmDataModal = () => {
   const dispatch = useDispatch();
   const { algorithmId, algorithmDataType } = useSelector((state) => state.modal.modalProps);
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.algorithmDesign);
+  const { isSaving, validationErrors: serverValidationErrors } = useSelector((state) => state.algorithmDesign);
 
   const [file, setFile] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
@@ -37,7 +37,12 @@ const UploadAlgorithmDataModal = () => {
   };
 
   return (
-    <CreateModal title="Загрузка файла" createButtonText="Загрузить" onCreate={handleAlgorithmFileUpload}>
+    <CreateModal
+      title="Загрузка файла"
+      createButtonText="Загрузить"
+      isCreating={isSaving}
+      onCreate={handleAlgorithmFileUpload}
+    >
       <FileDropzone acceptedFileTypes={[fileTypes.archive]} onDrop={handleAlgorithmFileDrop} />
       {Object.keys(validationErrors).length > 0 &&
         Object.keys(validationErrors).map((key) => (

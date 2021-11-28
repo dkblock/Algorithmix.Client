@@ -7,9 +7,10 @@ import { fetchAlgorithm } from "../../../store/actions/algorithm";
 import AlgorithmInfoDesigner from "./algorithm-info-designer";
 import AlgorithmImageDesigner from "./algorithm-image-designer";
 import AlgorithmTimeComplexityDesigner from "./algorithm-time-complexity-designer";
+import AlgorithmDataDesigner from "./algorithm-data-designer";
+import AlgorithmDesignerStatus from "./algorithm-designer-status";
 import Loader from "../../_common/loader";
 import "./algorithm-designer.scss";
-import AlgorithmDataDesigner from "./algorithm-data-designer";
 
 const AlgorithmDesigner = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const AlgorithmDesigner = () => {
             </div>
             <div className="algorithm-designer__right">
               <AlgorithmDataDesigner />
+              <AlgorithmDesignerStatus />
             </div>
           </>
         )}

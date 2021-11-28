@@ -51,6 +51,11 @@ const algorithmService = {
     return await baseService.delete(url);
   },
 
+  downloadAlgorithmDescription: async (algorithmId) => {
+    const url = api.algorithms.downloadAlgorithmDescription(algorithmId);
+    return await fileService.get(url, `${algorithmId}.zip`);
+  },
+
   uploadAlgorithmConstructor: async (algorithmId, constructor) => {
     const url = api.algorithms.uploadAlgorithmConstructor(algorithmId);
     return await fileService.post(url, constructor);
@@ -59,6 +64,11 @@ const algorithmService = {
   clearAlgorithmConstructor: async (algorithmId) => {
     const url = api.algorithms.clearAlgorithmConstructor(algorithmId);
     return await baseService.delete(url);
+  },
+
+  downloadAlgorithmConstructor: async (algorithmId) => {
+    const url = api.algorithms.downloadAlgorithmConstructor(algorithmId);
+    return await fileService.get(url, `${algorithmId}.zip`);
   },
 
   uploadAlgorithmImage: async (algorithmId, image) => {

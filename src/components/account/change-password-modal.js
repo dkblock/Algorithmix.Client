@@ -9,7 +9,7 @@ const { validatePassword } = validator.account;
 
 const ChangePasswordModal = () => {
   const dispatch = useDispatch();
-  const { validationErrors: serverValidationErrors } = useSelector((state) => state.accountSettings);
+  const { isSaving, validationErrors: serverValidationErrors } = useSelector((state) => state.accountSettings);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -60,7 +60,13 @@ const ChangePasswordModal = () => {
   };
 
   return (
-    <CreateModal title="Смена пароля" size={modalSizes.small} createButtonText="Сохранить" onCreate={handleSubmit}>
+    <CreateModal
+      title="Смена пароля"
+      size={modalSizes.small}
+      createButtonText="Сохранить"
+      isCreating={isSaving}
+      onCreate={handleSubmit}
+    >
       <div className="form">
         <TextField
           className="form__control"

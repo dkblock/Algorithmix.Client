@@ -2,13 +2,17 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import testService from "../../api/services/test-service";
 import testQuestionService from "../../api/services/test-question-service";
 import statusCode from "../../utils/status-code-reader";
+import { navigateToTestResult } from "../../utils/navigator";
 
 export const startTestPass = createAsyncThunk("startTestPass", async ({ testId }) => {
-  const response = await testService.startTestPass(testId);
+  const testResponse = await testService.fetchPublishedTest(testId);
+  const questionResponse = await testService.startTestPass(testId);
 
-  if (statusCode.ok(response)) {
-    const firstQuestion = await response.json();
-    return { question: firstQuestion, hasError: false };
+  if (statusCode.ok(testResponse) && statusCode.ok(questionResponse)) {
+    const currentTest = await testResponse.json();
+    const firstQuestion = await questionResponse.json();
+
+    return { test: currentTest, question: firstQuestion, hasError: false };
   }
 
   return { hasError: true };
@@ -23,6 +27,7 @@ export const fetchNextTestQuestion = createAsyncThunk("fetchNextTestQuestion", a
   }
 
   if (statusCode.noContent(response)) {
+    navigateToTestResult(testId);
     return { question: null, hasError: false };
   }
 

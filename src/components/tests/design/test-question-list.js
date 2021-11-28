@@ -58,7 +58,7 @@ const TestQuestionList = () => {
   return (
     <div className="test-question-list">
       <div className="test-question-list__header">
-        Вопросы
+        Вопросы ({preparedQuestions.length})
         <Button
           color={colors.success}
           startIcon={iconTypes.plus}

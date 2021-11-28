@@ -7,19 +7,21 @@ import { useTitle } from "../../../hooks";
 import { fetchTestStats } from "../../../store/actions/test-stats";
 import TestStatsInfo from "./test-stats-info";
 import TestQuestionStatsList from "./test-question-stats-list";
+import Loader from "../../_common/loader";
 import "./test-stats.scss";
 
 const TestStats = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { test, questionStats } = useSelector((state) => state.testStats);
+  const { test, questionStats, isFetching } = useSelector((state) => state.testStats);
 
-  useTitle("Тесты", test?.name);
+  useTitle(test?.name, test?.name);
 
   useEffect(() => {
     dispatch(fetchTestStats({ testId }));
   }, [dispatch, testId]);
 
+  if (isFetching) return <Loader className="m-auto" size="large" />;
   if (!test) return null;
 
   return (

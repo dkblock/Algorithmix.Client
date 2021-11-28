@@ -11,6 +11,7 @@ const { validateName, validateTest } = validator.test;
 const CreateTestModal = () => {
   const dispatch = useDispatch();
   const { algorithms } = useSelector((state) => state.algorithm);
+  const { isSaving } = useSelector((state) => state.test);
   const algorithmItems = algorithms.map((algorithm) => ({ value: algorithm.id, label: algorithm.name }));
 
   const [name, setName] = useState("");
@@ -47,7 +48,7 @@ const CreateTestModal = () => {
   }, [algorithmIds, dispatch, name]);
 
   return (
-    <CreateModal title="Создание нового теста" size={modalSizes.small} onCreate={handleCreate}>
+    <CreateModal title="Создание нового теста" size={modalSizes.small} isCreating={isSaving} onCreate={handleCreate}>
       <TextField
         className="test-form__control"
         label="Название теста"

@@ -7,6 +7,7 @@ import { uploadAlgorithmImage } from "../../../store/actions/algorithm";
 const UploadAlgorithmImageModal = () => {
   const dispatch = useDispatch();
   const { algorithmId } = useSelector((state) => state.modal.modalProps);
+  const { isSaving } = useSelector((state) => state.algorithmDesign);
   const [image, setImage] = useState(null);
 
   const handleAlgorithmImageDrop = (images) => {
@@ -21,7 +22,12 @@ const UploadAlgorithmImageModal = () => {
   };
 
   return (
-    <CreateModal title="Загрузка изображения" createButtonText="Загрузить" onCreate={handleAlgorithmImageUpload}>
+    <CreateModal
+      title="Загрузка изображения"
+      createButtonText="Загрузить"
+      isCreating={isSaving}
+      onCreate={handleAlgorithmImageUpload}
+    >
       <FileDropzone acceptedFileTypes={[fileTypes.image]} onDrop={handleAlgorithmImageDrop} />
       <div>Рекомендуемый размер изображения: 600x400</div>
     </CreateModal>

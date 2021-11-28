@@ -111,9 +111,20 @@ export const uploadAlgorithmDescription = createAsyncThunk(
 
 export const clearAlgorithmDescription = createAsyncThunk(
   "clearAlgorithmDescription",
-  async ({ algorithmId }, thunkAPI) => {
+  async ({ algorithmId, downloadBeforeDelete }, thunkAPI) => {
+    if (downloadBeforeDelete) {
+      await algorithmService.downloadAlgorithmDescription(algorithmId);
+    }
+
     const response = await algorithmService.clearAlgorithmDescription(algorithmId);
     return await processAlgorithmDataClear(response, thunkAPI);
+  }
+);
+
+export const downloadAlgorithmDescription = createAsyncThunk(
+  "downloadAlgorithmDescription",
+  async ({ algorithmId }) => {
+    await algorithmService.downloadAlgorithmDescription(algorithmId);
   }
 );
 
@@ -127,9 +138,20 @@ export const uploadAlgorithmConstructor = createAsyncThunk(
 
 export const clearAlgorithmConstructor = createAsyncThunk(
   "clearAlgorithmConstructor",
-  async ({ algorithmId }, thunkAPI) => {
+  async ({ algorithmId, downloadBeforeDelete }, thunkAPI) => {
+    if (downloadBeforeDelete) {
+      await algorithmService.downloadAlgorithmConstructor(algorithmId);
+    }
+
     const response = await algorithmService.clearAlgorithmConstructor(algorithmId);
     return await processAlgorithmDataClear(response, thunkAPI);
+  }
+);
+
+export const downloadAlgorithmConstructor = createAsyncThunk(
+  "downloadAlgorithmConstructor",
+  async ({ algorithmId }) => {
+    await algorithmService.downloadAlgorithmConstructor(algorithmId);
   }
 );
 

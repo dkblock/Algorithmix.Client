@@ -9,12 +9,12 @@ const Icon = ({ type, color = "", size = "medium" }) => {
   return <SpecificIcon style={{ color: color ? palette[color].main : "" }} fontSize={size} />;
 };
 
-const IconButton = ({ type, selected, onClick }) => {
+const IconButton = ({ type, selected, disabled, onClick }) => {
   const SpecificIcon = icons[type];
   const color = selected ? palette.primary.main : "";
 
   return (
-    <MaterialIconButton className="icon" onClick={onClick}>
+    <MaterialIconButton className="icon" disabled={disabled} onClick={onClick}>
       <SpecificIcon style={{ color: color }} />
     </MaterialIconButton>
   );

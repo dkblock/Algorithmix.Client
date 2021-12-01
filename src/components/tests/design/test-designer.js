@@ -9,6 +9,7 @@ import TestSettings from "./test-settings";
 import TestQuestionList from "./test-question-list";
 import TestQuestionDesigner from "./test-question-designer/test-question-designer";
 import TestDesignerStatus from "./test-designer-status";
+import Redirect, { routes } from "../../_common/route/redirect";
 import "./test-designer.scss";
 
 const getTabs = (onQuestionListSelect, onTestSettingsSelect) => [
@@ -19,7 +20,7 @@ const getTabs = (onQuestionListSelect, onTestSettingsSelect) => [
 const TestDesigner = () => {
   const dispatch = useDispatch();
   const { testId } = useParams();
-  const { test, question, isFetching } = useSelector((state) => state.testDesign);
+  const { test, question, isFetching, hasError } = useSelector((state) => state.testDesign);
 
   const [currentTab, setCurrentTab] = useState(0);
 
@@ -38,7 +39,7 @@ const TestDesigner = () => {
   ]);
 
   if (isFetching) return <Loader className="m-auto" size="large" />;
-  if (!test) return null;
+  if (hasError) return <Redirect to={routes.management.tests} />;
 
   return (
     <div className="test-design">

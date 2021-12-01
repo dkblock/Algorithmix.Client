@@ -12,8 +12,15 @@ export const fetchAllAlgorithms = createAsyncThunk("fetchAllAlgorithms", async (
 
 export const fetchAlgorithms = createAsyncThunk(
   "fetchAlgorithms",
-  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
-    const response = await algorithmService.fetchAlgorithms(searchText, pageIndex, pageSize, sortBy, sortDirection);
+  async ({ searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await algorithmService.fetchAlgorithms(
+      searchText,
+      onlyAccessible,
+      pageIndex,
+      pageSize,
+      sortBy,
+      sortDirection
+    );
 
     if (statusCode.ok(response)) {
       const { page: algorithms, totalCount } = await response.json();

@@ -4,15 +4,14 @@ import { useDebouncedCallback } from "use-debounce";
 import { useTitle } from "../../../hooks";
 import { fetchUserTestResults, showDeleteUserTestResultModal } from "../../../store/actions/user-test-result";
 import { navigateToUserTestResult } from "../../../utils/navigator";
-import { stringifyDateTime } from "../../../utils/moment";
 import colors from "../../../constants/colors";
-import Table from "../../_common/table";
+import Table, { DateTimeCell } from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import TextField from "../../_common/text-field";
 import { Dropdown } from "../../_common/dropdown";
 import CompletionResult from "../../_common/completion-result";
 
-const getActions = (onTestResultDelete) => [
+const getActions = (onTestResultDelete) => () => [
   {
     label: "Результат",
     icon: iconTypes.result,
@@ -33,9 +32,9 @@ const columns = [
     id: "result",
     label: "Результат",
     align: "center",
-    renderCell: (row) => <CompletionResult value={row.result} size="extra-small" color={colors.primary} />,
+    renderCell: ({ result }) => <CompletionResult value={result} size="extra-small" color={colors.primary} />,
   },
-  { id: "passingTime", label: "Пройден" },
+  { id: "passingTime", label: "Пройден", renderCell: ({ passingTime }) => <DateTimeCell dateTime={passingTime} /> },
 ];
 
 const prepareTestResults = (testResults) =>
@@ -47,7 +46,7 @@ const prepareTestResults = (testResults) =>
     groupName: result.user.group.name,
     testName: result.test.name,
     result: result.result,
-    passingTime: stringifyDateTime(new Date(result.passingTime)),
+    passingTime: new Date(result.passingTime),
   }));
 
 const UserTestResultList = () => {

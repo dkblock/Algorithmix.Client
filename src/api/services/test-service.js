@@ -20,9 +20,10 @@ const testService = {
     return await baseService.get(url);
   },
 
-  fetchTests: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+  fetchTests: async (searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection) => {
     const params = {
       searchText,
+      onlyAccessible,
       pageIndex,
       pageSize,
       sortBy,

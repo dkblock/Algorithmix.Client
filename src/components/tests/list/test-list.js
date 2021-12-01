@@ -6,7 +6,7 @@ import { useCurrentUser, useTitle } from "../../../hooks";
 import { fetchPublishedTests } from "../../../store/actions/test";
 import { navigateToTestPass, navigateToTestResult } from "../../../utils/navigator";
 import TestListItem from "./test-list-item";
-import Table from "../../_common/table";
+import Table, { DateTimeCell } from "../../_common/table";
 import TextField from "../../_common/text-field";
 import Button, { colors } from "../../_common/button";
 import { Icon, iconTypes } from "../../_common/icon";
@@ -27,7 +27,11 @@ const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
     ),
   },
   { id: "questionsCount", label: "Вопросы", align: "center", sortable: false },
-  { id: "createdDate", label: "Дата создания", align: "center" },
+  {
+    id: "createdDate",
+    label: "Создан",
+    renderCell: ({ createdDate }) => <DateTimeCell dateTime={createdDate} />,
+  },
   {
     id: "actions",
     label: "",
@@ -60,7 +64,7 @@ const getColumns = (isAuthenticated, onTestResultClick, onTestStartClick) => [
 const prepareTests = (tests) =>
   tests.map((test) => ({
     id: test.id,
-    createdDate: new Date(test.createdDate).toLocaleDateString("ru-RU"),
+    createdDate: new Date(test.createdDate),
     name: test.name,
     questionsCount: test.questions.length,
     algorithms: test.algorithms,

@@ -4,29 +4,31 @@ import { useDebouncedCallback } from "use-debounce";
 import { useTitle } from "../../../hooks";
 import { fetchTests, showCreateTestModal, showDeleteTestModal } from "../../../store/actions/test";
 import { navigateToTestDesign, navigateToTestStats } from "../../../utils/navigator";
-import { getMomentFromNow } from "../../../utils/moment";
 import colors from "../../../constants/colors";
-import Table from "../../_common/table";
+import Table, { DateTimeCell } from "../../_common/table";
 import { iconTypes } from "../../_common/icon";
 import Button from "../../_common/button";
 import CompletionResult from "../../_common/completion-result";
 import TextField from "../../_common/text-field";
+import Switch from "../../_common/switch";
 import palette from "../../../utils/palette";
 
-const getActions = (onTestEdit, onTestDelete) => [
-  {
-    label: "Редактировать",
-    icon: iconTypes.edit,
-    onClick: (test) => onTestEdit(test),
-  },
+const getActions = (onTestEdit, onTestDelete) => (row) => [
   {
     label: "Статистика",
     icon: iconTypes.stats,
     onClick: (test) => navigateToTestStats(test.id),
   },
   {
+    label: "Редактировать",
+    icon: iconTypes.edit,
+    disabled: !row.hasAccess,
+    onClick: (test) => onTestEdit(test),
+  },
+  {
     label: "Удалить",
     icon: iconTypes.delete,
+    disabled: !row.hasAccess,
     onClick: (test) => onTestDelete(test),
   },
 ];
@@ -50,9 +52,9 @@ const columns = [
     align: "center",
     renderCell: (row) => <CompletionResult value={row.averageResult} size="extra-small" color={colors.primary} />,
   },
-  { id: "createdBy", label: "Автор" },
-  { id: "createdDate", label: "Создан", renderCell: ({ createdDateInMoment }) => createdDateInMoment },
-  { id: "updatedDate", label: "Изменён", renderCell: ({ updatedDateInMoment }) => updatedDateInMoment },
+  { id: "createdBy", label: "Создатель" },
+  { id: "createdDate", label: "Создан", renderCell: ({ createdDate }) => <DateTimeCell dateTime={createdDate} /> },
+  { id: "updatedDate", label: "Изменён", renderCell: ({ updatedDate }) => <DateTimeCell dateTime={updatedDate} /> },
 ];
 
 const prepareTests = (tests) =>
@@ -62,11 +64,10 @@ const prepareTests = (tests) =>
     status: test.isPublished,
     questionsCount: test.questions.length,
     averageResult: test.averageResult,
+    hasAccess: test.userHasAccess,
     createdBy: `${test.createdBy.firstName} ${test.createdBy.lastName}`,
     createdDate: new Date(test.createdDate),
     updatedDate: new Date(test.updatedDate),
-    createdDateInMoment: getMomentFromNow(test.createdDate),
-    updatedDateInMoment: getMomentFromNow(test.updatedDate),
   }));
 
 const TestList = () => {
@@ -76,41 +77,53 @@ const TestList = () => {
   );
 
   const [searchText, setSearchText] = useState(search);
+  const [onlyAccessible, setOnlyAccessible] = useState(false);
 
   useTitle("Тесты", "Тесты");
 
   useEffect(() => {
-    dispatch(fetchTests({ searchText, pageIndex, pageSize, sortBy, sortDirection }));
+    dispatch(fetchTests({ searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection }));
   }, []);
 
   const handleSearch = useCallback(
     (params) => {
-      dispatch(fetchTests({ searchText, pageIndex, pageSize, sortBy, sortDirection, ...params }));
+      dispatch(fetchTests({ searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection, ...params }));
     },
-    [searchText, pageIndex, pageSize, sortBy, sortDirection]
+    [searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection]
   );
 
   const handleSearchDebounced = useDebouncedCallback(({ searchText }) => {
     handleSearch({ searchText });
   }, 500);
 
-  const handleSearchTextChange = useCallback((value) => {
-    setSearchText(value);
-    handleSearchDebounced({ searchText: value });
-  }, []);
+  const handleSearchTextChange = useCallback(
+    (value) => {
+      setSearchText(value);
+      handleSearchDebounced({ searchText: value });
+    },
+    [onlyAccessible]
+  );
+
+  const handleOnlyAccessibleChange = useCallback(
+    (value) => {
+      setOnlyAccessible(value);
+      handleSearch({ onlyAccessible: value });
+    },
+    [searchText]
+  );
 
   const handleSort = useCallback(
     ({ sortBy: orderBy, sortDirection: sortOrder }) => {
       handleSearch({ sortBy: orderBy, sortDirection: sortOrder });
     },
-    [searchText]
+    [searchText, onlyAccessible]
   );
 
   const handlePageChange = useCallback(
     (newPageIndex) => {
       handleSearch({ pageIndex: newPageIndex });
     },
-    [searchText]
+    [searchText, onlyAccessible]
   );
 
   const handleTestDelete = useCallback((test) => dispatch(showDeleteTestModal({ test })), [dispatch]);
@@ -138,6 +151,7 @@ const TestList = () => {
           <Button color={colors.success} startIcon={iconTypes.plus} onClick={handleTestCreate}>
             Новый тест
           </Button>
+          <Switch checked={onlyAccessible} label="Доступные для редактирования" onChange={handleOnlyAccessibleChange} />
           <TextField
             className="management-table__toolbar-item"
             value={searchText}

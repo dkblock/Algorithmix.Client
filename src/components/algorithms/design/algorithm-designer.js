@@ -10,18 +10,21 @@ import AlgorithmTimeComplexityDesigner from "./algorithm-time-complexity-designe
 import AlgorithmDataDesigner from "./algorithm-data-designer";
 import AlgorithmDesignerStatus from "./algorithm-designer-status";
 import Loader from "../../_common/loader";
+import Redirect, { routes } from "../../_common/route/redirect";
 import "./algorithm-designer.scss";
 
 const AlgorithmDesigner = () => {
   const dispatch = useDispatch();
   const { algorithmId } = useParams();
-  const { algorithm, isFetching } = useSelector((state) => state.algorithmDesign);
+  const { algorithm, isFetching, hasError } = useSelector((state) => state.algorithmDesign);
 
   useTitle(algorithm?.name, algorithm?.name);
 
   useEffect(() => {
     dispatch(fetchAlgorithm({ algorithmId }));
   }, [dispatch, algorithmId]);
+
+  if (hasError) return <Redirect to={routes.management.algorithms} />;
 
   return (
     <div className="algorithm-designer-container">

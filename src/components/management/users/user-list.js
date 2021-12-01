@@ -11,10 +11,11 @@ import AvatarCell from "./cells/avatar-cell";
 import GroupCell from "./cells/group-cell";
 import RoleCell from "./cells/role-cell";
 
-const getActions = (onUserDelete) => [
+const getActions = (isAdmin, onUserDelete) => () => [
   {
     label: "Удалить",
     icon: iconTypes.delete,
+    disabled: !isAdmin,
     onClick: (user) => onUserDelete(user),
   },
 ];
@@ -121,7 +122,7 @@ const UserList = () => {
     dispatch,
   ]);
 
-  const actions = useMemo(() => (isAdmin ? getActions(handleUserDelete) : null), [isAdmin, handleUserDelete]);
+  const actions = useMemo(() => getActions(isAdmin, handleUserDelete), [isAdmin, handleUserDelete]);
   const columns = useMemo(() => getColumns(handleUserUpdate), [handleUserUpdate]);
   const preparedUsers = useMemo(() => prepareUsers(users), [users]);
   const groupItems = [{ value: -1, label: "Все" }, ...groups.map((group) => ({ value: group.id, label: group.name }))];

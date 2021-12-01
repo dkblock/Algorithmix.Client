@@ -9,8 +9,8 @@ import Button, { colors } from "../../_common/button";
 import TextField from "../../_common/text-field";
 import IsAvailableForRegisterCell from "./is-available-for-register-cell";
 
-const getActions = (onGroupDelete) => [
-  { label: "Удалить", icon: iconTypes.delete, onClick: (group) => onGroupDelete(group) },
+const getActions = (isAdmin, onGroupDelete) => () => [
+  { label: "Удалить", icon: iconTypes.delete, disabled: !isAdmin, onClick: (group) => onGroupDelete(group) },
 ];
 
 const getColumns = (onGroupUpdate) => [
@@ -81,7 +81,7 @@ const GroupList = () => {
   const handleDeleteGroup = useCallback((group) => dispatch(showDeleteGroupModal({ group })), [dispatch]);
   const handleUpdateGroup = useCallback((group) => dispatch(updateGroup({ groupId: group.id, group })), [dispatch]);
 
-  const actions = useMemo(() => (isAdmin ? getActions(handleDeleteGroup) : null), [isAdmin, handleDeleteGroup]);
+  const actions = useMemo(() => getActions(isAdmin, handleDeleteGroup), [isAdmin, handleDeleteGroup]);
   const columns = useMemo(() => getColumns(handleUpdateGroup), [handleUpdateGroup]);
 
   return (

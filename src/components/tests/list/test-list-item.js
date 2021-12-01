@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../../../hooks";
 import { getFileSrc } from "../../../utils/get-file-src";
+import { stringifyDateTime } from "../../../utils/moment";
 import CompletionResult from "../../_common/completion-result";
 import { colors } from "../../_common/button";
 import palette from "../../../utils/palette";
@@ -18,24 +19,24 @@ const TestListItem = ({ test }) => {
     <div className="test-list-item">
       <div className="test-list-item__info-container">
         <span className="test-list-item__title">{test.name}</span>
-          <div className="test-list-item__info">
-            <div>
-              <span>Алгоритмы:</span> {test.algorithms.map((a) => a.name).join(", ")}
-            </div>
-            <div>
-              <span>Количество вопросов:</span> {test.questions.length}
-            </div>
-            <div>
-              <span>Автор: </span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
-            </div>
-            <div>
-              <span>Создан:</span> {test.createdDate}
-            </div>
-            <div className="flex-row">
-              <span>Статус: </span>
-              {test.userResult ? <span style={{ color: palette.success.main }}>Выполнен</span> : "Не выполнен"}
-            </div>
+        <div className="test-list-item__info">
+          <div>
+            <span>Алгоритмы:</span> {test.algorithms.map((a) => a.name).join(", ")}
           </div>
+          <div>
+            <span>Количество вопросов:</span> {test.questions.length}
+          </div>
+          <div>
+            <span>Автор: </span> {`${test.createdBy.firstName} ${test.createdBy.lastName}`}
+          </div>
+          <div>
+            <span>Создан:</span> {stringifyDateTime(test.createdDate)}
+          </div>
+          <div className="flex-row">
+            <span>Статус: </span>
+            {test.userResult ? <span style={{ color: palette.success.main }}>Выполнен</span> : "Не выполнен"}
+          </div>
+        </div>
       </div>
       <div className="test-list-item__result">
         <CompletionResult value={test.averageResult} label="Средний результат" color={colors.primary} />

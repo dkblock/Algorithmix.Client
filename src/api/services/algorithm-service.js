@@ -3,9 +3,10 @@ import baseService from "./base-service";
 import fileService from "./file-service";
 
 const algorithmService = {
-  fetchAlgorithms: async (searchText, pageIndex, pageSize, sortBy, sortDirection) => {
+  fetchAlgorithms: async (searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection) => {
     const params = {
       searchText,
+      onlyAccessible,
       pageIndex,
       pageSize,
       sortBy,

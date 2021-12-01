@@ -22,8 +22,15 @@ export const fetchPublishedTests = createAsyncThunk(
 
 export const fetchTests = createAsyncThunk(
   "fetchTests",
-  async ({ searchText, pageIndex, pageSize, sortBy, sortDirection }) => {
-    const response = await testService.fetchTests(searchText, pageIndex, pageSize, sortBy, sortDirection);
+  async ({ searchText, onlyAccessible, pageIndex, pageSize, sortBy, sortDirection }) => {
+    const response = await testService.fetchTests(
+      searchText,
+      onlyAccessible,
+      pageIndex,
+      pageSize,
+      sortBy,
+      sortDirection
+    );
 
     if (statusCode.ok(response)) {
       const { page: tests, totalCount } = await response.json();
@@ -40,7 +47,7 @@ export const fetchTest = createAsyncThunk("fetchTest", async ({ testId }, thunkA
   if (statusCode.ok(response)) {
     const test = await response.json();
     const {
-      payload: { questions, hasError }
+      payload: { questions, hasError },
     } = await thunkAPI.dispatch(fetchTestQuestions({ testId: test.id }));
 
     if (questions.length > 0) {

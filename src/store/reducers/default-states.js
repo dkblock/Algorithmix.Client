@@ -1,5 +1,6 @@
 export const algorithmFetchParams = {
   searchText: "",
+  onlyAccessible: false,
   pageIndex: 1,
   pageSize: 100,
   sortBy: "none",

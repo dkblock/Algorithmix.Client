@@ -115,6 +115,8 @@ const getAuthenticationResult = async (response) => {
   }
 
   if (statusCode.badRequest(response)) {
+    clearAccessToken();
+
     const { validationErrors: errors } = await response.json();
     const validationErrors = {};
     errors.forEach((error) => (validationErrors[error.field] = error.message));

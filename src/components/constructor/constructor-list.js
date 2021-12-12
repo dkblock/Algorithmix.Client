@@ -45,7 +45,7 @@ const prepareAlgorithms = (algorithms) => {
   algorithms
     .filter((algorithm) => algorithm.hasConstructor)
     .map((algorithm, i) => {
-      if (i % 2 === 0) rows.push({ left: { id: algorithm.id, name: algorithm.name } });
+      if (i % 2 === 0) rows.push({ id: algorithm.id, left: { id: algorithm.id, name: algorithm.name } });
       else rows[rows.length - 1].right = { id: algorithm.id, name: algorithm.name };
     });
 

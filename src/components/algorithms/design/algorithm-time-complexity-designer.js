@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDebouncedCallback } from "use-debounce";
 import { updateAlgorithmTimeComplexity } from "../../../store/actions/algorithm";
 import TextField from "../../_common/text-field";
+import Tooltip from "../../_common/tooltip";
+import { Icon, iconTypes } from "../../_common/icon";
 
 const SpecificTextField = ({ timeComplexity, param, onParamChange, onParamFocusOut }) => (
   <td>
@@ -48,33 +50,22 @@ const AlgorithmTimeComplexityDesigner = () => {
       <table className="algorithm-time-complexity-designer__table">
         <thead>
           <tr>
-            <th colSpan={4}>Асимптотическая сложность операций (по времени)</th>
-          </tr>
-          <tr>
-            <th>Операция</th>
-            <th>В худшем</th>
-            <th>В среднем</th>
-            <th>В лучшем</th>
+            <th colSpan={2}>
+              <div className="algorithm-time-complexity-designer__table-header">
+                <span>Временная сложность операций алгоритма</span>
+                <Tooltip placement="bottom" title="Время работы в наихудшем случае">
+                  <Icon type={iconTypes.info} size="small" color="primary"/>
+                </Tooltip>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Поиск</td>
+            <td className="w-50">Поиск</td>
             <SpecificTextField
               timeComplexity={timeComplexity}
               param="searchingWorstTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="searchingAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="searchingBestTime"
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
@@ -87,36 +78,12 @@ const AlgorithmTimeComplexityDesigner = () => {
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="insertionAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="insertionBestTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
           </tr>
           <tr>
             <td>Удаление</td>
             <SpecificTextField
               timeComplexity={timeComplexity}
               param="deletionWorstTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="deletionAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="deletionBestTime"
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
@@ -129,36 +96,12 @@ const AlgorithmTimeComplexityDesigner = () => {
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="indexingAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="indexingBestTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
           </tr>
           <tr>
             <td>Поиск максимума</td>
             <SpecificTextField
               timeComplexity={timeComplexity}
               param="findMaxElementWorstTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="findMaxElementAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="findMaxElementBestTime"
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
@@ -171,36 +114,12 @@ const AlgorithmTimeComplexityDesigner = () => {
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="getMaxElementAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="getMaxElementBestTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
           </tr>
           <tr>
             <td>Сортировка</td>
             <SpecificTextField
               timeComplexity={timeComplexity}
               param="sortingWorstTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="sortingAverageTime"
-              onParamChange={handleParamChange}
-              onParamFocusOut={handleParamFocusOut}
-            />
-            <SpecificTextField
-              timeComplexity={timeComplexity}
-              param="sortingBestTime"
               onParamChange={handleParamChange}
               onParamFocusOut={handleParamFocusOut}
             />

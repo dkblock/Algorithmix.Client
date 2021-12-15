@@ -14,7 +14,7 @@ const SpecificButton = ({ algorithmId, hasData, color, label, icon, onNavigate }
   const handleClick = () => (hasData ? onNavigate(algorithmId) : null);
 
   return (
-    <Button color={color} startIcon={icon} onClick={handleClick} disabled={!hasData}>
+    <Button className="algorithm-card__button" color={color} startIcon={icon} onClick={handleClick} disabled={!hasData}>
       {label}
     </Button>
   );
@@ -39,7 +39,7 @@ const AlgorithmCard = ({ algorithm }) => {
         <SpecificButton
           algorithmId={algorithm.id}
           hasData={algorithm.hasDescription}
-          label="Информация"
+          label="Описание"
           color={colors.success}
           icon={iconTypes.info}
           onNavigate={(algorithmId) => navigateToAlgorithmDescription(algorithmId)}

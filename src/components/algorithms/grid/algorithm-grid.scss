@@ -4,14 +4,14 @@
 }
 
 .algorithm-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 350px);
+  grid-gap: 18px;
   justify-content: space-between;
 }
 
 .algorithm-card {
   max-width: 350px;
-  margin-bottom: 25px;
 
   &__header {
     display: flex !important;
@@ -28,5 +28,9 @@
     justify-content: space-between;
     padding: 12px !important;
     gap: 15px;
+  }
+
+  &__button {
+    width: 150px;
   }
 }

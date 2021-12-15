@@ -72,6 +72,13 @@
     text-align: center;
     width: 100%;
 
+    &-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
     th {
       padding: 24px;
       border: 1px solid rgba(18, 24, 33, 0.12);

@@ -11,8 +11,8 @@ const fileTypes = {
     value: "audio/mp4, audio/mpeg, audio/webm",
   },
   image: {
-    extensions: ["jpg", "jpeg", "png", "bmp", "gif"],
-    value: "image/jpg, image/jpeg, image/png, image/bmp, image/gif",
+    extensions: ["jpg", "jpeg", "png", "bmp", "gif", "svg"],
+    value: "image/jpg, image/jpeg, image/png, image/bmp, image/gif, image/svg+xml",
   },
   video: {
     extensions: ["mpeg", "mp4", "3gpp", "webm"],

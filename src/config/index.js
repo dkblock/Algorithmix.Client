@@ -1,3 +1,10 @@
-import config from "./config";
+export default (() => {
+  const config = {
+    "development": () => require("./config.development.json"),
+    "production": () => ({
+      baseUrl: process.env.SERVER_URL,
+    }),
+  };
 
-export default config;
+  return config[process.env.NODE_ENV]();
+})();

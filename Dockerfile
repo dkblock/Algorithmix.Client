@@ -5,6 +5,9 @@ COPY package*.json ./
 
 RUN npm install
 
+ARG SERVER_URL
+ENV SERVER_URL $SERVER_URL
+
 COPY . .
 
 RUN npm run build

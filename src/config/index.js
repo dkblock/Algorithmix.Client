@@ -2,7 +2,7 @@ export default (() => {
   const config = {
     "development": () => require("./config.development.json"),
     "production": () => ({
-      baseUrl: process.env.SERVER_URL,
+      baseUrl: import.meta.env.SERVER_URL,
     }),
   };
 

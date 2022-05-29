@@ -1,18 +1,22 @@
-FROM node:14-alpine3.14 as build
-
+FROM node:18-alpine3.14 as build-stage
 WORKDIR /app
-COPY package*.json ./
+
+COPY ./ .
 
 RUN npm install
-
-ARG SERVER_URL
-ENV SERVER_URL $SERVER_URL
-
-COPY . .
-
 RUN npm run build
+RUN npx pkg ./node_modules/@import-meta-env/cli/bin/import-meta-env.js -t node16-alpine -o import-meta-env
 
-ENV PORT=3000
-EXPOSE 3000
+###############################################################################
 
-CMD ["npm", "start"]
+FROM nginx:stable-alpine as production-stage
+RUN mkdir /app
+
+COPY --from=build-stage /app/dist /app/dist
+COPY --from=build-stage /app/import-meta-env /app/import-meta-env
+
+COPY .env.production /app/.env.production
+COPY start.sh /app/start.sh
+COPY nginx.conf /etc/nginx/nginx.conf
+
+ENTRYPOINT ["sh","/app/start.sh"]

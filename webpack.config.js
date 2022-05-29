@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const importMetaEnv = require("@import-meta-env/unplugin");
 
 module.exports = () => ({
   entry: "./src/index.js",
@@ -50,9 +51,7 @@ module.exports = () => ({
     new CopyPlugin({
       patterns: [{ from: "public", to: "public" }],
     }),
-    new webpack.DefinePlugin({
-      "process.env.SERVER_URL": JSON.stringify(process.env.SERVER_URL),
-    }),
+    importMetaEnv.webpack({ example: ".env.production" }),
   ],
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".css", ".scss"],
